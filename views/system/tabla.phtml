@@ -1,0 +1,153 @@
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
+                <li>Administraci&oacute;n</li>
+                <li class="active">Hoteles</li>
+            </ol>
+
+            <h1>TABLAAAAAAAAAAAAAAAA</h1>
+
+        </div>
+		
+        
+        <div class="container">
+
+			
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <?php for($i=1; $i<=3; $i++){ ?>
+                        <div id="ML_tblHab_P_<?php echo $i; ?>" style="display:block; border: 1px solid #0088CC; margin-top: 10px;">
+                            <li class="divider"></li>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                                
+                                <tr>
+                                    <td>Adultos</td>
+                                    <td>
+                                        <select name="mL_cmbAdultos_<?php echo $i; ?>" id="mL_cmbAdultos_<?php echo $i; ?>">
+                                          <?php
+                                              for($x=1; $x<=6; $x++)
+                                              { 
+                                                  if(Session::get('sess_BP_Adl_' . $i) == $x)
+                                                  { ?>
+                                                  <option selected="selected" value="<?php echo Session::get('sess_BP_Adl_' . $i); ?>"><?php echo Session::get('sess_BP_Adl_' . $i); ?></option>
+                                                  <?php 
+                                                }
+                                                else
+                                                { ?>                          
+                                                <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                          <?php }
+                                              } ?>
+                                        </select>                          
+                                    </td>
+                                    <td>Edad C1</td>
+                                    <td>
+                                        <select id="mL_edadChild_1_<?php echo $i; ?>" name="mL_edadChild_1_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)>=1){}else{ echo "disabled='disabled'"; }?> >
+                                        <?php
+                                        for($x=2;$x<=12;$x++)
+                                        {
+                                            if(Session::get('sess_BP_edadChd_1_' . $i) == $x)
+                                            {?>
+                                        <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_1_' . $i); ?>"><?php echo Session::get('sess_pBP_edadChd_1_' . $i); ?></option>
+                                        <?php
+                                            }
+                                            else
+                                            {?>                          
+                                        <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                        <?php }  
+                                        } ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                              
+                              
+                                <tr>
+                                    <td>Child</td>
+                                    <td>
+                                        <select name="mL_child_<?php echo $i; ?>" id="mL_child_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>);">
+                                        <?php 
+                                            for($x=0; $x<=2; $x++)
+                                            {
+                                                if(Session::get('sess_BP_Chd_' . $i) == $x)
+                                                {?>
+                                            <option selected="selected" value="<?php echo Session::get('sess_BP_Chd_' . $i); ?>"><?php echo Session::get('sess_BP_Chd_' . $i); ?></option>
+                                            <?php }else{ ?>                          
+                                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </td>                    	  
+
+                                    <td>Edad C2</td>
+                                    <td>
+                                        <select id="mL_edadChild_2_<?php echo $i; ?>" name="mL_edadChild_2_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)==2){}else{ echo "disabled='disabled'"; }?> >
+                                            <?php
+                                            for($x=2; $x<=12; $x++)
+                                            {
+                                                if(Session::get('sess_pBP_edadChd_2_' . $i) == $x)
+                                                { ?>
+                                            <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_2_' . $i); ?>"><?php echo Session::get('sess_BP_edadChd_2_' . $i); ?></option>
+                                            <?php }else{ ?>                          
+                                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Infant</td>
+                                    <td colspan="3">
+                                        <select name="mL_inf_<?php echo $i; ?>" id="mL_inf_<?php echo $i; ?>">
+                                          <?php
+                                            for($x=0; $x<=1; $x++)
+                                            {
+                                                if(Session::get('sess_BP_Inf_' . $i) == $x)
+                                                {?>
+                                            <option selected="selected" value="<?php echo Session::get('sess_BP_Inf_' . $i); ?>"><?php echo Session::get('sess_BP_Inf_' . $i); ?></option>
+                                            <?php }else{ ?>                          
+                                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </td>                    	  
+                                </tr>
+                                      
+                            </table>
+                        </div>      
+                        <?php } ?>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+
+
+
+		</div> <!-- container -->
+	</div> <!--wrap -->
+</div> <!-- page-content -->

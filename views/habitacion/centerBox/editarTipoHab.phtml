@@ -1,0 +1,31 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Hotel: <b><?php echo $this->ETH_nombreHotel; ?></b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            <select name="cmbCategoria" id="cmbCategoria" style="width:400px" onchange="procesoCargaDiv(this.value, 'eTH_divDetalle', '<?php echo BASE_URL; ?>habitacion/detalle')">
+            	<option value="0">Seleccione un tipo de habitaci&oacute;n</option>
+                <?php
+                if($this->ETH_objsTipoHab)
+                {
+                    foreach($this->ETH_objsTipoHab as $objTH)
+                    {
+                        $eTH_codTipoH= $objTH->getCodigo();
+                        $eTH_nombreTipoH= $objTH->getNombre();
+                ?>
+                    <option value="<?php echo $eTH_codTipoH; ?>"><?php echo $eTH_nombreTipoH; ?></option>
+                <?php } 
+                } ?>
+            </select>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel panel-info" id="eTH_divDetalle"></div>

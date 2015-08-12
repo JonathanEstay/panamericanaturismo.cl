@@ -1,0 +1,187 @@
+<div id="divEdit">
+    <script type="text/javascript">
+    tinymce.remove();
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        /*width: 300,
+        height: 300,*/
+        plugins: [
+             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+             "save table contextmenu directionality emoticons template paste textcolor"
+       ],
+       menubar : false,
+       toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | preview | forecolor backcolor fontsizeselect fontselect",
+       fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+       /*style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ]*/
+     }); 
+     
+     
+    </script>
+    
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4><b>Programa:</b> <?php echo $this->EP_nombreProg; ?></h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form enctype="multipart/form-data" class="frmEditPDF">
+                        <div class="col-sm-6">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                
+                                <?php if(Session::get('sess_browser') == 'IE9') { ?>
+                                    <div style="text-align: center; font-weight: bold; width: 50%;">Itinerario</div>
+                                <?php } else { ?>
+                                    <div style="text-align: center; font-weight: bold;">Itinerario</div>
+                                <?php } ?>
+                                    
+                                
+                                
+                                
+                                <?php if ($this->EP_PDF) { ?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                        <a href="<?php echo $_layoutParamsCB['ruta_pdf'] . $this->EP_PDF; ?>" target="_blank">
+                                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>pdf_gran.png" />
+                                        </a>
+                                    </div>
+                                    
+                                    <div style="margin-left: 18%">
+                                        <label style="cursor:pointer; display: none;">
+                                            <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chkEP_flPDF" checked="checked"> Eliminar
+                                        </label>
+                                        <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Eliminar" 
+                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
+                                    </div>
+
+                                <?php } else { ?>
+
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        
+                                        
+                                            
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileinput-new">Seleccionar</span>
+                                                <span class="fileinput-exists">Cambiar</span>
+                                                <input type="file" name="flPDF" accept="application/pdf">
+                                            </span>
+                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                            <span class="btn btn-default btn-file">
+                                                <input type="file" name="flPDF" style="width: 110px;" accept="image/*">
+                                            </span>
+                                        <?php } ?>
+                                            
+                                        
+                                        
+                                        <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Subir PDF" 
+                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
+                                    </div>
+
+                                <?php } ?>
+
+                            </div>
+                        </div>
+                    </form>   
+
+                    
+                    
+                    
+                    
+
+                    <form enctype="multipart/form-data" class="frmFotos">
+                        <div class="col-sm-6">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                
+                                <?php if(Session::get('sess_browser') == 'IE9') { ?>
+                                    <div style="text-align: center; font-weight: bold; width: 50%">Foto</div>
+                                <?php } else { ?>
+                                    <div style="text-align: center; font-weight: bold;">Foto</div>
+                                <?php } ?>
+                                
+                                
+                                
+                                <?php if ($this->ep_foto) { ?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                        <a href="<?php echo $_layoutParamsCB['ruta_programas'] . $this->ep_foto; ?>" target="_blank">
+                                            <img src="<?php echo $_layoutParamsCB['ruta_programas'] . 'thumb/' . $this->ep_foto; ?>" />
+                                        </a>
+                                    </div>
+                                    <div style="margin-left: 18%">
+                                        <label style="cursor:pointer; display: none;">
+                                            <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chkEP_flFoto" checked="checked"> Eliminar
+                                        </label>
+                                        <input type="button"  id="btnEP_CargaFoto" class="btn btn-primary" value="Eliminar" 
+                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
+                                    </div>
+
+                                    
+                                    
+                                <?php } else { ?>
+
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        
+                                            
+                                    <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flFoto" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flFoto" style="width: 110px;" accept="image/*">
+                                        </span>
+                                    <?php } ?>
+
+                                        
+                                        <input type="button"  id="btnEP_CargaFoto" class="btn btn-primary" value="Subir foto" 
+                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
+                                    </div>
+
+                                <?php } ?>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-info">
+        
+        <div class="panel-heading">
+            <h4>Descripci&oacute;n</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" class="frmDescripcion">
+                        <textarea id="descrip" name="areaDescrip"><?php echo $this->ep_descripcion; ?></textarea>
+                        <br>
+                        <center>
+                            <input type="button"  id="btnEP_descripcion" class="btn btn-primary" value="Guardar" 
+                            onclick="tinyMCE.triggerSave(); methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar', 'btnEP_descripcion', 'divEdit')">
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

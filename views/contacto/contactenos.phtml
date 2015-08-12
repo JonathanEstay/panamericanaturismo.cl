@@ -1,0 +1,111 @@
+<!-- <div id="page-content" style="min-height: 948px"> -->    
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <h1>Cont&aacute;ctenos</h1>
+        </div>
+	
+        
+        <div class="container" id="formid">
+             
+        
+        
+         
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                        
+                            <h4>Formulario de cont&aacute;cto</h4>
+                        </div>
+                        
+                        <div class="panel-body" >
+                            <p>NOTA: Este correo ser&aacute; enviado a su ejecutivo personal.</p>
+                            <div>
+                                <form enctype="multipart/form-data" action="<?php echo BASE_URL ?>sistema/enviarContacto" method="post" class="frmContacto" id="frmContacto">
+                                <table class="table table-bordered " style="width: 600px;" >
+                                   
+                                    <tbody>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <td><input type="text" disabled class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" value="<?php echo Session::get('sess_agencia'); ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Usuario</th>
+                                            <td><input type="text" disabled class="form-control" id="Cntac_txtUsuario" name="Cntac_txtUsuario" value="<?php echo Session::get('sess_nombre').' '.Session::get('sess_apellido');  ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <textarea id="Cntac_areaNota" name="Cntac_areaNota" class="form-control" rows="4" placeholder="Escribe un mensaje..."></textarea>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center"> <input type="button" class="finish btn-primary btn" id="btnEnviar" onclick="click2('btnEnviar')" value="Enviar" />
+                                                                            <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+                               
+                            </div>                          
+                        </div>
+                       
+                    
+                </div>
+            </div>
+     
+
+            <script>                  
+    function click2()
+    {
+               
+        initLoad();
+        var cliente= $("#Cntac_txtCliente").val();
+        var usuario = $("#Cntac_txtUsuario").val();
+        var area= $("#Cntac_areaNota").val();
+        var boton= $('#btnEnviar').val;
+        $('#btnEnviar').attr("disabled","disabled");
+        
+   
+                $.post("<?php echo BASE_URL . 'sistema/enviarContacto' ?>",
+                {
+                    //en el controlador el metodod para pasar mensajes(getTexto) se debe pasar por el nombre que se define aca.
+                    area:area,
+                    cliente:cliente,
+                    usuario:usuario,
+                    boton:boton
+                }, function (data) 
+                                 {                                       
+                                    if(data=='OK')
+                                    {                                                      
+                                                        $("#btnEnviar").delay(2000).queue(function(dis)
+                                                        {
+                                                                  $("#btnEnviar").removeAttr("disabled");
+                                                                  dis();
+                                                        });
+                                                        exito();
+                                                        $("#Cntac_areaNota").val('');
+                                                        
+                                                        
+                                    }
+                                     else
+                                     {     
+                                                        
+                                                        
+                                                        $("#msjWar").html(data);//añadir elemento a una etiqueta.
+                                                        $("#btnEnviar").delay(2000).queue(function(dis)
+                                                        {
+                                                                  $("#btnEnviar").removeAttr("disabled");
+                                                                  dis();
+                                                        });
+                                                        noExito();
+                                      }   
+                                    });
+                                  
+    }           
+                </script>             
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content --> 
+</div>

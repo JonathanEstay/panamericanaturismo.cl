@@ -1,0 +1,69 @@
+<div class="panel-heading">
+    <h4>Logo voucher - Agencia: <b><?php echo $this->I_nombre; ?></b></h4>
+</div>
+<div class="panel-body" id="divLogoVou">
+    <div class="row">
+    
+        <div class="col-md-12">
+            <form name="frmLogoVouAgen" id="frmLogoVouAgen" enctype="multipart/form-data" class="classFrmLogoVouAgen">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                    <u><h3>Condiciones:</h3></u><br>
+                    
+                    Formato imagen: <br>
+                    [.JPG] [.JPEG] [.PNG] [.GIF]<br><br>
+                    
+                    Tama&ntilde;o Maximo: 500 KB
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        
+                            <?php if($this->I_imagen){?>
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                <img src="<?php echo $_layoutParamsCB['ruta_voucher'] . $this->I_imagen; ?>" />
+                            </div>
+                            
+                            <label style="cursor:pointer; display:none;">
+                                <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chk_flImagenVouAgen" checked="checked"> Eliminar
+                            </label>
+                             <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                <div>
+                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Eliminar" onclick="methodSend(this.form, '<?php echo BASE_URL; ?>voucher/modificar', 'btnSubeVoucherAgen', 'divLogoVou')">
+                                </div>
+                             <?php }else{ ?>
+                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Eliminar" onclick="methodSend(this.form, '<?php echo BASE_URL; ?>voucher/modificar', 'btnSubeVoucherAgen', 'divLogoVou')">
+                             <?php } ?>
+                            
+                            
+                        	<?php }else{ ?>
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                
+                                <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccione una imagen</span>
+                                        <span class="fileinput-exists">Cambiar imagen</span>
+                                        <input type="file" name="flImagenVouAgen" accept="image/*">
+                                    </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                <?php } else { ?>
+                                    <span class="btn btn-default btn-file">
+                                        <input type="file" name="flImagenVouAgen" style="width: 110px;" accept="image/*">
+                                    </span>
+                                <?php } ?>
+                                    
+                                
+                                
+                                
+                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Subir imagen" onclick="methodSend(this.form, '<?php echo BASE_URL; ?>voucher/modificar', 'btnSubeVoucherAgen', 'divLogoVou');">
+                            </div>
+                            <?php } ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,214 @@
+<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyByJ-PrjAq7ZDCa8_bCGYB-hzoAJcInrug"></script>
+<!-- MAPS -->
+<script type="text/javascript">
+    //<![CDATA[  
+    google.load('maps', '2');
+	var map;	
+    function tercero(lat, lon, hotel){	
+    if (GBrowserIsCompatible()) { 
+        function createMarker(point,html) {
+        var marker = new GMarker(point);
+        GEvent.addListener(marker, "click", function() {
+          marker.openInfoWindowHtml(html);});
+        return marker;}			
+      var map = new GMap2(document.getElementById("map3"));
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GMapTypeControl());	  
+      map.setCenter(new GLatLng(lat,lon),14);}	  
+      var point = new GLatLng(lat,lon);
+	  /*var marker = createMarker(point,'<div style="width:240px">El Capitolio de la Habana <a href="http://www.sitio.com">Pagina web<\/a> con mas información<\/div>');*/
+	  var marker = createMarker(point,'<div style="width:240px">' + hotel + '<\/div>');
+	  
+      map.addOverlay(marker);
+      
+	  /*var point = new GLatLng(23.1368,-82.3816);
+      var marker = createMarker(point,'La Universidad de la Habana')
+      map.addOverlay(marker); */
+	  }
+    //]]>
+</script>
+
+<!-- Tooltip Detalle Hotel -->
+<link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>tip-darkgray/tip-darkgray.css" type="text/css" />
+<!-- End: Tooltip Detalle Hotel -->
+
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
+                <li class="active">Busqueda de programas</li>
+            </ol>
+            <h1>PROGRAMAS</h1>
+
+        </div>
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" id="btnCerrar1PRG" data-dismiss="modal" aria-hidden="true" style="display:block">&times;</button>
+                                    <h4 class="modal-title" id="tituloFormPRG"></h4>
+                                </div>
+                                
+                                <div class="modal-body" id="divPopupPRG"></div>
+                                
+                                <div class="modal-footer">
+                                    <center>
+                                        <a class="btn btn-primary"n href="<?php echo BASE_URL; ?>system/programas" id="btnAceptarPRG" style="display:none">Volver a reservar</a>
+                                    </center>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    
+                    
+                    
+                    <div class="modal fade" id="myModalFotos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" id="btnCerrar1PRG" data-dismiss="modal" aria-hidden="true" style="display:block">&times;</button>
+                                    <h4 class="modal-title" id="tituloFormFotos"></h4>
+                                </div>
+                                
+                                <div class="modal-body" id="divPopupFotos"></div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                
+                
+                    <div class="panel-group panel-info" id="accordion">
+                    <?php
+                    $cntProg=0;
+                    if($this->objProgramas)
+                    { 
+                        //foreach($this->objProgramas as $columPRG)
+                        foreach($this->objProgramas as $objProg)
+                        {
+                            $cntProg++;
+                            $P_error= $objProg->getERROR();
+                            if(!empty($P_error))
+                            {
+                                $P_Linea= $objProg->getLINEA();
+                                $P_Mensaje= $objProg->getMSJ();
+
+                                echo "Error: ".$P_error."<br />";
+                                echo "Linea: ".$P_Linea."<br />";
+                                echo "Mensaje: ".$P_Mensaje."<br />";
+                            }
+                            else
+                            {?>
+
+
+                        <form class="frmPrograma_<?php echo $cntProg; ?>">
+                            <div class="panel panel-default">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?php echo $cntProg; ?>" onclick="expande('collapse_<?php echo $cntProg; ?>', 'opcPrograma_<?php echo $cntProg; ?>', '<?php echo $objProg->getId(); ?>')" >
+                                    <div class="panel-heading"><h4><?php echo $objProg->getTitulo(); ?></h4></div>
+                                </a>
+                                <div id="collapse_<?php echo $cntProg; ?>" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="col-md-6" style="width:100%;">
+
+                                            <!-- OPCION -->
+                                            <div class="panel panel-grape">
+                                                <div class="panel-heading">
+                                                    <h4> Salida: <?php echo $objProg->getDesde(); ?> </h4>
+                                                    <div class="options">
+                                                        <i><a data-toggle="modal" href="#myModal" onclick="abrePopup('divPopupPRG', 'http://jonathan-pc/allways/system/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales', '208');">
+                                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>nota.png" width="24px" alt="Condiciones generales" title="Condiciones generales">
+                                                            </a> <a data-toggle="modal" href="#myModal" onclick="abrePopup('divPopupPRG', 'http://jonathan-pc/allways/system/itinerarioVuelo', 'tituloFormPRG', 'Itinerario vuelo', '892');">
+                                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos">
+                                                            </a></i>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="table-responsive">
+
+
+                                                        <table class="table table-hover" style="margin-bottom: 0px;">
+                                                            <tbody class="selects" id="opcPrograma_<?php echo $cntProg; ?>">
+                                                                
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" align="center">
+                                                                    </td>
+                                                                </tr>
+                                                                
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left">
+                                                                        <h4 style="color:#0085cc"><b>INCLUYE</b></h4>
+                                                                        <img  src="<?php echo $_layoutParams['ruta_img']; ?>tick.png" width="12px" />
+                                                                        <?php echo str_replace('<br />', '<br /><img  src="'.$_layoutParams['ruta_img'].'tick.png" width="12px" />', substr($objProg->getIncluye(), 0, -6)); ?>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td colspan="5" align="center">
+                                                                        <a data-toggle="modal" href="#myModal" onclick="validaReserva('frmPrograma_<?php echo $cntProg; ?>', 'http://jonathan-pc/allways/system/reservaPrograma', 'divPopupPRG', 'tituloFormPRG', 'Formulario de reserva');" class="btn btn-primary">Comenzar reserva</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END: OPCION -->
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                            <?php }
+
+                         }
+                     }
+                     else
+                     {
+                 ?>
+                    <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
+                        No se encontraron registros para esta busqueda.
+                    </div>
+                 <?php
+                 } ?> 
+						
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+
+<script>
+    function expande(programa, detalle, id)
+    {
+        //$( "#collapse1" ).toggleClass( "ok" );
+        if($( "#" + programa ).hasClass( "in" )===false) {
+            
+            $.post(BASE_URL_JS + 'system/detalleProg', 
+            {
+                _SP_id: id
+            }, function(data)
+            {
+                $("#"+detalle).html(data);
+            });
+            
+        } /*else {
+            alert('NO BUSCAR!!');
+        }*/
+        //$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+    }
+</script>

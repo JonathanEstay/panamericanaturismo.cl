@@ -1,0 +1,214 @@
+<div class="panel-heading">
+    <h4>Tipo de Habitaci&oacute;n: <b><?php echo $this->DTH_nombreDTipoHab; ?></b></h4>
+</div>
+<div class="panel-body">
+    <div class="row">
+    
+        <div class="col-md-12">
+        
+            <form enctype="multipart/form-data" class="frmModTipoHab">
+                <table align="center">
+                    <tr>
+                        <td width="350">
+                    <div class="col-sm-9">
+                    	<center>Imagen 1</center>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php if($this->DTH_foto1){?>
+                            
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $this->DTH_foto1; ?>" />
+                                </div>
+                                <center>
+                                    <label style="cursor:pointer">
+                                        <input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkDTH_flImagen1"> Eliminar
+                                    </label>
+                                </center>
+                            
+                        <?php }else{ ?>
+                            
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                
+                                <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                <span class="btn btn-default btn-file">
+                                  <span class="fileinput-new">Seleccionar</span>
+                                  <span class="fileinput-exists">Cambiar</span>
+                                  <input type="file" name="DTH_flImagen1" accept="image/*">
+                                </span>
+                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                <?php } else { ?>
+                                <span class="btn btn-default btn-file">
+                                  <input type="file" name="DTH_flImagen1" style="width: 110px;" accept="image/*">
+                                </span>
+                                <?php } ?>
+                            </div>
+                            
+                        <?php } ?>
+                        </div>
+                    </div>
+                        </td>
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <td width="350">
+                    <div class="col-sm-9">
+                    	<center>Imagen 2</center>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php if($this->DTH_foto2) { ?>
+                            
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $this->DTH_foto2; ?>" />
+                                </div>
+                                <center>
+                                    <label style="cursor:pointer">
+                                        <input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkDTH_flImagen2"> Eliminar
+                                    </label>
+                                </center>
+                            
+                        <?php } else { ?>
+                            
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                
+                                <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                <span class="btn btn-default btn-file">
+                                  <span class="fileinput-new">Seleccionar</span>
+                                  <span class="fileinput-exists">Cambiar</span>
+                                  <input type="file" name="DTH_flImagen2" accept="image/*">
+                                </span>
+                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                <?php } else { ?>
+                                <span class="btn btn-default btn-file">
+                                  <input type="file" name="DTH_flImagen2" style="width: 110px;" accept="image/*">
+                                </span>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                        </div>
+                    </div>
+                        </td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <tr>
+                        <td>
+                    <div class="col-sm-9">
+                    	<center>Imagen 3</center>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php if($this->DTH_foto3){?>
+                            
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $this->DTH_foto3; ?>" />
+                                </div>
+                                <center>
+                                    <label style="cursor:pointer">
+                                        <input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkDTH_flImagen3"> Eliminar
+                                    </label>
+                                </center>
+                            
+                        <?php }else{ ?>
+                            
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                    <span class="btn btn-default btn-file">
+                                      <span class="fileinput-new">Seleccionar</span>
+                                      <span class="fileinput-exists">Cambiar</span>
+                                      <input type="file" name="DTH_flImagen3" accept="image/*">
+                                    </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                <?php } else { ?>
+                                    <span class="btn btn-default btn-file">
+                                      <input type="file" name="DTH_flImagen3" style="width: 110px;" accept="image/*">
+                                    </span>
+                                <?php } ?>
+                            </div>
+                                
+                        <?php } ?>
+                        </div>
+                    </div>
+                        </td>
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <td>
+                    <div class="col-sm-9">
+                    	<center>Imagen 4</center>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php if($this->DTH_foto4){?>
+                            
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $this->DTH_foto4; ?>" />
+                                </div>
+                                <center>
+                                    <label style="cursor:pointer">
+                                        <input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkDTH_flImagen4"> Eliminar
+                                    </label>
+                                </center>
+                            
+                        <?php }else{ ?>
+                            
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                            <div>
+                                <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Seleccionar</span>
+                                    <span class="fileinput-exists">Cambiar</span>
+                                    <input type="file" name="DTH_flImagen4" accept="image/*">
+                                </span>
+                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                <?php } else { ?>
+                                <span class="btn btn-default btn-file">
+                                    <input type="file" name="DTH_flImagen4" style="width: 110px;" accept="image/*">
+                                </span>
+                                <?php } ?>
+                            </div>
+                                
+                        <?php } ?>
+                        </div>
+                    </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                             <input type="button"  id="btnModificaDTipoHab" class="btn btn-primary" value="Modificar imagenes" 
+                             onclick="methodSend(this.form, '<?php echo BASE_URL; ?>habitacion/modificar', 'btnModificaDTipoHab', 'divPopupH')">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            
+        </div>
+        
+    </div>
+</div>
