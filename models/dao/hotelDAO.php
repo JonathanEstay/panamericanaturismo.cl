@@ -14,7 +14,7 @@ class hotelDAO extends Model
     
     public function getHoteles($hotel, $ciudad, $cat)
     {
-        $sql='SELECT codigo, hotel, pais, ciudad, fono, direc, cat, ope, convert(varchar, nota) as nota, rut, dv, suc, fax, razon, nombre2, compve, compvn, compvr, prio, codsicon, codclisi, crubro, estado, 
+        $sql='SELECT codigo, hotel, pais, ciudad, fono, direc, cat, descripcion, ope, convert(varchar, nota) as nota, rut, dv, suc, fax, razon, nombre2, compve, compvn, compvr, prio, codsicon, codclisi, crubro, estado, 
 	      timestamp_column, email, marca, usuariocrea, fechacrea, usuariomod, fechamod, marca_web, marca_web_R, Allot_web, Allot_web_R, Marca_Web_P, marca_sur, 
 	      tipo_comag, femergen, fcomision, SWEB, restaurante, bar, cafeteria, s_habitacion, busness_center, internet_hotel, estacionamiento, piscina_cub, piscina_des, gym, 
 	      spa, tenis, guarderia, salas_reunion, jardin, discapacitados, bautique, acondicionado, calefaccion, no_fuma, caja_fuerte, mini_bar, television, tv_cable, inter_hab, 
@@ -70,7 +70,7 @@ class hotelDAO extends Model
     
     public function getHotel($codHotel)
     {
-        $sql='SELECT codigo, hotel, pais, ciudad, fono, direc, cat, ope, convert(varchar, nota) as nota, rut, dv, suc, fax, razon, nombre2, compve, compvn, compvr, prio, codsicon, codclisi, crubro, estado, 
+        $sql='SELECT codigo, hotel, pais, ciudad, fono, direc, cat, descripcion, ope, convert(varchar, nota) as nota, rut, dv, suc, fax, razon, nombre2, compve, compvn, compvr, prio, codsicon, codclisi, crubro, estado, 
 	      timestamp_column, email, marca, usuariocrea, fechacrea, usuariomod, fechamod, marca_web, marca_web_R, Allot_web, Allot_web_R, Marca_Web_P, marca_sur, 
 	      tipo_comag, femergen, fcomision, SWEB, restaurante, bar, cafeteria, s_habitacion, busness_center, internet_hotel, estacionamiento, piscina_cub, piscina_des, gym, 
 	      spa, tenis, guarderia, salas_reunion, jardin, discapacitados, bautique, acondicionado, calefaccion, no_fuma, caja_fuerte, mini_bar, television, tv_cable, inter_hab, 
@@ -95,6 +95,7 @@ class hotelDAO extends Model
                 $objHotel->setLon(trim($hDB['lon']));
                 $objHotel->setDirec(trim($hDB['direc']));
                 $objHotel->setSitioWeb(trim($hDB['SWEB']));
+                $objHotel->setDescrip(trim($hDB['descripcion']));
                 
                 
                 $objHotel->setRestaurante(trim($hDB['restaurante']));
