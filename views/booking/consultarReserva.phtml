@@ -1,0 +1,289 @@
+<script>
+$(function()
+{
+    $( "#txtFechaDesde-ConsRes" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+        'Jul','Ago','Sep','Oct','Nov','Dic'],
+        dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        onSelect: function( selectedDate ){
+            $( "#txtFechaHasta-ConsRes" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+
+    $( "#txtFechaHasta-ConsRes" ).datepicker({
+        minDate: +1,
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+        'Jul','Ago','Sep','Oct','Nov','Dic'],
+        dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        onSelect: function( selectedDate ) {
+            $( "#txtFechaDesde-ConsRes" ).datepicker( "option", "maxDate", selectedDate );
+        }
+    });
+});
+</script>
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
+                <li class="active">Consultar Reservas</li>
+            </ol>
+
+            <h1>CONSULTAR RESERVAS</h1>
+
+        </div>
+		
+        
+        <div class="container">
+
+			
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+					  
+					  
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4>Buscar booking</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+
+                                        <form method="post" id="frmConsRes" action="<?php echo BASE_URL . 'booking/buscar'; ?>">
+                                            <table align="center" cellspacing="5" cellpadding="5">
+                                                <tr>
+                                                    <td>Fecha desde:</td>
+                                                    <td>
+                                                        <input type="text" id="txtFechaDesde-ConsRes" name="txtFechaDesde-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaIni; ?>">
+                                                    </td>
+                                                    <td>Fecha hasta:</td>
+                                                    <td>
+                                                        <input type="text" id="txtFechaHasta-ConsRes" name="txtFechaHasta-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaFin; ?>">
+                                                    </td>
+                                                    <td rowspan="2">&nbsp;&nbsp;&nbsp;
+                                                        <input type="button"  id="btnConsBooking" class="btn btn-primary" value="Buscar">
+                                                        <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha reserva:</td>
+                                                    <td><input type="radio" id="rdbReserva" name="rdbFecha" value="1" <?php echo $this->rdbRes; ?>></td>
+                                                    <td>Fecha viaje:</td>
+                                                    <td><input type="radio" id="rdbViaje" name="rdbFecha" value="2" <?php echo $this->rdbVia; ?>></td>
+                                                </tr>
+                                            </table>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <?php
+                    if(Session::get('sess_CR_fechaDesde'))
+                    {
+                    ?>
+                    <script>
+                        $('#btnConsBooking').delay( 10 ).fadeOut( 10 );
+                        $('#btnConsBooking').animate({
+                                                        'display': 'none'
+                                                    });
+                        $('#imgLoading').fadeIn( 100 );
+                        $('#imgLoading').animate({
+                                                    'display': 'block'
+                                                });
+                    </script>
+                    
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Carta de confirmaci&oacute;n</h4>
+                                </div>
+
+                                <div class="modal-body" id="divCartaConfirm"></div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+                    
+                    
+                    
+                    <div class="panel panel-sky" id="contenedorBusqueda" style="display:none">
+                        <div class="panel-heading">
+                            <h4>Resultado de la busqueda</h4>
+                        </div>
+                        <div class="panel-body collapse in">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
+                                <thead>
+                                    <tr style="background-color:#76c4ed;">
+                                        <th width="15"></th>
+                                        <th>F. Reserva</th>
+                                        <th>F. Viaje</th>
+                                        <th width="70">Reserva</th>
+                                        <th>Agencia</th>
+                                        <th>Nombre Pasajero</th>
+                                        <th width="130">Total</th>
+                                        <th>Voucher</th>
+                                        <th width="15"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                 <?php
+                                    if($this->objReservas)
+                                    { 
+                                        foreach($this->objReservas as $objRes)
+                                        {
+                                            $valorVenta= $objRes->getTotVenta();
+                                            $valorPago= $objRes->getTotPag(); //intval($columRes["totpag"]);
+                                            $cR_moneda= $objRes->getMoneda();
+                                            $cR_fecha= $objRes->getFecha();
+                                            $cR_fViaje= $objRes->getFViaje();
+                                            $cR_nFile= $objRes->getFile();
+                                            $cR_agencia= $objRes->getAgencia();
+                                            $cR_nomPax= $objRes->getNomPax();
+                                            $cR_totVenta= Functions::formatoValor($cR_moneda, $objRes->getTotVenta());
+
+                                            $cR_codProg= $objRes->getCodPak();
+                                            $cR_codBloq= $objRes->getRecordC();
+
+
+                                            $cR_estado= $objRes->getEstado();
+                                            $imgStatus='';
+                                            $voucherStatus='';
+                                            if($cR_estado<>'N' && $valorPago < ($valorVenta -1))
+                                            {
+                                                $imgStatus= '<img src="'.$_layoutParams['ruta_img'].'st_amarillo.png" title="Pendiente de pago" />';
+                                            }
+                                            elseif($cR_estado<>'N' && $valorPago >= ($valorVenta -1))
+                                            {
+                                                $imgStatus= '<img src="'.$_layoutParams['ruta_img'].'st_verde.png" title="Pago realizado" />';
+                                                $voucherStatus='<a href="'. BASE_URL .'booking/verPDF_HTML/'.$cR_nFile.'" target="_blank" onclick="window.open(this.href, this.target, \'width=896, height=600,left = 200,top = 100\'); return false;">
+                                                <img src="'.$_layoutParams['ruta_img'].'pdf.png" alt="edit" width="24" border="0" />
+                                                </a>';
+                                            }
+                                            elseif($cR_estado=='N')
+                                            { 
+                                                $imgStatus= '<img src="'.$_layoutParams['ruta_img'].'st_rojo.png" title="Anulado" />';
+                                            }
+                                        ?>
+                                        <tr class="odd gradeX">
+                                            <td align="center"><?php echo $imgStatus; ?></td>
+                                            <td><?php echo $cR_fecha; ?></td>
+                                            <td><?php echo $cR_fViaje; ?></td>
+                                            <td><?php echo $cR_nFile; ?></td>
+                                            <td><?php echo $cR_agencia; ?></td>
+                                            <td><?php echo $cR_nomPax; ?></td>
+                                            <td><?php echo $cR_totVenta; ?></td>
+                                            <td align="center"><?php echo $voucherStatus; ?></td>
+                                            <td align="center">
+                                                    <a data-toggle="modal" href="#myModal" onClick="abreCartaConfirm('<?php echo $cR_nFile; ?>', '<?php echo $cR_codProg; ?>', '<?php echo $cR_codBloq; ?>');"><img src="<?php echo $_layoutParams['ruta_img']; ?>search.png" width="24" border="0" /></a>
+                                            </td>
+                                        </tr>
+                                            <?php 
+                                        }
+                                    }
+                                    else
+                                    {
+                                    ?>
+                                        No se encontraron registros
+                                    <?php
+                                    }
+                                    ?>
+                                    
+                                    
+                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <script>
+                        $('#btnConsBooking').fadeIn( 100 );
+                        $('#btnConsBooking').animate({
+                                                        'display': 'block'
+                                                    });
+
+                        $('#imgLoading').delay( 10 ).fadeOut( 10 );
+                        $('#imgLoading').animate({
+                                                    'display': 'none'
+                                                });
+
+                        $('#contenedorBusqueda').fadeIn( 2000 );
+                        $('#contenedorBusqueda').animate({
+                                                            'display': 'block'
+                                                        });
+					
+                    </script>
+                    <?php } ?>
+                </div>
+            </div>
+            
+            
+<script>
+$('#btnConsBooking').on('click',function(){
+    $(document).skylo('start');
+
+    setTimeout(function(){
+            $(document).skylo('set',50);
+    },1000);
+
+    setTimeout(function(){
+            $(document).skylo('end');
+    },1500);
+    setTimeout(function(){
+            document.getElementById('frmConsRes').submit();
+    },2500);
+});
+
+
+function abreCartaConfirm(nFile, codProg, codBloq)
+{
+    $("#divCartaConfirm").html('');
+    $.post("<?php echo BASE_URL; ?>booking/cartaConfirmacion", 
+    {
+        CR_n_file: nFile,
+        CR_cod_prog: codProg,
+        CR_cod_bloq: codBloq
+    }, function(data)
+    {
+        $("#divCartaConfirm").html(data);
+    });
+}
+</script>
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->

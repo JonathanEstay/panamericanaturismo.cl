@@ -1,0 +1,264 @@
+<form enctype="multipart/form-data" class="frmReservaPRG">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Detalle programa</b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                    <tr>
+                    	<td><b>Programa</b>:</td>
+                        <td><?php echo $this->objOpcionPrograma[0]->getCodigo().' - '.$this->objOpcionPrograma[0]->getNombre(); ?> </td>
+                    </tr>
+                    <tr>
+                    	<td><b>Bloqueo</b>:</td>
+                        <td> <?php echo $this->objOpcionPrograma[0]->getTramo(); ?></td>
+                    </tr>
+                    <tr>
+                    	<td><b>Salida</b>:</td>
+                        <td> <?php echo $this->fechaSalida; ?></td>
+                    </tr>
+                    <tr>
+                    	<td><b>Precio</b>:</td>
+                        <td style="color:#F00;"> <b><?php echo $this->precio; ?></b></td>
+                    </tr>
+                    <tr>
+                    	<td><b>Hoteles</b>:</td>
+                        <td>
+                            <?php
+                            for($i=0; $i<$this->hotelesCNT; $i++)
+                            {
+                                echo '<span class="label label-info">'.$this->hoteles[$i].'</span>';
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<table class="table table-bordered">
+    <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
+        <td colspan="7" align="center" style="padding:2px;">Datos del Pasajero</td>
+    </tr>
+        
+    <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0; padding:2px;">
+        <td style="padding:2px;">Tipo</td>
+        <td style="padding:2px;">T.Pax</td>
+
+        <td style="padding:2px;">Pasaporte</td>
+        <td style="padding:2px;">Rut</td>
+        <td style="padding:2px;">Nombre</td>
+        <td style="padding:2px;">Apellidos</td>
+        <td style="padding:2px;">Nacimiento</td>
+    </tr>
+        
+        <?php
+		$rP_cntRegistros=1;
+		Session::set('sessRP_cntPasajeros', 0);
+		for($i=1; $i<=3; $i++)
+		{	
+			$rP_total_AC=0;
+			$rP_total_AC=Session::get("sess_BP_Adl_$i")+Session::get("sess_BP_Chd_$i");
+		?>
+        	<?php
+			for($x=1; $x<=$rP_total_AC; $x++)
+			{
+			?>
+        <tr align="center">
+            <td>
+            	<select name="rP_cmbTipoPax_<?php echo $rP_cntRegistros; ?>" id="rP_cmbTipoPax_<?php echo $rP_cntRegistros; ?>" style="width:60px;">
+                    <?php
+                    if(Session::get("sess_BP_Adl_$i")>=$x)
+                    {
+                    ?>
+                        <option selected="selected" value="A">Adl</option>
+                    <?php
+                    }
+                    else
+                    {
+                    ?>
+                    	<option selected="selected" value="C">Chd</option>
+                    <?php	
+                    }
+                    ?>
+            	</select>
+            </td>
+            <td>
+            	<select name="rP_cmbTratoPax_<?php echo $rP_cntRegistros; ?>" id="rP_cmbTratoPax_<?php echo $rP_cntRegistros; ?>" style="width:60px;">
+                <?php
+                if(Session::get("sess_BP_Adl_$i")>=$x)
+                {
+                ?>
+                    <option value="0">Mr</option>                
+                    <option value="1">Mrs</option>
+                    <option value="2">Mss</option>
+                <?php
+                }
+                else
+                {
+                ?>
+                    <option value="3">Chl</option>
+                <?php	
+                }
+                ?>
+            	</select>
+            </td>
+            
+            <td>
+           		<input type="checkbox" id="rP_chkPas_<?php echo $rP_cntRegistros; ?>" name="rP_chkPas_<?php echo $rP_cntRegistros; ?>" >
+            </td>
+            <td>
+                <input type="text" id="rP_txtRut_<?php echo $rP_cntRegistros; ?>" onkeypress="return soloRut(event);" maxlength="10"
+                name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
+            </td>
+            <td>
+                <input type="text" 
+                id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" 
+                name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" style="width:100px;">
+            </td>
+            <td><input type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" style="width:100px;"></td>
+            <td>
+            <script type="text/javascript">
+                $(function()
+                {
+                    $( "#rP_FechaNac_<?php echo $rP_cntRegistros; ?>" ).datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: 'dd/mm/yy', 
+                        firstDay: 1,
+
+                        <?php
+                        if(Session::get("sess_BP_Adl_$i")>=$x)
+                        {
+                        ?>
+                            maxDate: new Date(<?php echo $this->anoSalida-12; ?>,<?php echo $this->mesSalida-1; ?>,<?php echo $this->diaSalida; ?>),
+                            yearRange: "-100:+0",
+                        <?php
+                        }
+                        else
+                        {
+                        ?>
+                            maxDate: new Date(<?php echo $this->anoSalida-2; ?>,<?php echo $this->mesSalida-1; ?>,<?php echo $this->diaSalida; ?>),
+                            yearRange: "-12:+0",
+                        <?php	
+                        }
+                        ?>
+
+                        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                                    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                                                                'May', 'Jun', 'Jul', 'Ago',
+                                                                'Sep', 'Oct', 'Nov', 'Dic']
+                    });
+                });
+            </script>
+            	<input type="text" id="rP_FechaNac_<?php echo $rP_cntRegistros; ?>" 
+                name="rP_FechaNac_<?php echo $rP_cntRegistros; ?>" style="width:80px;" readonly="readonly">
+            </td>
+        </tr>
+        <?php
+				++$rP_cntRegistros;
+			}
+		}
+		Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
+        ?>
+        
+</table>
+
+
+
+<?php
+if(Session::get('sess_BP_cntInf')>0)
+{
+?>
+<table class="table table-bordered">
+        <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
+            <td colspan="5" align="center" style="padding:2px;">Datos del Infant</td>
+        </tr>
+        
+        <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
+           <td style="padding:2px;">Pasaporte</td>
+            <td style="padding:2px;">Rut</td>
+            <td style="padding:2px;">Nombre</td>
+            <td style="padding:2px;">Apellidos</td>
+            <td style="padding:2px;">Nacimiento</td>
+        </tr>
+        
+        <?php
+        for($i=1; $i<=Session::get('sess_BP_cntInf'); $i++)
+        {	
+            ?>
+            <tr align="center">
+                <td><input type="checkbox" id="rP_chkPasInf_<?php echo $i; ?>" name="rP_chkPasInf_<?php echo $i; ?>"></td>
+                <td>
+                	<input type="text" id="rP_txtRutInf_<?php echo $i; ?>" onkeypress="return soloRut(event);" maxlength="10" 
+                    name="rP_txtRutInf_<?php echo $i; ?>" style="width:80px;">
+                </td>
+                <td>
+                <input type="text" id="rP_txtNomInf_<?php echo $i; ?>" name="rP_txtNomInf_<?php echo $i; ?>" style="width:100px;">
+                </td>
+                <td>
+                <input type="text" id="rP_txtApeInf_<?php echo $i; ?>" name="rP_txtApeInf_<?php echo $i; ?>" style="width:100px;">
+                </td>
+                <td>
+                <script type="text/javascript">
+                    $(function()
+                    {
+                        $( "#rP_FechaNacInf_<?php echo $i; ?>" ).datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                dateFormat: 'dd/mm/yy', 
+                                firstDay: 1,
+                                //minDate: '-24m',
+                                minDate: new Date(<?php echo $this->anoSalida-2; ?>,<?php echo $this->mesSalida-1; ?>,<?php echo $this->diaSalida+1; ?>),
+                                maxDate: '+0m',
+                                monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                                            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                                                                        'May', 'Jun', 'Jul', 'Ago',
+                                                                        'Sep', 'Oct', 'Nov', 'Dic'] //,
+                                //yearRange: "-2:+0"
+                        });
+                    });
+                </script>
+		<input type="text" id="rP_FechaNacInf_<?php echo $i; ?>" name="rP_FechaNacInf_<?php echo $i; ?>" style="width:90px;">
+                </td>
+            </tr>
+        <?php
+		}
+		?>
+</table>
+<?php
+}
+?>
+
+
+<table class="table table-bordered">
+    <tr>
+        <td>
+        <textarea name="rP_txtComentario" id="rP_txtComentario" cols="50" rows="4" class="form-control" placeholder="Escribe un comentario..."></textarea>
+        </td>
+    </tr>
+</table>
+    
+    
+<br />
+<center>
+<input type="button"  id="rP_btnProcesaRserva" class="btn btn-primary" value="Reservar" 
+    onclick="procesoReservaPRG('frmReservaPRG', '<?php echo BASE_URL ?>bloqueos/procesoReserva', 'rP_btnProcesaRserva', 'divPopupPRG'); ">
+</center>
+   
+</form>

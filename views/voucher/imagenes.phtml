@@ -1,0 +1,70 @@
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+        
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
+                <li>Administraci&oacute;n</li>
+                <li class="active">Logo clientes</li>
+            </ol>
+
+            <h1>Im&aacute;genes Clientes</h1>
+			
+        </div>
+        <div class="container">
+
+			
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+						
+                      
+                      	<div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4>Seleccione agencia</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                
+                                    <div class="col-md-12">
+                                    
+                                        <select name="cmbCategoria_lVA" id="cmbCategoria_lVA" style="width:400px" onchange="procesoCargaDiv(this.value, 'lVA_divDetalle', '<?php echo BASE_URL ?>voucher/logo')">
+                                            <option value="0">Seleccione una agencia</option>
+                                           <?php
+                                            if($this->objAgencias)
+                                            {
+                                                foreach($this->objAgencias as $objAgen)
+                                                {
+                                            ?>
+                                                    <option value="<?php echo $objAgen->getId(); ?>"><?php echo $objAgen->getNombre(); ?></option>
+                                             <?php } 
+                                            } ?>
+                                        </select>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                      
+                      
+					  
+                        <div class="panel panel-info" id="lVA_divDetalle"></div>	
+								
+								
+								
+
+					  
+                    </div>
+                </div>
+            </div>
+            
+            
+
+
+			
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->

@@ -1,0 +1,612 @@
+<script type="text/javascript">
+    tinymce.remove();
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        /*width: 300,
+        height: 300,*/
+        plugins: [
+             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+             "save table contextmenu directionality emoticons template paste textcolor"
+       ],
+       menubar : false,
+       toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | preview | forecolor backcolor fontsizeselect fontselect",
+       fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+       /*style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ]*/
+     }); 
+     
+     
+</script>
+
+<form enctype="multipart/form-data" class="frmEditaHotel">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>DATOS HOTEL: <b><?php echo $this->EH_hotel; ?></b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                    <tr>
+                    	<td>Nombre hotel</td>
+                        <td><input name="txtEH_nombreHotel" type="text" value="<?php echo $this->EH_hotel; ?>" /></td>
+                        <td rowspan="3" width="100"></td>
+                        <td>Latitud</td>
+                        <td><input name="txtEH_latitud" type="text" value="<?php echo $this->EH_lat; ?>"  /></td>
+                    </tr>
+                    <tr>
+                    	<td>Categor&iacute;a</td>
+                        <td>
+                            <select name="cmbEH_categoria" style="width:100px" >
+                            <?php
+                            if($this->objCategorias)
+                            {
+                                echo '<option value="0">Todas</option>';
+                                foreach($this->objCategorias as $objCat)
+                                {
+                                    $eH_nombreCat= $objCat->getNombre();
+                                    if($eH_nombreCat)
+                                    {
+                                        if($this->EH_cat==$eH_nombreCat)
+                                        {
+                                        ?>  
+                                            <option selected="selected" value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                            <option value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
+                                    <?php
+                                        }
+                                    }
+                                }
+                            } ?>
+                            </select>
+                        </td>
+                        <td>Longitud</td>
+                        <td><input name="txtEH_longitud" type="text" value="<?php echo $this->EH_lon; ?>" /></td>
+                	</tr>
+                    <tr>
+                    	<td>Direcci&oacute;n</td>
+                    	<td><input name="txtEH_direc" type="text" value="<?php echo $this->EH_direc; ?>" /></td>
+                    	<td>Sitio web</td>
+                    	<td><input name="txtEH_sitioWeb" type="text" value="<?php echo $this->EH_web; ?>" /></td>
+                	</tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Imagenes del hotel</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+               
+                    <table align="center">
+                    	<tr>
+                        	<td width="350">
+                        <div class="col-sm-9">
+                        	<center>Imagen Principal</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if($this->EH_imgEnc){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgEnc; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                            <input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen1"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flImagen1" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flImagen1" style="width: 110px;" accept="image/*">
+                                        </span>
+                                        <?php } ?>
+                                        
+                                        
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                                
+                                
+                                
+                                
+                                
+                                
+                        	<td width="350">
+                        <div class="col-sm-9">
+                        	<center>Imagen 2</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if($this->EH_imgCont){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen2"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flImagen2" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flImagen2" style="width: 110px;" accept="image/*">
+                                        </span>
+                                        <?php } ?>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                        	<td rowspan="2" valign="top">
+                        <div class="col-sm-9">
+                        	<center>Imagen 3</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if($this->EH_imgCont2){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont2; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen3"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flImagen3" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flImagen3" style="width: 110px;" accept="image/*">
+                                        </span>   
+                                        <?php } ?>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                       </tr>
+                       
+                       
+                       <tr> 
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                        	<td>
+                        <div class="col-sm-9" >
+                        	<center>Imagen 4</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if($this->EH_imgCont3){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont3; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen4"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flImagen4" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flImagen4" style="width: 110px;" accept="image/*">
+                                        </span>    
+                                        <?php } ?>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                        	<td>
+                         <div class="col-sm-9" >
+                         	<center>Imagen 5</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if($this->EH_imgCont4){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont4; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen5"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        <?php if(Session::get('sess_browser') != 'IE9') { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileinput-new">Seleccionar</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            <input type="file" name="flImagen5" accept="image/*">
+                                        </span>
+                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                        <?php } else { ?>
+                                        <span class="btn btn-default btn-file">
+                                            <input type="file" name="flImagen5" style="width: 110px;" accept="image/*">
+                                        </span>    
+                                        <?php } ?>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        </tr>
+                    </table>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios de Hotel</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" /><input type="checkbox" <?php if(isset($this->EH_rest)){ echo $this->EH_rest; } ?> name="chkEH_rest" > Restaurant</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->EH_lavan)){ echo $this->EH_lavan; } ?> name="chkEH_lavan" > Lavander&iacute;a</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>piscina_desc.jpg" /><input type="checkbox" <?php if(isset($this->EH_pDes)){ echo $this->EH_pDes; } ?> name="chkEH_pisDesc" > Piscina descubierta</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tenis.jpg" /><input type="checkbox" <?php if(isset($this->EH_tenis)){ echo $this->EH_tenis; } ?> name="chkEH_cTenis" > Cancha de tenis</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>bar.jpg" /><input type="checkbox" <?php if(isset($this->EH_bar)){ echo $this->EH_bar; } ?> name="chkEH_bar" > Bar</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>business_center.jpg" /><input type="checkbox" <?php if(isset($this->EH_business)){ echo $this->EH_business; } ?> name="chkEH_busCen" > Business center</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>spa.jpg" /><input type="checkbox" <?php if(isset($this->EH_spa)){ echo $this->EH_spa; } ?> name="chkEH_spa" > Spa</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>guar_inf.jpg" /><input type="checkbox" <?php if(isset($this->EH_guard)){ echo $this->EH_guard; } ?> name="chkEH_guarderia" > Club de ni&ntilde;os</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>cafeteria.jpg" /><input type="checkbox" <?php if(isset($this->EH_cafe)){ echo $this->EH_cafe; } ?> name="chkEH_cafe" > Cafeter&iacute;a</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>internet.jpg" /><input type="checkbox" <?php if(isset($this->EH_intHot)){ echo $this->EH_intHot; } ?> name="chkEH_interHot" > Internet hotel</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>gimnasio.jpg" /><input type="checkbox" <?php if(isset($this->EH_gym)){ echo $this->EH_gym; } ?> name="chkEH_gym" > Gimnasio</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>salones.jpg" /><input type="checkbox" <?php if(isset($this->EH_salas)){ echo $this->EH_salas; } ?> name="chkEH_sReu" > Salas de reuni&oacute;n</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>room_service.jpg" /><input type="checkbox" <?php if(isset($this->EH_servHab)){ echo $this->EH_servHab; } ?> name="chkEH_servHab" > Servicio a la habitaci&oacute;n</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>estacionamiento.jpg" /><input type="checkbox" <?php if(isset($this->EH_est)){ echo $this->EH_est; } ?> name="chkEH_estaciona" > Estacionamiento</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>piscina_cubierta.jpg" /><input type="checkbox" <?php if(isset($this->EH_pCub)){ echo $this->EH_pCub; } ?> name="chkEH_pisCub" > Piscina cubierta</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>jardines.jpg" /><input type="checkbox" <?php if(isset($this->EH_jardin)){ echo $this->EH_jardin; } ?> name="chkEH_jardin" > Jard&iacute;n</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>acceso_discap.jpg" /><input type="checkbox" <?php if(isset($this->EH_disca)){ echo $this->EH_disca; } ?> name="chkEH_disca" > Discapacitados</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>shopping.jpg" /><input type="checkbox" <?php if(isset($this->EH_bou)){ echo $this->EH_bou; } ?> name="chkEH_bou" > Boutique</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                       
+                        </td>
+                    	<td>
+                       
+                        </td>
+                	</tr>
+                    
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios Habitaci&oacute;n</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>aire_acondicionado.jpg" /><input type="checkbox" <?php if(isset($this->EH_acon)){ echo $this->EH_acon; } ?> name="chkEH_airAcond" > Aire acondicionado</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>caja_de_seguridad.jpg" /><input type="checkbox" <?php if(isset($this->EH_cajaF)){ echo $this->EH_cajaF; } ?> name="chkEH_cFuerte" > Caja fuerte</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tv_cable.jpg" /><input type="checkbox" <?php if(isset($this->EH_tvC)){ echo $this->EH_tvC; } ?> name="chkEH_tvCable" > Televisi&oacute;n por Cable</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>secador.jpg" /><input type="checkbox" <?php if(isset($this->EH_seca)){ echo $this->EH_seca; } ?> name="chkEH_sPelo" > Secador de pelo</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>calefaccion.jpg" /><input type="checkbox" <?php if(isset($this->EH_cale)){ echo $this->EH_cale; } ?> name="chkEH_calefac" > Calefaci&oacute;n</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>minibar.jpg" /><input type="checkbox" <?php if(isset($this->EH_mBar)){ echo $this->EH_mBar; } ?> name="chkEH_mBar" > Mini bar</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>telefono.jpg" /><input type="checkbox" <?php if(isset($this->EH_fono)){ echo $this->EH_fono; } ?> name="chkEH_fono" > Tel&eacute;fono</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>barradeseguridad.jpg" /><input type="checkbox" <?php if(isset($this->EH_barra)){ echo $this->EH_barra; } ?> name="chkEH_barraSeg" > Barra de Seguridad</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>habitacion_no_fum.jpg" /><input type="checkbox" <?php if(isset($this->EH_noFuma)){ echo $this->EH_noFuma; } ?> name="chkEH_noFumar" > No fumadores</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tv.jpg" /><input type="checkbox" <?php if(isset($this->EH_tv)){ echo $this->EH_tv; } ?> name="chkEH_tv" > Televisi&oacute;n</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                                <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>internet.jpg" /><input type="checkbox" <?php if(isset($this->EH_intHab)){ echo $this->EH_intHab; } ?> name="chkEH_interHab" > Internet en Habitaci&oacute;n</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        </td>
+                	</tr>
+                    
+                </table>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+    
+    
+    
+    
+    <div class="panel panel-info">
+        
+        <div class="panel-heading">
+            <h4>Descripci&oacute;n</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <textarea id="descrip" name="areaDescrip"><?php echo $this->EH_descripcion; ?></textarea>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        <br />
+        <center>
+        <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Modificar Hotel" 
+        onclick="tinyMCE.triggerSave(); methodSend(this.form, '<?php echo BASE_URL; ?>hoteles/modificar', 'btnSubeVoucherAgen', 'divPopupH')">
+        </center>
+
+    </div>
+
+
+
+</form>

@@ -1,0 +1,93 @@
+<?php 
+foreach($this->objFotosHotel as $objFotosHotel) { 
+    $publicFotos = ROOT . 'public' . DS . 'img' . DS . 'hoteles'. DS; 
+    if( ($objFotosHotel->getImgEnc() && file_exists($publicFotos.$objFotosHotel->getImgEnc())) ||
+        ($objFotosHotel->getImgCont() && file_exists($publicFotos.$objFotosHotel->getImgCont())) ||
+        ($objFotosHotel->getImgCont2() && file_exists($publicFotos.$objFotosHotel->getImgCont2())) ||
+        ($objFotosHotel->getImgCont3() && file_exists($publicFotos.$objFotosHotel->getImgCont3())) ||
+        ($objFotosHotel->getImgCont4() && file_exists($publicFotos.$objFotosHotel->getImgCont4())) )
+    {
+        $active='class="active"';
+        $item='active';
+?>
+
+<center>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 370px;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <?php if($objFotosHotel->getImgEnc() && file_exists($publicFotos.$objFotosHotel->getImgEnc())){?> 
+    <li data-target="#myCarousel" data-slide-to="0" <?php echo $active; $active=''; ?>></li>
+    <?php 
+    }
+    if($objFotosHotel->getImgCont() && file_exists($publicFotos.$objFotosHotel->getImgCont())){
+    ?>
+    <li data-target="#myCarousel" data-slide-to="1" <?php echo $active; $active=''; ?>></li>
+    <?php 
+    }
+    if($objFotosHotel->getImgCont2() && file_exists($publicFotos.$objFotosHotel->getImgCont2())){
+    ?>
+    <li data-target="#myCarousel" data-slide-to="2" <?php echo $active; $active=''; ?>></li>
+    <?php 
+    }
+    if($objFotosHotel->getImgCont3() && file_exists($publicFotos.$objFotosHotel->getImgCont3())){
+    ?>
+    <li data-target="#myCarousel" data-slide-to="3" <?php echo $active; $active=''; ?>></li>
+    <?php 
+    }
+    if($objFotosHotel->getImgCont4() && file_exists($publicFotos.$objFotosHotel->getImgCont4())){
+    ?>
+    <li data-target="#myCarousel" data-slide-to="4" <?php echo $active; $active=''; ?>></li>
+<?php 
+    }
+    ?>  
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+   
+   <?php if($objFotosHotel->getImgEnc() && file_exists($publicFotos.$objFotosHotel->getImgEnc())){?> 
+    <div class="item <?php echo $item; $item=''; ?>"> 
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgEnc(); ?>" alt="Foto Encabezado">
+    </div>  
+    <?php
+    } 
+    if($objFotosHotel->getImgCont() && file_exists($publicFotos.$objFotosHotel->getImgCont())){?>   
+    <div class="item <?php echo $item; $item=''; ?>">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont(); ?>" alt="Foto 1">
+    </div>
+     
+   <?php }
+   if($objFotosHotel->getImgCont2() && file_exists($publicFotos.$objFotosHotel->getImgCont2())){?> 
+    <div class="item <?php echo $item; $item=''; ?>">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont2(); ?>" alt="Foto 2">
+    </div>
+    
+    <?php }
+    if($objFotosHotel->getImgCont3() && file_exists($publicFotos.$objFotosHotel->getImgCont3())){?>  
+    <div class="item <?php echo $item; $item=''; ?>">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont3(); ?>" alt="Foto 3">
+    </div>
+     
+    <?php }
+    if($objFotosHotel->getImgCont4() && file_exists($publicFotos.$objFotosHotel->getImgCont4())){?>    
+    <div class="item <?php echo $item; $item=''; ?>">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont4(); ?>" alt="Foto 4">
+    </div>
+    <?php }?>   
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" style="background-image: none;" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>leftCircle.png" width="30px" /></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" style="background-image: none;" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>rightCircle.png" width="30px" /></span>
+    <span class="sr-only">Next</span>
+  </a>
+    </div></center>
+
+<?php } else { ?>
+        No se encontraron fotos para este hotel.
+<?php }
+}?>

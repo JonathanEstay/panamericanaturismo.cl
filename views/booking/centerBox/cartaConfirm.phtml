@@ -1,0 +1,440 @@
+<div ID="imprimirSector">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>	
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />	
+        <title>Carta de confirmaci&oacute;n <?php echo $this->numFile; ?></title>	
+        <style type="text/css"> 
+        <!--
+        .Base {font-family: Tahoma; font-size: 11px; color: #000000; }	
+        .BorderColor {border-color:#E6E6E6; border-collapse:collapse}	
+        .Cot {font-family: Tahoma; font-size: 17px; color: #000000}	
+        .TopBot {font-family: Tahoma; font-size: 11px; color: #000000}	
+        .PieTxt {font-family: Tahoma; font-size: 11px; color: #666666; text-align:justify}	
+        .it {font-family: Tahoma; font-size: 9px; color: #666666; text-align:justify}	
+        .NotaRojo {font-family: Tahoma; font-size: 15px; color: #990000; word-spacing:2px; line-height:15px}
+        -->
+        </style>
+    </head>
+    <body leftmargin="2" topmargin="2" marginwidth="2" marginheight="2" class="Base" >	 	
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">	  
+            <tr>
+                <td align="left">
+                    <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>logo.jpg" alt="ALLWAYS" height="100" vspace="5" border="0" />
+                </td>
+                <td width="50%" align="right" class="TopBot">
+                    <strong class="TopBot">
+                        <?php echo ENT_NAME; ?></strong><br />
+                        <?php echo ENT_DIREC; ?>, <?php echo ENT_COMUNA; ?><br />
+                        Tel&eacute;fonos : <?php echo ENT_FONO; ?><br /><br />	      
+                        <a href="<?php echo ENT_WEB; ?>" target="_blank"> <?php echo ENT_WEB; ?> <br /></a>
+                        <br />
+                        <?php echo ENT_CIUDAD . ', ' . date("d F Y"); ?>
+                </td>
+
+
+            </tr>	
+        </table>	
+        <br />
+
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
+            <tr>
+                <td height="60" colspan="3" align="center"><span class="Cot">Confirmaci&oacute;n de Reserva Online</span></td>
+            </tr>	  
+            <tr>
+                <td><strong>N&deg; File</strong></td>
+                <td>:</td>
+                <td><?php echo $this->numFile; ?></td>
+                </tr>
+
+
+            <tr>
+                <td width="18%"><strong>Agencia</strong></td>
+                <td width="2%">:</td>
+                <td width="80%"><?php echo $this->CC_agencia; ?></td>
+            </tr>
+
+            <tr>
+                <td width="18%"><strong>Atenci&oacute;n</strong></td>
+                <td width="2%">:</td>
+                <td width="80%"><?php echo $this->CC_vage; ?></td>
+            </tr>
+
+            <tr>
+                <td width="18%"><strong>Paxs</strong></td>
+                <td width="2%">:</td>
+                <td width="80%"><?php echo $this->CC_nomPax; ?></td>
+            </tr>
+
+            <tr>
+                <td width="18%"><strong>N&deg; Pax</strong></td>
+                <td width="2%">:</td>
+                <td width="80%"><?php echo $this->CC_nPax; ?></td>
+            </tr>
+
+            <tr>
+                <td><strong>Fecha Viaje </strong></td>
+                <td>:</td>
+                <td><?php echo $this->CC_fviaje; ?></td>	  
+            </tr>
+
+            <tr>
+                <td><strong>Programa </strong></td>
+                <td>:</td>
+                <td><?php echo $this->CC_nombreProg; ?></td>	  
+            </tr>
+
+        </table>
+        <br />
+
+
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
+            <tr>
+                <td colspan="3">De acuerdo a la solicitud de Reserva por Ud. efectuada, confirmo lo siguiente: </td>
+            </tr>
+            <tr>
+                <td colspan="3"><hr noshade="noshade" /></td>
+            </tr>
+        </table>
+        &nbsp; &nbsp; &nbsp; Incluye:<br />
+        
+        <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#E8E6E1">
+            <tr>
+                <td bordercolor="#FFFFFF">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="2">	
+                        <?php 
+                        if($this->CC_objsDetFile)
+                        { 
+                            foreach($this->CC_objsDetFile as $objDF)
+                            {
+                                $s_1= $objDF->getPaxS();
+                                $s_2= $objDF->getPaxD();
+                                $s_3= $objDF->getPaxT();
+                                $s_4= $objDF->getPaxQ();
+                                $s_5= $objDF->getPaxA();
+                                $s_6= $objDF->getPaxI();
+                                $s_7= $objDF->getPaxC1();
+                                $s_8= $objDF->getPaxCA();
+                                $s_9= $objDF->getPaxC2();
+                                
+                                
+                                /*if($row_detfile["pax_s"] <> "" && $row_detfile["pax_s"] <> "0")
+                                        $s_1 = intval($row_detfile["pax_s"]);
+                                if($row_detfile["pax_d"] <> "" && $row_detfile["pax_d"] <> "0")
+                                        $s_2 = intval($row_detfile["pax_d"]);
+                                if($row_detfile["pax_t"] <> "" && $row_detfile["pax_t"] <> "0")
+                                        $s_3 = intval($row_detfile["pax_t"]);
+                                if($row_detfile["pax_q"] <> "" && $row_detfile["pax_q"] <> "0")
+                                        $s_4 = intval($row_detfile["pax_q"]);
+                                if($row_detfile["pax_a"] <> "" && $row_detfile["pax_a"] <> "0")
+                                        $s_5 = intval($row_detfile["pax_a"]);
+                                if($row_detfile["pax_i"] <> "" && $row_detfile["pax_i"] <> "0")
+                                        $s_6 = intval($row_detfile["pax_i"]);
+                                if($row_detfile["pax_c"] <> "" && $row_detfile["pax_c"] <> "0")
+                                        $s_7 = intval($row_detfile["pax_c"]);
+                                if($row_detfile["pax_ca"] <> "" && $row_detfile["pax_ca"] <> "0")
+                                        $s_8 = intval($row_detfile["pax_ca"]);
+                                if($row_detfile["pax_c2"] <> "" && $row_detfile["pax_c2"] <> "0")
+                                        $s_9 = intval($row_detfile["pax_c2"]);*/
+
+                                $suma_total = $s_1 + $s_2 + $s_3 + $s_4 + $s_5 + $s_6 + $s_7 + $s_8 + $s_9 ;
+
+                                echo '<tr>
+                                        <td width="80%" class="Base">
+                                            <strong>&middot;</strong>&nbsp; '.$suma_total.' Pax '.$objDF->getNombre().'<strong></strong>
+                                        </td>
+                                        <td width="10%" class="Base">';
+
+
+                                        if($objDF->getIn() == "01/01/1900")
+                                        {
+                                            echo '';
+                                        }
+                                        else
+                                        {
+                                            echo $objDF->getIn(); 
+                                        }
+
+
+                                    echo '</td>
+                                        <td width="10%" class="Base">';
+
+
+                                    if($objDF->getOut() == "01/01/1900")
+                                    {
+                                        echo '';
+                                    }
+                                    else
+                                    {
+                                        echo $objDF->getOut();
+                                    }
+
+
+                                    echo '</td></tr>';
+                            }
+                        }
+                        else
+                        {
+                            echo '<tr><td>Error al cargar el incluye</td></tr>';
+                        }
+                        ?>
+                    </table>
+                </td>
+            </tr>	
+        </table>
+        <br />
+
+
+        <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#E8E6E1">
+            <tr>
+                <td bordercolor="#FFFFFF">
+                    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
+                        <tr>
+                            <td width="25%">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td width="75%">
+                                <table width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                        <td class="Base">Valores expresados en 
+                                            <?php
+                                            if ($this->CC_moneda == 'D')
+                                            {
+                                                echo 'D&oacute;lares Americanos (USD)'; 
+                                            }
+                                            elseif($this->CC_moneda == 'P')
+                                            {
+                                                echo 'Pesos Chilenos ($)';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td width="25%"><strong>&nbsp;Valor Total</strong></td>
+                            <td>:</td>
+                            <td width="75%">
+                            <?php
+                                if($this->CC_totventa)
+                                {
+                                    echo Functions::formatoValor($this->CC_moneda, $this->CC_totventa) . ' + ' .Functions::formatoValor($this->CC_moneda, $this->CC_ajuste).' (Impuestos)'; 
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="25%"><strong>&nbsp;Tiempo limite de pago</strong></td>
+                            <td width="2%">:</td>
+                            <td width="75%" class="Base"> 48 horas</td>
+                        </tr>
+
+                        <?php			
+                        if ($this->CC_moneda == "D")
+                        {		
+                        echo '<tr><td width="25%"><strong>&nbsp;Tipo de cambio al d&iacute;a de hoy </strong></td>
+                                        <td width="2%">:</td>
+                                        <td width="75%">
+                                                '.$this->CC_cambio.' (Consultar al momento del pago)
+                                        </td>
+                                </tr>';
+                        }
+                        ?>		
+
+
+
+                        <tr>
+                            <td width="25%"><strong>&nbsp;Comisi&oacute;n:</strong></td>
+                            <td width="2%">:</td>
+                            <td width="75%"><?php echo $this->CC_comag; ?>%
+                                <?php
+                                if($this->CC_tcomi == 1)
+                                {
+                                    echo ' + I.V.A.';
+                                }
+                                elseif($this->CC_tcomi == 2)
+                                {
+                                    echo ' I.V.A. Incluido';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br />
+
+        <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#E8E6E1">
+            <tr>
+                <td bordercolor="#FFFFFF">
+                    <table width="100%" border="0" cellpadding="2" cellspacing="2" class="Base">
+                        <tr>
+                            <th></th>
+                            <th>Tipo</th>
+                            <th>Nombre</th>
+                            <th>Rut</th>
+                            <th>Fecha nacimiento</th>
+                            <th>Nombre Infant</th>
+                            <th>Rut Infant</th>
+                            <th>Fecha nacimiento Infant</th>
+                        </tr>
+                        <?php
+                        $contador = 1; 
+                        if($this->CC_objsDetBloq)
+                        { 
+                            foreach($this->CC_objsDetBloq as $objDB)
+                            {
+                                echo '<tr>
+                                        <td>'.$contador.'</td>
+                                        <td>';
+                                
+                                if($objDB->getTipoPax() == "A")
+                                {
+                                    echo 'Adulto';
+                                }
+                                elseif($objDB->getTipoPax() == "C")
+                                {
+                                    echo 'Child';
+                                }
+
+                                echo '</td>
+                                        <td>'.str_replace('/', ' ', $objDB->getNomPax()).'</td>
+                                        <td>'.$objDB->getRut().'</td>
+                                        <td>';
+                                        if($objDB->getFChild() == "01/01/1900")
+                                        {
+                                            echo '';
+                                        }
+                                        else
+                                        {
+                                            echo $objDB->getFChild();
+                                        }
+
+                                echo '</td>
+                                        <td>'.$objDB->getNInfant().'</td>
+                                        <td>'.$objDB->getRutInf().'</td>
+                                        <td>';
+
+                                        if($objDB->getFInfant() == "01/01/1900")
+                                        {
+                                            echo ''; 
+                                        }
+                                        else
+                                        {
+                                            echo $objDB->getFInfant();
+                                        }
+                                        echo '</td>
+                                </tr>';
+
+                                $contador = $contador + 1;
+                            }
+                        }
+                        ?>
+                        <tr>
+                            <td colspan="8" style="font-weight:bold;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" style="font-weight:bold;">Itinerario de vuelo:</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8"><?php echo $this->CC_notas; ?></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>	
+        </table>
+        
+
+        
+
+
+        
+        
+        
+        <br />
+        <br />
+        
+        
+        
+        
+        
+        
+        
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
+
+        <tr class="TopBot">
+        	<td colspan="3">DEPARTAMENTO RESERVA</td>
+		</tr>
+	</table>
+    <br />	<br />
+	
+	<center><span style="font-weight: bold;">CONDICIONES GENERALES BLOQUEOS Y CHARTER</span></center><br />
+    <ul type="disc">
+     <!-- <li>Los precios publicados incluyen solo lo especificado en cada programa. Los servicios no utilizados no ser&aacute;n reembolsables.</li>
+      <li>Una vez confirmada la       reserva, se solicitar&aacute; el pago total o un abono m&iacute;nimo de <strong>USD 450.- por pasajero para Sudam&eacute;rica, USD 650.-       Caribe, USA, Isla de Pascua,&nbsp; USD 1.200.-       Europa</strong>, &eacute;stos deben ser pagados dentro de las 48 horas de       recibida la confirmaci&oacute;n, de lo contrario se anular&aacute; la reserva       autom&aacute;ticamente.&nbsp; El saldo deber&aacute; ser pagado en su totalidad a m&aacute;s       tardar 10 d&iacute;as h&aacute;biles a contar del recibo del abono.&nbsp; En caso de       haberse confirmado la reserva 35 d&iacute;as antes de la salida, el pago deber&aacute;       ser total.&nbsp; </li> -->
+      <li><u>Bloqueos       a&eacute;reos: </u><br />
+    -No permiten  cambios ni correcciones de;&nbsp; fecha,  nombre, g&eacute;nero y rut.<br />
+      -No permite  reserva de asiento ni pre-chequeo, los asientos ser&aacute;n asignados por parte de la  compa&ntilde;&iacute;a a&eacute;rea en el momento del check in en el aeropuerto.<br />
+      -No permite  devoluci&oacute;n. <br />
+      -Los pasajes  ser&aacute;n entregados 7 d&iacute;as antes de la salida</li>
+      <li>Los gastos de anulaci&oacute;n de servicios terrestres, quedan  supeditados a las pol&iacute;ticas de los distintos hoteles y proveedores tur&iacute;sticos  involucrados en cada uno de los programas.</li>
+      <li><u>Charter</u>:<br />
+      </li>
+    -Permite  cambio de nombre hasta 5 d&iacute;as antes de la salida.&nbsp; No permite cambio de fecha.<br />
+    -Los asientos  son asignados por orden de fecha de compra y procurando que las familias queden  juntas.<br />
+      -Anulaciones  anterior<strong> 30  d&iacute;as de la salida, se retiene el equivalente al abono m&iacute;nimo</strong>.<br />
+      Entre 29 y 15 d&iacute;as antes de la  salida: 60% de penalidad sobre el valor total del programa. <br />
+      Entre 14 y 10 d&iacute;as antes de la  salida: 80% de penalidad sobre el valor del programa.<br />
+      Entre 9 y 0 d&iacute;as antes de la  salida: 100% de penalidad sobre el valor total del programa. <br />
+      En caso de no presentaci&oacute;n en el  aeropuerto o impedimento para salir del pa&iacute;s, no existir&aacute; ning&uacute;n tipo de  devoluci&oacute;n o cambio de fecha, por lo que se solicita chequear la documentaci&oacute;n  de viaje.
+    
+      <li>Los       cargos de seguridad y combustible son parte del valor del programa, por lo       tanto no tiene devoluci&oacute;n en caso de anulaci&oacute;n. Se encuentran sujetos a       variaci&oacute;n por parte de la cia. a&eacute;rea, &eacute;stos se congelan solamente con el       pago&nbsp;total del viaje.&nbsp; Las       tasas de embarque son 100% reembolsables.</li>
+     
+	 <!-- <li>Alojamiento:       Los horarios de check in y check out son fijados por cada hotel.&nbsp; En general las habitaciones est&aacute;n       disponibles para su ingreso a partir de las 15:00 hrs y la salida debe ser       antes de las 12:00 PM. Las salidas despu&eacute;s del horario establecido       facultan al hotel a cobrar un day use o bien una noche extra.</li>
+      <li>Las       excursiones regulares podr&iacute;an estar sujetas a modificaci&oacute;n en destino por       parte del operador local en d&iacute;a y horario por razones de operatividad u       otros motivos para la realizaci&oacute;n de las mismas, esto es informado       oportunamente por el operador en destino a los pasajeros. </li>
+      <li>Si por       motivos externos a la responsabilidad de Panamericana tales como:       condiciones clim&aacute;ticas, sismos, problemas pol&iacute;ticos, etc. Obligue a       modificar el programa y esto implique costos adicionales, &eacute;stos deben ser       asumidos por cuenta del pasajero.</li>
+      <li>Documentaci&oacute;n:       Es obligaci&oacute;n&nbsp;del pasajero contar con la documentaci&oacute;n de viaje al d&iacute;a       (C&eacute;dula de identidad, pasaportes, visados, autorizaciones notariales, etc.)       y de cualquier otro requisito necesarios para ingresar al lugar de destino       ya sea adulto o menor.&nbsp; </li>
+      <li>Panamericana       Turismo declina toda responsabilidad por cancelaciones, atrasos, cambios       de horarios y de fecha determinados por las aerol&iacute;neas.</li>
+      <li>Conocimiento       de condiciones, con la compra de un programa, queda autom&aacute;ticamente       establecido que el agente de viajes y cliente se notifican y aceptan todas       las condiciones generales para bloqueos y charter.</li> -->
+    </ul>
+        
+        
+        
+        
+        
+
+
+
+
+
+        <style>
+            <!--
+                @media print{
+                    .oculto{display:none}
+                }
+            -->
+        </style>
+        <center>
+            <div style="width:90%; text-align:right;" >
+                <img class="oculto" src="<?php echo $_layoutParamsCB['ruta_img']; ?>print.png" onClick="javascript:imprSelec('imprimirSector')" width="32" style="cursor:pointer;" /> &nbsp;<br />&nbsp;
+            </div>
+        </center>
+        <br /><br />
+    </body>
+        
+</html>
+</div>
+<script language="Javascript">
+    function imprSelec(nombre)
+    {
+        var ficha = document.getElementById(nombre);
+        var ventimp = window.open(' ', 'popimpr');
+        ventimp.document.write( ficha.innerHTML );
+        ventimp.document.close();
+        ventimp.print( );
+        ventimp.close();
+    }
+</script>

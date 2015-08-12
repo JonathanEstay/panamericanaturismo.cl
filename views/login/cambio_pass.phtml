@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><?php if(isset($this->titulo))echo $this->titulo; ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Avant">
+    <meta name="author" content="The Red Team">
+
+    <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all"> -->
+    <link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>styles.min.css?=121">
+    <link href='<?php echo $_layoutParams['ruta_css']; ?>google-fonts.css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+    
+    <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+</head>
+<body class="focusedform">
+
+<div class="verticalcenter">
+    
+    <center><img src="<?php echo $_layoutParams['ruta_img']; ?>logo.jpg" width="198" alt="Logo" style="margin-top:-50px" /></center>
+    <div class="panel panel-primary" style="margin-top:50px" >
+        <form action="<?php echo BASE_URL . 'login/recoveryPass'; ?>" method="post" class="form-horizontal">
+            <div class="panel-body">
+                <h4 class="text-center" style="margin-bottom: 25px;">Recuperar contrase&ntilde;a</h4>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><img src="<?php echo $_layoutParams['ruta_img']; ?>user.png" width="16"></span>
+                            <input type="text" class="form-control" id="username" name="txtUser" placeholder="Nombre de usuario" value="<?php if(Session::get('sess_usuario')){ echo Session::get('sess_usuario'); } ?>">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="clearfix">
+                        <div class="pull-right"><label><input type="checkbox" style="margin-bottom: 20px" checked=""> Remember Me</label></div>
+                </div> -->
+            </div>
+            <div class="panel-footer">
+
+                <div class="pull-right">
+                    <a href="<?php echo BASE_URL . 'login'; ?>" class="btn btn-default">Volver</a>
+                    <input type="submit" id="btnEntrar" class="btn btn-primary" value="Recuperar">
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</div>
+      
+</body>
+</html>

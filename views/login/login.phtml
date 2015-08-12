@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="<?php echo CHARSET; ?>">
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>"  />
+    <title><?php if(isset($this->titulo)){ echo $this->titulo; } ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Avant">
+    <meta name="author" content="The Red Team">
+
+    <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all"> -->
+    <script src="<?php echo $_layoutParams['ruta_js']; ?>jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>styles.min.css">
+    <link href='<?php echo $_layoutParams['ruta_css']; ?>google-fonts.css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+    
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="assets/css/ie8.css">
+		<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+        <script type="text/javascript" src="js/excanvas.min.js"></script>
+	<![endif]-->
+    <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+</head>
+<body class="focusedform">
+
+<div class="verticalcenter">
+
+    <center><img src="<?php echo $_layoutParams['ruta_img']; ?>logo.jpg" width="198" alt="Logo" style="margin-top:-50px" /></center>
+    <div class="panel panel-primary" style="margin-top:50px" >
+        <form action="<?php echo BASE_URL . 'login/ingresar'; ?>" method="post" class="form-horizontal">
+            <div class="panel-body">
+                <h4 class="text-center" style="margin-bottom: 25px;">Inicio de sesi&oacute;n</h4>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                
+                                <span class="input-group-addon"><img src="<?php echo $_layoutParams['ruta_img']; ?>closed.png" width="16"></span>
+                                <input type="password" class="form-control" id="password" name="txtUser" style="width: 90%" placeholder="C&oacute;digo">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix">
+                        <?php if(Session::get('sess_alerts')==1){ ?>
+                            <div class="alert alert-success" role="alert">
+                                <strong>La informaci&oacute; fue modificada con &eacute;xito. </strong>
+                            </div>
+                        <?php }else if(Session::get('sess_alerts')==2){  ?>
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Atenci&oacute;n!</strong>, <?php echo Session::get('sess_alerts_msg'); ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+            </div>
+            <div class="panel-footer">
+                <!-- <a href="<?php echo BASE_URL . 'login/cambioPass'; ?>" class="pull-left btn btn-link" style="padding-left:0">&iquest;Olvido su contrase&ntilde;a?</a> -->
+
+                <div class="pull-right">
+                    <a href="#" class="btn btn-default" onclick="$('#password').val('')">Limpiar</a>
+                    <input type="submit" id="btnEntrar" class="btn btn-primary" value="Entrar">
+                </div>
+            </div>
+        </form>
+    </div>
+ </div>
+    
+    
+    
+    
+    
+    
+    <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jqueryui-1.10.3.min.js'></script> 
+    <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>placeholdr.js'></script> 
+
+</body>
+</html>

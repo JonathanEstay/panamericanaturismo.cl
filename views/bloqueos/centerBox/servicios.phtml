@@ -1,0 +1,192 @@
+<?php foreach($this->objHotel as $objHotel) { ?>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios de Hotel</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                 <ul class="gallery list-unstyled">
+                 	
+                    <?php if($objHotel->getRestaurante()==1){ ?> 
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" /> Restaurant</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getLavanderia()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /> Lavander&iacute;a</label>
+                    </li>
+             
+                    <?php } if($objHotel->getPiscinaDes()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>piscina_desc.jpg" /> Piscina descubierta</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getTenis()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tenis.jpg" /> Cancha de tenis</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getBar()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>bar.jpg" /> Bar</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getBusiness()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>business_center.jpg" /> Business center</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getSpa()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>spa.jpg" /> Spa</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getGuarderia()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>guar_inf.jpg" /> Club de ni&ntilde;os</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getCafeteria()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>cafeteria.jpg" /> Cafeter&iacute;a</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getInterHotel()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>internet.jpg" /> Internet hotel</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getGym()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>gimnasio.jpg" /> Gimnasio</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getSalasReu()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>salones.jpg" /> Salas de reuni&oacute;n</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getServHab()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>room_service.jpg" /> Servicio a la habitaci&oacute;n</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getEstaciona()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>estacionamiento.jpg" /> Estacionamiento</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getPiscinaCub()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>piscina_cubierta.jpg" /> Piscina cubierta</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getJardin()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>jardines.jpg" /> Jard&iacute;n</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getDiscapacitados()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>acceso_discap.jpg" /> Discapacitados</label>
+                    </li>
+                    
+                    <?php } if($objHotel->getBoutique()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>shopping.jpg" /> Boutique</label>
+                    </li>
+                    
+                    <?php } ?>
+                </ul>  
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios Habitaci&oacute;n</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <ul class="gallery list-unstyled">
+                    <?php if($objHotel->getAcondicionado()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>aire_acondicionado.jpg" /> Aire acondicionado</label>
+                    </li>
+                            
+                    <?php } if($objHotel->getCajaFuerte()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>caja_de_seguridad.jpg" /> Caja fuerte</label>
+                    </li>
+                            
+                    <?php } if($objHotel->getTvCable()==1){ ?>    
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tv_cable.jpg" /> Televisi&oacute;n por Cable</label>
+                    </li>
+                            
+                    <?php } if($objHotel->getSecador()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>secador.jpg" /> Secador de pelo</label>
+                    </li>
+
+                    <?php } if($objHotel->getCalefaccion()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>calefaccion.jpg" /> Calefaci&oacute;n</label>
+                    </li>
+
+                    <?php } if($objHotel->getMiniBar()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>minibar.jpg" /> Mini bar</label>
+                    </li>
+                            
+                    <?php } if($objHotel->getTelefono()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>telefono.jpg" /> Tel&eacute;fono</label>
+                    </li>
+
+                    <?php } if($objHotel->getBarraSeg()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>barradeseguridad.jpg" /> Barra de Seguridad</label>
+                    </li>
+
+                    <?php } if($objHotel->getNoFuma()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>habitacion_no_fum.jpg" /> No fumadores</label>
+                    </li>
+                            
+                    <?php } if($objHotel->getTV()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>tv.jpg" /> Televisi&oacute;n</label>
+                    </li>
+
+                    <?php } if($objHotel->getInterHab()==1){ ?>
+                    <li class="mix" style="display: inline-block; opacity: 1;">
+                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>internet.jpg" /> Internet en Habitaci&oacute;n</label>
+                    </li>
+
+                    <?php } ?>
+                        
+                   </ul>     
+                
+            </div>
+            
+        </div>
+    </div>
+    
+   
+</div>
+<?php } ?>
