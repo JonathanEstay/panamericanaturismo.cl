@@ -1,3 +1,1 @@
 # panamericanaturismo.cl
-#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-eeeeeeeeeeeeee
