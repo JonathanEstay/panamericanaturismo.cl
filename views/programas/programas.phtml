@@ -158,12 +158,7 @@
                 <?php } ?>
                 
             </div>
-            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 7%; top:85%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 75px; <?php if(!Session::get('Autenticado') || $this->form==='a'){echo 'display: none;';}?>">
-                   <!-- <div class="modal-header">
-                        <button type="button" class="close" id="btnCerrarLo" style="display:block" onclick="fadeOut('loginPopup');">&times;</button>
-                        <h4 class="modal-title" id="tituloPopup">Login</h4>
-                    </div>-->
-
+            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 7%; top:85%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 75px; <?php if(!Session::get('Autenticado') || $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
                     <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; ">
                           <table>
                             <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario');  ?></td></tr>

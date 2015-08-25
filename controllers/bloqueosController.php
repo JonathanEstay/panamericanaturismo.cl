@@ -16,6 +16,10 @@ class bloqueosController extends Controller
         
         $form=$this->_view->getForm();
         
+        if(!$form){
+            $form[0]='a';
+            
+        }
        if($form[0]!='form'){
         Session::acceso('Usuario');   
         }
@@ -29,7 +33,7 @@ class bloqueosController extends Controller
         
         $item=true;
         $this->_view->_stilo='left: 169px;';
-        if($form=='a'){
+        if($form!='form'){
             Session::acceso('Usuario');
             $item=false;
             

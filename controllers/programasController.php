@@ -16,7 +16,10 @@ class programasController extends Controller
         
         $form=$this->_view->getForm();
         
-        
+        if(!$form){
+            $form[0]='';
+            
+        }
         if($form[0]!='form'){
             
           Session::acceso('Usuario');
