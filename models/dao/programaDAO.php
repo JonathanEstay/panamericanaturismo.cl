@@ -390,6 +390,7 @@ class programaDAO extends Model
     
     public function exeTS_GET_DETALLEPROG($sql) {
         $datos = $this->_db->consulta($sql);
+        
         if($this->_db->numRows($datos)>0) {
             
             $objetosDetProg = array();
