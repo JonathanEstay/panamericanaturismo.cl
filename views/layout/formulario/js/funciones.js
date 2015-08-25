@@ -24,8 +24,7 @@ function procesoDetalleProg(classFrm,form)
         form='/'+form;
         
 	initLoad();
-       
-       
+
 	$("#divPopupPRG").html("");
 	var contentType = false;
         var processData = false;

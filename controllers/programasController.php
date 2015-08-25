@@ -21,8 +21,6 @@ class programasController extends Controller
             
           Session::acceso('Usuario');
             
-        } else {
-            //echo 'NO23';
         }
         
         $this->_loadLeft();
@@ -157,7 +155,6 @@ class programasController extends Controller
             $this->_view->objProgramas= $programas->exeTS_GET_PROGRAMAS($sql);
             
             
-            //Local
             if(WEB) {
                 //WEB
                 $sql="EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__') . ", '', '" . Functions::invertirFecha(Session::get('sess_BP_fechaIn_PRG'), '/', '-') . "' ";
@@ -165,7 +162,9 @@ class programasController extends Controller
                 //Local
                 $sql="EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__') . ", '', '" . Session::get('sess_BP_fechaIn_PRG') . "' ";
             }
-
+            
+            
+            
             
             Session::set('sess_TS_GET_DETALLEPROG', $sql);
             //echo $sql; //exit;

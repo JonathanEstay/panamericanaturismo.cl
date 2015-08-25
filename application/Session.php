@@ -198,7 +198,7 @@ class Session
         if(!Session::get('Autenticado'))
         {
             header('Location: ' . BASE_URL . 'login/logForm');
-            
+            exit;
         }
 	
 	Session::tiempo();

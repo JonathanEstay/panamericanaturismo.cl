@@ -20,16 +20,17 @@ function valiPostFecha(form){
 
 function procesoDetalleProg(classFrm,form)
 {
-        form ='/'+form;
-       
+        
+        
+            form ='/'+form;
+        
         
 	initLoad();
 
 	$("#divPopupPRG").html("");
 	var contentType = false;
         var processData = false;
-        
-           
+    
         if(typeof FormData === "undefined"){
             //IE
             var formData = [];
@@ -67,7 +68,6 @@ function procesoDetalleProg(classFrm,form)
                     $("#divPopupPRG").html("Ha ocurrido un error");
 		}
 	});
-    
 }
 
 

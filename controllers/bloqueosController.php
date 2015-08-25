@@ -20,9 +20,7 @@ class bloqueosController extends Controller
         Session::acceso('Usuario');   
         }
         
-        
         $this->_loadLeft();
-        
     }
     
     
@@ -149,7 +147,6 @@ class bloqueosController extends Controller
             $this->_view->objOpcBloqueos= $bloqueos->TS_GET_BLOQUEOS_PROG_DETALLE($sql, false);
             $this->_view->objOpcBloqueosCNT = count($this->_view->objOpcBloqueos);
         }
-        //$this->_view->objOpcBloqueos=false;
         
         $this->_view->renderingCenterBox('opcionesPrograma');
     }
@@ -185,8 +182,6 @@ class bloqueosController extends Controller
         
         $DTH_codTiHab= $this->getTexto('varCenterBox');
         $DTH_codHot= $this->getTexto('varCenterBoxH');
-        
-        
         if($DTH_codTiHab)
         {
             Session::set('sessMOD_DTH_codTipoHab', $DTH_codTiHab);
