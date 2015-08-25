@@ -11,8 +11,18 @@ class programasController extends Controller
     
     public function __construct() {
         parent::__construct();
-        $this->_ciudad= $this->loadModel('ciudad');
-        Session::acceso('Usuario');
+        $this->_ciudad= $this->loadModel('ciudad');        
+        
+        
+        $form=$this->_view->getForm();
+        
+        
+        if($form[0]!='form'){
+            
+          Session::acceso('Usuario');
+            
+        }
+        
         $this->_loadLeft();
     }
     
@@ -25,8 +35,18 @@ class programasController extends Controller
     *                                METODOS VIEWS                                 *
     *                                                                              *
     *******************************************************************************/
-    public function index() {
-        Session::acceso('Usuario');
+    public function index($form = '') {
+        
+        $item=true;
+        if($form!='form'){
+         
+            Session::acceso('Usuario');
+            $item = false;
+        }
+        
+        $this->_view->form=$form;
+        
+
         $this->_view->setJS(array('validaCampos', 'programas'));
         
         //$this->getLibrary('kint/Kint.class');
@@ -63,7 +83,7 @@ class programasController extends Controller
         $this->_view->currentMenu=22;
         $this->_view->procesoTerminado=false;
         $this->_view->titulo='ORISTRAVEL';
-        $this->_view->renderingSystem('programas');
+        $this->_view->renderingSystem('programas',$item);
     }
     
     
@@ -114,9 +134,18 @@ class programasController extends Controller
     }
     
     
-    public function detalle() {
+    public function detalle($form='') {
         
-        Session::acceso('Usuario');
+               
+        $this->_view->form=$form;
+        
+        
+        
+        if($form!='form'){
+         
+            Session::acceso('Usuario');
+        }
+        
         $programas= $this->loadModel('programa');
         
         if($this->getInt('__SP_id__')) {
@@ -126,8 +155,16 @@ class programasController extends Controller
             $this->_view->objProgramas= $programas->exeTS_GET_PROGRAMAS($sql);
             
             
-            //Local
-            $sql="EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__');
+            if(WEB) {
+                //WEB
+                $sql="EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__') . ", '', '" . Functions::invertirFecha(Session::get('sess_BP_fechaIn_PRG'), '/', '-') . "' ";
+            } else {
+                //Local
+                $sql="EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__') . ", '', '" . Session::get('sess_BP_fechaIn_PRG') . "' ";
+            }
+            
+            
+            
             
             Session::set('sess_TS_GET_DETALLEPROG', $sql);
             //echo $sql; //exit;
@@ -161,8 +198,13 @@ class programasController extends Controller
     }
     
     
-    public function pasajeros() {
-        Session::acceso('Usuario');
+    public function pasajeros($form='') {
+        
+        $this->_view->form=$form;
+        
+        
+        Session::accForm('Usuario');
+        
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             
             if($this->getInt('_PP_')) {
@@ -184,7 +226,10 @@ class programasController extends Controller
     }
     
     
-    public function detallePasajeros() {
+    public function detallePasajeros($form='') {
+        
+        $this->_view->form=$form;
+       
         Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             $totalPago=0;
@@ -220,7 +265,9 @@ class programasController extends Controller
      * @return String OK
      * @author Jonathan Estay
      */
-    public function procesoReserva() {
+    public function procesoReserva($form='') {
+                
+        
         Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             $programas= $this->loadModel('programa');
@@ -305,7 +352,10 @@ class programasController extends Controller
                     } else {
                         Session::set('sess_numeroFile', $objRes->getFile());
                         $param='';
-                        $html= $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion');
+                        
+                        //echo $form; exit;
+                        $html= $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/'.$form);
+                        
                         //$this->getLibrary('class.phpmailer');
                         //$this->mailReserva($n_file, $html);
                         echo 'OK&' .  md5(':D');
@@ -334,8 +384,9 @@ class programasController extends Controller
      * @return String HTML carta confirmacion
      * @author Jonathan Estay
      */
-    public function cartaConfirmacion()
+    public function cartaConfirmacion($form='')
     {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             if($this->getTexto('__sucessful__')) {
@@ -821,7 +872,9 @@ class programasController extends Controller
      * </PRE>
      * @author Jonathan Estay
      */
-    public function buscar() {
+    public function buscar($form='') {
+                 
+        
         $BP_cntHab = $this->getInt('mL_cmbHab_PRG');
         $BP_ciudadDes = $this->getTexto('mL_txtCiudadDestino_PRG');
         $BP_fechaIn = $this->getTexto('mL_txtFechaIn_PRG');
@@ -875,8 +928,9 @@ class programasController extends Controller
                 Session::set('sess_BP_edadChd_2_' . $i, 0);
             }
         }
-
-        $this->redireccionar('programas');
+        
+        
+        $this->redireccionar('programas/index/'.$form);
     }
     
     
@@ -891,5 +945,13 @@ class programasController extends Controller
     public function buscarAdm() {
         Session::set('sess_AP_ciudad', $this->getTexto('AP_cmbCiudadDestino'));
         $this->redireccionar('programas/admin');
+    }
+    public function validadPostFe($form=''){
+        
+        $fecha =$this->getTexto('fecha');
+        
+        if(!Session::get('sess_fechaDefault')){
+           Session::set('sess_fechaDefault', $fecha);
+        }        
     }
 }

@@ -13,14 +13,29 @@ class bloqueosController extends Controller
     public function __construct() {
         parent::__construct();
         $this->_ciudad = $this->loadModel('ciudad');
-        Session::acceso('Usuario');
+        
+        $form=$this->_view->getForm();
+        
+       if($form[0]!='form'){
+        Session::acceso('Usuario');   
+        }
+        
         $this->_loadLeft();
     }
     
     
-    public function index()
+    public function index($form='')
     {
-        Session::acceso('Usuario');
+        
+        $item=true;
+        $this->_view->_stilo='left: 169px;';
+        if($form=='a'){
+            Session::acceso('Usuario');
+            $item=false;
+            
+            
+        }
+        $this->_view->form=$form;
         //$this->_view->setJS(array(''));
         
         //$this->getLibrary('kint/Kint.class');
@@ -30,6 +45,8 @@ class bloqueosController extends Controller
         
         $this->_view->objCiudades= $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG= $this->_ciudad->getCiudadesPRG();
+        
+        
         if(Session::get('sess_BP_ciudadDes'))
         {
             $this->loadDTO('incluye');
@@ -47,6 +64,7 @@ class bloqueosController extends Controller
                     . "'".str_replace('/', '-', Session::get('sess_BP_fechaIn'))."', "
                     . "'".str_replace('/', '-', Session::get('sess_BP_fechaOut'))."', "
                     . "'".Session::get('sess_BP_hotel')."'";
+                
             }
             
             
@@ -55,6 +73,7 @@ class bloqueosController extends Controller
                 $sql.= ", '".Session::get('sess_BP_Adl_'.$i)."', '".Session::get('sess_BP_edadChd_1_'.$i)."', 
                     '".Session::get('sess_BP_edadChd_2_'.$i)."', '".Session::get('sess_BP_Inf_'.$i)."'"; //habitaciones
             }
+          
             
             Session::set('sess_sql_TraeProg', $sql);
             //echo $sql; exit;
@@ -68,7 +87,7 @@ class bloqueosController extends Controller
         $this->_view->currentMenu=11;
         //$this->_view->procesoTerminado=false;
         $this->_view->titulo='ORISTRAVEL';
-        $this->_view->renderingSystem('bloqueos');
+        $this->_view->renderingSystem('bloqueos',$item);
     }
     
     
@@ -85,9 +104,12 @@ class bloqueosController extends Controller
     *                          METODOS VIEWS CENTER BOX                            *
     *                                                                              *
     *******************************************************************************/
-    public function opciones()
+    public function opciones($form='')
     {
-        Session::acceso('Usuario');
+        if($form!='form'){
+            Session::acceso('Usuario');
+        }
+        $this->_view->form = $form;
         //echo "opciones!"; exit;
         $BO_idprog= $this->getTexto('__id__');
         //$this->_view->ML_fechaIni= Session::get('sess_BP_fechaIn');
@@ -130,9 +152,11 @@ class bloqueosController extends Controller
     }
     
     
-    public function fotosHotel()
+    public function fotosHotel($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $FH_codHotel= $this->getTexto('varCenterBox');
         if($FH_codHotel)
         {
@@ -154,10 +178,70 @@ class bloqueosController extends Controller
         }
     }
     
+    public function fotosTipoHab($form='') {
+        
+        $DTH_codTiHab= $this->getTexto('varCenterBox');
+        $DTH_codHot= $this->getTexto('varCenterBoxH');
+        if($DTH_codTiHab)
+        {
+            Session::set('sessMOD_DTH_codTipoHab', $DTH_codTiHab);
+            $DTH_tHab= $this->loadModel('tipoHab');
+            
+            $DTH_objsTipoHab= $DTH_tHab->getTipoHab($DTH_codTiHab);
+            $this->_view->DTH_nombreDTipoHab= $DTH_objsTipoHab[0]->getNombre();
+            
+            //echo $DTH_codTiHab .' - '.$DTH_codHot; exit;
+            $this->_view->DTH_objsDetTipoHab= $DTH_tHab->getDetTipoHab($DTH_codTiHab, $DTH_codHot);
+            
+            /*if($DTH_objsDetTipoHab)
+            {
+                Session::set('sess_DTH_cntFotos', 1);
+                $this->_view->DTH_foto1= $DTH_objsDetTipoHab[0]->getFoto1();
+                $this->_view->DTH_foto2= $DTH_objsDetTipoHab[0]->getFoto2();
+                $this->_view->DTH_foto3= $DTH_objsDetTipoHab[0]->getFoto3();
+                $this->_view->DTH_foto4= $DTH_objsDetTipoHab[0]->getFoto4();
+                
+                Session::set('sessMOD_DTH_img1', $this->_view->DTH_foto1);
+                Session::set('sessMOD_DTH_img2', $this->_view->DTH_foto2);
+                Session::set('sessMOD_DTH_img3', $this->_view->DTH_foto3);
+                Session::set('sessMOD_DTH_img4', $this->_view->DTH_foto4);
+            }
+            else
+            {
+                Session::set('sess_DTH_cntFotos', 0);
+                $this->_view->DTH_foto1=false;
+                $this->_view->DTH_foto2=false;
+                $this->_view->DTH_foto3=false;
+                $this->_view->DTH_foto4=false;
+                
+                Session::set('sessMOD_DTH_img1', $this->_view->DTH_foto1);
+                Session::set('sessMOD_DTH_img2', $this->_view->DTH_foto2);
+                Session::set('sessMOD_DTH_img3', $this->_view->DTH_foto3);
+                Session::set('sessMOD_DTH_img4', $this->_view->DTH_foto4);
+            }*/
+            
+            if($this->_view->DTH_objsDetTipoHab)
+            {
+                $this->_view->renderingCenterBox('fotosTipoH');
+            }
+            else
+            {
+                throw new Exception('No se encontraron fotos para este tipo de habitacion.');
+            }
+            
+        }
+        else
+        {
+            throw new Exception('Error al cargar el detalle de tipo habitaci&oacute;n');
+        }
+    }
     
-    public function mapas()
+    
+    public function mapas($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $M_codHotel= $this->getTexto('varCenterBox');
         if($M_codHotel)
         {
@@ -180,9 +264,11 @@ class bloqueosController extends Controller
     }
     
     
-    public function notas()
+    public function notas($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $idOpc= $this->getTexto('varCenterBox');
         if($idOpc)
         {
@@ -198,9 +284,11 @@ class bloqueosController extends Controller
     }
     
     
-    public function servicios()
+    public function servicios($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $S_codHotel= $this->getTexto('varCenterBox');
         if($S_codHotel)
         {
@@ -223,9 +311,11 @@ class bloqueosController extends Controller
     }
     
     
-    public function itinerarioVuelo()
+    public function itinerarioVuelo($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $idOpc= $this->getTexto('varCenterBox');
         if($idOpc)
         {
@@ -241,9 +331,11 @@ class bloqueosController extends Controller
     }
     
     
-    public function condicionesGenerales()
+    public function condicionesGenerales($form='')
     {
+        if($form!='form'){
         Session::acceso('Usuario');
+        }
         $idPrg= $this->getTexto('varCenterBox');
         if($idPrg)
         {
@@ -259,9 +351,10 @@ class bloqueosController extends Controller
     }
     
     
-    public function reservaPrograma()
+    public function reservaPrograma($form='')
     {
-        Session::acceso('Usuario');
+        $this->_view->form=$form;
+        Session::accForm('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest')
         {
             $RP_rdbOpc = false;
@@ -269,8 +362,8 @@ class bloqueosController extends Controller
             //$this->
             $tags= array_keys($this->getPOST());
             if(!empty($tags[1])) { 
-                $RP_rdbOpc= $this->getTexto($tags[1]);
-                $RP_idProg= $this->getTexto($tags[0]);
+                $RP_rdbOpc= $this->getTexto('varCenterBox');
+                $RP_idProg= $this->getTexto('varCenterBoxH');
             }
             
             
@@ -360,7 +453,7 @@ class bloqueosController extends Controller
     *                             METODOS PROCESADORES                             *
     *                                                                              *
     *******************************************************************************/
-    public function procesoReserva()
+    public function procesoReserva($form='')
     {
         Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
@@ -388,8 +481,9 @@ class bloqueosController extends Controller
     }
 
     
-    public function cartaConfirmacion()
+    public function cartaConfirmacion($form='')
     {
+        $this->_view->form=$form;
         //Cargando modelos
         $M_file= $this->loadModel('reserva');
         $M_bloqueos= $this->loadModel('bloqueo');
@@ -457,9 +551,13 @@ class bloqueosController extends Controller
     }
     
     
-    public function buscar()
+    public function buscar($form='')
     {
-        Session::acceso('Usuario');
+        
+        
+        if($form === 'a'){
+         Session::acceso('Usuario');   
+        }
         $BP_cntHab= $this->getInt('mL_cmbHab');
         $BP_ciudadDes= $this->getTexto('mL_txtCiudadDestino');
         $BP_fechaIn= $this->getTexto('mL_txtFechaIn');
@@ -516,6 +614,14 @@ class bloqueosController extends Controller
             }
         }
 
-        $this->redireccionar('bloqueos');
+        $this->redireccionar('bloqueos/index/'.$form);
+    }
+    public function validadPostFe($form=''){
+        
+        $fecha =$this->getTexto('fecha');
+        
+        if(!Session::get('sess_fechaDefault')){
+           Session::set('sess_fechaDefault', $fecha);
+        }        
     }
 }

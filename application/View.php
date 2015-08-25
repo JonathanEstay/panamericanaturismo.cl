@@ -12,13 +12,15 @@ class View
     private $_controlador;
     private $_js;
     private $_rutas;
+    private $_args;
     
     public function __construct(Request $peticion) { //$peticion es un objeto de Request
         $this->_controlador= $peticion->getControlador();
         //$this->_request = $peticion;
         $this->_js=array();
         $this->_rutas = array();
-        
+  
+        $this->_args = $peticion->getArgs();
         /*$modulo = $this->_request->getModulo();
         $controlador= $this->_request->getControlador();
         
@@ -69,9 +71,12 @@ class View
     }
     
     
+    public function getForm(){
+        return $this->_args;
+    }
+
     
-    
-    
+
     public function renderingSystem($vista, $item=false)
     {
         $js = array();
@@ -93,8 +98,15 @@ class View
         
         if(is_readable($rutaView))
         {
+            if($item){
+            include_once ROOT . 'views' . DS . 'layout' . DS . 'formulario' . DS . '_NavBar2.php';
+            include_once ROOT . 'views' . DS . 'layout' . DS . 'formulario' . DS . '_LeftSidebar2.php';
+            }else{
             include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_NavBar.php';
             include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_LeftSidebar.php';
+            }
+            
+            
             include_once $rutaView;
             include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_Footer.php';
         }

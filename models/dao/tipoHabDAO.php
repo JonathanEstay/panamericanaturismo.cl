@@ -14,12 +14,14 @@ class tipoHabDAO extends Model
     
     public function getTipoHab($cod=0)
     {
-        $sql='SELECT codigo, nombre FROM tipoh';
+        $sql='SELECT codigo, nombre FROM tipoh ';
 		
         if(!empty($cod))
         {
-            $sql.=' WHERE codigo="'.$cod.'"';
+            $sql.=' WHERE codigo="'.$cod.'" ';
         }
+        
+        $sql.='ORDER BY nombre ASC ';
         
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos))

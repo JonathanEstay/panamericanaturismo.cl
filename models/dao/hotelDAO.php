@@ -95,7 +95,7 @@ class hotelDAO extends Model
                 $objHotel->setLon(trim($hDB['lon']));
                 $objHotel->setDirec(trim($hDB['direc']));
                 $objHotel->setSitioWeb(trim($hDB['SWEB']));
-                $objHotel->setDescrip(trim($hDB['descripcion']));
+                $objHotel->setDescrip(html_entity_decode(trim($hDB['descripcion'])));
                 
                 
                 $objHotel->setRestaurante(trim($hDB['restaurante']));
