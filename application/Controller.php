@@ -21,6 +21,23 @@ abstract class Controller
     
     protected function _loadLeft()
     {
+        if($this->getServer('HTTP_REFERER') == 'http://tsyacom-pc/formulario/oscar'){
+            
+            if($this->getTexto('mL_txtFechaIn_PRG')) { 
+                Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
+                
+            }else{
+                if($this->getTexto('mL_txtFechaIn')){
+                    Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
+                }
+                
+            }
+        }else{
+            if(!Session::get('sess_fechaDefault')){
+                
+                Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
+            }
+        }
         $this->_view->ML_fechaIni=  Session::get('sess_fechaDefault');
         $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
         $this->_view->ML_fechaIni_PRG=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');

@@ -126,6 +126,7 @@ class hotelesController extends Controller
             $MH_lat= $this->getTexto('txtEH_latitud');
             $MH_lon= $this->getTexto('txtEH_longitud');
             $MH_sitWeb= $this->getTexto('txtEH_sitioWeb');
+            $MH_areaDescrip= $this->getPostClave('areaDescrip');
             
             
             if(!$MH_nombreHotel)
@@ -204,7 +205,7 @@ class hotelesController extends Controller
 
 
             $MH_sql='UPDATE hotel 
-                    SET hotel="'.mb_convert_encoding($MH_nombreHotel, "ISO-8859-1", "UTF-8").'", direc="'.mb_convert_encoding($MH_direc, "ISO-8859-1", "UTF-8").'", cat="'.$MH_cate.'", SWEB="'.$MH_sitWeb.'", estado="", 
+                    SET hotel="'.mb_convert_encoding($MH_nombreHotel, "ISO-8859-1", "UTF-8").'", direc="'.mb_convert_encoding($MH_direc, "ISO-8859-1", "UTF-8").'", cat="'.$MH_cate.'", descripcion="' . str_replace('\\', '', htmlentities($MH_areaDescrip)) . '", SWEB="'.$MH_sitWeb.'", estado="", 
                     lat="'.$MH_lat.'", lon="'.$MH_lon.'", restaurante='.$MH_chkRest.', bar='.$MH_chkBar.', cafeteria='.$MH_chkCafe.', 
                     s_habitacion='.$MH_chkServHab.', busness_center='.$MH_chkBusCen.', internet_hotel='.$MH_chkInterHot.', estacionamiento='.$MH_chkEst.', 
                     piscina_cub='.$MH_chkPisCub.', piscina_des='.$MH_chkPisDesc.', gym='.$MH_chkGym.', spa='.$MH_chkSpa.', tenis='.$MH_chkCanTenis.', 

@@ -40,14 +40,17 @@ Programa.prototype.validaPasaporte = function(id, rut, passport) {
 };
 
 
-Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, mon, opc) {
+Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf, mon, opc,form) {
 
+    form='/'+form;
+    
     if(valor) {
-        $.post(php, {
+        $.post(php+form, {
             _PP_: valor,
             _SGL_: sgl,
             _DBL_: dbl,
             _TPL_: tpl,
+            _PF_: pf,
             _MON_: mon,
             _OPC_: opc
         }, function(data) {
@@ -66,8 +69,11 @@ Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, mon
     }
 };
 
-Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div)
+Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,form)
 {
+    
+    form='/'+form;
+    
     $("#"+btn).attr('disabled', 'disabled');
     initLoad();
     
@@ -111,7 +117,7 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div)
     
     //hacemos la peticion ajax  
     $.ajax({
-        url: php,  
+        url: php+form,  
         type: 'POST',
         //Form data
         //datos del formulario
@@ -140,8 +146,10 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div)
 
 
 
-Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div)
+Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form)
 {
+    form='/'+form;
+    
     $("#"+btn).attr('disabled', 'disabled');
 
     initLoad();
@@ -166,7 +174,7 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div)
     
     //hacemos la peticion ajax  
     $.ajax({
-        url: php,  
+        url: php+form,  
         type: 'POST',
         //Form data
         //datos del formulario
@@ -191,7 +199,7 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div)
                 //alert('TODO OK'); return false;
                 fadeOut('detallePopup');
                 $("#"+div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
-                $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion", 
+                $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion"+form, 
                 {
                     __sucessful__: myArrayData[1]
 

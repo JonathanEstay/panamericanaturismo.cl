@@ -21,8 +21,9 @@ class loginController extends Controller
     *                                                                              *
     *******************************************************************************/
     
-    public function index()
+    public function index($ifram='')
     {
+        $this->_view->estado=$ifram;
         $this->_view->titulo='Iniciar sesi&oacute;n';
         $this->_view->renderingMain('login');
         $this->_alertDestroy();
@@ -35,10 +36,16 @@ class loginController extends Controller
         $this->_alertDestroy();
     }
     
+    public function logForm(){
+        $this->_view->renderingMain('login_form');
+    }
     
-    
-    
-    
+    public function divLogin(){
+        
+        $this->_view->renderingMain('login_div');
+    }
+
+
 
     
     
@@ -172,6 +179,22 @@ class loginController extends Controller
             $this->redireccionar(); //Ingrese un usuario o Pass
         }
     }
+    
+    
+    
+    
+    public function verificarLogin() {
+        
+        sleep(2);
+        if(Session::get('Autenticado')){
+            
+            echo'1';
+        } else {
+            echo'2';
+        }
+    }
+    
+    
     
     public function recoveryPass()
     {

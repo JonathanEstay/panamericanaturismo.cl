@@ -1,4 +1,33 @@
 <?php foreach($this->objHotel as $objHotel) { ?>
+
+<?php if($objHotel->getDescrip()){ ?> 
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Descripci&oacute;n</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">	
+                <label>
+                    <?php echo $objHotel->getDescrip(); ?>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="panel panel-info">
     <div class="panel-heading">
         <h4>Servicios de Hotel</h4>

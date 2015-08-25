@@ -6,13 +6,25 @@ function methodSend(classFrm, php, btn, div) {
         procesoEnviaForm(classFrm, php, btn, div);
     }
 }
+function valiPostFecha(form){
+    
+    
+    var fecha = $("#mL_txtFechaIn_PRG").val();
+    
+    $.post(BASE_URL_JS+ CONTROLLER_JS +'/validadPostFe'+form,{fecha:fecha},function(){});
+    
+}
 
 
 
 
-
-function procesoDetalleProg(classFrm)
+function procesoDetalleProg(classFrm,form)
 {
+        
+        
+            form ='/'+form;
+        
+        
 	initLoad();
 
 	$("#divPopupPRG").html("");
@@ -31,7 +43,7 @@ function procesoDetalleProg(classFrm)
         
 	//hacemos la peticion ajax  
 	$.ajax({
-		url: BASE_URL_JS + CONTROLLER_JS + '/detalle',  
+		url: BASE_URL_JS + CONTROLLER_JS + '/detalle'+form,  
 		type: 'POST',
 		//Form data
 		//datos del formulario
@@ -137,8 +149,9 @@ function procesoEnviaForm(classFrm, php, btn, div)
 
 
 
-function procesoReservaPRG(classFrm, php, btn, div)
+function procesoReservaPRG(classFrm, php, btn, div,form)
 {
+    form='/'+form;
     $("#"+btn).attr('disabled', 'disabled');
 
     initLoad();
@@ -333,7 +346,7 @@ function procesoReservaPRG(classFrm, php, btn, div)
    
     //hacemos la petición ajax  
     $.ajax({
-            url: php,  
+            url: php+form,  
             type: 'POST',
             //Form data
             //datos del formulario
@@ -358,7 +371,7 @@ function procesoReservaPRG(classFrm, php, btn, div)
                     //alert('TODO OK'); return false;
                     
                     $("#"+div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
-                    $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion", 
+                    $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion"+form, 
                     {
                         CR_n_file: myArrayData[1],
                         CR_cod_prog: myArrayData[2],
@@ -632,6 +645,28 @@ function fadeOut(id) {
                             'display': 'none'
                         }); 
 }
+function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form){
+    
+    var valor = $("#ValiFormLogin").val();
+    
+   
+     
+   if(valor === '1'){
+        fadeIn('detallePopup');
+        $('#divPopupIn').css('overflow-y', 'scroll');
+        Programa.prototype.pasajerosProg(cant,'divPopupIn',php,sgl,dbl,tpl,pf,moneda,Opc,form);
+        
+    }else{
+        
+        fadeIn('loginPopup');
+        $('#divLoginIn').css('overflow-y', 'scroll');
+        Programa.prototype.pasajerosProg(cant,'divLoginIn',php,sgl,dbl,tpl,pf,moneda,Opc,form);
+        
+        
+    }
+   
+    
+}
 
 
 
@@ -667,7 +702,17 @@ function buscarCiudad(ciudad, frmBus, ob, id)
     }
 }
 
-
+function divLogin(php)
+{
+    
+    $.ajax({
+        url:php,
+        type:'post',
+        success:function(data){
+            $("#divLoginStatusIn").html(data);
+        }
+    });
+}
 
 
 
@@ -766,12 +811,14 @@ function muestraOculta(id, estado)
     }
 }
 
-function abrePopup(div, docPHP, idTitulo, titulo, val)
+function abrePopup(div, docPHP, idTitulo, titulo, val,form)
 {
+    form = '/'+form;
+    
     initLoad();
     $("#" + div).html('');
     $("#" + idTitulo ).html(titulo);
-    $.post(docPHP, 
+    $.post(docPHP+form, 
     {
         varCenterBox: val
     }, function(data)
@@ -781,12 +828,91 @@ function abrePopup(div, docPHP, idTitulo, titulo, val)
     });
 }
 
-function detectedCollapsed(id, opciones, idProg)
+
+function abrePopupHab(div, docPHP, idTitulo, titulo, val, hot,form)
 {
+    form='/'+form;
+    
+    initLoad();
+    $("#" + div).html('');
+    $("#" + idTitulo ).html(titulo);
+    $.post(docPHP+form, 
+    {
+        varCenterBox: val,
+        varCenterBoxH: hot
+    }, function(data)
+    {
+        $("#" + div).html(data);
+        endLoad();
+    });
+}
+
+function openForm(div, docPHP, idTitulo, titulo, val, hot,form){
+    
+    var valor = $("#ValiFormLogin").val();
+    
+    
+    form='/'+form;
+    initLoad(valor);
+   
+       
+   if(valor === '1'){
+       $("#divPopupPRG").html('');
+       $("#tituloFormPRG").html(titulo);
+       $.post(docPHP+form, 
+        {
+        varCenterBox: val,
+        varCenterBoxH: hot
+        }, function(data)
+        {
+        $("#divPopupPRG").html(data);
+        endLoad();
+        });
+        }else{
+            
+        
+        fadeIn('loginPopup');
+        $("#divLoginIn").html('');
+       
+        $.post(docPHP+form, 
+         {
+            varCenterBox: val,
+            varCenterBoxH: hot
+         }, function(data)
+         {
+        $("#divLoginIn").html(data);
+        endLoad();
+        
+        });
+        
+        
+    }
+    
+}
+
+function loginSide(docPHP,form){
+    form='/'+form;
+        fadeIn('loginPopup');
+        $("#divLoginIn").html('');
+       
+        $.post(docPHP+form, 
+         function(data)
+         {
+        $("#divLoginIn").html(data);
+        endLoad();
+        
+        });
+    
+}
+
+function detectedCollapsed(id, opciones, idProg,form)
+{
+    form='/'+form;
+    
     if($( "#" + id ).hasClass( "in" ) === false) {
         if($.trim($("#" + opciones).html()) === '') {
             initLoad();
-            $.post(BASE_URL_JS + CONTROLLER_JS + '/opciones', 
+            $.post(BASE_URL_JS + CONTROLLER_JS + '/opciones'+form, 
             {
                 __id__: idProg
             }, function(data)
