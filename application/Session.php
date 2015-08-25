@@ -192,4 +192,15 @@ class Session
             Session::set('tiempo', time());
         }
     }
+    
+    public static function accForm($level)
+    {
+        if(!Session::get('Autenticado'))
+        {
+            header('Location: ' . BASE_URL . 'login/logForm');
+            
+        }
+	
+	Session::tiempo();
+    }
 } 

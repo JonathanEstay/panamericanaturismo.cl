@@ -390,6 +390,7 @@ class programaDAO extends Model
     
     public function exeTS_GET_DETALLEPROG($sql) {
         $datos = $this->_db->consulta($sql);
+        
         if($this->_db->numRows($datos)>0) {
             
             $objetosDetProg = array();
@@ -433,6 +434,8 @@ class programaDAO extends Model
                     $objDetProg->setVNetoDBL(trim($detProgDB['vNeto_DBL']));
                     $objDetProg->setVVenTPL(trim($detProgDB['vVen_TPL']));
                     $objDetProg->setVNetoTPL(trim($detProgDB['vNeto_TPL']));
+                    $objDetProg->setVVenPF(trim($detProgDB['vVen_PF']));
+                    $objDetProg->setVNetoPF(trim($detProgDB['vNeto_PF']));
                     //$objDetProg->setXxx(trim($detProgDB['xxx']));
 
                     /* HOTELES */

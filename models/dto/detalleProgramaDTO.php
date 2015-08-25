@@ -26,6 +26,8 @@ class detalleProgramaDTO
     private $_vneto_dbl;
     private $_vven_tpl;
     private $_vneto_tpl;
+    private $_vven_pf;
+    private $_vneto_pf;
     private $_estado;
     
     private $_cod_hoteles;
@@ -171,6 +173,13 @@ class detalleProgramaDTO
         $this->_vven_tpl = $valor;
     }
     
+    public function getVVenPF() {
+        return $this->_vven_pf;
+    }
+    public function setVVenPF($pf) {
+        $this->_vven_pf = $pf;
+    }
+    
     public function getVNetoSGL() {
         return $this->_vneto_sgl;
     }
@@ -190,6 +199,13 @@ class detalleProgramaDTO
     }
     public function setVNetoTPL($valor) {
         $this->_vneto_tpl = $valor;
+    }
+    
+    public function getVNetoPF() {
+        return $this->_vneto_pf;
+    }
+    public function setVNetoPF($pf) {
+        $this->_vneto_pf = $pf;
     }
     
     public function getEstado() {

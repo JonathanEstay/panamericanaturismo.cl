@@ -51,7 +51,7 @@ class habitacionController extends Controller
             $this->_view->DTH_nombreDTipoHab= $DTH_objsTipoHab[0]->getNombre();
             
             $DTH_objsDetTipoHab= $DTH_tHab->getDetTipoHab($DTH_codTiHab, Session::get('sessMOD_ETH_codHotel'));
-            if($DTH_objsDetTipoHab!=false)
+            if($DTH_objsDetTipoHab)
             {
                 Session::set('sess_DTH_cntFotos', 1);
                 $this->_view->DTH_foto1= $DTH_objsDetTipoHab[0]->getFoto1();

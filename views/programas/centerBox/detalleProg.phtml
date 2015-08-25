@@ -114,33 +114,20 @@
             
             <div class="tab-pane" id="condiciones">
                 <table width="100%" style="margin-top: -15px; margin-left: -15px;">
-                        <tr>
-                            <td colspan="2">
-                                <p><b style="color:#FF9900; font-size:11px">DESCRIPCI&Oacute;N:</b><br> 
-                                    <?php echo $this->objProgramas[0]->getNota(); ?>
-                                </p>
-                            </td>
-                        </tr>
-                        <!-- <tr>
-                            <td>
-                                <p>
-                                   <b style="color:#FF9900; font-size:11px">SERVICIOS HOTEL:</b><br>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
+                    <tr>
+                        <td colspan="2">
+                            <p><b style="color:#FF9900; font-size:11px">DESCRIPCI&Oacute;N:</b><br> 
+                                <?php echo $this->objProgramas[0]->getNota(); ?>
+                            </p>
+                        </td>
+                    </tr>
 
-                                    <b style="color:#FF9900; font-size:11px">SERVICIOS HABITACI&Oacute;N:</b><br> 
-
-                                </p>
-                            </td>
-                        </tr> -->
-                    </table>
+                </table>
             </div>
         </div>
     </div>
     
-    
+    <input type="hidden" id="ValiFormLogin" value="<?php if(!Session::get('Autenticado')){echo'0';}else{echo'1';}?>">
     
     
     
@@ -156,13 +143,7 @@ if($this->objOpcProgramas) {
         Opci&oacute;n <?php echo $cntDP; if($objOpcProg->getEstado() == 'AVAILABLE') { ?>
             <div class="blink" style="float: right;"><button class="btn btn-warning btn-sm" > &iexcl; DISPONIBLE ! </button><?php //echo $objOpcProg->getEstado(); ?></div>
         <?php } ?>
-            <div style="float: right;"><a href="#" onclick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloPopup', 'Nota de Programa', '<?php echo $objOpcProg->getIdOpc(); ?>');" title='Nota opcion'><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24" style="margin-left:5px;" ></a></div>
-            
-        <script type="text/javascript">
-            $(function(){
-                $( "#tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>" ).poshytip({ className: "tip-darkgray", alignY : "bottom" });
-            });
-        </script>
+            <div style="float: right;"><a href="#" onclick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloPopup', 'Nota de Programa', '<?php echo $objOpcProg->getIdOpc(); ?>','<?php echo $this->form;?>');" title='Nota opcion'><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24" style="margin-left:5px;" ></a></div>
     </div>
     <div class="panel-body">
         <div class="tab-content" style="display: block;" id="tab_content_1_<?php echo $cntDP; ?>">
@@ -172,9 +153,13 @@ if($this->objOpcProgramas) {
                 <thead>
                     <tr style="background-color:#34495e; color: #FFFFFF" role="row">
                         <th role="columnheader" style="padding-left: 2px;">Hotel</th>
-                        <th role="columnheader" style="padding-left: 2px;">Direcci&oacute;n</th>
-                        <th role="columnheader" style="padding-left: 2px;">Categoria</th>
-                        <th role="columnheader" style="padding-left: 2px;">Tipo Habitaci&oacute;n</th>
+                        <th role="columnheader" style="padding-left: 2px; width: 300px;">Direcci&oacute;n</th>
+                        <th role="columnheader" style="padding-left: 2px; width: 80px;">Categoria</th>
+                        <th role="columnheader" style="padding-left: 2px; width: 100px;">Habitaci&oacute;n</th>
+                        <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
+                        <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
+                        <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
+                        
                     </tr>
                 </thead>
                 
@@ -184,69 +169,52 @@ if($this->objOpcProgramas) {
                 $DP_dirHot= $objOpcProg->getDir();
                 $DP_catHot= $objOpcProg->getCat();
                 $DP_thHot= $objOpcProg->getTipoHab();
+                $DP_codthHot= $objOpcProg->getCodTH();
                 $DP_cntHoteles = count($objOpcProg->getNombreHotel());
                 
                 for($i = 0; $i < $DP_cntHoteles; $i++) {
-                    $_tittle = false;
-                    $_tittle = "<table align='center'  width='210px' style='background-color:#FFFFFF; border:2px solid #0085CC; vertical-align:top'>
-                    <tr>
-                        <td style='color:#FFFFFF; background-color:#0085CC' width='70px' align='center'>Fotos</td>
-                        <td style='color:#FFFFFF; background-color:#0085CC' width='70px' align='center'>Mapa</td>
-                        <td style='color:#FFFFFF; background-color:#0085CC' width='70px' align='center'>Servicios</td>
-                    </tr>
-
-                    <tr>	
-                        <td align='center'>
-                            <a data-toggle='modal' href='#myModal' 
-                                onClick='fadeIn(&quot;detallePopup&quot;); $(&quot;#divPopupIn&quot;).css(&quot;overflow-y&quot;, &quot;scroll&quot;); abrePopup(&quot;divPopupIn&quot;, &quot;" . BASE_URL . "bloqueos/fotosHotel&quot;, &quot;tituloPopup&quot;, &quot;Fotos Hotel&quot;, $DP_cod_hoteles[$i]);' >
-                            <img src='" . $_layoutParamsCB['ruta_img'] . "fotos.png' border='0' height='25' title='Fotos' />
-                            </a>
-                        </td>
-                        <td align='center'>
-                            <a data-toggle='modal' href='#myModal' 
-                                onClick='fadeIn(&quot;detallePopup&quot;); $(&quot;#divPopupIn&quot;).css(&quot;overflow-y&quot;, &quot;scroll&quot;); abrePopup(&quot;divPopupIn&quot;, &quot;" . BASE_URL . "bloqueos/mapas&quot;, &quot;tituloPopup&quot;, &quot;Google Maps&quot;, $DP_cod_hoteles[$i]);' >
-                                <img src='" . $_layoutParamsCB['ruta_img'] . "ubicacion.png' border='0' height='26px' title='Mapa' />
-                            </a>
-                        </td>
-                        <td align='center'>
-                            <a data-toggle='modal' href='#myModal' 
-                                        onClick='fadeIn(&quot;detallePopup&quot;); $(&quot;#divPopupIn&quot;).css(&quot;overflow-y&quot;, &quot;scroll&quot;); abrePopup(&quot;divPopupIn&quot;, &quot;" . BASE_URL . "bloqueos/servicios&quot;, &quot;tituloPopup&quot;, &quot;Todos los servicios&quot;, $DP_cod_hoteles[$i]);'>
-                                <img src='" . $_layoutParamsCB['ruta_img'] . "servicios.png' border='0' height='27' title='Servicios' />
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style='color:#FFFFFF; background-color:#0085CC' colspan='3' align='center'>Detalles Hotel</td>
-                    </tr>
-
-                    <tr>
-                        <td style='color:#000000;' colspan='3' align='left'>&nbsp;Categoria: <strong>$DP_catHot[$i]</strong></td>
-                    </tr>                           
-                    <tr>
-                        <td style='color:#000000;' colspan='3' align='left'>
-                            &nbsp;Tipo Habitaci&oacute;n:  <strong>$DP_thHot[$i]</strong>
-                            <a data-toggle='modal' href='#myModal' 
-                                        onClick='fadeIn(&quot;detallePopup&quot;); $(&quot;#divPopupIn&quot;).css(&quot;overflow-y&quot;, &quot;scroll&quot;); abrePopup(&quot;divPopupIn&quot;, &quot;" . BASE_URL . "bloqueos/fotosHotel&quot;, &quot;tituloPopup&quot;, &quot;Fotos Tipo Habitaci&oacute;n&quot;, 99999999999999);'>
-                            <img src='".$_layoutParamsCB['ruta_img']."camara.png' align='bottom' border='0' width='16px' title='Fotos tipo habitaci&oacute;n' />
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style='color:#000000;' colspan='3' align='left'>&nbsp;Plan Alimenticio: <strong>Plan</strong></td>
-                    </tr>
-                    <tr>
-                        <td style='color:#000000;' colspan='3' align='left'>&nbsp;Ciudad Hotel: <strong>Ciudad</strong></td>
-                    </tr>
-                </table>";
                 ?>
                     <tr>
                         <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
-                            <a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer" title="<?php echo $_tittle; ?>"><?php echo $DP_hoteles[$i]; ?></a>
+                            <a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"><?php echo $DP_hoteles[$i]; ?></a>
                         </td>
-                        <td style="width: 300px;"><?php echo $DP_dirHot[$i]; ?></td>
-                        <td style="width: 80px;"><?php echo $DP_catHot[$i]; ?></td>
-                        <td style="padding: 2px; vertical-align: middle; width: 100px;"><?php echo $DP_thHot[$i]; ?></td>
+                        <td style="padding: 2px; vertical-align: middle;"><?php echo $DP_dirHot[$i]; ?></td>
+                        <td style="padding: 2px; vertical-align: middle;">
+                            <?php
+                            if(strlen($DP_catHot[$i])==2) {
+                                for($j=1; $j<=5; $j++) {
+                                    if($j<=substr($DP_catHot[$i], 0, 1)) { ?>
+                                        <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
+                            <?php   } else { ?>
+                                        <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />
+                            <?php   }
+                                }
+                            } else { echo $DP_catHot[$i]; } ?>
+                        </td>
+                        <td style="padding: 2px; vertical-align: middle;">
+                            <a data-toggle='modal' href='#myModal' 
+                                onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopupHab('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloPopup', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $DP_codthHot[$i]; ?>', <?php echo $DP_cod_hoteles[$i]; ?>,'<?php echo $this->form;?>');">
+                                <?php echo $DP_thHot[$i]; ?>
+                            </a>
+                        </td>
+                        <td>
+                            <a data-toggle="modal" href="#myModal" 
+                                onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/fotosHotel', 'tituloPopup', 'Fotos Hotel', <?php echo $DP_cod_hoteles[$i]; ?>,'<?php echo $this->form;?>');">
+                                <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='25' title='Fotos' />
+                            </a>
+                        </td>
+                        <td>
+                            <a data-toggle="modal" href="#myModal" 
+                                onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/mapas', 'tituloPopup', 'Google Maps', <?php echo $DP_cod_hoteles[$i]; ?>,'<?php echo $this->form;?>');" >
+                                <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>mapa.jpg" border='0' height='25' title='Mapa' />
+                            </a>
+                        </td>
+                        <td>
+                            <a data-toggle='modal' href='#myModal' 
+                                onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloPopup', '<?php echo $DP_hoteles[$i]; ?>', <?php echo $DP_cod_hoteles[$i] ?>,'<?php echo $this->form;?>');">
+                                <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>hotel.jpg" border='0' height='25' width="40" title='Hotel' />
+                            </a>
+                        </td>
                     </tr>
                     <?php
                 }?>
@@ -260,6 +228,7 @@ if($this->objOpcProgramas) {
                     <td style="font-size: 12px; text-align: center"> SINGLE </td>
                     <td style="font-size: 12px; text-align: center"> DOBLE </td>
                     <td style="font-size: 12px; text-align: center"> TRIPLE </td>
+                    <td style="font-size: 12px; text-align: center"> PLAN FAMILIAR </td>
                     <td style="font-size: 12px; text-align: center"> </td>
                 </tr>
 
@@ -274,15 +243,22 @@ if($this->objOpcProgramas) {
                         <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenTPL()); ?></label><br>
                     </td>
                     <td style="padding: 2px; vertical-align: middle;" align="center">
-                        <a id="btnDP_reservar_<?php echo $cntDP; ?>" class="btn btn-success btn-sm" style="width: 88px;" 
-                           onclick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); Programa.prototype.pasajerosProg('<?php echo $cntDP; ?>',  
-                                       'divPopupIn', 
+                        <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if($objOpcProg->getVVenPF() == 0) { echo "--"; } else { echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenPF());} ?></label><br>
+                    </td>
+                    <td style="padding: 2px; vertical-align: middle;" align="center">
+                        
+                        
+                        <a id="btnDP_reservar_<?php echo $cntDP; ?>" class="btn btn-success btn-sm" style="width: 88px;"
+                           
+                           onclick="abrirForm('<?php echo $cntDP; ?>',
                                        '<?php echo BASE_URL; ?>programas/pasajeros', 
                                        '<?php echo $objOpcProg->getVVenSGL(); ?>',
                                        '<?php echo $objOpcProg->getVVenDBL(); ?>',
                                        '<?php echo $objOpcProg->getVVenTPL(); ?>',
+                                       '<?php echo $objOpcProg->getVVenPF(); ?>',
                                        '<?php echo $objOpcProg->getMoneda(); ?>',
-                                       '<?php echo $objOpcProg->getClaveOpc(); ?>'
+                                       '<?php echo $objOpcProg->getClaveOpc(); ?>',
+                                       '<?php echo $this->form?>'
                                        );"> RESERVAR 
                         </a>
                     </td>

@@ -1,0 +1,43 @@
+
+<iframe   frameborder="0"width="100%" height="235"src="<?php echo BASE_URL; ?>/login" id="frameid" scrolling="no"name="frameid"target="frame2">    
+</iframe>
+<script>
+$('#frameid').load(function(){
+
+        var iframe = $('#frameid').contents();
+
+        iframe.find("#btnEntrar").click(function(){
+           fadeOut('loginPopup');
+           initLoad();
+           setTimeout(function()
+           {
+                $.ajax({
+		url: '<?php echo BASE_URL;?>login/verificarLogin',  
+		type: 'POST',
+                success:function(data){
+                    endLoad();
+                if(data === '1') {
+                     $("#ValiFormLogin").val(1);
+                     divLogin('<?php echo BASE_URL;?>login/divLogin');
+                     fadeIn('LoginStatus');
+                     $( ".resBloque" ).attr( 'href', '#myModal' );
+                } else {
+                    fadeIn('loginPopup');
+                    
+                }
+            }
+            });
+                
+               
+            },1000);
+            
+                
+           
+           
+            
+            
+        });
+        
+        
+   
+});</script>

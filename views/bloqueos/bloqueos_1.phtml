@@ -1,0 +1,217 @@
+<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyByJ-PrjAq7ZDCa8_bCGYB-hzoAJcInrug"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $( "[name$='tooltip_hotel']" ).poshytip({ className: "tip-darkgray", alignY : "bottom" });
+    });
+</script>
+    
+<!-- Tooltip Detalle Hotel -->
+<link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>tip-darkgray/tip-darkgray.css" type="text/css" />
+<!-- End: Tooltip Detalle Hotel -->
+
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
+                <li class="active">Busqueda de bloqueos</li>
+            </ol>
+            <h1>BLOQUEOS EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h1>
+
+        </div>
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-md-12">
+                
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" id="btnCerrar1PRG" data-dismiss="modal" aria-hidden="true" style="display:block">&times;</button>
+                                    <h4 class="modal-title" id="tituloFormPRG"></h4>
+                                </div>
+                                
+                                <div class="modal-body" id="divPopupPRG"></div>
+                                
+                                <div class="modal-footer">
+                                    <center>
+                                        <a class="btn btn-primary"n href="<?php echo BASE_URL . Session::get('SESS_CONTROLLER'); ?>" id="btnAceptarPRG" style="display:none">Volver a reservar</a>
+                                    </center>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    
+                    
+                    
+                    <div class="modal fade" id="myModalFotos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" id="btnCerrar1PRG" data-dismiss="modal" aria-hidden="true" style="display:block">&times;</button>
+                                    <h4 class="modal-title" id="tituloFormFotos"></h4>
+                                </div>
+                                
+                                <div class="modal-body" id="divPopupFotos"></div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                
+                
+                    <div class="panel-group panel-info" id="accordion">
+                    <?php
+                    $cnt = 0;
+                    if($this->objBloqueos) {
+                        foreach($this->objBloqueos as $objProg) {
+                            $cnt++;
+                        ?>
+                                        
+                                            
+ 
+                                              
+                        <form class="frmOpcionesPRG_<?php echo $cnt; ?>">
+                            <div class="panel panel-default">
+                                
+                                <a id="id_collapse" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" onclick="detectedCollapsed('collapse<?php echo $cnt ?>', 'opcionesPrograma<?php echo $cnt ?>', '<?php echo $objProg->getId(); ?>')">
+                                    <div class="panel-heading">
+                                        <span style="float: left;"><img src="http://jonathan-pc/panamericanaturismo.cl/views/layout/default/img/down.png" width="12px"></span>
+                                        <h4>&nbsp;&nbsp;&nbsp;<?php echo $objProg->getNombre(); ?></h4>
+                                    </div>
+                                </a>
+                                
+                                <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="col-md-6" style="width:100%;">
+                                            <div class="panel panel-grape">
+                                                <div class="panel-heading">
+                                                        <h4> Salida: <?php echo Functions::invertirFecha($objProg->getDesde(), "/", "/"); ?> </h4>
+                                                        <div class="options">
+                                                                <i>
+                                                                    <?php if($objProg->getNota()) { ?>
+                                                                    
+                                                                    <a data-toggle="modal" href="#myModal" 
+                                                                    onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales', '<?php echo $objProg->getId(); ?>');">
+                                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>nota.png" width="24px" alt="Condiciones generales" title="Condiciones generales" />
+                                                                    </a>
+                                                                    
+                                                                    <?php } if($objProg->getItiVuelo()) { ?>
+                                                                    
+                                                                    <a data-toggle="modal" href="#myModal" 
+                                                                    onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL;?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario vuelo', '<?php echo $objProg->getId(); ?>');">
+                                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos" />
+                                                                    </a>
+                                                                    
+                                                                    <?php } ?>
+                                                                </i>
+                                                        </div>
+                                                </div>
+                                                <input type="hidden" id="P_idProg" name="P_idProg" value="<?php echo $objProg->getId(); ?>">
+                                                <div class="panel-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover" style="margin-bottom: 0px;">
+                                                            <tbody class="selects" id="opcionesPrograma<?php echo $cnt ?>">
+                                                        
+        
+                                                                
+     
+                                                                
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="5" class="text-left">
+                                                                        <h4 style="color:#0085cc"><b>INCLUYE</b></h4>
+                                                                        <?php
+                                                                        $P_var_getIncluye= $objProg->getIncluye();
+                                                                        if($P_var_getIncluye)
+                                                                        {
+                                                                            $xx=0;
+                                                                            $hh=0;
+                                                                            $P_ciudadHotel=NULL;
+                                                                            $incluye='';
+                                                                            for($i=0; $i<=5; $i++){$P_arrayCiudadHotel[$i]=NULL;}
+                                                                            //foreach($P_var_getIncluye as $columInclu)
+                                                                            for($i=0; $i<count($P_var_getIncluye[0]); $i++)
+                                                                            {
+                                                                                if($P_var_getIncluye[0][$i]->getCodigo()!='CGO' && $P_var_getIncluye[0][$i]->getNombre()!='')
+                                                                                {
+                                                                                    if($P_var_getIncluye[0][$i]->getCiudad()!='')
+                                                                                    {
+                                                                                        $P_arrayCiudadHotel[$xx]= $P_var_getIncluye[0][$i]->getCiudad();
+                                                                                        $xx++;
+                                                                                    }
+
+                                                                                    if($P_var_getIncluye[0][$i]->getCodigo()=='HTL')
+                                                                                    {
+                                                                                        $P_ciudadHotel= " / ".$P_arrayCiudadHotel[$hh];
+                                                                                        $hh++;
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        $P_ciudadHotel=NULL;
+                                                                                    }
+
+                                                                                    if($P_var_getIncluye[0][$i]->getNoches()<10 && $P_var_getIncluye[0][$i]->getNoches()>0)
+                                                                                    {
+                                                                                        $P_varNoches="0".$P_var_getIncluye[0][$i]->getNoches()." Noches ";
+                                                                                    }
+                                                                                    else if($P_var_getIncluye[0][$i]->getNoches()>=10)
+                                                                                    {
+                                                                                        $P_varNoches=$P_var_getIncluye[0][$i]->getNoches()." Noches ";
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        $P_varNoches="";
+                                                                                    }
+
+                                                                                    $incluye.='<img  src="'.$_layoutParams['ruta_img'].'tick.png" width="12px" /> '.$P_varNoches.$P_var_getIncluye[0][$i]->getNombre().$P_ciudadHotel."<br>";
+
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        
+                                                                        echo $incluye;
+                                                                        ?>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td colspan="5" align="center">
+                                                                        <a data-toggle="modal" href="#myModal" 
+                                                                        onClick="validaReserva('frmOpcionesPRG_<?php echo $cnt; ?>', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'divPopupPRG', 'tituloFormPRG', 'Formulario de reserva');"
+                                                                        class="btn btn-primary">Comenzar reserva</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default"></div>
+                        </form>
+
+                        
+                        
+                        
+                    <?php 
+                        }
+                    } else { ?>
+                        <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
+                        No se encontraron registros para esta busqueda.
+                        </div>
+                    <?php } ?> 
+						
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
