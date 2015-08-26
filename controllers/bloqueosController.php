@@ -270,6 +270,7 @@ class bloqueosController extends Controller
     
     public function notas($form='')
     {
+        $this->_view->form=$form;
         if($form!='form'){
         Session::acceso('Usuario');
         }
@@ -290,6 +291,7 @@ class bloqueosController extends Controller
     
     public function servicios($form='')
     {
+        $this->_view->form=$form;
         if($form!='form'){
         Session::acceso('Usuario');
         }
@@ -317,6 +319,7 @@ class bloqueosController extends Controller
     
     public function itinerarioVuelo($form='')
     {
+        $this->_view->form=$form;
         if($form!='form'){
         Session::acceso('Usuario');
         }

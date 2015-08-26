@@ -14,8 +14,9 @@ class habitacionController extends Controller
     
     public function index(){}
     
-    public function editar()
+    public function editar($form='')
     {
+        $this->_view->form=$form;
         $ETH_codHotel= $this->getTexto('H_codHotel');
         if($ETH_codHotel)
         {
@@ -39,8 +40,9 @@ class habitacionController extends Controller
         }
     }
     
-    public function detalle()
+    public function detalle($form='')
     {
+        $this->_view->form=$form;
         $DTH_codTiHab= $this->getTexto('_PCD_');
         if($DTH_codTiHab)
         {
