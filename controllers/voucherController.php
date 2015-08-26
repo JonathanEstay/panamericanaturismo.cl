@@ -17,7 +17,8 @@ class voucherController extends Controller
     }
     
     
-    public function index() {
+    public function index($form='') {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         $agencia= $this->loadModel('agencia');
         
@@ -45,7 +46,8 @@ class voucherController extends Controller
     *                          METODOS VIEWS CENTER BOX                            *
     *                                                                              *
     *******************************************************************************/
-    public function logo() {
+    public function logo($form='') {
+        $this->_view->form=$form;
         Session::destroy('sessMOD_LV_idAgen');
         Session::destroy('sessMOD_LV_imagen');
         $I_idAgen= $this->getTexto('_PCD_');

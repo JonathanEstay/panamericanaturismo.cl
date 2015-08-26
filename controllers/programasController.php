@@ -90,7 +90,9 @@ class programasController extends Controller
     }
     
     
-    public function admin() {
+    public function admin($form='') {
+        
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         
         $this->_view->objCiudades= $this->_ciudad->getCiudadesBloq();
@@ -123,7 +125,8 @@ class programasController extends Controller
     *                          METODOS VIEWS CENTER BOX                            *
     *                                                                              *
     *******************************************************************************/
-    public function itinerario() {
+    public function itinerario($form='') {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         
         if($this->getTexto('varCenterBox')){
@@ -464,7 +467,8 @@ class programasController extends Controller
      * @return String Vista
      * @author Jonathan Estay
      */
-    public function editar() {
+    public function editar($form='') {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         Session::destroy('sessMOD_EP_codPRG');
         $AP_codigoPrg = $this->getTexto('varCenterBox');

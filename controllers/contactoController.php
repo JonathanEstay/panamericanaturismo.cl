@@ -14,8 +14,9 @@ class contactoController extends Controller
         $this->_loadLeft();
     }
     
-    public function index()
+    public function index($form='')
     {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         
         $this->_view->objCiudades= $this->_ciudad->getCiudadesBloq();

@@ -16,7 +16,8 @@ class bookingController extends Controller
         $this->_loadLeft();
     }
     
-    public function index() {
+    public function index($form='') {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         $reserva= $this->loadModel('reserva');
         
@@ -109,8 +110,9 @@ class bookingController extends Controller
     }
     
     
-    public function cartaConfirmacion()
+    public function cartaConfirmacion($form ='')
     {
+        $this->_view->form=$form;
         Session::acceso('Usuario');
         //Cargando modelos
         $M_file= $this->loadModel('reserva');

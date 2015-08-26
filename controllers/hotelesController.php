@@ -16,8 +16,10 @@ class hotelesController extends Controller
         $this->_loadLeft();
     }
     
-    public function index()
+    public function index($form='')
     {
+        $this->_view->form=$form;
+        
         Session::acceso('Usuario');
         $categorias= $this->loadModel('categoria');
         $hoteles= $this->loadModel('hotel');
@@ -44,8 +46,9 @@ class hotelesController extends Controller
         $this->_view->renderingSystem('hoteles');
     }
     
-    public function editar()
+    public function editar($form='')
     {
+        $this->_view->form=$form;
         $EH_codHotel= $this->getTexto('H_codHotel');
         if($EH_codHotel)
         {
