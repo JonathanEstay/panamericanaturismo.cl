@@ -75,7 +75,7 @@ class programasController extends Controller
             //IDecho $sql; exit;
             
             //Kint::dump( $programas->exeTS_GET_PROGRAMAS($sql) );
-            $this->_view->objCiudadBs= $this->_ciudad->getCiudadesPRG(Session::get('sess_BP_ciudadDes_PRG'));
+            $this->_view->objCiudadBs= $this->_ciudad->getCiudad(Session::get('sess_BP_ciudadDes_PRG'));
             $this->_view->objProgramas= $programas->exeTS_GET_PROGRAMAS($sql);
             //$this->_view->objProgramasCNT = count($this->_view->objProgramas);
         }
