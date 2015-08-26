@@ -51,33 +51,7 @@ class ciudadDAO extends Model
     
     public function getCiudadesPRG($codigo='')
     {
-        /*$sql='SELECT C.nombre AS cnombre, C.codigo AS ccodigo 
-                    FROM ciudad	C
-                    JOIN h2h_Programa P ON (C.codigo = P.Ciudad)
-                    JOIN h2h_ProgramaOpc PO ON (P.Id = PO.IdProg)
-            WHERE PO.record_c <> "" AND getdate() <= PO.hasta';
-		
-        if(!empty($codigo))
-        {
-            $sql.=' AND C.codigo = "'.$codigo.'" ';
-        }
-
-        $sql.=' GROUP BY C.nombre, C.codigo
-            ORDER BY C.nombre ASC'; */
-        
-        $sql = 'SELECT C.codigo AS ccodigo, H.ciudad AS cnombre
-                FROM h2h_ProgramaOpc PO
-                JOIN h2h_programaOpcDet POD ON (PO.IdOpc = POD.IdOpcion)
-                JOIN hotel H ON (POD.hotel = H.hotel)
-                JOIN ciudad C ON (H.ciudad = C.nombre)
-                WHERE PO.record_c <> "" AND getdate() <= PO.hasta ';
-        
-        if(!empty($codigo))
-        {
-            $sql.=' AND C.codigo = "'.$codigo.'" ';
-        }
-        
-        $sql.='GROUP BY C.codigo, H.ciudad';
+        $sql = 'EXEC combo_ciudades_terrestres';
                 
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
@@ -88,8 +62,40 @@ class ciudadDAO extends Model
             foreach ($ciudadArray as $ciuDB)
             {
                 $ciudadObj = new ciudadDTO();
-                $ciudadObj->setNombre(trim($ciuDB['cnombre']));
-                $ciudadObj->setCodigo(trim($ciuDB['ccodigo']));
+                $ciudadObj->setNombre(trim($ciuDB['ciudad']));
+                $ciudadObj->setCodigo(trim($ciuDB['codigo']));
+                
+                $objetosCiudad[]=$ciudadObj;
+            }
+            
+            return $objetosCiudad;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    
+    public function getCiudad($codigo = false) {
+        $sql = 'SELECT codigo, nombre FROM ciudad';
+        
+        if(!empty($codigo))
+        {
+            $sql.=' WHERE codigo = "'.$codigo.'" ';
+        }
+                
+        $datos= $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)>0)
+        {
+            $ciudadArray = $this->_db->fetchAll($datos);
+            $objetosCiudad = array();
+            
+            foreach ($ciudadArray as $ciuDB)
+            {
+                $ciudadObj = new ciudadDTO();
+                $ciudadObj->setNombre(trim($ciuDB['nombre']));
+                $ciudadObj->setCodigo(trim($ciuDB['codigo']));
                 
                 $objetosCiudad[]=$ciudadObj;
             }
