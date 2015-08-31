@@ -21,22 +21,19 @@ abstract class Controller
     
     protected function _loadLeft()
     {
-        
-        if($this->getServer('HTTP_REFERER') == 'http://localhost/formulariosql/'){
+        if($this->getServer('HTTP_REFERER') == 'http://oristest.panamericanaturismo.cl/formulario/'){
             
             if($this->getTexto('mL_txtFechaIn_PRG')) { 
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
                 
             }else{
-                
                 if($this->getTexto('mL_txtFechaIn')){
                     Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
                 }
                 
             }
-        }else{
+        } else {
             if(!Session::get('sess_fechaDefault')){
-                
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
             }
         }
