@@ -21,7 +21,7 @@ abstract class Controller
     
     protected function _loadLeft()
     {
-        if($this->getServer('HTTP_REFERER') == 'http://tsyacom-pc/formulario/oscar'){
+        if($this->getServer('HTTP_REFERER') == 'http://oristest.panamericanaturismo.cl/formulario/'){
             
             if($this->getTexto('mL_txtFechaIn_PRG')) { 
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
@@ -32,9 +32,8 @@ abstract class Controller
                 }
                 
             }
-        }else{
+        } else {
             if(!Session::get('sess_fechaDefault')){
-                
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
             }
         }
