@@ -49,7 +49,7 @@ class ciudadDAO extends Model
     }
     
     
-    public function getCiudadesPRG($codigo='')
+    public function getCiudadesPRG()
     {
         $sql = 'EXEC combo_ciudades_terrestres';
                 
@@ -80,10 +80,7 @@ class ciudadDAO extends Model
     public function getCiudad($codigo = false) {
         $sql = 'SELECT codigo, nombre FROM ciudad';
         
-        if(!empty($codigo))
-        {
-            $sql.=' WHERE codigo = "'.$codigo.'" ';
-        }
+        if(!empty($codigo)){ $sql.=' WHERE codigo = "'.$codigo.'" '; }
                 
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
