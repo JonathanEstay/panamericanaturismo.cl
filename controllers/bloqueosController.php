@@ -15,7 +15,10 @@ class bloqueosController extends Controller
         $this->_ciudad = $this->loadModel('ciudad');
         
         $form=$this->_view->getForm();
-        
+        if(!$form){
+            $form[0]='';
+            
+        }
         if(!$form){
             $form[0]='a';
             

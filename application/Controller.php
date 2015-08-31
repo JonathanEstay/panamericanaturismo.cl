@@ -21,12 +21,14 @@ abstract class Controller
     
     protected function _loadLeft()
     {
-        if($this->getServer('HTTP_REFERER') == 'http://tsyacom-pc/formulario/oscar'){
+        
+        if($this->getServer('HTTP_REFERER') == 'http://localhost/formulariosql/'){
             
             if($this->getTexto('mL_txtFechaIn_PRG')) { 
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
                 
             }else{
+                
                 if($this->getTexto('mL_txtFechaIn')){
                     Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
                 }

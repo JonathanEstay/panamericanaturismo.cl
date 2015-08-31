@@ -70,5 +70,5 @@
 
     
     <div id="page-container" style="width: 1080px; margin:0 auto; " >
-        <iframe  frameborder="0"width="100%" height="171"  src="http://www.panamericanaturismo.cl" name= id="frameid" scrolling="no" >    
+        <iframe  frameborder="0"width="100%" height="171"  src="http://www.panamericanaturismo.cl" name="frameid" scrolling="no" >    
    </iframe>
