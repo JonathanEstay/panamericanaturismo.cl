@@ -344,4 +344,15 @@ abstract class Controller
         $mail->Send();
         sleep(2);
     }
+    public static function destroyArray()
+    {
+        $arraySess = array('Autenticado', 'sess_key_', 'sess_ip', 'sess_fechaLogin', 
+                            'sess_clave_usuario','sess_nombre',
+                            'sess_cod_ven','sess_dctod','sess_dctoh','sess_agencia',
+                            'sess_id_agen','sess_markup','sess_fecpass','sess_depto',
+                            'sess_atipoa','sess_firma','sess_rut','sess_email','sess_email_opera',
+                            'level','tiempo','sess_sp_acceso');
+        
+        return $arraySess;
+    }
 }

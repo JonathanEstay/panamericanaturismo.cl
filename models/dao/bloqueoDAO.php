@@ -185,6 +185,7 @@ class bloqueoDAO extends Model
     
     public function TS_GET_BLOQUEOS_PROG($sql, $inc=false)
     {
+        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
@@ -225,6 +226,7 @@ class bloqueoDAO extends Model
                     $objPackages->setTramo(trim($packDB['Tramo']));
                     $objPackages->setNotaOpc(trim($packDB['notaOPC']));
                     $objPackages->setMoneda(trim($packDB['moneda']));
+                    //echo$packDB['itinerarioVuelo'];exit;
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
                     
                     /* VALOR HABITACION */
@@ -282,6 +284,8 @@ class bloqueoDAO extends Model
     
     public function TS_GET_BLOQUEOS_PROG_DETALLE($sql, $inc=false)
     {
+        
+        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {

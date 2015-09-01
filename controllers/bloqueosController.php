@@ -337,6 +337,7 @@ class bloqueosController extends Controller
         if($form!='form'){
         Session::acceso('Usuario');
         }
+        
         $idOpc= $this->getTexto('varCenterBox');
         if($idOpc)
         {
