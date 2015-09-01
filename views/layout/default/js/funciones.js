@@ -905,6 +905,18 @@ function loginSide(docPHP,form){
     
 }
 
+function loginOutNav(docPHP,form){
+    form='/'+form;     
+        $.post(docPHP+form, 
+         function()
+         {
+             window.location.reload();
+        endLoad();
+        
+        });
+    
+}
+
 function detectedCollapsed(id, opciones, idProg,form)
 {
     form='/'+form;

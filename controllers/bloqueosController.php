@@ -42,6 +42,17 @@ class bloqueosController extends Controller
             
             
         }
+        
+        if(Session::get('sess_Url_Form')){
+            
+            
+            $this->_view->url= validar::formUrl();
+            
+        }else{
+            
+           $this->_view->url='http://www.panamericanaturismo.cl';
+        }
+        
         $this->_view->form=$form;
         //$this->_view->setJS(array(''));
         
@@ -561,10 +572,12 @@ class bloqueosController extends Controller
     }
     
     
-    public function buscar($form='')
+    public function buscar($form='', $url='')
     {
-        
-        
+        if($url!=''){
+            
+            Session::set('sess_Url_Form', $url);
+        }
         if($form === 'a'){
          Session::acceso('Usuario');   
         }

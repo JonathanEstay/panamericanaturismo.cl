@@ -70,4 +70,12 @@
 
     
     <div id="page-container" style="width: 1080px; margin:0 auto; " >
-        <iframe  frameborder="0"width="100%" height="171"  src="http://www.panamericanaturismo.cl" name="frameid" scrolling="no" ></iframe>
+        <iframe  frameborder="0"width="100%" height="171"  src="<?php echo$this->url;?>" name="frameid" scrolling="no" ></iframe>
+        
+        
+            <div  style="position: absolute; top: 180px; right: 13%" >
+                <a style="cursor: pointer;text-decoration:none;" id="loginInNav"onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img style="width: 10px; " src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>iniciar seci&oacute;n</span></a>
+            <a id="loginOutNav"style="display: none;cursor: pointer;text-decoration:none;" onClick="loginOutNav('<?php echo BASE_URL; ?>login/LoginOutNav','<?php echo $this->form;?>');"><i><img style="width: 10px;" src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>cerrar seci&oacute;n</span></a>
+            </div>
+        
+       
