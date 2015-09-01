@@ -184,7 +184,8 @@ class Session
         
         if((time() - Session::get('tiempo')) > (APP_SESSION_TIME * 60))
         {
-            Session::destroy();
+            
+            Session::destroy(Controller::destroyArray());
             header('Location: ' . BASE_URL . 'error/access/8080');
         }
         else
