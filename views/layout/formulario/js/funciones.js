@@ -642,7 +642,17 @@ function fadeOut(id) {
                             'display': 'none'
                         }); 
 }
-
+function loginOutNav(docPHP,form){
+    form='/'+form;     
+        $.post(docPHP+form, 
+         function()
+         {
+             window.location.reload();
+        endLoad();
+        
+        });
+    
+}
 
 
 

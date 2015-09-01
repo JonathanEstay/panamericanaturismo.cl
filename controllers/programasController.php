@@ -49,6 +49,15 @@ class programasController extends Controller
         
         $this->_view->form=$form;
         
+        if(Session::get('sess_Url_Form')){
+            
+            
+            $this->_view->url= validar::formUrl();
+            
+        }else{
+            $this->_view->url='http://www.panamericanaturismo.cl';
+            
+        }
 
         $this->_view->setJS(array('validaCampos', 'programas'));
         
@@ -879,9 +888,12 @@ class programasController extends Controller
      * </PRE>
      * @author Jonathan Estay
      */
-    public function buscar($form='') {
-                 
+    public function buscar($form='',$url='') {
         
+                  
+        if($url!=''){
+            Session::set('sess_Url_Form', $url);
+        }
         $BP_cntHab = $this->getInt('mL_cmbHab_PRG');
         $BP_ciudadDes = $this->getTexto('mL_txtCiudadDestino_PRG');
         $BP_fechaIn = $this->getTexto('mL_txtFechaIn_PRG');

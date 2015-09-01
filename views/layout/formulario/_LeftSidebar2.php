@@ -348,9 +348,7 @@ $(function()
                 </li>
             </ul>
         </li>
-        <!-- <li>
-            <a  onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>user.png" /></i> <span>Login</span></a>
-        </li> -->
+        
         
         
         

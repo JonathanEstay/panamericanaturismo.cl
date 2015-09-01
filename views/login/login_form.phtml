@@ -21,6 +21,10 @@ $('#frameid').load(function(){
                      divLogin('<?php echo BASE_URL;?>login/divLogin');
                      fadeIn('LoginStatus');
                      $( ".resBloque" ).attr( 'href', '#myModal' );
+                     $('#loginInNav').css({
+                            'display': 'none'
+                        });
+                        fadeIn('loginOutNav');
                 } else {
                     fadeIn('loginPopup');
                     
