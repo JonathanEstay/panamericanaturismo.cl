@@ -389,6 +389,8 @@ class programaDAO extends Model
     
     
     public function exeTS_GET_DETALLEPROG($sql) {
+        
+        
         $datos = $this->_db->consulta($sql);
         
         if($this->_db->numRows($datos)>0) {
@@ -436,6 +438,8 @@ class programaDAO extends Model
                     $objDetProg->setVNetoTPL(trim($detProgDB['vNeto_TPL']));
                     $objDetProg->setVVenPF(trim($detProgDB['vVen_PF']));
                     $objDetProg->setVNetoPF(trim($detProgDB['vNeto_PF']));
+                    $objDetProg->setChd1(trim($detProgDB['chd1']));
+                    $objDetProg->setChd2(trim($detProgDB['ch2']));
                     //$objDetProg->setXxx(trim($detProgDB['xxx']));
 
                     /* HOTELES */
