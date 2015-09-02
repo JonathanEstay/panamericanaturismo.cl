@@ -229,6 +229,8 @@ if($this->objOpcProgramas) {
                     <td style="font-size: 12px; text-align: center"> DOBLE </td>
                     <td style="font-size: 12px; text-align: center"> TRIPLE </td>
                     <td style="font-size: 12px; text-align: center"> PLAN FAMILIAR </td>
+                    <td style="font-size: 12px; text-align: center"> CHILD 1</td>
+                    <td style="font-size: 12px; text-align: center"> CHILD 2 </td>
                     <td style="font-size: 12px; text-align: center"> </td>
                 </tr>
 
@@ -244,6 +246,12 @@ if($this->objOpcProgramas) {
                     </td>
                     <td style="padding: 2px; vertical-align: middle;" align="center">
                         <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if($objOpcProg->getVVenPF() == 0) { echo "--"; } else { echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenPF());} ?></label><br>
+                    </td>
+                    <td style="padding: 2px; vertical-align: middle;" align="center">
+                        <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if($objOpcProg->getChd1() == 0) { echo "--"; } else { echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getChd1());} ?></label><br>
+                    </td>
+                    <td style="padding: 2px; vertical-align: middle;" align="center">
+                        <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if($objOpcProg->getChd2() == 0) { echo "--"; } else { echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getChd2());} ?></label><br>
                     </td>
                     <td style="padding: 2px; vertical-align: middle;" align="center">
                         

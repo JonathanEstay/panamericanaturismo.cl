@@ -22,6 +22,8 @@ class detalleProgramaDTO
     private $_tcambio;
     private $_vven_sgl;
     private $_vneto_sgl;
+    private $_chd1;
+    private $_chd2;
     private $_vven_dbl;
     private $_vneto_dbl;
     private $_vven_tpl;
@@ -49,6 +51,22 @@ class detalleProgramaDTO
     }
     public function setIdOpc($id) {
         $this->_id_opc = $id;
+    }
+    
+    public function getChd1() {
+        return $this->_chd1;
+    }
+
+    public function setChd1($chd) {
+        $this->_chd1 = $chd;
+    }
+    
+    public function getChd2() {
+        return $this->_chd2;
+    }
+
+    public function setChd2($chd2) {
+        $this->_chd2 = $chd2;
     }
     
     

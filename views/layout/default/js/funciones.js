@@ -750,6 +750,8 @@ function habitaciones(table, num)
 
 function habilitaEdadChild(id,hab, chd)
 {
+    
+    
     var i, x;
     status_1 = new Array (true, false, false); 
     status_2 = new Array (true, true, false); 
@@ -758,6 +760,7 @@ function habilitaEdadChild(id,hab, chd)
         if(id==i) {
             for(x=1; x<4; x++) {
                 if(hab==x) {
+                    
                     $("#" + chd +  "_1_"+x).prop('disabled', status_1[i]);
                     $("#" + chd +  "_2_"+x).prop('disabled', status_2[i]);
                 }

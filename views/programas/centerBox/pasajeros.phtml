@@ -29,10 +29,28 @@
                             </td>
                             <td>Child</td>
                             <td>
-                                <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" >
+                                <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>,'DP_EdadChild')">
                                 <?php for($x=0; $x<=2; $x++) {?>                          
                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                 <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="DP_edades_<?php echo $i;?>">
+                            <td>Edad C1</td>
+                            <td>
+                                <select name ="DP_EdadChild_1_<?php echo $i;?>" id="DP_EdadChild_1_<?php echo $i;?>"disabled="disabled">
+                                    <?php for($x=2;$x<=12;$x++) {?>
+                                    <option value="<?php echo $x;?>"><?php echo $x;?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                            <td>Edad C2</td>
+                            <td>
+                                <select name ="DP_EdadChild_2_<?php echo $i;?>" id="DP_EdadChild_2_<?php echo $i;?>"disabled="disabled">
+                                    <?php for($x=2;$x<=12;$x++) {?>
+                                    <option value="<?php echo $x;?>"><?php echo $x;?></option>
+                                    <?php } ?>
                                 </select>
                             </td>
                         </tr>
