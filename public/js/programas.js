@@ -69,7 +69,7 @@ Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf,
     }
 };
 
-Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,form)
+Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,form,urlCon)
 {
     
     form='/'+form;
@@ -115,7 +115,8 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
     
     
     
-    //hacemos la peticion ajax  
+    //hacemos la peticion ajax 
+    fadeIn('condicionesPopup');
     $.ajax({
         url: php+form,  
         type: 'POST',
@@ -131,6 +132,13 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
         //una vez finalizado correctamente
         success: function(data)
         {
+            $.ajax({
+                url:urlCon,
+                success:function(data){
+                    $("#divPopupCon").html(data);
+                    
+                }            
+            });
             $("#" + div).html(data);
             endLoad();
         },

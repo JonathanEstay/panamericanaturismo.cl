@@ -37,10 +37,38 @@ abstract class Controller
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
             }
         }
-        $this->_view->ML_fechaIni=  Session::get('sess_fechaDefault');
-        $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
-        $this->_view->ML_fechaIni_PRG=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
-        $this->_view->ML_fechaFin_PRG=  Session::get('sess_fechaDefault');
+        
+        if(!Session::get('sess_BP_fechaIn')){
+            
+            $this->_view->ML_fechaIni =  Session::get('sess_fechaDefault');
+        }else{
+            
+            $this->_view->ML_fechaIni =  Session::get('sess_BP_fechaIn');
+        }
+        
+        if(!Session::get('sess_BP_fechaOut')){
+            
+            $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
+        }else{
+            
+            $this->_view->ML_fechaFin=Session::get('sess_BP_fechaOut');
+        }
+        
+        
+        if(!Session::get('sess_BP_fechaIn_PRG')){
+            $this->_view->ML_fechaIni_PRG=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
+            
+        }else{
+            $this->_view->ML_fechaIni_PRG =  Session::get('sess_BP_fechaIn_PRG');
+        
+            
+        }
+        if(!Session::get('sess_BP_fechaOut_PRG')){
+            $this->_view->ML_fechaFin_PRG=  Session::get('sess_fechaDefault');
+        }else{
+            $this->_view->ML_fechaFin_PRG=Session::get('sess_BP_fechaOut_PRG');
+        }
+        
     }
     
     protected function _alert($tipo=false, $msg=false)
