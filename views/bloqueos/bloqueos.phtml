@@ -208,8 +208,8 @@
                     </div>
                 </div>
             </div>
-<div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 7%; top:85%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 75px; <?php if(!Session::get('Autenticado')|| $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
-                   <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; ">
+<div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if(!Session::get('Autenticado')|| $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
+                   <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px; ">
                           <table>
                             <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario');  ?></td></tr>
                             <tr><td>Perfil : </td><td><?php echo Session::get('level');  ?></td></tr>

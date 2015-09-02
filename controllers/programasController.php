@@ -271,7 +271,11 @@ class programasController extends Controller
         }
     }
     
-    
+    public function programasCondiciones($form='') {
+        
+         $this->_view->form=$form;
+         $this->_view->renderingCenterBox('condicionesProg');
+    }
     /**
      * Metodo CenterBox: Proceso de reserva de un programa.
      * <PRE>
