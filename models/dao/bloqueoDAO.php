@@ -303,6 +303,7 @@ class bloqueoDAO extends Model
                 $ciudad= array();
                 $incluye= array();
                 $valorHab= array();
+                $tipoHab=array();
                 
                 
                 $objPackages= new bloqueoDTO();
@@ -332,8 +333,20 @@ class bloqueoDAO extends Model
                     for ($i=1; $i<=3; $i++)
                     {
                         $valorHab[]=trim($packDB['vHab_'.$i]);
+                        if(trim($packDB['tipoHab_'.$i])=='01TPL'){
+                           $tipoHab[] = '01 TRIPLE';
+                        }
+                        
+                        if(trim($packDB['tipoHab_'.$i])=='01DBL'){
+                           $tipoHab[] = '01 DOBLE';
+                        }
+                        
+                        if(trim($packDB['tipoHab_'.$i])=='01SGL'){
+                           $tipoHab[] = '01 SINGLE';
+                        }
                     }
                     $objPackages->setValorHab($valorHab);
+                    $objPackages->setTipoHab($tipoHab);
                     /* VALOR HABITACION */
                     
                     

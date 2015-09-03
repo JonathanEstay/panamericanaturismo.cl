@@ -22,6 +22,7 @@ class bloqueoDTO
     private $_id_opc;
     private $_desde;
     private $_valor_hab;
+    private $_tipo_hab;
     private $_nota_opc;
     private $_moneda;
     private $_itinerario_vuelo;
@@ -65,6 +66,15 @@ class bloqueoDTO
     public function setMoneda($moneda)
     {
         $this->_moneda=$moneda;
+    }
+    
+    public function getTipoHab()
+    {
+        return $this->_tipo_hab;
+    }
+    public function setTipoHab($tipoHab)
+    {
+        $this->_tipo_hab=$tipoHab;
     }
     
     
