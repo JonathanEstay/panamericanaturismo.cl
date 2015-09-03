@@ -69,7 +69,7 @@ Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf,
     }
 };
 
-Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,form,urlCon)
+Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,form)
 {
     
     form='/'+form;
@@ -116,7 +116,7 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
     
     
     //hacemos la peticion ajax 
-    fadeIn('condicionesPopup');
+    
     $.ajax({
         url: php+form,  
         type: 'POST',
@@ -132,13 +132,7 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
         //una vez finalizado correctamente
         success: function(data)
         {
-            $.ajax({
-                url:urlCon,
-                success:function(data){
-                    $("#divPopupCon").html(data);
-                    
-                }            
-            });
+           
             $("#" + div).html(data);
             endLoad();
         },
@@ -154,7 +148,7 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
 
 
 
-Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form)
+Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form,urlCon)
 {
     form='/'+form;
     
@@ -178,10 +172,21 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
         var formData= new FormData($("."+classFrm)[0]);
     }
     
+    fadeIn('condicionesPopup');
     
+    //hacemos la peticion ajax
     
-    //hacemos la peticion ajax  
-    $.ajax({
+     $.ajax({
+     url:urlCon,
+     success:function(data){
+            $("#divPopupCon").html(data);
+            endLoad();
+           $('#aceptarCondiciones').click(function(){
+               initLoad();
+            if($('#checkCondiciones').is(':checked')){
+                
+       fadeOut('condicionesPopup');
+       $.ajax({
         url: php+form,  
         type: 'POST',
         //Form data
@@ -196,7 +201,9 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
         //una vez finalizado correctamente
         success: function(data)
         {
+            $("#checkCondiciones").attr('checked', false);
             var myArrayData= data.split('&');
+            
             if($.trim(myArrayData[0]) === 'OK')
             {
                 $('#btnCerrar1PRG').delay( 100 ).fadeOut( 100 );
@@ -247,6 +254,17 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
                                     });
         }
     });
+                    }else{
+                        
+                        alertError("aceptarCondiciones","Debe aceptar las condiciones",4000);
+                        endLoad();
+                    }
+                        
+                    });
+                    
+                }            
+            });
+    
 }
 //Programa.prototype.validaPasaporte();
 
