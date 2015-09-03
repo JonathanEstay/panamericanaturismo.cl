@@ -109,7 +109,11 @@ class bloqueosController extends Controller
     }
     
     
-    
+    public function bloqueosCondiciones($form='') {
+        
+         $this->_view->form=$form;
+         $this->_view->renderingCenterBox('condicionesBlo');
+    }
     
     
     

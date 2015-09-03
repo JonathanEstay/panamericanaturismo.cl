@@ -149,7 +149,7 @@ function procesoEnviaForm(classFrm, php, btn, div)
 
 
 
-function procesoReservaPRG(classFrm, php, btn, div,form)
+function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
 {
     form='/'+form;
     $("#"+btn).attr('disabled', 'disabled');
@@ -344,8 +344,18 @@ function procesoReservaPRG(classFrm, php, btn, div,form)
 	
     
    
-    //hacemos la petición ajax  
+    //hacemos la petición ajax 
+    fadeIn('condicionesPopup');
     $.ajax({
+     url:urlCon,
+     success:function(data){
+            endLoad();
+            $("#divPopupCon").html(data);
+            $('#aceptarCondiciones').click(function(){
+               initLoad();
+           if($('#checkCondiciones').is(':checked')){
+               fadeOut('condicionesPopup');
+               $.ajax({
             url: php+form,  
             type: 'POST',
             //Form data
@@ -360,6 +370,7 @@ function procesoReservaPRG(classFrm, php, btn, div,form)
             //una vez finalizado correctamente
             success: function(data)
             {
+                $("#checkCondiciones").attr('checked', false);
                 var myArrayData= data.split('&');
                 if($.trim(myArrayData[0])=='OK')
                 {
@@ -388,13 +399,7 @@ function procesoReservaPRG(classFrm, php, btn, div,form)
                         });
                     });
                     
-                    //Temporal
-                    /*endLoad();
-
-                    $('#btnAceptarPRG').delay( 2000 ).fadeIn( 100 );
-                    $('#btnAceptarPRG').animate({
-                            'display': 'block'
-                    });*/
+                   
 
                 }
                 else
@@ -420,6 +425,18 @@ function procesoReservaPRG(classFrm, php, btn, div,form)
                                         });
             }
     });
+               
+           }else{
+               alertError("aceptarCondiciones","Debe aceptar las condiciones",4000);
+                        endLoad();
+               $("#"+btn).prop('disabled',false);
+               
+           }
+            });
+        }
+    });
+        
+    
 }
 
 
@@ -649,7 +666,7 @@ function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form){
     
     var valor = $("#ValiFormLogin").val();
     
-   
+   $("#tituloPopup" ).html('Detalle');
      
    if(valor === '1'){
         fadeIn('detallePopup');

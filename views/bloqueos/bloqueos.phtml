@@ -61,7 +61,35 @@
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div>
-                    
+                    <div class="modal-content" id="condicionesPopup" style="position: fixed; left: 200px; top:10%; bottom: 10%; right: 210px; z-index: 9999; display: none;">
+                    <div class="modal-header">
+                        <button type="button" class="close" id="btnCerrarCon" style="display:block" onclick="fadeOut('condicionesPopup');fadeOut('detallePopup');">&times;</button>
+                        <h4 class="modal-title" id="tituloPopup">Condiciones</h4>
+                    </div>
+
+                    <div class="modal-body" id="divPopupCon" style="max-height: 400px;  overflow-y: scroll;">
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                            <table >
+                                <tr>
+                                    <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"></td>
+                                    <td>He leido y acepto las condiciones</td>
+                                                                      
+                                </tr>
+                            </table>
+                            <br>
+                            <table style="height: 30px; width: 219px;">
+                                <tr>
+                                <td><input type="button" class="btn btn-primary " id="aceptarCondiciones" value="Aceptar"></td>
+                                    <td><input type="button"class="btn btn-primary  pull-right"onclick="fadeOut('condicionesPopup');fadeOut('detallePopup');$('#rP_btnProcesaRserva').prop('disabled',false);" value="Cancelar"></td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </div>
                     
                     <div class="panel-group panel-info" id="accordion">
                     <?php
