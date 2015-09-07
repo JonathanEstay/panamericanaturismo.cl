@@ -230,6 +230,33 @@ class programaDAO extends Model
         }
     }
     
+    
+    public function getDescrip($id) {
+        $sql="SELECT PP.descripcion "
+                . "FROM h2h_PdfProg PP "
+                . "JOIN h2h_programa P ON (PP.codigo = P.codigo) "
+                . "JOIN h2h_programaOpc PO ON (P.Id = PO.IdProg) "
+                . "WHERE PO.IdOpc = '" . $id . "'";
+        
+        $datos= $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)>0)
+        {
+            $objetosPack= array();
+            $arrayPackages= $this->_db->fetchAll($datos);
+            
+            $objPackages= new programaDTO();
+            
+            $objPackages->setNota(html_entity_decode(trim($arrayPackages[0]['descripcion'])));
+            $objetosPack[]= $objPackages;
+            
+            return $objetosPack;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public function getItinerarioVuelo($idOpc)
     {
         $sql="SELECT REPLACE(convert(varchar(MAX), notas), Char(13), '<br />') as notas "
