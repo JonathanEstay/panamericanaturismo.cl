@@ -640,7 +640,7 @@ class programasController extends Controller
         Session::acceso('Usuario');
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest'  || (Session::get('sess_browser') == 'IE9')) {
             $comentario = $this->getPostClave('areaDescrip');
-            if($comentario) {
+            /*if($comentario) {*/
                 $programa = $this->loadModel('programa');
                 $objPrograma = $programa->getPrograma(Session::get('sessMOD_EP_codPRG'));
                 //echo var_dump($objPrograma);
@@ -651,9 +651,9 @@ class programasController extends Controller
                     $programa->comentario(Session::get('sessMOD_EP_codPRG'), $comentario, true);
                     echo 'OK';
                 }
-            } else {
+            /*} else {
                 throw new Exception('Debe ingresar un comentario' . $comentario);
-            }
+            }*/
             
         } else {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');

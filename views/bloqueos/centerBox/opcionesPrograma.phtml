@@ -1,100 +1,141 @@
 <?php
-if($this->objOpcBloqueos) {
-    $cont=0;
-    foreach($this->objOpcBloqueos as $objOpcProg) {
-    ?>
-<tr style="font-size: 12px;">
-    <?php
-    $OP_hoteles= $objOpcProg->getHoteles();
-    $OP_codHoteles= $objOpcProg->getCodHoteles();
-    $OP_pa= $objOpcProg->getPA();
-    $OP_th= $objOpcProg->getTH();
-    $OP_codTh= $objOpcProg->getCodTH();
-    $OP_cat= $objOpcProg->getCat();
-    $OP_ciudad= $objOpcProg->getCiudad();
+if ($this->objOpcBloqueos) {
+    $cont = 0;
+    foreach ($this->objOpcBloqueos as $objOpcProg) {
+        ?>
+        <tr style="font-size: 12px;">
+            <?php
+            $OP_hoteles = $objOpcProg->getHoteles();
+            $OP_codHoteles = $objOpcProg->getCodHoteles();
+            $OP_pa = $objOpcProg->getPA();
+            $OP_th = $objOpcProg->getTH();
+            $OP_codTh = $objOpcProg->getCodTH();
+            $OP_cat = $objOpcProg->getCat();
+            $OP_ciudad = $objOpcProg->getCiudad();
+            $OP_planAli = $objOpcProg->getPlanAl();
 
-    $OP_cntHoteles = count($objOpcProg->getHoteles());
-    for($i=0; $i<$OP_cntHoteles; $i++)
-    {
-    ?>
+            $OP_cntHoteles = count($objOpcProg->getHoteles());
+            for ($i = 0; $i < $OP_cntHoteles; $i++) {
+                ?>
 
-    <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
-        <a data-toggle='modal' href='#myModal' onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>,'<?php echo $this->form;?>');"id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"><?php echo $OP_hoteles[$i]; ?></a>
-    </td>
-    <td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>
-    <td style="padding: 2px; vertical-align: middle;">
+                <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
+                    <a class="tool"title='<?php echo $OP_ciudad[$i]; ?>'
+                       style="opacity: 1;cursor:pointer; " 
+                       data-toggle='modal' 
+                       href='#myModal' 
+                       onClick="fadeIn('detallePopup');
+                               $('#divPopupPRG').css('overflow-y', 'scroll');
+                               abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>, '<?php echo $this->form; ?>');"
+                       id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>" ><?php echo $OP_hoteles[$i]; ?></a>
+                </td>
+                <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>-->
+                <td style="padding: 2px; vertical-align: middle;width: 97px;">
+                    <?php
+                    if (strlen($OP_cat[$i]) == 2) {
+                        for ($j = 1; $j <= 5; $j++) {
+                            if ($j <= substr($OP_cat[$i], 0, 1)) {
+                                ?>
+                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
+                            <?php } else { ?>
+                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />   
+                            <?php
+                            }
+                        }
+                    } else {
+                        echo $OP_cat[$i];
+                    }
+                    ?>
+                </td>
+                <td style="padding: 2px; vertical-align: middle; width: 97px;" >
+                    <a data-toggle='modal' href='#myModal' 
+                       onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
+                    <?php echo $OP_th[$i]; ?>
+                    </a>
+                </td>
+                <td style="padding: 2px; vertical-align: middle;width: 121px;" >
+            <?php echo $OP_planAli[$i]; ?>
+                </td>
+                <td width="140px">
+                    <a data-toggle="modal" href="#myModal" 
+                       onClick="fadeIn('detallePopup');
+                               $('#divPopupPRG').css('overflow-y', 'scroll');
+                               abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosHotel', 'tituloFormPRG', 'Fotos Hotel', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='20' title='Fotos' />
+                    </a>
+
+                    <a data-toggle="modal" href="#myModal" 
+                       onClick="fadeIn('detallePopup');
+                               $('#divPopupPRG').css('overflow-y', 'scroll');
+                               abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/mapas', 'tituloFormPRG', 'Google Maps', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');" >
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>mapa.jpg" border='0' height='20' title='Mapa' />
+                    </a>
+
+                    <!--<a data-toggle='modal' href='#myModal' 
+                        onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>,'<?php echo $this->form; ?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>hotel.jpg" border='0' height='20' width="30" title='Hotel' />
+                    </a>-->
+
+            <?php if ($objOpcProg->getNotaOpc()) { ?>
+                        <a data-toggle="modal" href="#myModal" 
+                           onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloFormPRG', 'Nota de Programa', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $this->form; ?>');">
+                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Notas" title="Notas" />
+                        </a>
+            <?php } ?>
+                </td>
+            <input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('Autenticado')) {
+                echo'0';
+            } else {
+                echo'1';
+            } ?>">
+
+
+
+
+                      <?php
+                      }
+                      $OP_valores = $objOpcProg->getValorHab();
+                      $OP_tipoHabi = $objOpcProg->getTipoHab();
+                      ?>
+
+        <td style="color:#F00; text-align:right; " width="105px" rowspan="<?php echo $i; ?>">
+            <span class="tooltip" style="opacity: 1;color:#F00;z-index:5;"onmouseover="tooltip.pop(this, '<?php
+                      if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
+                          echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
+                      }
+                      if (isset($OP_tipoHabi[1]) && $OP_tipoHabi[1] != '') {
+                          echo 'Habitacion 2: ' . $OP_tipoHabi[1] . '<br>';
+                      }
+                      if (isset($OP_tipoHabi[2]) && $OP_tipoHabi[2] != '') {
+                          echo 'Habitacion 3: ' . $OP_tipoHabi[2] . '<br>';
+                      }
+                      ?>', {position: 0})" >
+        <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
+            </span>
+        </td>
+
+        <td width="24px" rowspan="<?php echo $i; ?>">
+            <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
+            echo'href="#myModal"';
+        } ?> 
+               onClick="openForm('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'tituloFormPRG', 'Formulario de reserva', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');"
+               class="btn btn-primary resBloque">Reservar</a>
+        </td>
+        <input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('Autenticado')) {
+            echo'0';
+        } else {
+            echo'1';
+        } ?>">
+        </tr>
         <?php
-        if(strlen($OP_cat[$i])==2) {
-            for($j=1; $j<=5; $j++) { 
-                if($j<=substr($OP_cat[$i], 0, 1)) {?>
-                    <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
-        <?php   } else { ?>
-                    <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />   
-        <?php   }
-            }
-        } else { echo $OP_cat[$i]; } ?>
-    </td>
-    <td style="padding: 2px; vertical-align: middle;" width="20px">
-        <a data-toggle='modal' href='#myModal' 
-            onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>,'<?php echo $this->form;?>');">
-            <?php echo $OP_th[$i]; ?>
-        </a>
-    </td>
-    <td width="140px">
-        <a data-toggle="modal" href="#myModal" 
-            onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosHotel', 'tituloFormPRG', 'Fotos Hotel', <?php echo $OP_codHoteles[$i]; ?>,'<?php echo $this->form;?>');">
-            <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='20' title='Fotos' />
-        </a>
-    
-        <a data-toggle="modal" href="#myModal" 
-            onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/mapas', 'tituloFormPRG', 'Google Maps', <?php echo $OP_codHoteles[$i]; ?>,'<?php echo $this->form;?>');" >
-            <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>mapa.jpg" border='0' height='20' title='Mapa' />
-        </a>
-    
-        <!--<a data-toggle='modal' href='#myModal' 
-            onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>,'<?php echo $this->form;?>');">
-            <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>hotel.jpg" border='0' height='20' width="30" title='Hotel' />
-        </a>-->
-    
-        <?php if($objOpcProg->getNotaOpc()) { ?>
-        <a data-toggle="modal" href="#myModal" 
-        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloFormPRG', 'Nota de Programa', '<?php echo $objOpcProg->getIdOpc(); ?>','<?php echo $this->form;?>');">
-        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Notas" title="Notas" />
-        </a>
-        <?php } ?>
-    </td>
-    <input type="hidden" id="ValiFormLogin" value="<?php if(!Session::get('Autenticado')){echo'0';}else{echo'1';}?>">
-    
-    
-    
-    
-    <?php } 
-    $OP_valores = $objOpcProg->getValorHab();
-    $OP_tipoHabi= $objOpcProg->getTipoHab();
-    ?>
-    
-    <td style="color:#F00; text-align:right; " width="105px" rowspan="<?php echo $i; ?>">
-        <span class="tooltip" style="opacity: 1;color:#F00;"onmouseover="tooltip.pop(this,'<?php if(isset($OP_tipoHabi[0]) && $OP_tipoHabi[0]!='')
-{echo 'Habitacion 1: '.$OP_tipoHabi[0].'<br>';}
-if( isset($OP_tipoHabi[1])&&$OP_tipoHabi[1]!=''){
-echo 'Habitacion 2: '.$OP_tipoHabi[1].'<br>';}
-if(isset($OP_tipoHabi[2])&&$OP_tipoHabi[2]!='')
-{echo 'Habitacion 3: '.$OP_tipoHabi[2].'<br>';}?>',{position:0})" >
-           <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
-        </span>
-    </td>
-    
-    <td width="24px" rowspan="<?php echo $i; ?>">
-        <a data-toggle="modal"  <?php if($this->form ==='a' || Session::get('Autenticado') ){echo'href="#myModal"';}?> 
-        onClick="openForm('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'tituloFormPRG', 'Formulario de reserva', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');"
-        class="btn btn-primary resBloque">Reservar</a>
-    </td>
-    <input type="hidden" id="ValiFormLogin" value="<?php if(!Session::get('Autenticado')){echo'0';}else{echo'1';}?>">
-</tr>
-<?php 
- $cont++;
+        $cont++;
     }
-} else { ?>
-Ha ocurrido un error en la carga de opciones!
+} else {
+    ?>
+    Ha ocurrido un error en la carga de opciones!
 <?php } ?>
+<script>
+    $(document).ready(function () {
+        $('.tool').tooltip();
 
+    });
+</script>
