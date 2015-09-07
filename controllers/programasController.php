@@ -218,6 +218,7 @@ class programasController extends Controller
         $this->_view->form=$form;
         
         
+        
         Session::accForm('Usuario');
         
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
@@ -229,8 +230,11 @@ class programasController extends Controller
                 Session::set('sess_TPL', $this->getInt('_TPL_'));
                 Session::set('sess_moneda', $this->getTexto('_MON_'));
                 Session::set('sess_claveOpc', $this->getTexto('_OPC_'));
-                
+                $this->_view->hab=$this->getJson('_HAB_');
+                $this->_view->hot=$this->getJson('_HOT_');
+                $this->_view->plan=$this->getJson('_PLAN_');
                 $this->_view->renderingCenterBox('pasajeros');
+                
             } else {
                 throw new Exception('Error al cargar las opciones');
             }
@@ -261,6 +265,9 @@ class programasController extends Controller
                 
                 $this->_view->totalPago = $totalPago;
                 $this->_view->cntHab = $this->getInt('DP_cmbHab');
+                $this->_view->hot= explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hot"))))));
+                $this->_view->hab=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hab"))))));
+                $this->_view->plan=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("plan"))))));
                 $this->_view->renderingCenterBox('detallePasajeros');
             } else {
                 throw new Exception('Debe ingresar la cantidad de habitaciones');

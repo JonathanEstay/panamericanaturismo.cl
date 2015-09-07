@@ -1,25 +1,63 @@
 <?php //echo Session::get('sess_distribucionPax'); ?>
-<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" align="center">
-    <tr>
-        <td style="font-size: 12px; text-align: center"> NOMBRE PROGRAMA</td>
-        <td style="font-size: 12px; text-align: center"> CIUDAD</td>
-        <td style="font-size: 12px; text-align: center"> TOTAL A PAGAR</td>
+<table style="width: 100%; margin-bottom: 12px;"cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" align="center">
+     <thead>
+    <tr style="background-color:#34495e; color: #FFFFFF">
+        <th style="font-size: 12px; text-align: center"> NOMBRE PROGRAMA</th>
+        <th style="font-size: 12px; text-align: center"> CIUDAD</th>
+        <th style="font-size: 12px; text-align: center"> TOTAL A PAGAR</th>
     </tr>
-
-    <tr>
-        <td style="padding: 2px; vertical-align: middle;" align="center">
+     </thead>
+    <tr >
+        <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <?php echo Session::get('sess_nombrePrograma'); ?>
         </td>
-        <td style="padding: 2px; vertical-align: middle;" align="center">
+        <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <?php echo Session::get('sess_ciudadPrograma'); ?>
         </td>
-        <td style="padding: 2px; vertical-align: middle;" align="center">
+        <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <label style="color: #DF5F00; font-weight: bold; font-size:20px;">
             <?php echo Functions::formatoValor(Session::get('sess_moneda'), $this->totalPago); ?>
             </label><br>
         </td>
     </tr>
 </table>
+
+<!--<div class="panel panel-primary">
+        <div class="panel-heading">
+            Seleccion
+        </div>
+        <div class="panel-body">-->
+            <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
+            <thead>
+                    <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
+                    </tr>
+                </thead>
+                <?php 
+                $i=0;
+                foreach ($this->hot as $val){
+                    
+                ?>
+                <tr>
+                    <td style="height: 22px;"><?php echo $val;?></td>
+                    <td style="height: 22px;"><?php echo $this->hab[$i];?></td>
+                    <td style="height: 22px;"><?php echo $this->plan[$i];?></td>
+                </tr>
+                <?php 
+                
+                
+                
+                }
+                ?>
+            </table>
+           
+<br>
+        <!--</div>
+    </div>-->
+
+
 
 <div class="panel panel-primary">
     <div class="panel-heading">
