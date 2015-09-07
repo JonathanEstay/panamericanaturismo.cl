@@ -297,7 +297,12 @@ class bloqueosController extends Controller
         {
             $N_programa= $this->loadModel('programa');
             
-            $this->_view->objPrograma= $N_programa->getNotaOpc($idOpc);
+            if($N_programa->getDescrip($idOpc)){
+                $this->_view->objPrograma= $N_programa->getDescrip($idOpc);
+            } else {
+                $this->_view->objPrograma= $N_programa->getNotaOpc($idOpc);
+            }
+            
             $this->_view->renderingCenterBox('notas');
         }
         else
