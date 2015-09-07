@@ -662,7 +662,7 @@ function fadeOut(id) {
                             'display': 'none'
                         }); 
 }
-function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form){
+function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
     
     var valor = $("#ValiFormLogin").val();
     
@@ -671,13 +671,13 @@ function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form){
    if(valor === '1'){
         fadeIn('detallePopup');
         $('#divPopupIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant,'divPopupIn',php,sgl,dbl,tpl,pf,moneda,Opc,form);
+        Programa.prototype.pasajerosProg(cant,'divPopupIn',php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan);
         
     }else{
         
         fadeIn('loginPopup');
         $('#divLoginIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant,'divLoginIn',php,sgl,dbl,tpl,pf,moneda,Opc,form);
+        Programa.prototype.pasajerosProg(cant,'divLoginIn',php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan);
         
         
     }

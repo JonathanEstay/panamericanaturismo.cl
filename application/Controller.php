@@ -191,6 +191,15 @@ abstract class Controller
         }
     }
     
+    protected function getJson($clave)
+    {
+        if(isset($_POST[$clave]) && !empty($_POST[$clave]))
+        {
+            return $_POST[$clave];
+        }
+    }
+    
+    
     protected function getCheckbox($clave)
     {
         if(isset($_POST[$clave]) && !empty($_POST[$clave]))

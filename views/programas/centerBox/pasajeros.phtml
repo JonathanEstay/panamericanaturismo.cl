@@ -1,5 +1,65 @@
 <form class="frmDetalleReserva_1_<?php echo $this->cntP; ?>">
+    <div class="row">
+        <div class="col-md-3"></div><div class="col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Seleccion
+        </div>
+        <div class="panel-body">
+            <table cellpadding="0" cellspacing="0" border="0" class="table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
+                <thead>
+                    <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                        <th role="columnheader" style="padding-left: 2px;">Programa</th>
+                        <th role="columnheader" style="padding-left: 2px;">Ciudad</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td style="padding: 2px; vertical-align: middle;height: 22px;width: 293px;">
+                         <?php echo Session::get('sess_nombrePrograma'); ?>
+                    </td>
+                    <td style="padding: 2px; vertical-align: middle;height: 22px;">
+                        <?php echo Session::get('sess_ciudadPrograma'); ?>
+                    </td>
+                    
+                </tr>
+                
+            </table>
+           
+            <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
+            <thead>
+                    <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
+                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
+                    </tr>
+                </thead>
+                
+                <?php 
+                $i=0;
+                foreach ($this->hot as $val){
+                    
+                ?>
+                <tr>
+                    <td style="height: 22px;"><?php echo $val;?></td>
+                    <td style="height: 22px;"><?php echo $this->hab[$i];?></td>
+                    <td style="height: 22px;"><?php echo $this->plan[$i];?></td>
+                </tr>
+                <?php 
+                
+                
+                
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+    <input type="hidden" name="hot"value="<?php echo htmlspecialchars(json_encode($this->hot));?>">
+    <input type="hidden" name="hab"value="<?php echo htmlspecialchars(json_encode($this->hab));?>">
+    <input type="hidden" name="plan"value="<?php echo htmlspecialchars(json_encode($this->plan));?>">
     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width:50%" align="center">
+        
         <tr>
             <td><span style="padding-left:10px;">Habitaci&oacute;n:</span></td>
             <td>

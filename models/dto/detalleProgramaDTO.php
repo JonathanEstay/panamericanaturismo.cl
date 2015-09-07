@@ -39,6 +39,7 @@ class detalleProgramaDTO
     private $_estrellas;
     private $_cod_th;
     private $_th;
+    private $_planAl;
     
     private $_error;
     private $_mensaje;
@@ -280,5 +281,11 @@ class detalleProgramaDTO
     }
     public function setTipoHab($th) {
         $this->_th = $th;
+    }
+    public function getPlanAl() {
+        return $this->_planAl;
+    }
+    public function setPlanAl($planAl) {
+        $this->_planAl = $planAl;
     }
 }

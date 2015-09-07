@@ -40,9 +40,11 @@ Programa.prototype.validaPasaporte = function(id, rut, passport) {
 };
 
 
-Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf, mon, opc,form) {
+Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf, mon, opc,form,hab,hot,plan) {
 
     form='/'+form;
+    
+    
     
     if(valor) {
         $.post(php+form, {
@@ -52,7 +54,10 @@ Programa.prototype.pasajerosProg = function(valor, div2, php, sgl, dbl, tpl, pf,
             _TPL_: tpl,
             _PF_: pf,
             _MON_: mon,
-            _OPC_: opc
+            _OPC_: opc,
+            _HAB_: hab,
+            _HOT_:hot,
+            _PLAN_:plan
         }, function(data) {
             $('#' + div2).html(data);
             $('#' + div2).delay( 100 ).fadeIn( 400 );

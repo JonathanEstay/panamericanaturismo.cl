@@ -319,6 +319,8 @@ class programaDAO extends Model
     
     
     public function exeTS_GET_PROGRAMAS($sql) {
+        
+        
         $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0) {
             
@@ -390,7 +392,7 @@ class programaDAO extends Model
     
     public function exeTS_GET_DETALLEPROG($sql) {
         
-        
+       
         $datos = $this->_db->consulta($sql);
         
         if($this->_db->numRows($datos)>0) {
@@ -416,6 +418,7 @@ class programaDAO extends Model
                     $starHotel= array();
                     $codTH= array();
                     $TH= array();
+                    $planAl=array();
 
                     
                     $objDetProg->setIdOpc(trim($detProgDB['idOPC']));
@@ -452,6 +455,7 @@ class programaDAO extends Model
                             $starHotel[]=trim($detProgDB['catEstrella_'.$i]);
                             $codTH[]=trim($detProgDB['codTH_'.$i]);
                             $TH[]=trim($detProgDB['tipoHab_'.$i]);
+                            $planAl[]=trim($detProgDB['PA_'.$i]);
                         }
                     }
 
@@ -462,6 +466,7 @@ class programaDAO extends Model
                     $objDetProg->setEstrellas($starHotel);
                     $objDetProg->setCodTH($codTH);
                     $objDetProg->setTipoHab($TH);
+                    $objDetProg->setPlanAl($planAl);
                     
                     
                     
