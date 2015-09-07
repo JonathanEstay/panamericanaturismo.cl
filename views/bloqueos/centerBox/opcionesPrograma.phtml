@@ -19,7 +19,7 @@ if($this->objOpcBloqueos) {
     ?>
 
     <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
-        <a id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"><?php echo $OP_hoteles[$i]; ?></a>
+        <a data-toggle='modal' href='#myModal' onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>,'<?php echo $this->form;?>');"id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"><?php echo $OP_hoteles[$i]; ?></a>
     </td>
     <td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>
     <td style="padding: 2px; vertical-align: middle;">
@@ -51,10 +51,10 @@ if($this->objOpcBloqueos) {
             <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>mapa.jpg" border='0' height='20' title='Mapa' />
         </a>
     
-        <a data-toggle='modal' href='#myModal' 
+        <!--<a data-toggle='modal' href='#myModal' 
             onClick="fadeIn('detallePopup'); $('#divPopupPRG').css('overflow-y', 'scroll'); abrePopup('divPopupPRG', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>,'<?php echo $this->form;?>');">
             <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>hotel.jpg" border='0' height='20' width="30" title='Hotel' />
-        </a>
+        </a>-->
     
         <?php if($objOpcProg->getNotaOpc()) { ?>
         <a data-toggle="modal" href="#myModal" 
