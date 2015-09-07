@@ -304,6 +304,7 @@ class bloqueoDAO extends Model
                 $incluye= array();
                 $valorHab= array();
                 $tipoHab=array();
+                $planAli=array();   
                 
                 
                 $objPackages= new bloqueoDTO();
@@ -344,7 +345,9 @@ class bloqueoDAO extends Model
                         if(trim($packDB['tipoHab_'.$i])=='01SGL'){
                            $tipoHab[] = '01 SINGLE';
                         }
+                        
                     }
+                    
                     $objPackages->setValorHab($valorHab);
                     $objPackages->setTipoHab($tipoHab);
                     /* VALOR HABITACION */
@@ -361,6 +364,7 @@ class bloqueoDAO extends Model
                             $codTH[]=trim($packDB['codTipoHabitacion_'.$i]);
                             $cat[]=trim($packDB['cat_'.$i]);
                             $ciudad[]=trim($packDB['ciudad_'.$i]);
+                            $planAli[]=trim($packDB['PlanAlimenticio_'.$i]);
                         }
                     }
                     
@@ -371,6 +375,7 @@ class bloqueoDAO extends Model
                     $objPackages->setCodTH($codTH);
                     $objPackages->setCat($cat);
                     $objPackages->setCiudad($ciudad);
+                    $objPackages->setPlanAL($planAli);
                     /* HOTELES */
                     
                     if($inc)

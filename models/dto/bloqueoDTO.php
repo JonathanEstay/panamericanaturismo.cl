@@ -27,7 +27,9 @@ class bloqueoDTO
     private $_moneda;
     private $_itinerario_vuelo;
     private $_tramo;
-    
+    private $_planAl;
+
+
     private $_hoteles;
     private $_cod_hoteles;
     private $_pa;
@@ -47,7 +49,14 @@ class bloqueoDTO
     {
         $this->_tramo=$tramo;
     }
-    
+    public function getPlanAl()
+    {
+        return $this->_planAl;
+    }
+    public function setPlanAL($PlanAli)
+    {
+        $this->_planAl=$PlanAli;
+    }
     
     public function getItiVuelo()
     {
