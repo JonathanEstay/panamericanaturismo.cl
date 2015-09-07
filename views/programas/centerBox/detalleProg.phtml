@@ -159,7 +159,7 @@ if($this->objOpcProgramas) {
                         <th role="columnheader" style="padding-left: 2px; width: 100px;">Plan Alimenticio</th>
                         <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
                         <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
-                        <th role="columnheader" style="padding-left: 2px; width: 50px;"></th>
+                        <!--<th role="columnheader" style="padding-left: 2px; width: 50px;"></th>-->
                         
                     </tr>
                 </thead>
@@ -178,7 +178,7 @@ if($this->objOpcProgramas) {
                 ?>
                     <tr>
                         <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
-                            <a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"><?php echo $DP_hoteles[$i]; ?></a>
+                            <a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  style="cursor:pointer"onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloPopup', '<?php echo $DP_hoteles[$i]; ?>', <?php echo $DP_cod_hoteles[$i] ?>,'<?php echo $this->form;?>');"><?php echo $DP_hoteles[$i]; ?></a>
                         </td>
                         <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $DP_dirHot[$i]; ?></td>-->
                         <td style="padding: 2px; vertical-align: middle;">
@@ -215,12 +215,12 @@ if($this->objOpcProgramas) {
                                 <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>mapa.jpg" border='0' height='25' title='Mapa' />
                             </a>
                         </td>
-                        <td>
+                        <!--<td>
                             <a data-toggle='modal' href='#myModal' 
                                 onClick="fadeIn('detallePopup'); $('#divPopupIn').css('overflow-y', 'scroll'); abrePopup('divPopupIn', '<?php echo  BASE_URL; ?>bloqueos/servicios', 'tituloPopup', '<?php echo $DP_hoteles[$i]; ?>', <?php echo $DP_cod_hoteles[$i] ?>,'<?php echo $this->form;?>');">
                                 <img src="<?php echo  $_layoutParamsCB['ruta_img']; ?>hotel.jpg" border='0' height='25' width="40" title='Hotel' />
                             </a>
-                        </td>
+                        </td>-->
                     </tr>
                     <?php
                 }?>
