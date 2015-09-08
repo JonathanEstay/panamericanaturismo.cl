@@ -235,7 +235,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
             //una vez finalizado correctamente
             success: function (data)
             {
-                $("#checkCondiciones").attr('checked', false);
+                //$("#checkCondiciones").attr('checked', false);
                 var myArrayData = data.split('&');
                 if ($.trim(myArrayData[0]) == 'OK')
                 {
