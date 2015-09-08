@@ -30,7 +30,7 @@
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>jqueryui.css' /> 
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>prettify.css' /> 
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>toggles.css' /> 
-    <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>tooltip.css' /> 
+    <link rel="stylesheet" type="text/css"href="<?php echo $_layoutParams['ruta_css']; ?>tip-darkgray/tip-darkgray.css" />
     <script type="text/javascript">
         var BASE_URL_JS = "<?php echo BASE_URL; ?>";
         var CONTROLLER_JS = "<?php echo Session::get('SESS_CONTROLLER'); ?>";
