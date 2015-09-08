@@ -24,7 +24,7 @@ class bloqueosController extends Controller
         $item= Buscador::validar($form);
         $this->_view->url= Buscador::getUrl();
         $this->_view->form=$form;
-        //$this->_view->setJS(array(''));
+        $this->_view->setJS(array('bloqueos'));
         
         //$this->getLibrary('kint/Kint.class');
         

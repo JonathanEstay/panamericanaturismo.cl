@@ -1,7 +1,7 @@
 /* 
- * Proyecto : Euroandino.net
+ * Proyecto : panamericanaturismo.cl
  * Autor    : Tsyacom Ltda.
- * Fecha    : Miercoles, 10 de octubre de 2014
+ * Fecha    : Viernes, 24 de julio de 2015
  */
 
 //Clase programa
