@@ -25,30 +25,29 @@ abstract class Controller
             
             if($this->getTexto('mL_txtFechaIn_PRG')) { 
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
-                
             }else{
                 if($this->getTexto('mL_txtFechaIn')){
                     Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
                 }
-                
             }
+            
         } else {
             if(!Session::get('sess_fechaDefault')){
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
             }
         }
         
+        
+        
         if(!Session::get('sess_BP_fechaIn')){
-            
             $this->_view->ML_fechaIni =  Session::get('sess_fechaDefault');
         }else{
-            
             $this->_view->ML_fechaIni =  Session::get('sess_BP_fechaIn');
         }
         
+        
         if(!Session::get('sess_BP_fechaOut')){
-            
-            $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
+            $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 6);//Session::get('sess_fechaDefault');
         }else{
             
             $this->_view->ML_fechaFin=Session::get('sess_BP_fechaOut');
@@ -137,24 +136,6 @@ abstract class Controller
         }
     }
     
-
-    /*protected function loadModel($modelo)
-    {
-        $modelo= $modelo . 'Model';
-        $rutaModelo= ROOT . 'models' . DS . $modelo . '.php';
-        
-        if(is_readable($rutaModelo))
-        {
-            require_once $rutaModelo;
-            $modelo= new $modelo;
-            return $modelo; //retorna la instancia del modelo
-        }
-        else
-        {
-            throw new Exception('Error al leer el modelo: ' . $rutaModelo);
-        }
-    }*/
-    
     protected function getServer($clave)
     {
         if(!empty($_SERVER[$clave]))
@@ -222,14 +203,12 @@ abstract class Controller
     
     protected function redireccionar($ruta = false)
     {
-        if($ruta){
+        if($ruta) {
             header('location:' . BASE_URL . $ruta);
-            exit;
-        }
-        else{
+        } else {
             header('location:' . BASE_URL);
-            exit;
         }
+        exit;
     }
     
     
@@ -277,32 +256,6 @@ abstract class Controller
             return 0;
         }
     }
-    
-    protected function validateRequirements()
-    {
-        $requirements = array(
-            'version' => '',
-            'curl' => '',
-            'dom' => ''
-        );
-
-        $version = str_replace('.', '', phpversion());
-
-        if ($version < 533) {
-            $requirements['version'] = 'Se requiere PHP version 5.3.3 o superior.';
-        }
-
-        if (!function_exists('curl_init')) {
-            $requirements['curl'] = 'Se requiere CURL library.';
-        }
-
-        if (!class_exists('DOMDocument')) {
-            $requirements['dom'] = 'Se requiere DOM XML extension is required.';
-        }
-
-        return $requirements;
-    }
-    
     
     protected function applicationRequirements()
     {
@@ -381,6 +334,9 @@ abstract class Controller
         $mail->Send();
         sleep(2);
     }
+    
+    
+    
     public static function destroyArray()
     {
         $arraySess = array('Autenticado', 'sess_key_', 'sess_ip', 'sess_fechaLogin', 
