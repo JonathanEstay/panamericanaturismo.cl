@@ -98,7 +98,7 @@ class View
         
         if(is_readable($rutaView))
         {
-            if($item){
+            if(!$item){
                 include_once ROOT . 'views' . DS . 'layout' . DS . 'buscador' . DS . '_NavBar.php';
                 include_once ROOT . 'views' . DS . 'layout' . DS . 'buscador' . DS . '_LeftSidebar.php';
             } else {
