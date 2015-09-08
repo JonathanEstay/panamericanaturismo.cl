@@ -28,8 +28,12 @@ if ($this->objOpcBloqueos) {
                                abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloFormPRG', '<?php echo $OP_hoteles[$i]; ?>', <?php echo $OP_codHoteles[$i] ?>, '<?php echo $this->form; ?>');"
                        id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>" ><?php echo $OP_hoteles[$i]; ?></a>
                 </td>
+                
+                
+                
+                
                 <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>-->
-                <td style="padding: 2px; vertical-align: middle;width: 90px;">
+                <td style="padding: 2px; vertical-align: middle;">
                     <?php
                     if (strlen($OP_cat[$i]) == 2) {
                         for ($j = 1; $j <= 5; $j++) {
@@ -46,15 +50,22 @@ if ($this->objOpcBloqueos) {
                     }
                     ?>
                 </td>
-                <td style="padding: 2px; vertical-align: middle; width: 90px;" >
+                
+                
+                
+                <td style="padding: 2px; vertical-align: middle; " >
                     <a data-toggle='modal' href='#myModal' 
                        onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
                     <?php echo $OP_th[$i]; ?>
                     </a>
                 </td>
-                <td style="padding: 2px; vertical-align: middle;width: 104px;" >
+                
+                
+                <td style="padding: 2px; vertical-align: middle;" >
                     <a><?php echo $OP_planAli[$i]; ?></a>
                 </td>
+                
+                
                 <td width="100px">
                     <a data-toggle="modal" href="#myModal" 
                        onClick="fadeIn('detallePopup');
@@ -113,13 +124,15 @@ if ($this->objOpcBloqueos) {
             </span>
         </td>
 
-        <td width="20px" rowspan="<?php echo $i; ?>">
+        
+        <td rowspan="<?php echo $i; ?>">
             <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
             echo'href="#myModal"';
         } ?> 
                onClick="openForm('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'tituloFormPRG', 'Formulario de reserva', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');"
-               class="btn btn-primary resBloque">Reservar</a>
+               class="btn btn-primary resBloque btn-xs">Reservar</a>
         </td>
+        
         <input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('Autenticado')) {
             echo'0';
         } else {
