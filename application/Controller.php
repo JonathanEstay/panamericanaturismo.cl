@@ -18,7 +18,6 @@ abstract class Controller
     
     abstract public function index();
     
-    
     protected function _loadLeft()
     {
         if($this->getServer('HTTP_REFERER') == 'http://oristest.panamericanaturismo.cl/buscador/' || $this->getServer('HTTP_REFERER') == 'http://online.panamericanaturismo.cl/buscador/'){

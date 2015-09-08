@@ -13,46 +13,16 @@ class bloqueosController extends Controller
     public function __construct() {
         parent::__construct();
         $this->_ciudad = $this->loadModel('ciudad');
-        
-        $form=$this->_view->getForm();
-        if(!$form){
-            $form[0]='';
-            
-        }
-        if(!$form){
-            $form[0]='a';
-            
-        }
-       if($form[0]!='form'){
-        Session::acceso('Usuario');   
-        }
-        
+        Buscador::validaForm();
         $this->_loadLeft();
     }
     
     
     public function index($form='')
     {
-        
-        $item=true;
         $this->_view->_stilo='left: 169px;';
-        if($form!='form'){
-            Session::acceso('Usuario');
-            $item=false;
-            
-            
-        }
-        
-        if(Session::get('sess_Url_Form')){
-            
-            
-            $this->_view->url= validar::formUrl();
-            
-        }else{
-            
-           $this->_view->url='http://www.panamericanaturismo.cl';
-        }
-        
+        $item= Buscador::validar($form);
+        $this->_view->url= Buscador::getUrl();
         $this->_view->form=$form;
         //$this->_view->setJS(array(''));
         
@@ -105,7 +75,7 @@ class bloqueosController extends Controller
         $this->_view->currentMenu=11;
         //$this->_view->procesoTerminado=false;
         $this->_view->titulo='ORISTRAVEL';
-        $this->_view->renderingSystem('bloqueos',$item);
+        $this->_view->renderingSystem('bloqueos', $item);
     }
     
     
@@ -128,9 +98,7 @@ class bloqueosController extends Controller
     *******************************************************************************/
     public function opciones($form='')
     {
-        if($form!='form'){
-            Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $this->_view->form = $form;
         //echo "opciones!"; exit;
         $BO_idprog= $this->getTexto('__id__');
@@ -176,9 +144,7 @@ class bloqueosController extends Controller
     
     public function fotosHotel($form='')
     {
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $FH_codHotel= $this->getTexto('varCenterBox');
         if($FH_codHotel)
         {
@@ -261,9 +227,7 @@ class bloqueosController extends Controller
     
     public function mapas($form='')
     {
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $M_codHotel= $this->getTexto('varCenterBox');
         if($M_codHotel)
         {
@@ -289,9 +253,7 @@ class bloqueosController extends Controller
     public function notas($form='')
     {
         $this->_view->form=$form;
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $idOpc= $this->getTexto('varCenterBox');
         if($idOpc)
         {
@@ -315,9 +277,7 @@ class bloqueosController extends Controller
     public function servicios($form='')
     {
         $this->_view->form=$form;
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $S_codHotel= $this->getTexto('varCenterBox');
         if($S_codHotel)
         {
@@ -343,9 +303,7 @@ class bloqueosController extends Controller
     public function itinerarioVuelo($form='')
     {
         $this->_view->form=$form;
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         
         $idOpc= $this->getTexto('varCenterBox');
         if($idOpc)
@@ -364,9 +322,7 @@ class bloqueosController extends Controller
     
     public function condicionesGenerales($form='')
     {
-        if($form!='form'){
-        Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         $idPrg= $this->getTexto('varCenterBox');
         if($idPrg)
         {
@@ -584,13 +540,13 @@ class bloqueosController extends Controller
     
     public function buscar($form='', $url='')
     {
-        if($url!=''){
-            
-            Session::set('sess_Url_Form', $url);
-        }
+        Buscador::buscar($url);
+        
         if($form === 'a'){
-         Session::acceso('Usuario');   
+            Session::acceso('Usuario');   
         }
+        
+        
         $BP_cntHab= $this->getInt('mL_cmbHab');
         $BP_ciudadDes= $this->getTexto('mL_txtCiudadDestino');
         $BP_fechaIn= $this->getTexto('mL_txtFechaIn');
@@ -648,13 +604,5 @@ class bloqueosController extends Controller
         }
 
         $this->redireccionar('bloqueos/index/'.$form);
-    }
-    public function validadPostFe($form=''){
-        
-        $fecha =$this->getTexto('fecha');
-        
-        if(!Session::get('sess_fechaDefault')){
-           Session::set('sess_fechaDefault', $fecha);
-        }        
     }
 }
