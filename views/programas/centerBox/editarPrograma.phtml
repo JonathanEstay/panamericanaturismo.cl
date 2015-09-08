@@ -60,7 +60,7 @@
                                             <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chkEP_flPDF" checked="checked"> Eliminar
                                         </label>
                                         <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Eliminar" 
-                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
+                                               onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
                                     </div>
 
                                 <?php } else { ?>
@@ -86,7 +86,7 @@
                                         
                                         
                                         <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Subir PDF" 
-                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
+                                               onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_pdf', 'btnEP_CargaPDF', 'divEdit'); ">
                                     </div>
 
                                 <?php } ?>
@@ -123,7 +123,7 @@
                                             <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chkEP_flFoto" checked="checked"> Eliminar
                                         </label>
                                         <input type="button"  id="btnEP_CargaFoto" class="btn btn-primary" value="Eliminar" 
-                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
+                                               onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
                                     </div>
 
                                     
@@ -149,7 +149,7 @@
 
                                         
                                         <input type="button"  id="btnEP_CargaFoto" class="btn btn-primary" value="Subir foto" 
-                                               onclick="methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
+                                               onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar_foto', 'btnEP_CargaFoto', 'divEdit')">
                                     </div>
 
                                 <?php } ?>
@@ -176,7 +176,7 @@
                         <br>
                         <center>
                             <input type="button"  id="btnEP_descripcion" class="btn btn-primary" value="Guardar" 
-                            onclick="tinyMCE.triggerSave(); methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar', 'btnEP_descripcion', 'divEdit')">
+                            onclick="tinyMCE.triggerSave(); Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/modificar', 'btnEP_descripcion', 'divEdit')">
                         </center>
                     </form>
                 </div>

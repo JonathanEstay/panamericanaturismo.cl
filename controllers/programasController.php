@@ -106,7 +106,7 @@ class programasController extends Controller
         
         $this->_view->objCiudades= $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG= $this->_ciudad->getCiudadesPRG();
-        
+        $this->_view->setJS(array('programas'));
         
         if(Session::get('sess_AP_ciudad')) {
             $programas= $this->loadModel('programa');
@@ -489,6 +489,7 @@ class programasController extends Controller
      */
     public function editar($form='') {
         $this->_view->form=$form;
+        
         Session::acceso('Usuario');
         Session::destroy('sessMOD_EP_codPRG');
         $AP_codigoPrg = $this->getTexto('varCenterBox');
