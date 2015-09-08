@@ -458,6 +458,58 @@ Programa.prototype.abrirForm = function(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,
     
 }
 
+Programa.prototype.procesoDetalleProg = function(classFrm,form)
+{
+        
+        
+            form ='/'+form;
+        
+        
+	initLoad();
+
+	$("#divPopupPRG").html("");
+	var contentType = false;
+        var processData = false;
+    
+        if(typeof FormData === "undefined"){
+            //IE
+            var formData = [];
+            formData= formularioIE($("."+classFrm)[0]);
+            contentType = 'application/x-www-form-urlencoded';
+            processData = true;
+        } else {
+            var formData= new FormData($("."+classFrm)[0]);
+        }
+        
+	//hacemos la peticion ajax  
+	$.ajax({
+		url: BASE_URL_JS + CONTROLLER_JS + '/detalle'+form,  
+		type: 'POST',
+		//Form data
+		//datos del formulario
+		data: formData,
+                
+		//necesario para subir archivos via ajax
+		cache: false,
+		contentType: contentType,
+		processData: processData,
+		//mientras enviamos el archivo
+		beforeSend: function(){},
+		//una vez finalizado correctamente
+		success: function(data)
+		{
+                    $("#divPopupPRG").html(data);
+                    endLoad();
+		},
+		
+		//si ha ocurrido un error
+		error: function()
+		{
+                    $("#divPopupPRG").html("Ha ocurrido un error");
+		}
+	});
+}
+
 
 
 //Programa.prototype.validaPasaporte();

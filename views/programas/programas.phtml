@@ -155,7 +155,7 @@
                                                             <tr>
                                                                 <td style="padding: 2px; vertical-align: middle;" align="center">
                                                                     <label style="color: #DF5F00; font-weight: bold; font-size:30px;"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getValorDesde()); ?></label><br>
-                                                                    <a data-toggle="modal" href="#myModal" class="btn btn-success btn-sm" style="width: 88px;" onclick="fadeOut('detallePopup'); procesoDetalleProg('frmPrograma_<?php echo $cntProg; ?>','<?php echo $this->form;?>');">DETALLE</a>
+                                                                    <a data-toggle="modal" href="#myModal" class="btn btn-success btn-sm" style="width: 88px;" onclick="fadeOut('detallePopup'); Programa.prototype.procesoDetalleProg('frmPrograma_<?php echo $cntProg; ?>','<?php echo $this->form;?>');">DETALLE</a>
                                                                     <br>
                                                                     <label style="font-size: 10px;">Valores desde por persona en base a habitaci&oacute;n doble</label>
                                                                 </td>
