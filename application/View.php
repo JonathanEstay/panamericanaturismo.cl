@@ -71,7 +71,7 @@ class View
     }
     
     
-    public function getForm(){
+    public function getArgumentos(){
         return $this->_args;
     }
 
@@ -99,11 +99,11 @@ class View
         if(is_readable($rutaView))
         {
             if($item){
-            include_once ROOT . 'views' . DS . 'layout' . DS . 'formulario' . DS . '_NavBar2.php';
-            include_once ROOT . 'views' . DS . 'layout' . DS . 'formulario' . DS . '_LeftSidebar2.php';
-            }else{
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_NavBar.php';
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_LeftSidebar.php';
+                include_once ROOT . 'views' . DS . 'layout' . DS . 'buscador' . DS . '_NavBar.php';
+                include_once ROOT . 'views' . DS . 'layout' . DS . 'buscador' . DS . '_LeftSidebar.php';
+            } else {
+                include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_NavBar.php';
+                include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_LeftSidebar.php';
             }
             
             
