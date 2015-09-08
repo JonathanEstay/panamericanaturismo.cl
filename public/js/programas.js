@@ -7,6 +7,7 @@
 //Clase programa
 function Programa() {
     this.P_nombre = ''; 
+    this.P_aceptar_cond = false;
 }
 
 Programa.prototype.getNombre = function() {
@@ -15,6 +16,16 @@ Programa.prototype.getNombre = function() {
 Programa.prototype.setNombre = function(nombre) {
   this.P_nombre = nombre;
 };
+
+Programa.prototype.getCondiciones = function() {
+  return this.P_aceptar_cond;
+};
+Programa.prototype.setCondiciones = function(aceptar) {
+  this.P_aceptar_cond = aceptar;
+};
+
+
+
 
 
 Programa.prototype.validaPasaporte = function(id, rut, passport) {
@@ -155,122 +166,142 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
 
 Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form,urlCon)
 {
-    form='/'+form;
-    
-    $("#"+btn).attr('disabled', 'disabled');
+    if(this.P_aceptar_cond){
+        
+        form='/'+form;
 
-    initLoad();
+        $("#"+btn).attr('disabled', 'disabled');
 
-    
-    
-    
-    var contentType = false;
-    var processData = false;
+        initLoad();
 
-    if(typeof FormData === "undefined"){
-        //IE
-        var formData = [];
-        formData= formularioIE($("."+classFrm)[0]);
-        contentType = 'application/x-www-form-urlencoded';
-        processData = true;
-    } else {
-        var formData= new FormData($("."+classFrm)[0]);
+
+
+        var contentType = false;
+        var processData = false;
+
+        if(typeof FormData === "undefined"){
+            //IE
+            var formData = [];
+            formData= formularioIE($("."+classFrm)[0]);
+            contentType = 'application/x-www-form-urlencoded';
+            processData = true;
+        } else {
+            var formData= new FormData($("."+classFrm)[0]);
+        }
+    
+    
+    
+        $.ajax({
+         url: php+form,  
+         type: 'POST',
+         //Form data
+         //datos del formulario
+         data: formData,
+         //necesario para subir archivos via ajax
+         cache: false,
+         contentType: contentType,
+         processData: processData,
+         //mientras enviamos el archivo
+         beforeSend: function(){},
+         //una vez finalizado correctamente
+         success: function(data)
+         {
+             $("#checkCondiciones").attr('checked', false);
+             var myArrayData= data.split('&');
+
+             if($.trim(myArrayData[0]) === 'OK')
+             {
+                 $('#btnCerrar1PRG').delay( 100 ).fadeOut( 100 );
+                 $('#btnCerrar1PRG').animate({
+                                             'display': 'none'
+                                         });
+
+                 //alert('TODO OK'); return false;
+                 fadeOut('detallePopup');
+                 $("#"+div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
+                 $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion"+form, 
+                 {
+                     __sucessful__: myArrayData[1]
+
+                 }, function(dataRS)
+                 {
+                     $("#"+div).html(dataRS);
+                     endLoad();
+
+                     $('#btnAceptarPRG').delay( 2000 ).fadeIn( 100 );
+                     $('#btnAceptarPRG').animate({
+                             'display': 'block'
+                     });
+                 });
+             }
+             else
+             { 	
+                 alertError(btn, data, 5000);
+             }
+
+
+         },
+
+         //si ha ocurrido un error
+         error: function()
+         {
+             endLoad();
+
+             $('#mensajeWar').html('Error error');
+             $('#divAlertWar').delay( 1000 ).fadeIn( 500 );
+             $('#divAlertWar').animate({
+                     'display': 'block'
+             });
+
+             $('#divAlertWar').delay( 5000 ).fadeOut( 500 );
+             $('#divAlertWar').animate({
+                                         'display': 'none'
+                                     });
+         }
+     });
     }
     
-    fadeIn('condicionesPopup');
     
-    //hacemos la peticion ajax
-    
-     $.ajax({
-     url:urlCon,
-     success:function(data){
+};
+
+
+
+Programa.prototype.abrirCondiciones= function (urlCon){
+    if(!this.P_aceptar_cond) {
+        fadeIn('condicionesPopup');
+        $.post(urlCon,
+        {
+            __sucessful__: 1
+        }, function(data)
+        {
             $("#divPopupCon").html(data);
             endLoad();
-           $('#aceptarCondiciones').click(function(){
-               initLoad();
-            if($('#checkCondiciones').is(':checked')){
-                
-       fadeOut('condicionesPopup');
-       $.ajax({
-        url: php+form,  
-        type: 'POST',
-        //Form data
-        //datos del formulario
-        data: formData,
-        //necesario para subir archivos via ajax
-        cache: false,
-        contentType: contentType,
-        processData: processData,
-        //mientras enviamos el archivo
-        beforeSend: function(){},
-        //una vez finalizado correctamente
-        success: function(data)
-        {
-            $("#checkCondiciones").attr('checked', false);
-            var myArrayData= data.split('&');
-            
-            if($.trim(myArrayData[0]) === 'OK')
-            {
-                $('#btnCerrar1PRG').delay( 100 ).fadeOut( 100 );
-                $('#btnCerrar1PRG').animate({
-                                            'display': 'none'
-                                        });
+        });
+    }
+};
 
-                //alert('TODO OK'); return false;
-                fadeOut('detallePopup');
-                $("#"+div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
-                $.post( BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion"+form, 
-                {
-                    __sucessful__: myArrayData[1]
-
-                }, function(dataRS)
-                {
-                    $("#"+div).html(dataRS);
-                    endLoad();
-
-                    $('#btnAceptarPRG').delay( 2000 ).fadeIn( 100 );
-                    $('#btnAceptarPRG').animate({
-                            'display': 'block'
-                    });
-                });
-            }
-            else
-            { 	
-                alertError(btn, data, 5000);
-            }
-            
-            
-        },
-
-        //si ha ocurrido un error
-        error: function()
-        {
-            endLoad();
-
-            $('#mensajeWar').html('Error error');
-            $('#divAlertWar').delay( 1000 ).fadeIn( 500 );
-            $('#divAlertWar').animate({
-                    'display': 'block'
-            });
-
-            $('#divAlertWar').delay( 5000 ).fadeOut( 500 );
-            $('#divAlertWar').animate({
-                                        'display': 'none'
-                                    });
+Programa.prototype.aceptarCondiciones= function (){
+    if(!this.P_aceptar_cond) {
+        if ($('#checkCondiciones').is(':checked')) {
+            fadeOut('condicionesPopup');
+            this.P_aceptar_cond = true;
+        } else {
+            alertError("aceptarCondiciones", "Debe aceptar las condiciones", 4000);
+            this.P_aceptar_cond = false;
         }
-    });
-                    }else{
-                        
-                        alertError("aceptarCondiciones","Debe aceptar las condiciones",4000);
-                        endLoad();
-                    }
-                        
-                    });
-                    
-                }            
-            });
-    
-}
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
 
 //se cambian funciones de funciones.js a programas.js
 Programa.prototype.methodSend = function (classFrm, php, btn, div) {
@@ -279,7 +310,7 @@ Programa.prototype.methodSend = function (classFrm, php, btn, div) {
     } else {
         Programa.prototype.procesoEnviaForm(classFrm, php, btn, div);
     }
-}
+};
 
 Programa.prototype.procesoEnviaForm = function(classFrm, php, btn, div)
 {
@@ -351,7 +382,7 @@ Programa.prototype.procesoEnviaForm = function(classFrm, php, btn, div)
                                     });
         }
     });
-}
+};
 
 Programa.prototype.procesoEnviaFormIE = function(form, action_url, div_id) {
     //Enviar formulario Internet Explorer
@@ -433,7 +464,7 @@ Programa.prototype.procesoEnviaFormIE = function(form, action_url, div_id) {
     // Submit the form...
     form.submit();
     initLoad();
-}
+};
 
 Programa.prototype.abrirForm = function(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
     
@@ -456,7 +487,7 @@ Programa.prototype.abrirForm = function(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,
     }
    
     
-}
+};
 
 Programa.prototype.procesoDetalleProg = function(classFrm,form)
 {
@@ -508,10 +539,13 @@ Programa.prototype.procesoDetalleProg = function(classFrm,form)
                     $("#divPopupPRG").html("Ha ocurrido un error");
 		}
 	});
-}
+};
 
 
 
+
+
+//crearPersona();
 //Programa.prototype.validaPasaporte();
 
 /*function crearPersona(){
@@ -523,5 +557,3 @@ Programa.prototype.procesoDetalleProg = function(classFrm,form)
     persona2.setNombre("Sergio Orellana");
     alert(persona2.getNombre());
 }*/
-
-//crearPersona();

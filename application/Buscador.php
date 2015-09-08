@@ -15,20 +15,17 @@ class Buscador extends Controller{
     
     
     
-    public function getUrl() {
-        
-        if(Session::get('sess_url_buscador')){
-            
-            switch (Session::get('sess_url_buscador')) {
-                case '3f7a2611ee08c6645796463e0bb1ae7f':
-                    return'http://www.travelclub.cl/';
-                    break;
-                
-                default:
-                    return 'http://www.panamericanaturismo.cl';
-                    break;
-            }
-            
+    public function getUrl() {   
+        switch (Session::get('sess_url_buscador')) {
+            case '3f7a2611ee08c6645796463e0bb1ae7f':
+                Session::set('sess_boton_pago', true);
+                return 'http://www.travelclub.cl/';
+                break;
+
+            default:
+                Session::destroy('sess_boton_pago');
+                return 'http://www.panamericanaturismo.cl';
+                break;
         }
     }
     
