@@ -3,7 +3,7 @@
 
 
 
-
+<?php if(!WEB) { ?>
 <!--Start of Zopim Live Chat Script-->
 <script type="text/javascript">
 window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -13,7 +13,7 @@ $.src="//v2.zopim.com/?3GrwTVHvNgcEpC5lvfgFxUDY8oYw9THy";z.t=+new Date;$.
 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script>
 <!--End of Zopim Live Chat Script-->
-
+<?php } ?>
 
 
 
@@ -59,7 +59,7 @@ $(function()
     
     
     
-    
+    <?php if(!WEB) { ?>
     $( "#mL_txtFechaIn_PRG" ).datepicker({
         minDate: +1,
         defaultDate: "+1w",
@@ -74,7 +74,7 @@ $(function()
         dateFormat: 'dd/mm/yy',
         firstDay: 1
     });
-
+    <?php } ?>
 });
 
 </script>
@@ -294,6 +294,7 @@ $(function()
         </li>
         
         
+        <?php if(!WEB) { ?>
         <!-- OCULTO HASTA PASO A PRODUCCION -->
         <li <?php if($this->currentMenu == 22){ echo 'class="hasChild open"'; } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
@@ -349,6 +350,7 @@ $(function()
             </ul>
         </li>
         
+        <?php } ?>
         
         
         
