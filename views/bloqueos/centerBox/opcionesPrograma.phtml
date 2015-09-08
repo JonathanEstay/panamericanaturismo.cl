@@ -29,7 +29,7 @@ if ($this->objOpcBloqueos) {
                        id="tooltip_hotel_<?php //echo $objOpcProg->getClaveOpc(); ?>" ><?php echo $OP_hoteles[$i]; ?></a>
                 </td>
                 <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>-->
-                <td style="padding: 2px; vertical-align: middle;width: 97px;">
+                <td style="padding: 2px; vertical-align: middle;width: 90px;">
                     <?php
                     if (strlen($OP_cat[$i]) == 2) {
                         for ($j = 1; $j <= 5; $j++) {
@@ -46,16 +46,16 @@ if ($this->objOpcBloqueos) {
                     }
                     ?>
                 </td>
-                <td style="padding: 2px; vertical-align: middle; width: 97px;" >
+                <td style="padding: 2px; vertical-align: middle; width: 90px;" >
                     <a data-toggle='modal' href='#myModal' 
                        onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
                     <?php echo $OP_th[$i]; ?>
                     </a>
                 </td>
-                <td style="padding: 2px; vertical-align: middle;width: 121px;" >
-            <?php echo $OP_planAli[$i]; ?>
+                <td style="padding: 2px; vertical-align: middle;width: 104px;" >
+                    <a><?php echo $OP_planAli[$i]; ?></a>
                 </td>
-                <td width="140px">
+                <td width="100px">
                     <a data-toggle="modal" href="#myModal" 
                        onClick="fadeIn('detallePopup');
                                $('#divPopupPRG').css('overflow-y', 'scroll');
@@ -97,7 +97,7 @@ if ($this->objOpcBloqueos) {
                       $OP_tipoHabi = $objOpcProg->getTipoHab();
                       ?>
 
-        <td style="color:#F00; text-align:right; " width="105px" rowspan="<?php echo $i; ?>">
+        <td style="color:#F00; text-align:right; " width="70px" rowspan="<?php echo $i; ?>">
             <span class="tooltip" style="opacity: 1;color:#F00;z-index:5;"onmouseover="tooltip.pop(this, '<?php
                       if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
                           echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
@@ -113,7 +113,7 @@ if ($this->objOpcBloqueos) {
             </span>
         </td>
 
-        <td width="24px" rowspan="<?php echo $i; ?>">
+        <td width="20px" rowspan="<?php echo $i; ?>">
             <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
             echo'href="#myModal"';
         } ?> 
