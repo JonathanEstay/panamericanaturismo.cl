@@ -12,20 +12,7 @@ class programasController extends Controller
     public function __construct() {
         parent::__construct();
         $this->_ciudad= $this->loadModel('ciudad');        
-        
-        
-        $form=$this->_view->getForm();
-        
-        if(!$form){
-            $form[0]='';
-            
-        }
-        if($form[0]!='form'){
-            
-          Session::acceso('Usuario');
-            
-        }
-        
+        Buscador::validaForm();
         $this->_loadLeft();
     }
     
@@ -40,27 +27,10 @@ class programasController extends Controller
     *******************************************************************************/
     public function index($form = '') {
         
-        $item=true;
-        if($form!='form'){
-         
-            Session::acceso('Usuario');
-            $item = false;
-        }
-        
-        $this->_view->form=$form;
-        
-        if(Session::get('sess_Url_Form')){
-            
-            
-            $this->_view->url= validar::formUrl();
-            
-        }else{
-            $this->_view->url='http://www.panamericanaturismo.cl';
-            
-        }
-
+        $item= Buscador::validar($form);
+        $this->_view->form=$form;    
+        $this->_view->url= Buscador::getUrl();
         $this->_view->setJS(array('validaCampos', 'programas'));
-        
         //$this->getLibrary('kint/Kint.class');
         
         $this->_view->ML_fechaIni_PRG= Session::get('sess_BP_fechaIn_PRG');
@@ -153,13 +123,7 @@ class programasController extends Controller
         
                
         $this->_view->form=$form;
-        
-        
-        
-        if($form!='form'){
-         
-            Session::acceso('Usuario');
-        }
+        Buscador::validar($form);
         
         $programas= $this->loadModel('programa');
         
@@ -379,7 +343,7 @@ class programasController extends Controller
                         Session::set('sess_numeroFile', $objRes->getFile());
                         $param='';
                         
-                        //echo $form; exit;
+                        
                         $html= $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/'.$form);
                         
                         //$this->getLibrary('class.phpmailer');
@@ -900,12 +864,10 @@ class programasController extends Controller
      * </PRE>
      * @author Jonathan Estay
      */
-    public function buscar($form='',$url='') {
+    public function buscar($form='', $url='') {
         
-                  
-        if($url!=''){
-            Session::set('sess_Url_Form', $url);
-        }
+        Buscador::buscar($url);
+        
         $BP_cntHab = $this->getInt('mL_cmbHab_PRG');
         $BP_ciudadDes = $this->getTexto('mL_txtCiudadDestino_PRG');
         $BP_fechaIn = $this->getTexto('mL_txtFechaIn_PRG');
@@ -976,13 +938,5 @@ class programasController extends Controller
     public function buscarAdm() {
         Session::set('sess_AP_ciudad', $this->getTexto('AP_cmbCiudadDestino'));
         $this->redireccionar('programas/admin');
-    }
-    public function validadPostFe($form=''){
-        
-        $fecha =$this->getTexto('fecha');
-        
-        if(!Session::get('sess_fechaDefault')){
-           Session::set('sess_fechaDefault', $fecha);
-        }        
     }
 }
