@@ -182,7 +182,7 @@ class programasController extends Controller
             
             
             Session::set('sess_TS_GET_DETALLEPROG', $sql);
-            //echo $sql; //exit;
+            
             
             $objOpcProgramas= $programas->exeTS_GET_DETALLEPROG($sql);
             if($objOpcProgramas) {
