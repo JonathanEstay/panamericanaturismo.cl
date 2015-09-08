@@ -271,6 +271,247 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
             });
     
 }
+
+//se cambian funciones de funciones.js a programas.js
+Programa.prototype.methodSend = function (classFrm, php, btn, div) {
+    if(typeof FormData === "undefined"){
+        Programa.prototype.procesoEnviaFormIE(classFrm, php, div);
+    } else {
+        Programa.prototype.procesoEnviaForm(classFrm, php, btn, div);
+    }
+}
+
+Programa.prototype.procesoEnviaForm = function(classFrm, php, btn, div)
+{
+    $("#"+btn).attr('disabled', 'disabled');
+
+    initLoad();
+    
+    //var formData= new FormData($("."+classFrm)[0]);
+    var formData= new FormData(classFrm);
+    
+    
+    //hacemos la peticion ajax  
+    $.ajax({
+        url: php,  
+        type: 'POST',
+        //Form data
+        //datos del formulario
+        data: formData,
+        //necesario para subir archivos via ajax
+        cache: false,
+        contentType: false,
+        processData: false,
+        //mientras enviamos el archivo
+        beforeSend: function(){},
+        //una vez finalizado correctamente
+        success: function(data)
+        {
+            endLoad();
+            if(data==='OK') {
+                $("#"+div).delay(1500).queue(function(n)
+                {
+                    $("#"+div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>');
+                    n();
+                });
+            } else {	
+                $('#mensajeWar').html(data);
+                $('#divAlertWar').delay( 1000 ).fadeIn( 500 );
+                $('#divAlertWar').animate({
+                        'display': 'block'
+                });
+
+                $('#divAlertWar').delay( 5000 ).fadeOut( 500 );
+                $('#divAlertWar').animate({
+                                            'display': 'none'
+                                        });
+
+                $("#"+btn).delay(2000).queue(function(m)
+                {
+                    $("#"+btn).removeAttr("disabled");
+                    m();
+                });	
+            }
+        },
+
+        //si ha ocurrido un error
+        error: function()
+        {
+            endLoad();
+
+            $('#mensajeWar').html('Error error');
+            $('#divAlertWar').delay( 1000 ).fadeIn( 500 );
+            $('#divAlertWar').animate({
+                    'display': 'block'
+            });
+
+            $('#divAlertWar').delay( 5000 ).fadeOut( 500 );
+            $('#divAlertWar').animate({
+                                        'display': 'none'
+                                    });
+        }
+    });
+}
+
+Programa.prototype.procesoEnviaFormIE = function(form, action_url, div_id) {
+    //Enviar formulario Internet Explorer
+    
+    // Create the iframe...
+    var iframe = document.createElement("iframe");
+    iframe.setAttribute("id", "upload_iframe");
+    iframe.setAttribute("name", "upload_iframe");
+    iframe.setAttribute("width", "0");
+    iframe.setAttribute("height", "0");
+    iframe.setAttribute("border", "0");
+    iframe.setAttribute("style", "width: 0; height: 0; border: none;");
+ 
+    // Add to document...
+    form.parentNode.appendChild(iframe);
+    window.frames['upload_iframe'].name = "upload_iframe";
+
+    iframeId = document.getElementById("upload_iframe");
+ 
+
+    // Add event...
+    var eventHandler = function () {
+ 
+            if (iframeId.detachEvent) iframeId.detachEvent("onload", eventHandler);
+            else iframeId.removeEventListener("load", eventHandler, false);
+ 
+            // Message from server...
+            if (iframeId.contentDocument) {
+                content = iframeId.contentDocument.body.innerHTML;
+            } else if (iframeId.contentWindow) {
+                content = iframeId.contentWindow.document.body.innerHTML;
+            } else if (iframeId.document) {
+                content = iframeId.document.body.innerHTML;
+            }
+ 
+            
+            endLoad();
+            if(content==='OK') {
+                //alert('Todo ok');
+                $("#"+div_id).delay(1500).queue(function(n)
+                {
+                    $("#"+div_id).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>');
+                    n();
+                });
+            } else {
+                $('#mensajeWar').html(content);
+                $('#divAlertWar').delay( 1000 ).fadeIn( 500 );
+                $('#divAlertWar').animate({
+                        'display': 'block'
+                });
+
+                $('#divAlertWar').delay( 5000 ).fadeOut( 500 );
+                $('#divAlertWar').animate({
+                                            'display': 'none'
+                                        });
+            }
+            //document.getElementById(div_id).innerHTML = content;
+ 
+            // Del the iframe...
+            setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);
+        };
+ 
+ 
+    
+    if (iframeId.addEventListener) {
+        iframeId.addEventListener("load", eventHandler, true);
+    } else if (iframeId.attachEvent) { 
+        iframeId.attachEvent("onload", eventHandler); 
+    }
+ 
+    // Set properties of form...
+    form.setAttribute("target", "upload_iframe");
+    form.setAttribute("action", action_url);
+    form.setAttribute("method", "post");
+    
+    //form.setAttribute("enctype", "multipart/form-data");
+    //form.setAttribute("encoding", "multipart/form-data");
+ 
+    // Submit the form...
+    form.submit();
+    initLoad();
+}
+
+Programa.prototype.abrirForm = function(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
+    
+    var valor = $("#ValiFormLogin").val();
+    
+   $("#tituloPopup" ).html('Detalle');
+     
+   if(valor === '1'){
+        fadeIn('detallePopup');
+        $('#divPopupIn').css('overflow-y', 'scroll');
+        Programa.prototype.pasajerosProg(cant,'divPopupIn',php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan);
+        
+    }else{
+        
+        fadeIn('loginPopup');
+        $('#divLoginIn').css('overflow-y', 'scroll');
+        Programa.prototype.pasajerosProg(cant,'divLoginIn',php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan);
+        
+        
+    }
+   
+    
+}
+
+Programa.prototype.procesoDetalleProg = function(classFrm,form)
+{
+        
+        
+            form ='/'+form;
+        
+        
+	initLoad();
+
+	$("#divPopupPRG").html("");
+	var contentType = false;
+        var processData = false;
+    
+        if(typeof FormData === "undefined"){
+            //IE
+            var formData = [];
+            formData= formularioIE($("."+classFrm)[0]);
+            contentType = 'application/x-www-form-urlencoded';
+            processData = true;
+        } else {
+            var formData= new FormData($("."+classFrm)[0]);
+        }
+        
+	//hacemos la peticion ajax  
+	$.ajax({
+		url: BASE_URL_JS + CONTROLLER_JS + '/detalle'+form,  
+		type: 'POST',
+		//Form data
+		//datos del formulario
+		data: formData,
+                
+		//necesario para subir archivos via ajax
+		cache: false,
+		contentType: contentType,
+		processData: processData,
+		//mientras enviamos el archivo
+		beforeSend: function(){},
+		//una vez finalizado correctamente
+		success: function(data)
+		{
+                    $("#divPopupPRG").html(data);
+                    endLoad();
+		},
+		
+		//si ha ocurrido un error
+		error: function()
+		{
+                    $("#divPopupPRG").html("Ha ocurrido un error");
+		}
+	});
+}
+
+
+
 //Programa.prototype.validaPasaporte();
 
 /*function crearPersona(){
