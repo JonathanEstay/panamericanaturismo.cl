@@ -165,14 +165,14 @@ Programa.prototype.procesoDetallePasajeros = function(classFrm, php, btn, div,fo
 
 
 Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form,urlCon)
-{
+{ initLoad();
     if(this.P_aceptar_cond){
         
         form='/'+form;
 
         $("#"+btn).attr('disabled', 'disabled');
 
-        initLoad();
+        
 
 
 
@@ -206,7 +206,7 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
          //una vez finalizado correctamente
          success: function(data)
          {
-             $("#checkCondiciones").attr('checked', false);
+             
              var myArrayData= data.split('&');
 
              if($.trim(myArrayData[0]) === 'OK')
@@ -259,6 +259,9 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
                                      });
          }
      });
+    }else{
+        endLoad();
+        alertError("aceptarCondiciones", "Debe aceptar las condiciones", 4000);
     }
     
     
@@ -267,7 +270,7 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div,form
 
 
 Programa.prototype.abrirCondiciones= function (urlCon){
-    if(!this.P_aceptar_cond) {
+    
         fadeIn('condicionesPopup');
         $.post(urlCon,
         {
@@ -277,7 +280,7 @@ Programa.prototype.abrirCondiciones= function (urlCon){
             $("#divPopupCon").html(data);
             endLoad();
         });
-    }
+    
 };
 
 Programa.prototype.aceptarCondiciones= function (){
@@ -289,6 +292,8 @@ Programa.prototype.aceptarCondiciones= function (){
             alertError("aceptarCondiciones", "Debe aceptar las condiciones", 4000);
             this.P_aceptar_cond = false;
         }
+    }else{
+        this.P_aceptar_cond = false;
     }
 };
 
