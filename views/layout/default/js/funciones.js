@@ -18,7 +18,7 @@ function valiPostFecha(form){
 
 
 
-function procesoDetalleProg(classFrm,form)
+/*function procesoDetalleProg(classFrm,form)
 {
         
         
@@ -68,7 +68,7 @@ function procesoDetalleProg(classFrm,form)
                     $("#divPopupPRG").html("Ha ocurrido un error");
 		}
 	});
-}
+}*/
 
 
 
@@ -149,7 +149,7 @@ function procesoEnviaForm(classFrm, php, btn, div)
 
 
 
-function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
+/*function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
 {
     form='/'+form;
     $("#"+btn).attr('disabled', 'disabled');
@@ -303,7 +303,7 @@ function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
 	
 	
     /*Proceso Valida rut*/
-    var txtRutNew1, txtRutNew2;
+    /*var txtRutNew1, txtRutNew2;
     for(x=1; x<rP; x++) {
         txtRutNew1= document.getElementById("rP_txtRut_"+x);
         for(y=1; y<rP; y++) {
@@ -328,7 +328,7 @@ function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
     
     
     
-    var contentType = false;
+   /* var contentType = false;
     var processData = false;
 
     if(typeof FormData === "undefined"){
@@ -437,7 +437,7 @@ function procesoReservaPRG(classFrm, php, btn, div,form,urlCon)
     });
         
     
-}
+}*/
 
 
 
@@ -662,7 +662,7 @@ function fadeOut(id) {
                             'display': 'none'
                         }); 
 }
-function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
+/*function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
     
     var valor = $("#ValiFormLogin").val();
     
@@ -683,7 +683,7 @@ function abrirForm(cant,php,sgl,dbl,tpl,pf,moneda,Opc,form,hab,hot,plan){
     }
    
     
-}
+}*/
 
 
 
