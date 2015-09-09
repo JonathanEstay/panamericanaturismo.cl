@@ -78,6 +78,7 @@
             <?php for($i=1; $i<=3; $i++) { ?>
                 <div id="<?php echo $this->cntP; ?>_DP_tblHab_B_<?php echo $i; ?>" style="display:none;">
                     <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                        <tr><td colspan="4"><center>Habitaci&oacute;n <?php echo $i;?></center></td></tr>
                         <tr>
                             <td>Adultos</td>
                             <td>
@@ -90,13 +91,19 @@
                             <td>Child</td>
                             <td>
                                 <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>,'DP_EdadChild')">
-                                <?php for($x=0; $x<=2; $x++) {?>                          
-                                    <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                    <option value="0">0</option>
+                               <?php if($this->chd1>0){?>
+                                    
+                                    <option value="1">1</option>
+                                <?php } ?>
+                                    <?php if($this->chd2>0 || $this->pf>0){?>
+                                    
+                                    <option value="2">2</option>
                                 <?php } ?>
                                 </select>
                             </td>
                         </tr>
-                        <tr id="DP_edades_<?php echo $i;?>">
+            <tr id="DP_edades_<?php echo $i;?>" <?php if( $this->chd1 == 0 && $this->chd2 == 0 && $this->pf == 0){echo 'style="display:none;"';} ?>>
                             <td>Edad C1</td>
                             <td>
                                 <select name ="DP_EdadChild_1_<?php echo $i;?>" id="DP_EdadChild_1_<?php echo $i;?>"disabled="disabled">
