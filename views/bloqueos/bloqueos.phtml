@@ -3,7 +3,11 @@
 
 <style>
 .tabla-hover table>tbody>tr:hover{background: #FFF;}
-.hover-td:hover{background-color:#f7f8fa;}
+//.hover-td:hover{background-color:#f7f8fa;}
+
+.td-background1{background-color: #f7f8fa;}
+.td-background2{background-color: #ffffff;}
+
 </style>
 <div id="page-content">
     <div id='wrap'>
@@ -12,7 +16,7 @@
                 <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
                 <li class="active">Busqueda de bloqueos</li>
             </ol>
-            <h2 style="margin-left: 18px;">BLOQUEOS EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h2>
+            <h3 style="margin-left: 18px;">BLOQUEOS EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h3>
 
         </div>
         <div class="container">
@@ -147,15 +151,15 @@
 
                                                 <div class="panel-body">
                                                     <div class="table-responsive">
-                                                        <table class="table tabla-hover" style="margin-bottom: 0px;">
+                                                        <table class="table tabla-hover" style="margin-bottom: 0px; font-size: 12px;">
                                                             <thead style="background-color:#34495e; color: #FFFFFF">
                                                             <th style=" padding: 2px; text-align: center;">Hotel</th>
                                                             <th style=" padding: 2px; width: 80px; text-align: center;">Categ.</th>
                                                             <th style=" padding: 2px; width: 80px;">Habitaci&oacute;n</th>
                                                             <th style=" padding: 2px; width: 90px;">P. Alimenticio</th>
                                                             <th></th>
-                                                            <th></th>
-                                                            <th width="58px" ></th>
+                                                            <th width="90px"></th>
+                                                            <th width="58px" style=" padding: 2px;" ></th>
                                                             </thead>
                                                             <tbody class="selects" id="opcionesPrograma<?php echo $cnt ?>">
                                                         

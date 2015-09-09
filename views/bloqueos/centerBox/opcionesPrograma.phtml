@@ -1,10 +1,10 @@
 <?php
 if ($this->objOpcBloqueos) {
     $cont = 0;
+    $td=true;
     foreach ($this->objOpcBloqueos as $objOpcProg) {
-        ?>
+            
         
-            <?php
             $OP_hoteles = $objOpcProg->getHoteles();
             $OP_codHoteles = $objOpcProg->getCodHoteles();
             $OP_pa = $objOpcProg->getPA();
@@ -15,10 +15,20 @@ if ($this->objOpcBloqueos) {
             $OP_planAli = $objOpcProg->getPlanAl();
 
             $OP_cntHoteles = count($objOpcProg->getHoteles());
+            
+            if($td){
+                $td=false;
+                $td_background='td-background1';
+            } else {
+                $td=true;
+                $td_background='td-background2';
+            }
             for ($i = 0; $i < $OP_cntHoteles; $i++) {
+                $border_top='border-top-width: 0px;';
+                if($i==0) { $border_top = '';}
                 ?>
-            <tr style="font-size: 12px; ">
-                <td style="color: #DF5F00; padding: 3px; vertical-align: middle;">
+            <tr>
+                <td class="<?php echo $td_background; ?>" style="color: #DF5F00; padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
                     <a name="tooltip_hotel"title='<?php echo $OP_ciudad[$i]; ?>'
                        style="opacity: 1;cursor:pointer; " 
                        data-toggle='modal' 
@@ -33,7 +43,7 @@ if ($this->objOpcBloqueos) {
                 
                 
                 <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>-->
-                <td style="padding: 3px; vertical-align: middle;">
+                <td class="<?php echo $td_background; ?>" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
                     <?php
                     if (strlen($OP_cat[$i]) == 2) {
                         for ($j = 1; $j <= 5; $j++) {
@@ -53,7 +63,7 @@ if ($this->objOpcBloqueos) {
                 
                 
                 
-                <td style="padding: 3px; vertical-align: middle; " >
+                <td class="<?php echo $td_background; ?>" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>" >
                     <a data-toggle='modal' href='#myModal' 
                        onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
                     <?php echo $OP_th[$i]; ?>
@@ -61,12 +71,12 @@ if ($this->objOpcBloqueos) {
                 </td>
                 
                 
-                <td style="padding: 3px; vertical-align: middle;" >
+                <td class="<?php echo $td_background; ?>" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>" >
                     <a><?php echo $OP_planAli[$i]; ?></a>
                 </td>
                 
                 
-                <td width="100px" style="padding: 3px; vertical-align: middle;">
+                <td class="<?php echo $td_background; ?>" width="100px" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
                     <a data-toggle="modal" href="#myModal" 
                        onClick="fadeIn('detallePopup');
                                $('#divPopupPRG').css('overflow-y', 'scroll');
@@ -108,8 +118,8 @@ if ($this->objOpcBloqueos) {
                     $OP_tipoHabi = $objOpcProg->getTipoHab();
                     ?>
             
-            <td class="hover-td" style="color:#F00; text-align:right; padding: 3px; vertical-align: middle;" width="80px" rowspan="<?php echo $OP_cntHoteles; ?>">
-                        <span name="tooltip_hotel" style="color:#F00; z-index:5; font-weight: bold; "title ='<?php
+            <td class="<?php echo $td_background; ?>" style="color:#F00; text-align:right; padding: 3px; vertical-align: middle;" rowspan="<?php echo $OP_cntHoteles; ?>">
+                        <span name="tooltip_hotel" style="color:#F00; z-index:5; font-size: 14px; "title ='<?php
                                   if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
                                       echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
                                   }
@@ -123,7 +133,7 @@ if ($this->objOpcBloqueos) {
                     <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
                         </span>
                     </td>
-                    <td class="hover-td" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle;">
+                    <td class="<?php echo $td_background; ?>" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle; padding: 2px;">
                         <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
                         echo'href="#myModal"';
                     } ?> 
@@ -143,13 +153,6 @@ if ($this->objOpcBloqueos) {
                 }
             }
                       
-                      ?>
-
-        
-
-        
-        
-        <?php
         
     }
 } else {
