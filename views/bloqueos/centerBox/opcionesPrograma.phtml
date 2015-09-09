@@ -108,7 +108,7 @@ if ($this->objOpcBloqueos) {
                     $OP_tipoHabi = $objOpcProg->getTipoHab();
                     ?>
             
-                    <td style="color:#F00; text-align:right; padding: 3px; vertical-align: middle;" width="80px" rowspan="<?php echo $OP_cntHoteles; ?>">
+            <td class="hover-td" style="color:#F00; text-align:right; padding: 3px; vertical-align: middle;" width="80px" rowspan="<?php echo $OP_cntHoteles; ?>">
                         <span name="tooltip_hotel" style="color:#F00; z-index:5; font-weight: bold; "title ='<?php
                                   if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
                                       echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
@@ -123,7 +123,7 @@ if ($this->objOpcBloqueos) {
                     <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
                         </span>
                     </td>
-                    <td rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle;">
+                    <td class="hover-td" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle;">
                         <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
                         echo'href="#myModal"';
                     } ?> 
