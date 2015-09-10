@@ -193,7 +193,7 @@ $(function()
                                                           } ?>
                                                     </select>                          
                                                 </td>
-                                                <td>Edad C1</td>
+                                                <td>Edad 1</td>
                                                 <td>
                                                     <select id="mL_edadChild_1_<?php echo $i; ?>" name="mL_edadChild_1_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)>=1){}else{ echo "disabled='disabled'"; }?> >
                                                     <?php
@@ -215,7 +215,7 @@ $(function()
 
 
                                             <tr>
-                                                <td>Child</td>
+                                                <td>Ni&ntilde;os</td>
                                                 <td>
                                                     <select name="mL_child_<?php echo $i; ?>" id="mL_child_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>, 'mL_edadChild');">
                                                     <?php 
@@ -231,7 +231,7 @@ $(function()
                                                     </select>
                                                 </td>                    	  
 
-                                                <td>Edad C2</td>
+                                                <td>Edad 2</td>
                                                 <td>
                                                     <select id="mL_edadChild_2_<?php echo $i; ?>" name="mL_edadChild_2_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)==2){}else{ echo "disabled='disabled'"; }?> >
                                                         <?php
@@ -249,7 +249,7 @@ $(function()
                                             </tr>
 
 
-                                            <tr>
+                                            <!-- <tr>
                                                 <td>Infant</td>
                                                 <td colspan="3">
                                                     <select name="mL_inf_<?php echo $i; ?>" id="mL_inf_<?php echo $i; ?>">
@@ -265,7 +265,7 @@ $(function()
                                                         } ?>
                                                     </select>
                                                 </td>                    	  
-                                            </tr>
+                                            </tr> -->
 
                                         </table>
                                         <li class="divider"></li>
