@@ -3,7 +3,11 @@
 
 <style>
 .tabla-hover table>tbody>tr:hover{background: #FFF;}
-.hover-td:hover{background-color:#f7f8fa;}
+//.hover-td:hover{background-color:#f7f8fa;}
+
+.td-background1{background-color: #f7f8fa;}
+.td-background2{background-color: #ffffff;}
+
 </style>
 <div id="page-content">
     <div id='wrap'>
@@ -12,7 +16,7 @@
                 <li><a href="<?php echo BASE_URL . 'system'; ?>">Inicio</a></li>
                 <li class="active">Busqueda de bloqueos</li>
             </ol>
-            <h2 style="margin-left: 18px;">BLOQUEOS EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h2>
+            <h3 style="margin-left: 18px;">BLOQUEOS EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h3>
 
         </div>
         <div class="container">
@@ -121,112 +125,77 @@
                                     <div class="panel-body">
 
                                         <div class="col-md-6" style="width:100%;">
-                                            <div class="panel panel-grape">
-                                                <div class="panel-heading">
-                                                        <h4> Salida: <?php echo Functions::invertirFecha($objProg->getDesde(), "/", "/"); ?> </h4>
-                                                        <div class="options">
-                                                                <i>
-                                                                    <?php if($objProg->getNota()) { ?>
-                                                                    
-                                                                    <a data-toggle="modal" href="#myModal" 
-                                                                    onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales', '<?php echo $objProg->getId(); ?>','<?php echo $this->form;?>');">
-                                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>nota.png" width="24px" alt="Condiciones generales" title="Condiciones generales" />
-                                                                    </a>
-                                                                    
-                                                                    <?php } if($objProg->getItiVuelo()) { ?>
-                                                                    
-                                                                    <a data-toggle="modal" href="#myModal" 
-                                                                    onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL;?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario vuelo', '<?php echo $objProg->getId(); ?>','<?php echo $this->form;?>');">
-                                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos" />
-                                                                    </a>
-                                                                    
-                                                                    <?php } ?>
-                                                                </i>
-                                                        </div>
-                                                </div>
-
-                                                <div class="panel-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table tabla-hover" style="margin-bottom: 0px;">
-                                                            <thead style="background-color:#34495e; color: #FFFFFF">
-                                                            <th style=" padding: 2px; text-align: center;">Hotel</th>
-                                                            <th style=" padding: 2px; width: 80px; text-align: center;">Categ.</th>
-                                                            <th style=" padding: 2px; width: 80px;">Habitaci&oacute;n</th>
-                                                            <th style=" padding: 2px; width: 90px;">P. Alimenticio</th>
-                                                            <th></th>
-                                                            <th></th>
-                                                            <th width="58px" ></th>
-                                                            </thead>
-                                                            <tbody class="selects" id="opcionesPrograma<?php echo $cnt ?>">
-                                                        
-        
-                                                                
-     
-                                                                
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <td colspan="7" class="text-left">
-                                                                        <h4 style="color:#0085cc"><b>INCLUYE</b></h4>
-                                                                        <?php
-                                                                        $P_var_getIncluye= $objProg->getIncluye();
-                                                                        if($P_var_getIncluye)
-                                                                        {
-                                                                            $xx=0;
-                                                                            $hh=0;
-                                                                            $P_ciudadHotel=NULL;
-                                                                            $incluye='';
-                                                                            for($i=0; $i<=5; $i++){$P_arrayCiudadHotel[$i]=NULL;}
-                                                                            //foreach($P_var_getIncluye as $columInclu)
-                                                                            for($i=0; $i<count($P_var_getIncluye[0]); $i++)
-                                                                            {
-                                                                                if($P_var_getIncluye[0][$i]->getCodigo()!='CGO' && $P_var_getIncluye[0][$i]->getNombre()!='')
-                                                                                {
-                                                                                    if($P_var_getIncluye[0][$i]->getCiudad()!='')
-                                                                                    {
-                                                                                        $P_arrayCiudadHotel[$xx]= $P_var_getIncluye[0][$i]->getCiudad();
-                                                                                        $xx++;
-                                                                                    }
-
-                                                                                    if($P_var_getIncluye[0][$i]->getCodigo()=='HTL')
-                                                                                    {
-                                                                                        $P_ciudadHotel= " / ".$P_arrayCiudadHotel[$hh];
-                                                                                        $hh++;
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        $P_ciudadHotel=NULL;
-                                                                                    }
-
-                                                                                    if($P_var_getIncluye[0][$i]->getNoches()<10 && $P_var_getIncluye[0][$i]->getNoches()>0)
-                                                                                    {
-                                                                                        $P_varNoches="0".$P_var_getIncluye[0][$i]->getNoches()." Noches ";
-                                                                                    }
-                                                                                    else if($P_var_getIncluye[0][$i]->getNoches()>=10)
-                                                                                    {
-                                                                                        $P_varNoches=$P_var_getIncluye[0][$i]->getNoches()." Noches ";
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        $P_varNoches="";
-                                                                                    }
-
-                                                                                    $incluye.='<img  src="'.$_layoutParams['ruta_img'].'tick.png" width="12px" /> '.$P_varNoches.$P_var_getIncluye[0][$i]->getNombre().$P_ciudadHotel."<br>";
-
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        
-                                                                        echo $incluye;
-                                                                        ?>
-                                                                    </td>
-                                                                </tr>
-
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                            <div class="panel panel-grape" id="opcionesPrograma<?php echo $cnt ?>">
+                                                
                                             </div>
+                                            
+                                            
+                                            <br>
+                                            <div class="panel-body" style="border-top:1px solid #d2d3d6;">
+                                                <table>
+                                                        <tr>
+                                                            <td colspan="7" class="text-left">
+                                                                <h4 style="color:#0085cc"><b>INCLUYE</b></h4>
+                                                                <?php 
+                                                                $P_var_getIncluye= $objProg->getIncluye();
+                                                                if($P_var_getIncluye)
+                                                                {
+                                                                    $xx=0;
+                                                                    $hh=0;
+                                                                    $P_ciudadHotel=NULL;
+                                                                    $incluye='';
+                                                                    for($i=0; $i<=5; $i++){$P_arrayCiudadHotel[$i]=NULL;}
+                                                                    //foreach($P_var_getIncluye as $columInclu)
+                                                                    for($i=0; $i<count($P_var_getIncluye[0]); $i++)
+                                                                    {
+                                                                        if($P_var_getIncluye[0][$i]->getCodigo()!='CGO' && $P_var_getIncluye[0][$i]->getNombre()!='')
+                                                                        {
+                                                                            if($P_var_getIncluye[0][$i]->getCiudad()!='')
+                                                                            {
+                                                                                $P_arrayCiudadHotel[$xx]= $P_var_getIncluye[0][$i]->getCiudad();
+                                                                                $xx++;
+                                                                            }
+
+                                                                            if($P_var_getIncluye[0][$i]->getCodigo()=='HTL')
+                                                                            {
+                                                                                $P_ciudadHotel= " / ".$P_arrayCiudadHotel[$hh];
+                                                                                $hh++;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                $P_ciudadHotel=NULL;
+                                                                            }
+
+                                                                            if($P_var_getIncluye[0][$i]->getNoches()<10 && $P_var_getIncluye[0][$i]->getNoches()>0)
+                                                                            {
+                                                                                $P_varNoches="0".$P_var_getIncluye[0][$i]->getNoches()." Noches ";
+                                                                            }
+                                                                            else if($P_var_getIncluye[0][$i]->getNoches()>=10)
+                                                                            {
+                                                                                $P_varNoches=$P_var_getIncluye[0][$i]->getNoches()." Noches ";
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                $P_varNoches="";
+                                                                            }
+
+                                                                            $incluye.='<img  src="'.$_layoutParams['ruta_img'].'tick.png" width="12px" /> '.$P_varNoches.$P_var_getIncluye[0][$i]->getNombre().$P_ciudadHotel."<br>";
+
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                echo $incluye;
+                                                                 ?>
+                                                            </td>
+                                                        </tr>
+                                                </table>
+                                            </div>
+                                            
+                                            
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -248,15 +217,15 @@
                     </div>
                 </div>
             </div>
-<div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if(!Session::get('Autenticado')|| $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
-                   <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px; ">
-                          <table>
-                            <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario');  ?></td></tr>
-                            <tr><td>Perfil : </td><td><?php echo Session::get('level');  ?></td></tr>
-                           </table>               
-                    </div>
-
+            
+            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if(!Session::get('Autenticado')|| $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
+                <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px; ">
+                    <table>
+                        <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario'); ?></td></tr>
+                        <tr><td>Perfil : </td><td><?php echo Session::get('level');  ?></td></tr>
+                    </table>
                 </div>
+            </div>
         </div> <!-- container -->
     </div> <!--wrap -->
 </div> <!-- page-content -->
