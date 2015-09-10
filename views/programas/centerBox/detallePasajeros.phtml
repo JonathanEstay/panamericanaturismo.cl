@@ -179,7 +179,7 @@
             <center>
             <table>
         <tr>
-            <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"onchange="Programa.prototype.aceptarCondiciones();"></td>
+            <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"onchange="Programa.prototype.aceptarCondiciones();" ></td>
             <td>He leido y acepto las <a onclick="Programa.prototype.abrirCondiciones('<?php echo BASE_URL; ?>programas/programasCondiciones');">condiciones</a></td>
 
         </tr>
@@ -192,3 +192,11 @@
         </form>
     </div>
 </div>
+        <script>
+        $(document).ready(function(){
+            
+            if(Programa.prototype.P_aceptar_cond){
+                $("#checkCondiciones").prop('checked', true);
+            }
+        });
+        </script> 

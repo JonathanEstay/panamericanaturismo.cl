@@ -74,8 +74,8 @@
         
         
             <div  style="position: absolute; top: 180px; right: 13%" >
-                <a style="cursor: pointer;text-decoration:none;" id="loginInNav"onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img style="width: 10px; " src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>iniciar sesi&oacute;n</span></a>
-            <a id="loginOutNav"style="display: none;cursor: pointer;text-decoration:none;" onClick="loginOutNav('<?php echo BASE_URL; ?>login/LoginOutNav','<?php echo $this->form;?>');"><i><img style="width: 10px;" src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>cerrar sesi&oacute;n</span></a>
+                <a style="<?php if(Session::get('Autenticado')) echo 'display:none;';?>cursor: pointer;text-decoration:none;" id="loginInNav"onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img style="width: 10px; " src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>iniciar sesi&oacute;n</span></a>
+            <a id="loginOutNav"style="<?php if(!Session::get('Autenticado'))echo 'display: none;';?>cursor: pointer;text-decoration:none;" onClick="loginOutNav('<?php echo BASE_URL; ?>login/LoginOutNav','<?php echo $this->form;?>');"><i><img style="width: 10px;" src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>cerrar sesi&oacute;n</span></a>
             </div>
         
        
