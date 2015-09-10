@@ -119,8 +119,8 @@
                                             <span style="float: left;">
                                                 <img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px">
                                             </span>
-                                            <h4 name="tooltip_hotel" title="<?php echo $objProg->getNombre(); ?><br> Para mayor informaci&oacute;n haga click">&nbsp;&nbsp;&nbsp;<?php echo substr($objProg->getNombre(), 0, 40) . '...' ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F.&nbsp; Desde :&nbsp;&nbsp;<b><?php echo Functions::invertirFecha($objProg->getDesde(), "/", "/"); ?></b></h4>
-                                            <span class="pull-right"><h4>Desde : <b name="tooltip_hotel" title="<?php
+                                            <h4 name="tooltip_blo" title="<?php echo $objProg->getNombre(); ?><br> Para mayor informaci&oacute;n haga click">&nbsp;&nbsp;&nbsp;<?php echo substr($objProg->getNombre(), 0, 40) . '...' ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F.&nbsp; Desde :&nbsp;&nbsp;<b><?php echo Functions::invertirFecha($objProg->getDesde(), "/", "/"); ?></b></h4>
+                                            <span class="pull-right"><h4>Desde : <b name="tooltip_blo" title="<?php
                                                     if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
                                                         echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
                                                     }
@@ -237,7 +237,7 @@
 <script>
     $(document).ready(function () {
 
-        $("[name$='tooltip_hotel']").poshytip({className: "tip-darkgray", alignY: "top"});
+        $("[name$='tooltip_blo']").poshytip({className: "tip-darkgray", alignY: "top"});
 
     });
 </script>
