@@ -197,8 +197,13 @@ class programasController extends Controller
                 $this->_view->hab=$this->getJson('_HAB_');
                 $this->_view->hot=$this->getJson('_HOT_');
                 $this->_view->plan=$this->getJson('_PLAN_');
+                $this->_view->chd1=$this->getInt('_CHD1_');
+                $this->_view->chd2= $this->getInt('_CHD2_');
+                $this->_view->pf= $this->getInt('_PF_');
                 $this->_view->renderingCenterBox('pasajeros');
                 
+                
+                exit;
             } else {
                 throw new Exception('Error al cargar las opciones');
             }
