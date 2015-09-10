@@ -29,6 +29,7 @@ class bloqueoDTO
     private $_tramo;
     private $_planAl;
     private $_record_c;
+    private $_precio_desde;
 
 
     private $_hoteles;
@@ -47,6 +48,13 @@ class bloqueoDTO
     }
     public function setRecordC($record){
         $this->_record_c = $record;
+    }
+    
+    public function getPrecioDesde(){
+        return $this->_precio_desde;
+    }
+    public function setPrecioDesde($PrecioDesde){
+        $this->_precio_desde = $PrecioDesde;
     }
     
     public function getTramo()
