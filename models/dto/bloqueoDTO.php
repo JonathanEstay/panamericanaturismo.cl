@@ -28,6 +28,7 @@ class bloqueoDTO
     private $_itinerario_vuelo;
     private $_tramo;
     private $_planAl;
+    private $_record_c;
 
 
     private $_hoteles;
@@ -40,6 +41,13 @@ class bloqueoDTO
     private $_incluye;
     
     
+    
+    public function getRecordC(){
+        return $this->_record_c;
+    }
+    public function setRecordC($record){
+        $this->_record_c = $record;
+    }
     
     public function getTramo()
     {

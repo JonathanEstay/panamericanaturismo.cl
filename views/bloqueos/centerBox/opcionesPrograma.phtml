@@ -2,9 +2,82 @@
 if ($this->objOpcBloqueos) {
     $cont = 0;
     $td=true;
-    foreach ($this->objOpcBloqueos as $objOpcProg) {
+    $open=true;
+    $tmpRecordc=false;
+    foreach ($this->objOpcBloqueos as $key=>$objOpcProg) { 
+         
+        if(($key+1) < $this->objOpcBloqueosCNT){
+            $tmpRecordc = $this->objOpcBloqueos[($key+1)]->getRecordC();
+        }
+        
+       
+        ?>
             
         
+
+
+    <?php if(($open) || ($objOpcProg->getRecordC() != $tmpRecordc)){ $open=false;  ?>
+        <br>
+        <div class="panel-heading">
+            <h4> Salida: <?php echo Functions::invertirFecha($objOpcProg->getDesde(), "/", "/"); ?> </h4>
+            <div class="options">
+                    <i>
+                        <?php if($objOpcProg->getNota()) { ?>
+
+                        <a data-toggle="modal" href="#myModal" 
+                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Condiciones generales" title="Condiciones generales" />
+                        </a>
+
+                        <?php } if($objOpcProg->getItiVuelo()) { ?>
+
+                        <a data-toggle="modal" href="#myModal" 
+                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL;?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario vuelo', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos" />
+                        </a>
+
+                        <?php } ?>
+                    </i>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table tabla-hover" style="margin-bottom: 0px; font-size: 12px;">
+                    <thead style="background-color:#34495e; color: #FFFFFF">
+                    <th style=" padding: 2px; text-align: center;">Hotel</th>
+                    <th style=" padding: 2px; width: 80px; text-align: center;">Categ.</th>
+                    <th style=" padding: 2px; width: 80px;">Habitaci&oacute;n</th>
+                    <th style=" padding: 2px; width: 90px;">P. Alimenticio</th>
+                    <th></th>
+                    <th width="90px"></th>
+                    <th width="58px" style=" padding: 2px;" ></th>
+                    </thead>
+                    <tbody class="selects">
+    <?php }  ?>
+                                                
+
+
+                                                        
+        
+                                                                
+     
+                                                                
+                                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <?php
             $OP_hoteles = $objOpcProg->getHoteles();
             $OP_codHoteles = $objOpcProg->getCodHoteles();
             $OP_pa = $objOpcProg->getPA();
@@ -151,9 +224,49 @@ if ($this->objOpcBloqueos) {
                     <?php
                     $cont++;
                 }
-            }
-                      
-        
+            }?>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <?php if($objOpcProg->getRecordC() != $tmpRecordc || $this->objOpcBloqueosCNT == ($key+1)){ ?>
+                    </tbody>        
+                        </table>
+                    </div>
+                </div>
+                    <?php $open = true; }  ?>
+                    
+                    
+                    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <?php
     }
 } else {
     ?>

@@ -329,6 +329,7 @@ class bloqueoDAO extends Model
                     $objPackages->setNotaOpc(trim($packDB['notaOPC']));
                     $objPackages->setMoneda(trim($packDB['moneda']));
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
+                    $objPackages->setRecordC(trim($packDB['record_c']));
                     
                     /* VALOR HABITACION */
                     for ($i=1; $i<=3; $i++)
