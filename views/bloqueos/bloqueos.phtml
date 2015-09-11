@@ -119,7 +119,8 @@
                                             <span style="float: left;">
                                                 <img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px">
                                             </span>
-                                            <h4 name="tooltip_blo" title="<?php echo $objProg->getNombre(); ?><br> Para mayor informaci&oacute;n haga click">&nbsp;&nbsp;&nbsp;<?php echo substr($objProg->getNombre(), 0, 40) . '...' ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F.&nbsp; Desde :&nbsp;&nbsp;<b><?php echo Functions::invertirFecha($objProg->getDesde(), "/", "/"); ?></b></h4>
+                                            <h4 name="tooltip_blo" title="<?php echo $objProg->getNombre(); ?><br> Para mayor informaci&oacute;n haga click">&nbsp;&nbsp;&nbsp;<?php echo substr($objProg->getNombre(), 0, 40) . '...' ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F.&nbsp; Desde :&nbsp;&nbsp;<b>
+                                                <?php if($objProg->getDesde()){echo Functions::invertirFecha($objProg->getDesde(), "/", "/");} ?></b></h4>
                                             <span class="pull-right"><h4>Desde : <b name="tooltip_blo" title="<?php
                                                     if (isset($OP_tipoHabi[0]) && $OP_tipoHabi[0] != '') {
                                                         echo 'Habitacion 1: ' . $OP_tipoHabi[0] . '<br>';
