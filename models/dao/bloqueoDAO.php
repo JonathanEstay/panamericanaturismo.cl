@@ -185,7 +185,7 @@ class bloqueoDAO extends Model
     
     public function TS_GET_BLOQUEOS_PROG($sql, $inc=false)
     {
-        
+        //echo $sql; exit;
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
@@ -203,7 +203,7 @@ class bloqueoDAO extends Model
                 $ciudad= array();
                 $incluye= array();
                 $valorHab= array();
-                
+                $tipoHab=array();
                 
                 $objPackages= new bloqueoDTO();
                 
@@ -228,13 +228,30 @@ class bloqueoDAO extends Model
                     $objPackages->setMoneda(trim($packDB['moneda']));
                     //echo$packDB['itinerarioVuelo'];exit;
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
+                    $objPackages->setPrecioDesde(trim($packDB['precio_desde']));
+                    
+                    
                     
                     /* VALOR HABITACION */
                     for ($i=1; $i<=3; $i++)
                     {
                         $valorHab[]=trim($packDB['vHab_'.$i]);
+                        if(trim($packDB['tipoHab_'.$i])=='01TPL'){
+                           $tipoHab[] = '01 TRIPLE';
+                        }
+                        
+                        if(trim($packDB['tipoHab_'.$i])=='01DBL'){
+                           $tipoHab[] = '01 DOBLE';
+                        }
+                        
+                        if(trim($packDB['tipoHab_'.$i])=='01SGL'){
+                           $tipoHab[] = '01 SINGLE';
+                        }
+                        
+                        
                     }
                     $objPackages->setValorHab($valorHab);
+                    $objPackages->setTipoHab($tipoHab);
                     /* VALOR HABITACION */
                     
                     
@@ -284,6 +301,7 @@ class bloqueoDAO extends Model
     
     public function TS_GET_BLOQUEOS_PROG_DETALLE($sql, $inc=false)
     {
+        
         
         
         $datos= $this->_db->consulta($sql);
