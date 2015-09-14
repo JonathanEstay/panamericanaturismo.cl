@@ -285,15 +285,17 @@ abstract class Controller
     protected function curlPOST($param, $url) {
         $header = array();
         $header[] = 'Content-Type: text/xml; encoding="UTF-8"';
-        $header[] = 'Accept-Charset: ISO-8859-1,utf-8;';
+        $header[] = 'Content-Length: ' . strlen($param);
         
         $ch = curl_init($url); 
-        
         //especificamos el POST (tambien podemos hacer peticiones enviando datos por GET
         curl_setopt ($ch, CURLOPT_POST, 1);
 
         //le decimos qué paramáetros enviamos (pares nombre/valor, también acepta un array)
-        curl_setopt ($ch, CURLOPT_POSTFIELDS, $param);
+        //curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        //curl_setopt($ch, CURLOPT_USERPWD, 'e1579:123');
+        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
 
         //le decimos que queremos recoger una respuesta (si no esperas respuesta, ponlo a false)
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
@@ -303,6 +305,42 @@ abstract class Controller
         
         return $data;
     }
+    
+    protected function curlJSON($param, $url, $user = false, $pass = false) {
+        
+        $json = json_encode($param);
+        $header = array();
+        $header[] = 'Content-Type: application/json';
+        //$header[] = 'Accept-Charset: ISO-8859-1,utf-8;'; 
+        //$header[] = 'Content-Length: ' . strlen($json); 
+        
+
+        $ch = curl_init($url);
+        
+        //Cabeceras a enviar (acepta array)
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        
+        
+        if($user && $pass) {
+            //Usuario y password que usan autentificacion BASIC
+            curl_setopt($ch, CURLOPT_USERPWD, $user.':'.$pass);
+        }
+        
+        //especificamos el POST (tambien podemos hacer peticiones enviando datos por GET
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        //le decimos qué paramáetros enviamos (pares nombre/valor, también acepta un array)
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+
+        //le decimos que queremos recoger una respuesta (si no esperas respuesta, ponlo a false)
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+        
+        return $data;
+    }
+
     
     
     protected function mailReserva($file, $html) {
