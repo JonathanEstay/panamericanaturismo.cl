@@ -37,6 +37,8 @@ class jsonDAO extends Model {
                 
                 $data->setPass(trim($us['clave']));
                 
+                $data->setIdAgenExter(trim($us['id_agen_externo']));
+                
                 $objetosUser[] = $data;
             }
             return $objetosUser;
@@ -62,8 +64,18 @@ class jsonDAO extends Model {
                             . "num_file =" .$num_file
                             ."AND hash=".$hash;
             
-            $datos = $this->_db->consulta($sql);
-            
+            $this->_db->consulta($sql);
+        $sql ="SELECT * FROM pagos_travelclub WHERE num_file=".$num_file." AND hash=".$hash;
+        
+        $res = $this->_db->consulta($sql);
+        $data = $this->_db->fetchAll($res);
+        foreach ($data as $da){
+            $datos = new jsonDTO;
+            $datos->setDate(trim($da['fecha_pago']));
+            $datos->setStatus(trim($da['status']));
+            $datos->setNum(trim($da['num_file']));
+        }
+        
         }else{
             $datos = false;
         }

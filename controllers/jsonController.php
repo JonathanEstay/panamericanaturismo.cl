@@ -17,7 +17,7 @@ class jsonController extends Controller {
         $this->_view->rederJson('enviar_json');
     }
 
-    public function getJson() {
+    public function getAcusePago() {
         header('Content-Type: application/json');
         
         $json = json_decode(file_get_contents('php://input'));
@@ -40,60 +40,65 @@ class jsonController extends Controller {
 
                     if ($objUsuarios[0]->getUser() == $user && $objUsuarios[0]->getPass() == $pass) {
 
-                        if (isset($json->status) && isset($json->hash) && isset($json->monto) && isset($json->num_file)) {
+                        if (isset($json->status) && isset($json->hash) && isset($json->amount) && isset($json->external_id)) {
                             $status = $json->status;
                             $hash = $json->hash;
-                            $monto = $json->monto;
-                            $num_file = $json->num_file;
+                            $monto = $json->amount;
+                            $num_file = $json->external_id;
                             if( $status!=="" && $hash!=="" && $monto!=="" && $num_file !=="" ){
                                 
                             $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
 
                             if ($data) {
-                                $mensaje = array("status"=>"OK" ,"codigo"=>"1" ,"mensaje"=>'Pago Realizado');
+                                
+                                $mensaje = array("num_file"=> $data->getNum(),"agency_id"=>$objUsuarios[0]->getIdAgentExter(),"time"=>$data->getDate(),"status"=>$data->getStatus(),"mensaje"=>"OK" );
                                 
                             } else {
-                                $mensaje = array("status"=>"ERROR" ,"codigo"=>"2" ,"mensaje"=>'Pago no Realizado');
+                                $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR" );
                                 
                             }
                             
                             }else{
-                                $mensaje = array("status"=>"ERROR" ,"codigo"=>"3" ,"mensaje"=>'Pago no Realizado');
+                                $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR" );
                                 
                             }
                         } else {
 
-                            $mensaje = array("status"=>"ERROR" ,"codigo"=>"4" ,"mensaje"=>'Pago no Realizado');
+                            $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR");
                             
                         }
                     } else {
+                        echo'Acceso denegado';
                         
-                        $mensaje = array("status"=>"ERROR" ,"codigo"=>"5" ,"mensaje"=>'Usuario o Password incorrectas');
                         
                     }
                 } else {
                     
-                    $mensaje = array("status"=>"ERROR" ,"codigo"=>"6" ,"mensaje"=>'Usuario o Password incorrectas');
+                    echo'Acceso denegado';
 
                 }
             } else {
 
-                   $mensaje = array("status"=>"ERROR" ,"codigo"=>"7" ,"mensaje"=>'Debe enviar usuario y password');
+                   $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR");
                 
             }
         } else {
             
-            $mensaje = array("status"=>"ERROR" ,"codigo"=>"8" ,"mensaje"=>'No autenticado');
+            $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR");
             
         }
         
+        if(isset($mensaje)){
         echo json_encode( $mensaje);
+        }
     }
 
-    public function enviarJson() {
-        $ejemplo = array("status" => "ok", "hash" => "12345", "monto" => "300000", "num_file" => "24585");
-        $html = $this->curlJSON($ejemplo, BASE_URL . 'json/getJson', 'tclub', 'PanamT05');
-
+    public function enviarJson(){
+        
+        $ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
+        
+        $html = $this->curlJSON($ejemplo, BASE_URL . 'json/getAcusePago', 'tclub', 'PanamT05');
+        
         echo $html;
     }
 
