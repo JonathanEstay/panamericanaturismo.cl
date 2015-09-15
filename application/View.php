@@ -147,34 +147,4 @@ class View
         }
     }
     
-    public function rederJson($vista)
-    {
-        $js = array();
-        
-        if(count($this->_js)){
-            $js = $this->_js;
-        }
-        $_layoutParams= array(
-            'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
-            'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
-            'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/',
-            'ruta_hoteles' => BASE_URL . 'public/img/hoteles/',
-            'ruta_programas' => BASE_URL . 'public/img/programas/',
-            'js' => $js
-        );
-        
-        $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
-        
-        if(is_readable($rutaView))
-        {
-            
-            
-            include_once $rutaView;
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_NavBar.php';
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . '_Footer.php';
-        }
-        
-        
-    }
-    
 }
