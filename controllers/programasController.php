@@ -202,8 +202,6 @@ class programasController extends Controller
                 $this->_view->pf= $this->getInt('_PF_');
                 $this->_view->renderingCenterBox('pasajeros');
                 
-                
-                exit;
             } else {
                 throw new Exception('Error al cargar las opciones');
             }

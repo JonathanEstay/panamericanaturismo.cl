@@ -293,7 +293,6 @@ abstract class Controller
 
         //le decimos qué paramáetros enviamos (pares nombre/valor, también acepta un array)
         //curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        //curl_setopt($ch, CURLOPT_USERPWD, 'e1579:123');
         
         curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
 
@@ -313,7 +312,6 @@ abstract class Controller
         $header[] = 'Content-Type: application/json';
         //$header[] = 'Accept-Charset: ISO-8859-1,utf-8;'; 
         //$header[] = 'Content-Length: ' . strlen($json); 
-        
 
         $ch = curl_init($url);
         
@@ -338,7 +336,7 @@ abstract class Controller
         $data = curl_exec($ch);
         curl_close($ch);
         
-        return $data;
+        return json_decode($data);
     }
 
     
