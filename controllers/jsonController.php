@@ -22,7 +22,7 @@ class jsonController extends Controller {
         $json = json_decode(file_get_contents('php://input'));
         
         //echo var_dump($headers); exit;
-        $mensaje = array("num_file"=>"","agency_id"=>"","time"=>"","status"=>"ERROR" );
+        $mensaje = array("reservation_confirmation_id"=>"","agency_id"=>"","time"=>"");
         
         
 
@@ -46,7 +46,7 @@ class jsonController extends Controller {
                             $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
 
                             if ($data) {
-                                $mensaje = array("num_file"=> $data->getNum(),"agency_id"=>$objUsuarios[0]->getIdAgentExter(),"time"=>date("d/m/Y H:i:s"),"status"=>"OK" );
+                                $mensaje = array("reservation_confirmation_id"=>$data->getNum(),"agency_id"=>$objUsuarios[0]->getIdAgentExter(),"time"=>date("d/m/Y H:i:s"));
                             }
                         }
                     }
