@@ -42,8 +42,29 @@
         </div>
     </div>
 
+    <table class=" table table-bordered">
+       <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
+        <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efectúa la Reserva</td>
+    </tr>
+        
+    <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0; padding:2px;">
+       
 
-
+        
+        <td style="padding:2px;">Nombre</td>
+        <td style="padding:2px;">Apellidos</td>
+        <td style="padding:2px;">Email</td>
+        <td style="padding:2px;">Teléfono</td>
+    </tr>
+    
+    <tr align="center">
+        <td><input type="text" name="nombre_compr" id="nombre_compr"></td>
+        <td><input type="text" name="apellidos_compr" id="apellidos_compr"></td>
+        <td><input type="text" name="email_compr" id="email_compr"></td>
+        <td><input type="text" name="telefono_compr" id="telefono_compr"></td>
+    </tr>
+    
+    </table>
 
 
     <table class="table table-bordered">
@@ -121,6 +142,7 @@
                     <td><input type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" style="width:100px;"></td>
                     <td>
                         <script type="text/javascript">
+			$("#telefono_compr").validaCampos('0123456789');
                             $(function ()
                             {
                                 $("#rP_FechaNac_<?php echo $rP_cntRegistros; ?>").datepicker({
