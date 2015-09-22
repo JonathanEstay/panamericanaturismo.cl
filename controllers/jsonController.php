@@ -57,15 +57,12 @@ class jsonController extends Controller {
             $mensaje = 'Acceso denegado';
         }
         
-        
-        if(isset($mensaje)) {
-            echo json_encode($mensaje);
-        }
+        echo json_encode($mensaje);
     }
 
-    public function enviarJson() {
-        $ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
-        $json = $this->curlJSON($ejemplo, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
+    public function enviarJson($json) {
+        //$ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
+        $json = $this->curlJSON($json, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
         echo var_dump($json);
     }
 
