@@ -19,11 +19,13 @@ class Buscador extends Controller{
         switch (Session::get('sess_url_buscador')) {
             case '3f7a2611ee08c6645796463e0bb1ae7f':
                 Session::set('sess_boton_pago', true);
-                return 'http://www.travelclub.cl/';
+                Session::set('sess_iframe', false);
+                return 'http://hoteles.travelclub.cl/es';
                 break;
 
             default:
-                Session::destroy('sess_boton_pago');
+                //Session::destroy('sess_boton_pago');
+                Session::set('sess_iframe', true);
                 return 'http://www.panamericanaturismo.cl';
                 break;
         }

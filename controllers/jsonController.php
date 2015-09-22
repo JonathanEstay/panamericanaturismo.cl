@@ -14,7 +14,7 @@ class jsonController extends Controller {
     }
 
     public function index() {
-        $this->_view->rederJson('enviar_json');
+        header('Location: ' . BASE_URL . 'login');
     }
 
     public function getAcusePago() {
@@ -24,8 +24,6 @@ class jsonController extends Controller {
         //echo var_dump($headers); exit;
         $mensaje = array("reservation_confirmation_id"=>"","agency_id"=>"","time"=>"");
         
-        
-
         if ($this->getServer('PHP_AUTH_USER') && $this->getServer('PHP_AUTH_PW')) {
 
             $user = $this->getServer('PHP_AUTH_USER');
@@ -33,7 +31,7 @@ class jsonController extends Controller {
 
             $objUsuarios = $this->_json->consultarUser($user);
             if ($objUsuarios) {
-
+                
                 if ($objUsuarios[0]->getUser() == $user && $objUsuarios[0]->getPass() == $pass) {
 
                     if (isset($json->status) && isset($json->hash) && isset($json->amount) && isset($json->external_id)) {
@@ -44,7 +42,6 @@ class jsonController extends Controller {
                         if ($status!=="" && $hash!=="" && $monto!=="" && $num_file !==""){
 
                             $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
-
                             if ($data) {
                                 $mensaje = array("reservation_confirmation_id"=>$data->getNum(),"agency_id"=>$objUsuarios[0]->getIdAgentExter(),"time"=>date("d/m/Y H:i:s"));
                             }
@@ -60,15 +57,12 @@ class jsonController extends Controller {
             $mensaje = 'Acceso denegado';
         }
         
-        
-        if(isset($mensaje)) {
-            echo json_encode($mensaje);
-        }
+        echo json_encode($mensaje);
     }
 
-    public function enviarJson() {
-        $ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
-        $json = $this->curlJSON($ejemplo, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
+    public function enviarJson($json) {
+        //$ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
+        $json = $this->curlJSON($json, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
         echo var_dump($json);
     }
 

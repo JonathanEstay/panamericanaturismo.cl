@@ -20,7 +20,7 @@ abstract class Controller
     
     protected function _loadLeft()
     {
-        if($this->getServer('HTTP_REFERER') == 'http://oristest.panamericanaturismo.cl/buscador/' || $this->getServer('HTTP_REFERER') == 'http://online.panamericanaturismo.cl/buscador/'){
+        if(substr($this->getServer('HTTP_REFERER'), 16, 22) == 'panamericanaturismo.cl' || substr($this->getServer('HTTP_REFERER'), 14, 22) == 'panamericanaturismo.cl'){
             
             if($this->getTexto('mL_txtFechaIn_PRG')) { 
                 Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));

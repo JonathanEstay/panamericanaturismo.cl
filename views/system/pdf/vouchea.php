@@ -312,25 +312,34 @@ while($row = mssql_fetch_array($res))
     	<td rowspan="2" class="celda_negra" style="text-align:center;">
         
         <div style="width:350px; margin-top:-15px; margin-bottom:10px;">
-        <table style="text-align:right;" align="center">
+        <table style="text-align:left;" align="left">
         	<tr>
-            	<td colspan="4" align="center">
+            	<td colspan="4" align="left">
                         <!-- No poner url Completa!! -->
-                	<img src="<?php echo $ruta_img; ?>logo.jpg" height="86" />
+                        <img src="<?php echo $ruta_img; ?>logo.jpg" height="86" />
                 </td>
             </tr>
             <tr>
             
 
             	<td>Tel&eacute;fono: </td>
-                <td align="left">(56) 2897 8000</td>
+                <td align="left"><?php echo ENT_FONO ?></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
                 <td>Direcci&oacute;n: </td>
-                <td colspan="3">Fidel Ote&iacute;za 1916, Of. 302, Providencia</td>
+                <td colspan="3"><?php echo ENT_DIREC ?>-<?php echo ENT_COMUNA ?>-<?php echo ENT_CIUDAD ?></td>
             </tr>
+            
+           <!-- <tr>
+            
+
+            	<td>Web:</td>
+                <td align="left"><?php echo ENT_WEB ?></td>
+                <td></td>
+                <td></td>
+            </tr> -->
         </table>	
         </div>
         
