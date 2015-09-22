@@ -85,9 +85,9 @@ class bookingController extends Controller
     
     
     
-    public function verPDF_HTML($numFile)
+    public function voucher($numFile)
     {
-        Session::acceso('Usuario');
+        //Session::acceso('Usuario');
         $ruta_img= 'views/layout/' . DEFAULT_LAYOUT . '/img/';
         
         ob_start();
