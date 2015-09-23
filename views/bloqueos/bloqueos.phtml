@@ -10,7 +10,7 @@
 
 </style>
 
-<input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('sess_boton_pago')) { echo'0'; } else { echo'1'; } ?>">
+<input type="hidden" id="ValiFormLogin" value="<?php if (Session::get('sess_boton_pago') || Session::get('Autenticado')) { echo '1'; } else { echo '0'; } ?>">
 
 <?php if(Session::get('sess_iframe')){$sty_tc=""; } else { $sty_tc="margin-top:55px;"; } ?>
 <div id="page-content" style="<?php echo $sty_tc ?>">
