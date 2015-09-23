@@ -73,17 +73,19 @@
         <?php if(Session::get('sess_iframe')){ ?>
             <iframe  frameborder="0"width="100%" height="171"  src="<?php echo$this->url;?>"scrolling="no" ></iframe>
             
+            <?php if(!Session::get('sess_boton_pago')){ ?>
             <div  style="position: absolute; top: 180px; right: 13%" >
                 <a style="<?php if(Session::get('Autenticado')) echo 'display:none;';?>cursor: pointer;text-decoration:none;" id="loginInNav"onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img style="width: 10px; " src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>iniciar sesi&oacute;n</span></a>
             <a id="loginOutNav"style="<?php if(!Session::get('Autenticado'))echo 'display: none;';?>cursor: pointer;text-decoration:none;" onClick="loginOutNav('<?php echo BASE_URL; ?>login/LoginOutNav','<?php echo $this->form;?>');"><i><img style="width: 10px;" src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>cerrar sesi&oacute;n</span></a>
             </div>
+            <?php } ?>
         <?php } else { ?>
             <div class="navbar navbar-inverse navbar-fixed-top"  style="background-image: url(<?php echo $_layoutParams['ruta_img']; ?>banner_tc.png); background-size: 100%; background-repeat: no-repeat; width: 1080px; margin:0 auto; height:55px;" ></div>
         
-        
+            <?php if(!Session::get('sess_boton_pago')){ ?>
             <div  style="position: absolute; top: 80px; right: 13%" >
                 <a style="<?php if(Session::get('Autenticado')) echo 'display:none;';?>cursor: pointer;text-decoration:none;" id="loginInNav"onClick="loginSide('<?php echo BASE_URL; ?>login/logForm','<?php echo $this->form;?>');"><i><img style="width: 10px; " src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>iniciar sesi&oacute;n</span></a>
             <a id="loginOutNav"style="<?php if(!Session::get('Autenticado'))echo 'display: none;';?>cursor: pointer;text-decoration:none;" onClick="loginOutNav('<?php echo BASE_URL; ?>login/LoginOutNav','<?php echo $this->form;?>');"><i><img style="width: 10px;" src="<?php echo $_layoutParams['ruta_img']; ?>closed-negro-chico.png" /></i> <span>cerrar sesi&oacute;n</span></a>
             </div>
-        
+            <?php } ?>
        <?php } ?>
