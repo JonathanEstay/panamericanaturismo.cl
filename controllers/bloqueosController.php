@@ -81,9 +81,8 @@ class bloqueosController extends Controller
     
     
     public function bloqueosCondiciones($form='') {
-        
-         $this->_view->form=$form;
-         $this->_view->renderingCenterBox('condicionesBlo');
+        $this->_view->form=$form;
+        $this->_view->renderingCenterBox('condicionesBlo');
     }
     
     
@@ -416,6 +415,16 @@ class bloqueosController extends Controller
                     
                     $this->_view->hoteles= $this->_view->objOpcionPrograma[0]->getHoteles();
                     $this->_view->hotelesCNT= count($this->_view->hoteles);
+                    
+                    
+                    if (Session::get('sess_boton_pago')) {
+                        $this->_view->botonPago= Session::get('sess_boton_pago');
+                        $this->_view->boton="Pagar";
+                    } else {
+                        $this->_view->botonPago= false;
+                        $this->_view->boton="Reservar";
+                    }
+                    
                     $this->_view->renderingCenterBox('reservarPrograma');
                 }
                 else
@@ -446,26 +455,28 @@ class bloqueosController extends Controller
     *******************************************************************************/
     public function procesoReserva($form='')
     {
-        Session::acceso('Usuario');
+        //Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             
-            $n_file=0; $cod_prog=''; $cod_bloq='';
-            
-            $programa= $this->loadModel('bloqueo');
-            
-            require_once ROOT . 'controllers' . DS . 'include' . DS .'procesoReserva.php';
-            $param="CR_n_file=$n_file&CR_cod_prog=$cod_prog&CR_cod_bloq=$cod_bloq";
-            //$param="CR_n_file=190306&CR_cod_prog=CH14FLN01-2&CR_cod_bloq=2014FLN019";
-            $html= $this->curlPOST($param, BASE_URL . 'bloqueos/cartaConfirmacion');
-            
-            if($pRP_error) {
-                echo $pRP_msg;
+            if (Session::get('sess_boton_pago')) {
+                echo "Obteniendo HASH para la pasarela de pago... ";
             } else {
-                //$this->getLibrary('class.phpmailer');
-                //$this->mailReserva($n_file, $html);
-                echo 'OK' . '&' . $n_file . '&' . $cod_prog . '&' . $cod_bloq;
+                $n_file=0; $cod_prog=''; $cod_bloq='';
+                $programa= $this->loadModel('bloqueo');
+                require_once ROOT . 'controllers' . DS . 'include' . DS .'procesoReserva.php';
+                $param="CR_n_file=$n_file&CR_cod_prog=$cod_prog&CR_cod_bloq=$cod_bloq";
+                //$param="CR_n_file=190306&CR_cod_prog=CH14FLN01-2&CR_cod_bloq=2014FLN019";
+                $html= $this->curlPOST($param, BASE_URL . 'bloqueos/cartaConfirmacion');
+
+                if($pRP_error) {
+                    echo $pRP_msg;
+                } else {
+                    $this->getLibrary('class.phpmailer');
+                    $this->mailReserva($n_file, $html);
+                    echo 'OK' . '&' . $n_file . '&' . $cod_prog . '&' . $cod_bloq;
+                }
             }
-            
+
         } else {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
         }
