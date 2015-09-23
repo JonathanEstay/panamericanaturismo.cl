@@ -4,6 +4,7 @@
 
 
 
+<?php if(!Session::get('sess_boton_pago')){ ?>
 <!--Start of Zopim Live Chat Script-->
 <script type="text/javascript">
 window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -13,7 +14,7 @@ $.src="//v2.zopim.com/?3GrwTVHvNgcEpC5lvfgFxUDY8oYw9THy";z.t=+new Date;$.
 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script>
 <!--End of Zopim Live Chat Script-->
-
+<?php } ?>
 
 
 
@@ -85,8 +86,10 @@ $(function()
 
 <nav id="page-leftbar" role="navigation" >
 
+    
+     <?php if(Session::get('sess_iframe')){$sty_tc=""; } else { $sty_tc="margin-top:55px;"; } ?>
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="acc-menu" id="sidebar" style="list-style:none;">
+    <ul class="acc-menu" id="sidebar" style="list-style:none; <?php echo $sty_tc; ?>">
         
         
         

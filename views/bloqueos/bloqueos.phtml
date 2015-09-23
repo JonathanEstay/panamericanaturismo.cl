@@ -9,7 +9,11 @@
     .td-background2{background-color: #ffffff;}
 
 </style>
-<div id="page-content">
+
+<input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('sess_boton_pago')) { echo'0'; } else { echo'1'; } ?>">
+
+<?php if(Session::get('sess_iframe')){$sty_tc=""; } else { $sty_tc="margin-top:55px;"; } ?>
+<div id="page-content" style="<?php echo $sty_tc ?>">
     <div id='wrap'>
         <div id="page-heading">
             <ol class="breadcrumb">
@@ -131,7 +135,7 @@
                                                     if (isset($OP_tipoHabi[2]) && $OP_tipoHabi[2] != '') {
                                                         echo 'Habitacion 3: ' . $OP_tipoHabi[2] . '<br>';
                                                     }
-                                                    ?>"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getPrecioDesde()); ?></b></span>
+                                                    ?>"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getPrecioDesde()); ?></b></h4></span>
                                         </div>
                                     </a>
 

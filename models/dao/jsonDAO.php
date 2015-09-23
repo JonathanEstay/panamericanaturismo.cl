@@ -68,12 +68,24 @@ class jsonDAO extends Model {
         $sql ="SELECT * FROM pagos_travelclub WHERE num_file=".$num_file." AND hash=".$hash;
         
         $res = $this->_db->consulta($sql);
+        
+        $sql='SELECT num_rese FROM numero';
+        
+        $num=$this->_db->consulta($sql);
+        
+        $num_file=$this->_db->fetchAll($num);
+        
         $data = $this->_db->fetchAll($res);
+        
+        $sql ='UPDATE NUMERO SET num_rese =num_rese+1';
+        
+        $this->_db->consulta($sql);
+        
         foreach ($data as $da){
             $datos = new jsonDTO;
             $datos->setDate(trim($da['fecha_pago']));
             $datos->setStatus(trim($da['status']));
-            $datos->setNum(trim($da['num_file']));
+            $datos->setNum(trim($num_file[0]['num_rese']));
         }
         
         }else{

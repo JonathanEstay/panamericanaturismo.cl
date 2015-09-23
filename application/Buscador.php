@@ -16,21 +16,51 @@ class Buscador extends Controller{
     
     
     public function getUrl() {   
-        switch (Session::get('sess_url_buscador')) {
+        switch (Session::get('sess_codigo_cliente_url')) {
             case '3f7a2611ee08c6645796463e0bb1ae7f':
                 Session::set('sess_boton_pago', true);
-                return 'http://www.travelclub.cl/';
+                Session::set('sess_iframe', false);
+                return 'http://hoteles.travelclub.cl/es';
+                break;
+            
+            case '__OTRO__':
+                Session::destroy('sess_boton_pago');
+                Session::set('sess_iframe', false);
+                return 'http://hoteles.travelclub.cl/es';
                 break;
 
             default:
                 Session::destroy('sess_boton_pago');
+                Session::set('sess_iframe', true);
                 return 'http://www.panamericanaturismo.cl';
                 break;
         }
     }
     
     public function buscar($url='') {
-        Session::set('sess_url_buscador', $url);
+        //if(substr($this->getServer('HTTP_REFERER'), 16, 22) == 'panamericanaturismo.cl' || substr($this->getServer('HTTP_REFERER'), 14, 22) == 'panamericanaturismo.cl')
+        //{
+            Session::set('sess_url_buscador', $url);
+        //} else {
+            
+        //}
+    }
+    
+    public function getCliente($cliente) {
+        
+        $lista_clientes = array(
+            "buscador" => "",
+            "buscador_travelclub" => "3f7a2611ee08c6645796463e0bb1ae7f",
+            "otro" => "otro_codigo"
+            );
+        
+        foreach ($lista_clientes as $cli => $val) {
+            if($cliente == $cli){
+                Session::set('sess_codigo_cliente_url', $val);
+                break;
+            }
+        }
+        
     }
     
     public function validar($form='') {

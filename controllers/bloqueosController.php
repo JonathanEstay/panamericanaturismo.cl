@@ -23,8 +23,9 @@ class bloqueosController extends Controller
         $this->_view->_stilo='left: 169px;';
         $item= Buscador::validar($form);
         $this->_view->url= Buscador::getUrl();
+        //echo "IFRAME= ".Session::get('sess_iframe');
         $this->_view->form=$form;
-        $this->_view->setJS(array('bloqueos'));
+        $this->_view->setJS(array('validaCampos','bloqueos'));
         
         //$this->getLibrary('kint/Kint.class');
         
@@ -341,7 +342,10 @@ class bloqueosController extends Controller
     public function reservaPrograma($form='')
     {
         $this->_view->form=$form;
-        Session::accForm('Usuario');
+        if(!Session::get('sess_boton_pago')){
+            Session::accForm('Usuario');
+        }
+        
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest')
         {
             $RP_rdbOpc = false;
