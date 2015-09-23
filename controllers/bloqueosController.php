@@ -41,6 +41,26 @@ class bloqueosController extends Controller
             $this->loadDTO('incluye');
             $bloqueos= $this->loadModel('bloqueo');
             
+            
+           $valFechaIn= Functions::validarFecha(Session::get('sess_BP_fechaIn'));
+            $valFechaOut= Functions::validarFecha(Session::get('sess_BP_fechaOut'));
+           if($valFechaIn==true){
+           
+               $fechaIn = Session::get('sess_BP_fechaIn');
+              
+               
+           } else{
+               $fechaIn = "01/01/1900";
+              $this->redireccionar('system');
+           }
+           
+           if($valFechaOut==true){
+              $fechaOut = Session::get('sess_BP_fechaOut'); 
+           }else{
+               $fechaOut = "01/01/1900";
+               $this->redireccionar('system');
+           }
+           
             if(WEB) {
                 //Web
                 $sql="exec TS_GET_BLOQUEOS_PROG '".Session::get('sess_BP_ciudadDes')."', "

@@ -16,7 +16,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 
 
-<script>
+<script>    
 $(function()
 {
     $( "#mL_txtFechaIn" ).datepicker({
@@ -127,13 +127,13 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                     
-                                    <input type="text" class="form-control" id="mL_txtFechaIn" name="mL_txtFechaIn" value="<?php echo $this->ML_fechaIni; ?>">
+                                    <input type="text" maxlength="10" class="form-control" id="mL_txtFechaIn" name="mL_txtFechaIn" value="<?php echo $this->ML_fechaIni; ?>">
                                 </td>
                             </tr>
                             <tr>
                             	<td><span style="padding-left:10px;">Fecha Out:</span></td>
                                 <td>
-                                    <input type="text" class="form-control" id="mL_txtFechaOut" name="mL_txtFechaOut" value="<?php echo $this->ML_fechaFin; ?>">
+                                    <input type="text" maxlength="10" class="form-control" id="mL_txtFechaOut" name="mL_txtFechaOut" value="<?php echo $this->ML_fechaFin; ?>">
                                 </td>
                             </tr>
                             
