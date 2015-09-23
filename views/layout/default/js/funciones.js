@@ -344,7 +344,7 @@ function procesoEnviaForm(classFrm, php, btn, div)
 	
     
    
-    //hacemos la petición ajax 
+    //hacemos la peticiï¿½n ajax 
     fadeIn('condicionesPopup');
     $.ajax({
      url:urlCon,
@@ -493,7 +493,7 @@ function procesoConServ(classFrm, php, btn)
 
 
     var formData= new FormData($("."+classFrm)[0]);
-    //hacemos la petición ajax  
+    //hacemos la peticiï¿½n ajax  
     $.ajax({
             url: php,  
             type: 'POST',
@@ -1088,8 +1088,17 @@ function procesoEnviaFormIE(form, action_url, div_id) {
     {
         var mL_Error=0;
         $("#btnBuscarBloqueos").attr('disabled', 'disabled');
+       
+        
+        
         if($('#mL_txtCiudadDestino').val() != 0)
         {
+            
+            if($('#mL_txtFechaIn').val() !==""  && $('#mL_txtFechaOut').val() !=="")
+           {
+            
+        
+            
             if($('#mL_cmbHab').val() != 0)
             {
                 $(document).skylo('start');
@@ -1110,6 +1119,11 @@ function procesoEnviaFormIE(form, action_url, div_id) {
                 mL_Error=1;
                 $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
             }
+            
+           }else{
+              mL_Error=1;
+                $('#mensajeWar').html('Debe seleccionar fechas in y out'); 
+           }
         }
         else
         {

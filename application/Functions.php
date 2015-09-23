@@ -9,6 +9,14 @@
 class Functions
 {
     
+    public function validarFecha($fecha){
+        
+        $datos= explode('/', $fecha);
+        
+        return @checkdate($datos[1],$datos[0],$datos[2]);
+    }
+
+
     public function uploadFile($file, $type, $name, $ruta) {
         if (isset($_FILES[$file]['name'])) {
 
@@ -335,7 +343,7 @@ class Functions
         
         /*php 5.3 
         //P --Para iniciar los parametros de Fecah;
-        //7Y --Setear 7 años
+        //7Y --Setear 7 aï¿½os
         //5M --Setear 5 meses
         //4D --Setear 4 dias
         //T -- para iniciar parametros de Hora
