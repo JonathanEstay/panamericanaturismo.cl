@@ -197,13 +197,12 @@ if ($this->objOpcBloqueos) {
                                   }
                                   if (isset($OP_tipoHabi[2]) && $OP_tipoHabi[2] != '') {
                                       echo 'Habitacion 3: ' . $OP_tipoHabi[2] . '<br>';
-                                  }
-                                  ?>' >
+                                  }?>' >
                     <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
                         </span>
                     </td>
                     <td class="<?php echo $td_background; ?>" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle; padding: 2px;">
-                        <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('sess_boton_pago')) {
+                        <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('sess_boton_pago') || Session::get('Autenticado')) {
                         echo'href="#myModal"';
                     } ?> 
                            onClick="openForm('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'tituloFormPRG', 'Formulario de reserva', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');"

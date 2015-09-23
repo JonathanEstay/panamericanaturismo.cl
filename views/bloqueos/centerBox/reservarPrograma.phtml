@@ -1,3 +1,4 @@
+<?php if ($this->botonPago) { ?>
 <script type="text/javascript">
 $(function ()
 {
@@ -6,6 +7,7 @@ $(function ()
     $("#txtTelefono_pago").validaCampos('0123456789');
 });
 </script>
+<?php } ?>
 <form enctype="multipart/form-data" class="frmReservaPRG">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -50,31 +52,33 @@ $(function ()
         </div>
     </div>
 
-    <table class=" table table-bordered">
-       <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
-        <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efectúa la Reserva</td>
-    </tr>
-        
-    <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0; padding:2px;">
-       
-
-        
-        <td style="padding:2px;">Nombre</td>
-        <td style="padding:2px;">Apellidos</td>
-        <td style="padding:2px;">Email</td>
-        <td style="padding:2px;">Teléfono</td>
-    </tr>
     
-    <tr align="center">
-        <td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
-        <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td>
-        <td><input type="text" name="txtEmail_pago" id="txtEmail_pago"></td>
-        <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"></td>
-    </tr>
     
-    </table>
+    <?php if ($this->botonPago) { ?>
+        <table class=" table table-bordered">
+            <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
+                <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efectúa la Reserva</td>
+            </tr>
 
+            <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0; padding:2px;">
+                <td style="padding:2px;">Nombre</td>
+                <td style="padding:2px;">Apellidos</td>
+                <td style="padding:2px;">Email</td>
+                <td style="padding:2px;">Teléfono</td>
+            </tr>
 
+            <tr align="center">
+                <td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
+                <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td>
+                <td><input type="text" name="txtEmail_pago" id="txtEmail_pago"></td>
+                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"></td>
+            </tr>
+
+        </table>
+    <?php } ?>
+
+    
+    
     <table class="table table-bordered">
         <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
             <td colspan="7" align="center" style="padding:2px;">Datos del Pasajero</td>
@@ -159,8 +163,7 @@ $(function ()
                                         dateFormat: 'dd/mm/yy',
                                         firstDay: 1,
         <?php
-        if (Session::get("sess_BP_Adl_$i") >= $x) {
-            ?>
+        if (Session::get("sess_BP_Adl_$i") >= $x) { ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 12; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
                                             yearRange: "-100:+0",
             <?php
@@ -277,14 +280,14 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
     <table>
         <tr>
             <td style="width: 20px;"><input type="checkbox" id="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"></td>
-            <td>He leido y acepto las <a onclick="Bloqueo.prototype.abrirCondiciones('<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones');">condiciones</a></td>
+            <td>He leido y acepto las <a href="#" onclick="Bloqueo.prototype.abrirCondiciones('<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones/<?php echo $this->form; ?>');">condiciones</a></td>
 
         </tr>
     </table>
         </center>
     <br>
     <center>
-        <input type="button"  id="rP_btnProcesaRserva" class="btn btn-primary" value="Reservar" 
+        <input type="button"  id="rP_btnProcesaRserva" class="btn btn-primary" value="<?php echo $this->boton; ?>" 
                onclick="Bloqueo.prototype.procesoReservaPRG('frmReservaPRG', '<?php echo BASE_URL ?>bloqueos/procesoReserva', 'rP_btnProcesaRserva', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones');
             ">
     </center>
