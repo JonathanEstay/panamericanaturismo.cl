@@ -342,7 +342,10 @@ class bloqueosController extends Controller
     public function reservaPrograma($form='')
     {
         $this->_view->form=$form;
-        Session::accForm('Usuario');
+        if(!Session::get('sess_boton_pago')){
+            Session::accForm('Usuario');
+        }
+        
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest')
         {
             $RP_rdbOpc = false;

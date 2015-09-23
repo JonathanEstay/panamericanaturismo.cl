@@ -20,8 +20,28 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
     if (this.B_aceptar_cond) {
     form = '/' + form;
     $("#" + btn).attr('disabled', 'disabled');
-
     
+    if($.trim($("#txtNombre_pago").val()) == ''){
+        alertError(btn, 'Debe ingresar su nombre', 2000);
+        $( "#txtNombre_pago" ).focus();
+        return false;
+        
+    } else if($.trim($("#txtApellidos_pago").val()) == ''){
+        alertError(btn, 'Debe ingresar su apellido', 2000);
+        $( "#txtApellidos_pago" ).focus();
+        return false;
+        
+    } else if($.trim($("#txtEmail_pago").val()) == ''){
+        alertError(btn, 'Debe ingresar su email', 2000);
+        $( "#txtEmail_pago" ).focus();
+        return false;
+        
+    } else if($.trim($("#txtTelefono_pago").val()) == ''){
+        alertError(btn, 'Debe ingresar su numero de telefono', 2000);
+        $( "#txtTelefono_pago" ).focus();
+        return false;
+        
+    }
 
     for (rP = 1; rP >= 1; rP++)
     {

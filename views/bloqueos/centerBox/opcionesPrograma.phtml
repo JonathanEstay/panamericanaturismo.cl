@@ -176,11 +176,7 @@ if ($this->objOpcBloqueos) {
                         </a>
             <?php } ?>
                 </td>
-            <input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('Autenticado')) {
-                echo'0';
-            } else {
-                echo'1';
-            } ?>">
+            
 
 
 
@@ -207,18 +203,13 @@ if ($this->objOpcBloqueos) {
                         </span>
                     </td>
                     <td class="<?php echo $td_background; ?>" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle; padding: 2px;">
-                        <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('Autenticado')) {
+                        <a data-toggle="modal"  <?php if ($this->form === 'a' || Session::get('sess_boton_pago')) {
                         echo'href="#myModal"';
                     } ?> 
                            onClick="openForm('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/reservaPrograma', 'tituloFormPRG', 'Formulario de reserva', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');"
                            class="btn btn-primary resBloque btn-xs">Reservar</a>
                     </td>
 
-                    <input type="hidden" id="ValiFormLogin" value="<?php if (!Session::get('Autenticado')) {
-                        echo'0';
-                    } else {
-                        echo'1';
-                    } ?>">
                     </tr>
                     
                     <?php
