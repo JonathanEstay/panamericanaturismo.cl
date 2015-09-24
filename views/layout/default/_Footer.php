@@ -50,6 +50,8 @@
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery.stepy.js'></script>
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>demo-formwizard.js'></script> 
         
+        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>popover.js'></script>
+        
         <?php 
         if(isset($_layoutParams['js']) && count($_layoutParams['js'])): 
             for($i=0; $i < count($_layoutParams['js']); $i++):

@@ -142,12 +142,12 @@ $(function()
                                 </td>
                             </tr>
                             
-                           <tr>
+                           <!--<tr>
                             	<td><span style="padding-left:10px;">Hotel:</span></td>
                                 <td>
                                     <input class="form-control" type="text" id="mL_txtHotel" name="mL_txtHotel" placeholder="Nombre del hotel" autocomplete="off">
                                 </td>
-                            </tr>
+                            </tr> -->
                             
                             <tr>
                             	<td><span style="padding-left:10px;">Habitaci&oacute;n:</span></td>
@@ -254,7 +254,7 @@ $(function()
                                             </tr>
 
 
-                                            <!-- <tr>
+                                            <tr>
                                                 <td>Infant</td>
                                                 <td colspan="3">
                                                     <select name="mL_inf_<?php echo $i; ?>" id="mL_inf_<?php echo $i; ?>">
@@ -270,7 +270,7 @@ $(function()
                                                         } ?>
                                                     </select>
                                                 </td>                    	  
-                                            </tr> -->
+                                            </tr>
 
                                         </table>
                                         <li class="divider"></li>
