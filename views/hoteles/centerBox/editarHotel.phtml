@@ -108,7 +108,7 @@
                         <div class="col-sm-9">
                         	<center>Imagen Principal</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if($this->EH_imgEnc){?>
+                            <?php if($this->EH_imgEnc){ Session::set('sessMOD_DTH_img1', $this->EH_imgEnc); ?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                     	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgEnc; ?>" />
                                     </div>
@@ -151,7 +151,7 @@
                         <div class="col-sm-9">
                         	<center>Imagen 2</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if($this->EH_imgCont){?>
+                            <?php if($this->EH_imgCont){ Session::set('sessMOD_DTH_img2', $this->EH_imgCont); ?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                     	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont; ?>" />
                                     </div>
@@ -201,7 +201,7 @@
                         <div class="col-sm-9">
                         	<center>Imagen 3</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if($this->EH_imgCont2){?>
+                            <?php if($this->EH_imgCont2){ Session::set('sessMOD_DTH_img3', $this->EH_imgCont2); ?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                     	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont2; ?>" />
                                     </div>
@@ -259,7 +259,7 @@
                         <div class="col-sm-9" >
                         	<center>Imagen 4</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if($this->EH_imgCont3){?>
+                            <?php if($this->EH_imgCont3){ Session::set('sessMOD_DTH_img4', $this->EH_imgCont3); ?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                     	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont3; ?>" />
                                     </div>
@@ -306,7 +306,7 @@
                          <div class="col-sm-9" >
                          	<center>Imagen 5</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if($this->EH_imgCont4){?>
+                            <?php if($this->EH_imgCont4){ Session::set('sessMOD_DTH_img5', $this->EH_imgCont4); ?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                     	<img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $this->EH_imgCont4; ?>" />
                                     </div>

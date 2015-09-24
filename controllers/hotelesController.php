@@ -230,7 +230,7 @@ class hotelesController extends Controller
                         $upload= new upload($_FILES['flImagen' . $i], 'es_ES');
                         $upload->allowed= array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
                         $upload->file_max_size = '524288'; // 512KB
-                        $upload->file_new_name_body= 'upl_' . sha1(uniqid());
+                        $upload->file_new_name_body= sha1(uniqid());
                         $upload->process($rutaImg);
 
                         if($upload->processed)
@@ -270,27 +270,31 @@ class hotelesController extends Controller
                     {	
                         if($this->getTexto('chkEH_flImagen' . $i)=='on')
                         {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . 'thumb' . DS . 'thumb_' . Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_encabezado = "", mini_img_encabezado = "" ';
+                            Session::destroy('sessMOD_DTH_img' . $i);
                         }
                     }
                     else if($i==2)
                     {	
                         if($this->getTexto('chkEH_flImagen' . $i)=='on')
                         {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . 'thumb' . DS . 'thumb_' . Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_contenido = "", mini_img_contenido = "" ';
+                            Session::destroy('sessMOD_DTH_img' . $i);
                         }
                     }
                     else
                     {
                         if($this->getTexto('chkEH_flImagen' . $i)=='on')
                         {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Functions::eliminaFile($rutaImg . 'thumb' . DS . 'thumb_' . Session::get('sessMOD_DTH_img' . $i));
+                            //echo Session::get('sessMOD_DTH_img' . $i); exit;
                             $MH_sql.=', img_contenido'.($i-1).' = "", mini_img_contenido'.($i-1).' = "" ';
+                            Session::destroy('sessMOD_DTH_img' . $i);
                         }
                     }
                     

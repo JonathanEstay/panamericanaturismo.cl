@@ -343,7 +343,7 @@ class Functions
         
         /*php 5.3 
         //P --Para iniciar los parametros de Fecah;
-        //7Y --Setear 7 a�os
+        //7Y --Setear 7 años
         //5M --Setear 5 meses
         //4D --Setear 4 dias
         //T -- para iniciar parametros de Hora
