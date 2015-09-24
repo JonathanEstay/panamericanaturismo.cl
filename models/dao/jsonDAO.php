@@ -49,13 +49,13 @@ class jsonDAO extends Model {
 
     public function updatePagos($status=false,$hash=false ,$monto=false ,$num_file = false){
         
-        $sql="SELECT * FROM pagos_travelclub WHERE  num_file=".$num_file."AND hash=".$hash;
+        $sql="SELECT * FROM pagos_h2h WHERE  num_file=".$num_file."AND hash=".$hash;
         
         
         $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos) > 0){
             
-            $sql = "UPDATE pagos_travelclub SET "
+            $sql = "UPDATE pagos_h2h SET "
                             . "status ='$status',"
                             . "monto=$monto,"
                             . "tipo='1',"
@@ -65,7 +65,7 @@ class jsonDAO extends Model {
                             ."AND hash=".$hash;
             
             $this->_db->consulta($sql);
-        $sql ="SELECT * FROM pagos_travelclub WHERE num_file=".$num_file." AND hash=".$hash;
+        $sql ="SELECT * FROM pagos_h2h WHERE num_file=".$num_file." AND hash=".$hash;
         
         $res = $this->_db->consulta($sql);
         
