@@ -40,7 +40,17 @@ class bloqueoDTO
     private $_cat;
     
     private $_incluye;
+    private $_pdf;
     
+    
+    
+    
+    public function getPDF() {
+        return $this->_pdf;
+    }
+    public function setPDF($pdf) {
+        $this->_pdf = $pdf;
+    }
     
     
     public function getRecordC(){

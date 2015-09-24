@@ -339,7 +339,7 @@ class bloqueoDAO extends Model
                 else
                 {
                     $objPackages->setId(trim($packDB['idPRG']));
-                    //$objPackages->setNombre(trim($packDB['nombrePRG']));
+                    $objPackages->setCodigo(trim($packDB['codigoPRG']));
                     $objPackages->setNota(trim($packDB['notaPRG']));
                     $objPackages->setIdOpc(trim($packDB['idOpcion']));
                     $objPackages->setDesde(trim($packDB['desde']));
@@ -348,6 +348,17 @@ class bloqueoDAO extends Model
                     $objPackages->setMoneda(trim($packDB['moneda']));
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
                     $objPackages->setRecordC(trim($packDB['record_c']));
+                    
+                    
+                            
+                    if (file_exists(ROOT . 'public' . DS . 'pdf' . DS . 'upl_' . str_replace(' ', '_', trim($packDB['codigoPRG'])) . '.pdf')) {
+                        $objPackages->setPDF(BASE_URL . 'public/pdf/upl_'.str_replace(' ', '_', trim($packDB['codigoPRG'])) . '.pdf');
+                        //$objPackages->setPDF(trim($packDB['codigoPRG']));
+                    } else {
+                        $objPackages->setPDF('');
+                    }
+                    
+                    
                     
                     /* VALOR HABITACION */
                     for ($i=1; $i<=3; $i++)
