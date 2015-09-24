@@ -1097,29 +1097,48 @@ function procesoEnviaFormIE(form, action_url, div_id) {
             if($('#mL_txtFechaIn').val() !==""  && $('#mL_txtFechaOut').val() !=="")
            {
             
-        
+                if($('#mL_txtFechaIn').val().length == 10 && $('#mL_txtFechaOut').val().length == 10)
+                {
+               
+           var f_inicio = $('#mL_txtFechaIn').val();
+           var f_termino = $('#mL_txtFechaOut').val();
+            var resultado = 0;
+    resultado = restaFechas(f_inicio,f_termino);
+           
+                if(resultado >= 0)
+                     {
+                
             
-            if($('#mL_cmbHab').val() != 0)
-            {
-                $(document).skylo('start');
+                                if($('#mL_cmbHab').val() != 0)
+                                {
+                                    $(document).skylo('start');
 
-                setTimeout(function(){
-                        $(document).skylo('set',50);
-                },1000);
+                                    setTimeout(function(){
+                                            $(document).skylo('set',50);
+                                    },1000);
 
-                setTimeout(function(){
-                        $(document).skylo('end');
-                },1500);
-                setTimeout(function(){
-                   document.getElementById('frmBuscarBloqueos').submit();
-                },2500);
-            }
-            else
-            {
-                mL_Error=1;
-                $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
-            }
+                                    setTimeout(function(){
+                                            $(document).skylo('end');
+                                    },1500);
+                                    setTimeout(function(){
+                                       document.getElementById('frmBuscarBloqueos').submit();
+                                    },2500);
+                                }
+                                else
+                                {
+                                    mL_Error=1;
+                                    $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
+                                }
+                       
+                     }else{
+                         mL_Error=1;
+                                    $('#mensajeWar').html("La fecha de inicio debe ser menor o igual a la fecha termino");
+                     } 
             
+                }else{
+                       mL_Error=1;
+                    $('#mensajeWar').html('Fecha invalida'); 
+                    }
            }else{
               mL_Error=1;
                 $('#mensajeWar').html('Debe seleccionar fechas in y out'); 
@@ -1156,7 +1175,25 @@ function procesoEnviaFormIE(form, action_url, div_id) {
     });
     /*END: Busqueda de Bloqueos*/
     
-    
+   function restaFechas(f1,f2)
+
+{
+
+var aFecha1 = f1.split('/');
+
+ var aFecha2 = f2.split('/');
+
+ var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]);
+
+ var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
+
+ var dif = fFecha2 - fFecha1;
+
+var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+
+ return dias;
+
+} 
     
     
     
