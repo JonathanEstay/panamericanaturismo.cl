@@ -1,10 +1,38 @@
+<script>
+    function alertaFechaSystem(){
+    
+     $('#divAlertaFecha').delay( 10 ).fadeIn( 500 );
+            $('#divAlertaFecha').animate({
+                    'display': 'block'
+            });
+            
+            $('#divAlertaFecha').delay( 2000 ).fadeOut( 500 );
+            $('#divAlertaFecha').animate({
+                                        'display': 'none'
+                                    });
 
+    
+}
+    </script>
 
 <div id="page-content">
     <div id='wrap'>
         <div id="page-heading">
             <h1>Bienvenido!</h1>
         </div>
+        
+       <?php if(Session::get('sess_error_fechas'))
+        { ?>
+       
+        <div id="divAlertaFecha" class="alert alert-dismissable alert-warning" style="display:none; margin: 5px;">
+                                No se encontraron registros para esta busqueda.
+                            </div>
+        <script type="text/javascript">alertaFechaSystem(); </script>
+        
+       <?php
+        Session::destroy('sess_error_fechas');
+       
+        } ?>
 
         <div class="container">
             <div class="row">

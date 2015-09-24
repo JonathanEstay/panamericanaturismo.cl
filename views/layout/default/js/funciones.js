@@ -344,7 +344,7 @@ function procesoEnviaForm(classFrm, php, btn, div)
 	
     
    
-    //hacemos la peticiï¿½n ajax 
+    //hacemos la petición ajax 
     fadeIn('condicionesPopup');
     $.ajax({
      url:urlCon,
@@ -493,7 +493,7 @@ function procesoConServ(classFrm, php, btn)
 
 
     var formData= new FormData($("."+classFrm)[0]);
-    //hacemos la peticiï¿½n ajax  
+    //hacemos la petición ajax  
     $.ajax({
             url: php,  
             type: 'POST',
@@ -1132,7 +1132,7 @@ function procesoEnviaFormIE(form, action_url, div_id) {
                        
                      }else{
                          mL_Error=1;
-                                    $('#mensajeWar').html("La fecha de inicio debe ser menor o igual a la fecha termino");
+                                    $('#mensajeWar').html("La fecha In debe ser menor o igual a la fecha Out");
                      } 
             
                 }else{
