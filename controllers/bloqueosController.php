@@ -427,6 +427,11 @@ class bloqueosController extends Controller
                     $this->_view->hotelesCNT= count($this->_view->hoteles);
                     
                     
+                    
+                    
+                    $this->_view->condicionesGenerales= Functions::getCondicionesGenerales();
+                    
+                    
                     if (Session::get('sess_boton_pago')) {
                         $this->_view->botonPago= Session::get('sess_boton_pago');
                         $this->_view->boton="Pagar";

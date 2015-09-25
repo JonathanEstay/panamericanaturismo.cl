@@ -9,6 +9,23 @@
 class Functions
 {
     
+    public function getCondicionesGenerales() {
+        switch (Session::get('sess_codigo_cliente_url')) {
+            case '3f7a2611ee08c6645796463e0bb1ae7f':
+                
+                return file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . 'travelclub.phtml');
+                break;
+            
+            case '__OTRO__':
+                return file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . 'travelclub.phtml');
+                break;
+
+            default:
+                return file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . 'panamericana.phtml');
+                break;
+        }
+    }
+    
     public function validarFecha($fecha){
         
         $datos= explode('/', $fecha);
