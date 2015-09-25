@@ -19,7 +19,10 @@ if ($this->objOpcBloqueos) {
     <?php if(($open) || ($objOpcProg->getRecordC() != $tmpRecordc)){ $open=false;  ?>
         <br>
         <div class="panel-heading">
-            <h4> Salida: <?php echo Functions::invertirFecha($objOpcProg->getDesde(), "/", "/"); ?> </h4>
+            <h4>
+                Salida: <?php echo Functions::invertirFecha($objOpcProg->getDesde(), "/", "/"); ?> -
+                Regreso: <?php echo Functions::sumFecha(Functions::invertirFecha($objOpcProg->getDesde(), "/", "/"), $objOpcProg->getNoches()); ?>
+            </h4>
             <div class="options">
                     <i>
                         <?php if($objOpcProg->getPDF()) { ?>

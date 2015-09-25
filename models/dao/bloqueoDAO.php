@@ -226,11 +226,18 @@ class bloqueoDAO extends Model
                     $objPackages->setTramo(trim($packDB['Tramo']));
                     $objPackages->setNotaOpc(trim($packDB['notaOPC']));
                     $objPackages->setMoneda(trim($packDB['moneda']));
-                    //echo$packDB['itinerarioVuelo'];exit;
+                    $objPackages->setNoches(trim($packDB['nochesPRG']));
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
                     $objPackages->setPrecioDesde(trim($packDB['precio_desde']));
                     
                     
+                    
+                    $ext = Functions::getExtensionImagen(ROOT . 'public' . DS . 'img'. DS . 'programas'. DS . 'upl_' . str_replace(' ', '_', trim($packDB['codigoPRG'])));
+                    if($ext) {
+                        $objPackages->setImagen('upl_' . str_replace(' ', '_', trim($packDB['codigoPRG'])) . $ext);
+                    } else {
+                        $objPackages->setImagen('sin_foto.png');
+                    }
                     
                     /* VALOR HABITACION */
                     for ($i=1; $i<=3; $i++)
@@ -343,7 +350,7 @@ class bloqueoDAO extends Model
                     $objPackages->setMoneda(trim($packDB['moneda']));
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
                     $objPackages->setRecordC(trim($packDB['record_c']));
-                    
+                    $objPackages->setNoches(trim($packDB['nochesPRG']));
                     
                             
                     if (file_exists(ROOT . 'public' . DS . 'pdf' . DS . 'upl_' . str_replace(' ', '_', trim($packDB['codigoPRG'])) . '.pdf')) {
@@ -358,19 +365,14 @@ class bloqueoDAO extends Model
                     /* VALOR HABITACION */
                     for ($i=1; $i<=3; $i++)
                     {
-                        $valorHab[]=trim($packDB['vHab_'.$i]);
-                        if(trim($packDB['tipoHab_'.$i])=='01TPL'){
-                           $tipoHab[] = '01 TRIPLE';
+                         $valorHab[]=trim($packDB['vHab_'.$i]);
+                        if(trim($packDB['tipoHab_'.$i])!=''){
+                           $tipoHab[] = str_replace('SGL', ' SINGLE ', 
+                                        str_replace('DBL', ' DOBLE ', 
+                                        str_replace('TPL', ' TRIPLE ', 
+                                        str_replace('CHD', ' CHILD ', 
+                                        str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_'.$i]))))));
                         }
-                        
-                        if(trim($packDB['tipoHab_'.$i])=='01DBL'){
-                           $tipoHab[] = '01 DOBLE';
-                        }
-                        
-                        if(trim($packDB['tipoHab_'.$i])=='01SGL'){
-                           $tipoHab[] = '01 SINGLE';
-                        }
-                        
                     }
                     
                     $objPackages->setValorHab($valorHab);
