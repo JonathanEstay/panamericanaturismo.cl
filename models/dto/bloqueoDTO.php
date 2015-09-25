@@ -42,8 +42,22 @@ class bloqueoDTO
     private $_incluye;
     private $_pdf;
     
+    private $_imagen;
+    private $_noches;
     
+    public function getNoches() {
+        return $this->_noches;
+    }
+    public function setNoches($noches) {
+        $this->_noches = $noches;
+    }
     
+    public function getImagen() {
+        return $this->_imagen;
+    }
+    public function setImagen($img) {
+        $this->_imagen = $img;
+    }
     
     public function getPDF() {
         return $this->_pdf;
