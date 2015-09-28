@@ -45,6 +45,23 @@ class bloqueoDTO
     private $_imagen;
     private $_noches;
     
+    private $_chd1;
+    private $_chd2;
+    
+    public function getChd1() {
+        return $this->_chd1;
+    }
+    public function setChd1($chd) {
+        $this->_chd1 = $chd;
+    }
+    
+    public function getChd2() {
+        return $this->_chd2;
+    }
+    public function setChd2($chd2) {
+        $this->_chd2 = $chd2;
+    }
+    
     public function getNoches() {
         return $this->_noches;
     }

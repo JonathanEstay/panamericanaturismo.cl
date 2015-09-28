@@ -44,32 +44,27 @@
                                                         <!-- <input type="text" id="txtCiudad-AdmProg" name="txtCiudad-AdmProg" style="width:200px" placeholder="Ingrese ciudad de destino" onkeyup="buscarCiudad(this.value, 'frmAdmProg', 'spnCiudad-prog', 'txtCiudad-AdmProg');" autocomplete="off">
                                                         <span id="spnCiudad-prog" class="twitter-typeahead" style="position: relative; display: none; direction: ltr;"></span> -->
                                                         <select name="AP_cmbCiudadDestino" id="AP_cmbCiudadDestino" class="form-control" >
-                                                        <option value="0">Seleccione destino</option>
-                                                        <?php 
-                                                        if($this->objCiudades)
-                                                        { 
-                                                            foreach($this->objCiudades as $objCiu)
-                                                            {
-                                                                //$mL_codigoCiuPRG= trim($this->objCiudades[$i]->getCodigo());
-                                                                $mL_nombreCiuPRG= $objCiu->getNombre();
-                                                                //$mL_nombreCiudadPRG = $mL_nombreCiuPRG." (".$mL_codigoCiuPRG.")";
+                                                            <option value="0">Seleccione destino</option>
+                                                            <?php
+                                                            if ($this->objCiudades) {
+                                                                foreach ($this->objCiudades as $objCiu) {
+                                                                    //$mL_codigoCiuPRG= trim($this->objCiudades[$i]->getCodigo());
+                                                                    $mL_nombreCiuPRG = $objCiu->getNombre();
+                                                                    //$mL_nombreCiudadPRG = $mL_nombreCiuPRG." (".$mL_codigoCiuPRG.")";
 
-                                                                if(Session::get('sess_AP_ciudad')==$mL_nombreCiuPRG)
-                                                                {
-                                                                ?>
-                                                                    <option value="<?php echo $mL_nombreCiuPRG; ?>" selected="selected"><?php echo $mL_nombreCiuPRG; ?></option>
-                                                                <?php
-                                                                }
-                                                                else
-                                                                {
-                                                                ?>
-                                                                    <option value="<?php echo $mL_nombreCiuPRG; ?>"><?php echo $mL_nombreCiuPRG; ?></option>
-                                                                <?php
+                                                                    if (Session::get('sess_AP_ciudad') == $mL_nombreCiuPRG) {
+                                                                        ?>
+                                                                        <option value="<?php echo $mL_nombreCiuPRG; ?>" selected="selected"><?php echo $mL_nombreCiuPRG; ?></option>
+                                                                        <?php
+                                                                    } else {
+                                                                        ?>
+                                                                        <option value="<?php echo $mL_nombreCiuPRG; ?>"><?php echo $mL_nombreCiuPRG; ?></option>
+                                                                        <?php
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                            ?>
+                                                        </select>
                                                     </td>
                                                     <td>&nbsp;&nbsp;&nbsp;
                                                         <input type="button"  id="btnAdmProg" class="btn btn-primary" value="Buscar programa">
@@ -93,99 +88,98 @@
                     
                     
                     <?php
-                    if(Session::get('sess_AP_ciudad'))
-                    {
-                    ?>
-                     <script>				
-                        $('#btnAdmProg').delay( 10 ).fadeOut( 10 );
-                        $('#btnAdmProg').animate({
-                                                        'display': 'none'
-                                                }); 
-                        $('#imgLoading').fadeIn( 100 );
-                        $('#imgLoading').animate({
-                                                'display': 'block'
-                                                });
-                    </script>
-                    
-                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="tituloForm">Cargar PDF</h4>
-                                </div>
-                                
-                                <div class="modal-body" id="AP_divPopup"></div>
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                    
-                    
-                    <div class="panel panel-sky" id="contenedorBusqueda" style="display:none">
-                        <div class="panel-heading">
-                            <h4>Resultado de la busqueda</h4>
-                        </div>
-                        <div class="panel-body collapse in">
-                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
-                                <thead>
-                                    <tr style="background-color:#76c4ed;">
-                                        <th>Codigo</th>
-                                        <th>Nombre</th>
-                                        <th>Ciudad</th>
-                                        <th width="100"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                	
-                                <?php
-                                //echo $_SESSION["sess_pAP_ciudad"];
-                                //$var_getProgAdmin= $privateFunctions->getProgramasAdmin($_SESSION["sess_pAP_ciudad"]);
-                                if($this->objProgramas)
-                                { 
-                                    foreach($this->objProgramas as $objProg)
-                                    {
-                                ?>
-                                        <tr class="odd gradeX">
-                                            <td><?php echo $objProg->getCodigo(); ?></td>
-                                            <td><?php echo $objProg->getNombre(); ?></td>
-                                            <td><?php echo $objProg->getCiudad(); ?></td>
-                                            <td align="center">
-                                                <a data-toggle="modal" href="#myModal" onClick="abrePopup('AP_divPopup', '<?php echo BASE_URL; ?>programas/editar', 'tituloForm', 'Carga de archivos', '<?php echo $objProg->getCodigo(); ?>');">
-                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>conf.png" width="24" />
-                                                </a>
-                                            </td>
+                    if (Session::get('sess_AP_ciudad')) {
+                        ?>
+                        <script>
+                            $('#btnAdmProg').delay(10).fadeOut(10);
+                            $('#btnAdmProg').animate({
+                                'display': 'none'
+                            });
+                            $('#imgLoading').fadeIn(100);
+                            $('#imgLoading').animate({
+                                'display': 'block'
+                            });
+
+                        </script>
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"onclick=" tinyMCE.triggerSave();">&times;</button>
+                                        <h4 class="modal-title" id="tituloForm">Cargar PDF</h4>
+                                    </div>
+
+                                    <div class="modal-body" id="AP_divPopup"></div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick=" tinyMCE.triggerSave();">Cerrar</button>
+                                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+
+
+                        <div class="panel panel-sky" id="contenedorBusqueda" style="display:none">
+                            <div class="panel-heading">
+                                <h4>Resultado de la busqueda</h4>
+                            </div>
+                            <div class="panel-body collapse in">
+                                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
+                                    <thead>
+                                        <tr style="background-color:#76c4ed;">
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Ciudad</th>
+                                            <th width="100"></th>
                                         </tr>
-                                <?php }
-                                }
-                                ?>
-                                   
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                        //echo $_SESSION["sess_pAP_ciudad"];
+                                        //$var_getProgAdmin= $privateFunctions->getProgramasAdmin($_SESSION["sess_pAP_ciudad"]);
+                                        if ($this->objProgramas) {
+                                            foreach ($this->objProgramas as $objProg) {
+                                                ?>
+                                                <tr class="odd gradeX">
+                                                    <td><?php echo $objProg->getCodigo(); ?></td>
+                                                    <td><?php echo $objProg->getNombre(); ?></td>
+                                                    <td><?php echo $objProg->getCiudad(); ?></td>
+                                                    <td align="center">
+                                                        <a data-toggle="modal" href="#myModal" onClick="abrePopup('AP_divPopup', '<?php echo BASE_URL; ?>programas/editar', 'tituloForm', 'Carga de archivos', '<?php echo $objProg->getCodigo(); ?>');">
+                                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>conf.png" width="24" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    
-                    
-                    
-                    <script>
-                        $('#btnAdmProg').fadeIn( 100 );
-                        $('#btnAdmProg').animate({
-                                                    'display': 'block'
-                                                });
 
-                        $('#imgLoading').delay( 10 ).fadeOut( 10 );
-                        $('#imgLoading').animate({
-                                                    'display': 'none'
-                                                });
 
-                        $('#contenedorBusqueda').fadeIn( 2000 );
-                        $('#contenedorBusqueda').animate({
-                                                            'display': 'block'
-                                                        });
+
+                        <script>
+                            $('#btnAdmProg').fadeIn(100);
+                            $('#btnAdmProg').animate({
+                                'display': 'block'
+                            });
+
+                            $('#imgLoading').delay(10).fadeOut(10);
+                            $('#imgLoading').animate({
+                                'display': 'none'
+                            });
+
+                            $('#contenedorBusqueda').fadeIn(2000);
+                            $('#contenedorBusqueda').animate({
+                                'display': 'block'
+                            });
 
                     </script>
                     <?php }else{ echo '<br><br><br><br><br><br><br><br><br>'; } ?>
