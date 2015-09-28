@@ -303,9 +303,6 @@ class bloqueoDAO extends Model
     
     public function TS_GET_BLOQUEOS_PROG_DETALLE($sql, $inc=false)
     {
-        
-        
-        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
@@ -633,5 +630,25 @@ class bloqueoDAO extends Model
         {
             return false;
         }
+    }
+    
+    public function getChild($idOpcion) {
+        
+        $sql = "SELECT echd,echd2 FROM h2h_ProgramaOpc WHERE idOpc = $idOpcion";
+        
+        $datos= $this->_db->consulta($sql);
+        
+        if($this->_db->numRows($datos)>0)
+        {
+            $respuesta = $this->_db->fetchAll($datos);
+            $CH = new bloqueoDTO();
+            foreach ($respuesta as $r) {
+                $CH->setChd1(trim($r['echd']));
+                $CH->setChd2(trim($r['echd2']));
+            }
+            return $CH;
+        }
+        return false;
+        
     }
 }

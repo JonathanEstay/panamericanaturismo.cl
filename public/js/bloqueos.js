@@ -16,7 +16,8 @@ Bloqueo.prototype.setNombre = function (nombre) {
 };
 
 Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, urlCon)
-{   initLoad();
+{
+    initLoad();
     if (this.B_aceptar_cond) {
     form = '/' + form;
     $("#" + btn).attr('disabled', 'disabled');
@@ -261,32 +262,37 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
             {
                 //$("#checkCondiciones").attr('checked', false);
                 var myArrayData = data.split('&');
-                if ($.trim(myArrayData[0]) == 'OK')
+                if ($.trim(myArrayData[0]) === 'OK')
                 {
                     $('#btnCerrar1PRG').delay(100).fadeOut(100);
                     $('#btnCerrar1PRG').animate({
                         'display': 'none'
                     });
 
-                    //alert('TODO OK'); return false;
+                    if($.trim(myArrayData[4])==='66d70610b684db4b9d2417f6da614a60') {
+                        JSON.prototype.setDiv(div);
+                        JSON.prototype.getHash();
+                        alertError(btn, 'jojo', 2000);
+                    } else {
+                        $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
+                        $.post(BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion" + form,
+                        {
+                            CR_n_file: myArrayData[1],
+                            CR_cod_prog: myArrayData[2],
+                            CR_cod_bloq: myArrayData[3]
 
-                    $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
-                    $.post(BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion" + form,
-                            {
-                                CR_n_file: myArrayData[1],
-                                CR_cod_prog: myArrayData[2],
-                                CR_cod_bloq: myArrayData[3]
+                        }, function (dataRS)
+                        {
+                            $("#" + div).html(dataRS);
+                            endLoad();
 
-                            }, function (dataRS)
-                    {
-                        $("#" + div).html(dataRS);
-                        endLoad();
-
-                        $('#btnAceptarPRG').delay(2000).fadeIn(100);
-                        $('#btnAceptarPRG').animate({
-                            'display': 'block'
+                            $('#btnAceptarPRG').delay(2000).fadeIn(100);
+                            $('#btnAceptarPRG').animate({
+                                'display': 'block'
+                            });
                         });
-                    });
+                    }
+                    
 
 
 
@@ -320,6 +326,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
 
 
 };
+
 Bloqueo.prototype.abrirCondiciones = function (urlCon) {
     
         fadeIn('condicionesPopup');

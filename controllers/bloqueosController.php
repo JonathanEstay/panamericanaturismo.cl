@@ -25,7 +25,7 @@ class bloqueosController extends Controller
         $this->_view->url= Buscador::getUrl();
         //echo "IFRAME= ".Session::get('sess_iframe');
         $this->_view->form=$form;
-        $this->_view->setJS(array('validaCampos','bloqueos'));
+        $this->_view->setJS(array('validaCampos', 'bloqueos', 'JSON'));
         
         //$this->getLibrary('kint/Kint.class');
         
@@ -379,6 +379,17 @@ class bloqueosController extends Controller
                 $bloqueo= $this->loadModel('bloqueo');
                 $this->_view->objPrograma= $bloqueo->validaPrograma($RP_idProg, $RP_rdbOpc);
                 
+                // se obtienen las edades de la opcion
+                $childEdad=$bloqueo->getChild($RP_rdbOpc);
+                
+                if($childEdad){
+                Session::set('sessRP_edadChd1', $childEdad->getChd1());
+                Session::set('sessRP_edadChd2', $childEdad->getChd2());
+                }else{
+                    ession::set('sessRP_edadChd1', 0);
+                    Session::set('sessRP_edadChd2', 0);
+                    
+                }
                 if($this->_view->objPrograma) {
                     if(WEB) {
                         //Web
@@ -427,6 +438,11 @@ class bloqueosController extends Controller
                     $this->_view->hotelesCNT= count($this->_view->hoteles);
                     
                     
+                    
+                    
+                    $this->_view->condicionesGenerales= Functions::getCondicionesGenerales();
+                    
+                    
                     if (Session::get('sess_boton_pago')) {
                         $this->_view->botonPago= Session::get('sess_boton_pago');
                         $this->_view->boton="Pagar";
@@ -468,8 +484,13 @@ class bloqueosController extends Controller
         //Session::acceso('Usuario');
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             
-            if (Session::get('sess_boton_pago')) {
-                echo "Obteniendo HASH para la pasarela de pago... ";
+            
+            if (!Session::get('sess_boton_pago')) { //QUITAR !
+                /*
+                 * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
+                 */
+                echo 'OK' . '&' . '123'. '&' . 'cprog'. '&' . 'cbloq' . '&' . md5('pago');
+                
             } else {
                 $n_file=0; $cod_prog=''; $cod_bloq='';
                 $programa= $this->loadModel('bloqueo');

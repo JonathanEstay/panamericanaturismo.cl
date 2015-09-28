@@ -7,7 +7,7 @@
  */
 
 class jsonController extends Controller {
-
+            
     public function __construct() {
         parent::__construct();
         $this->_json = $this->loadModel('json');
@@ -60,10 +60,59 @@ class jsonController extends Controller {
         echo json_encode($mensaje);
     }
 
-    public function enviarJson($json) {
+    public function sendJson($json, $url) {
         //$ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
-        $json = $this->curlJSON($json, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
-        echo var_dump($json);
+        $json = $this->curlJSON($json, $url, 'travelclub', 'c0af51A18d');
+        return $json;
     }
-
+    
+    public function getHash() {
+        if($this->getTexto('__JSON__') == '466deec76ecdf5fca6d38571f6324d54') {
+            if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
+                if (!Session::get('sess_boton_pago')) { //QUITAR !
+                    
+                    $url = 'http://apishopper.herokuapp.com/api/checkout/uploadGeneric';
+                    $json = array(
+                        "external_id" => "1988", 
+                        "agency_id" => "54c0239344ae3d41c8b83a23",
+                        "currency" => "usd",
+                        "amount" => "300",
+                        "tax" => "100",
+                        "subject" => "Un asunto",
+                        "redirection_url" => BASE_URL . 'pago/cierre',
+                        "callback_url" => BASE_URL . 'json/getAcusePago'
+                    );
+                    
+                    $getJson= $this->curlJSON($json, $url, 'E3ra79', 'api33-33a');
+                    if(is_object($getJson)) {
+                        Session::set('sess_hash_transaction', $getJson->hash);
+                        echo "El hash es: " . $getJson->hash;
+                    } else {
+                        throw new Exception("Error al intentar realizar el pago");
+                    }
+                    
+                } else {
+                    throw new Exception("Error al intentar realizar el pago");
+                }
+            } else {
+                throw new Exception("Error al intentar realizar el pago");
+            }
+        } else {
+            throw new Exception("Error al intentar realizar el pago");
+        }
+    }
+    
+    
+    public function checkPayment() {
+        if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
+            if (!Session::get('sess_boton_pago')) { //QUITAR !
+                if (Session::get('sess_hash_transaction')) {
+                    $this->_view->hash = 'b51ed0257ac70f7aea669a1a223bd143O1340';//Session::get('sess_hash_transaction');
+                    $this->_view->renderingCenterBox('pago_travelclub');
+                } else {
+                    throw new Exception("Error al intentar realizar el pago ");
+                }
+            }
+        }
+    }
 }
