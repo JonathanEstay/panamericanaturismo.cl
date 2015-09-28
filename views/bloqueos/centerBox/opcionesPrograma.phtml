@@ -34,8 +34,8 @@ if ($this->objOpcBloqueos) {
                         <?php } if($objOpcProg->getNota()) { ?>
 
                         <a data-toggle="modal" href="#myModal" 
-                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
-                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Condiciones generales" title="Condiciones generales" />
+                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Nota de programa', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Condiciones generales" />
                         </a>
 
                         <?php } if($objOpcProg->getItiVuelo()) { ?>
