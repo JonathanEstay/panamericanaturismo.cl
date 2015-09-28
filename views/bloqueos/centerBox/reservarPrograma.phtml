@@ -123,6 +123,7 @@ $(function ()
         for ($i = 1; $i <= 3; $i++) {
             $rP_total_AC = 0;
             $rP_total_AC = Session::get("sess_BP_Adl_$i") + Session::get("sess_BP_Chd_$i");
+            $rP_Edad_Child=1;
             ?>
             <?php
             for ($x = 1; $x <= $rP_total_AC; $x++) {
@@ -192,7 +193,7 @@ $(function ()
         } else {
             ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 2; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
-                                            yearRange: "-12:+0",
+                                            yearRange: "-<?php if(Session::get('sessRP_edadChd'.$rP_Edad_Child)!=0){echo Session::get('sessRP_edadChd'.$rP_Edad_Child); $rP_Edad_Child++;}else{ echo '100' ;} ?>:+0",
             <?php
         }
         ?>
