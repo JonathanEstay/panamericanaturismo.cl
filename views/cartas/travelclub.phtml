@@ -23,12 +23,12 @@
                 </td>
                 <td width="50%" align="right" class="TopBot">
                     <strong class="TopBot">
-                        <?php echo ENT_NAME; ?></strong><br />
-                        <?php echo ENT_DIREC; ?>, <?php echo ENT_COMUNA; ?><br />
-                        Tel&eacute;fonos : <?php echo ENT_FONO; ?><br /><br />	      
-                        <a href="<?php echo ENT_WEB; ?>" target="_blank"> <?php echo ENT_WEB; ?> <br /></a>
+                        Travel Club</strong><br />
+                        Av. Apoquindo #5555, piso 4, Las Condes<br />
+                        Tel&eacute;fonos : 600 300 9000<br /><br />	      
+                        <a href="http://www.travelclub.cl/" target="_blank"> http://www.travelclub.cl/ <br /></a>
                         <br />
-                        <?php echo ENT_CIUDAD . ', ' . date("d F Y"); ?>
+                        Santiago
                 </td>
 
 
@@ -39,30 +39,24 @@
         <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
             <tr>
                 <td height="60" colspan="3" align="center"><span class="Cot">Confirmaci&oacute;n de Reserva Online</span></td>
-            </tr>	  
+            </tr>
+            
             <tr>
-                <td><strong>N&deg; File</strong></td>
+                <td><strong>N&deg; Reserva</strong></td>
                 <td>:</td>
                 <td><?php echo $this->numFile; ?></td>
-                </tr>
-
-
-            <tr>
-                <td width="18%"><strong>Agencia</strong></td>
-                <td width="2%">:</td>
-                <td width="80%"><?php echo $this->CC_agencia; ?></td>
             </tr>
 
             <tr>
-                <td width="18%"><strong>Atenci&oacute;n</strong></td>
+                <td width="18%"><strong>Cliente</strong></td>
                 <td width="2%">:</td>
-                <td width="80%"><?php echo $this->CC_vage; ?></td>
+                <td width="80%">nombre del pagador</td>
             </tr>
 
             <tr>
-                <td width="18%"><strong>Paxs</strong></td>
-                <td width="2%">:</td>
-                <td width="80%"><?php echo $this->CC_nomPax; ?></td>
+                <td width="18%"></td>
+                <td width="2%"></td>
+                <td width="80%">Tel&eacute;fono: 123123 &nbsp;&nbsp;-&nbsp;&nbsp; Mail: correo@dominio.cl</td>
             </tr>
 
             <tr>
@@ -188,85 +182,46 @@
             <tr>
                 <td bordercolor="#FFFFFF">
                     <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
-                        <tr>
-                            <td width="25%">&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td width="75%">
-                                <table width="100%" border="0" cellspacing="2" cellpadding="2">
-                                    <tr>
-                                        <td class="Base">Valores expresados en 
-                                            <?php
-                                            if ($this->CC_moneda == 'D')
-                                            {
-                                                echo 'D&oacute;lares Americanos (USD)'; 
-                                            }
-                                            elseif($this->CC_moneda == 'P')
-                                            {
-                                                echo 'Pesos Chilenos ($)';
-                                            }
-                                            ?>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+                        
 
-
-                        <tr>
-                            <td width="25%"><strong>&nbsp;Valor Total</strong></td>
-                            <td>:</td>
-                            <td width="75%">
-                            <?php
-                                if($this->CC_totventa)
-                                {
-                                    echo Functions::formatoValor($this->CC_moneda, $this->CC_totventa) . ' + ' .Functions::formatoValor($this->CC_moneda, $this->CC_ajuste).' (Impuestos)'; 
-                                }
-                                ?>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="25%"><strong>&nbsp;Tiempo limite de pago</strong></td>
-                            <td width="2%">:</td>
-                            <td width="75%" class="Base"> 48 horas</td>
-                        </tr>
-
-                        <?php			
-                        if ($this->CC_moneda == "D")
-                        {		
-                        echo '<tr><td width="25%"><strong>&nbsp;Tipo de cambio al d&iacute;a de hoy </strong></td>
-                                        <td width="2%">:</td>
-                                        <td width="75%">
-                                                '.$this->CC_cambio.' (Consultar al momento del pago)
-                                        </td>
-                                </tr>';
-                        }
-                        ?>		
-
-
-
-                        <tr>
-                            <td width="25%"><strong>&nbsp;Comisi&oacute;n:</strong></td>
-                            <td width="2%">:</td>
-                            <td width="75%"><?php echo $this->CC_comag; ?>%
+                        <?php
+                        $valorTotal = Functions::getTarifa(($this->CC_totventa + $this->CC_ajuste), 'P'); 
+                        if ($this->CC_moneda == "D") { ?>
+                            <tr>
+                                <td width="25%"><strong>&nbsp;Valor Total USD</strong></td>
+                                <td>:</td>
+                                <td width="75%">
                                 <?php
-                                if($this->CC_tcomi == 1)
-                                {
-                                    echo ' + I.V.A.';
-                                }
-                                elseif($this->CC_tcomi == 2)
-                                {
-                                    echo ' I.V.A. Incluido';
-                                }
-                                ?>
-                            </td>
+                                    if($this->CC_totventa)
+                                    {
+                                        //echo Functions::formatoValor($this->CC_moneda, $this->CC_totventa) . ' + ' .Functions::formatoValor($this->CC_moneda, $this->CC_ajuste).' (Impuestos)'; 
+                                        echo Functions::getTarifa(($this->CC_totventa + $this->CC_ajuste), $this->CC_moneda) . ' (Impuestos Incluidos)'; 
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="25%"><strong>&nbsp;Tipo Cambio $ </strong></td>
+                                <td width="2%">:</td>
+                                <td width="75%"><?php echo $this->CC_cambio; ?></td>
+                            </tr>
+                        <?php $valorTotal = Functions::getTarifa((($this->CC_totventa + $this->CC_ajuste)*$this->CC_cambio), 'P'); } ?>
+                        
+                        <tr>
+                            <td width="25%"><strong>&nbsp;Valor Total $</strong></td>
+                            <td width="2%">:</td>
+                            <td width="75%"><?php echo $valorTotal; ?> (Impuestos Incluidos)</td>
                         </tr>
+
                     </table>
                 </td>
             </tr>
         </table>
         <br />
 
+        
+        <b style="font-family: Tahoma; color: #000000; font-size: 12px; margin-left: 10px;">Detalle de Pasajeros</b>
         <table width="98%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#E8E6E1">
             <tr>
                 <td bordercolor="#FFFFFF">
@@ -284,7 +239,7 @@
                         <?php
                         $contador = 1; 
                         if($this->CC_objsDetBloq)
-                        { 
+                        {
                             foreach($this->CC_objsDetBloq as $objDB)
                             {
                                 echo '<tr>
@@ -369,40 +324,12 @@
 	</table>
     <br />	<br />
 	
-	<center><span style="font-weight: bold;">CONDICIONES GENERALES BLOQUEOS Y CHARTER</span></center><br />
-    <ul type="disc">
-     <!-- <li>Los precios publicados incluyen solo lo especificado en cada programa. Los servicios no utilizados no ser&aacute;n reembolsables.</li>
-      <li>Una vez confirmada la       reserva, se solicitar&aacute; el pago total o un abono m&iacute;nimo de <strong>USD 450.- por pasajero para Sudam&eacute;rica, USD 650.-       Caribe, USA, Isla de Pascua,&nbsp; USD 1.200.-       Europa</strong>, &eacute;stos deben ser pagados dentro de las 48 horas de       recibida la confirmaci&oacute;n, de lo contrario se anular&aacute; la reserva       autom&aacute;ticamente.&nbsp; El saldo deber&aacute; ser pagado en su totalidad a m&aacute;s       tardar 10 d&iacute;as h&aacute;biles a contar del recibo del abono.&nbsp; En caso de       haberse confirmado la reserva 35 d&iacute;as antes de la salida, el pago deber&aacute;       ser total.&nbsp; </li> -->
-      <li><u>Bloqueos       a&eacute;reos: </u><br />
-    -No permiten  cambios ni correcciones de;&nbsp; fecha,  nombre, g&eacute;nero y rut.<br />
-      -No permite  reserva de asiento ni pre-chequeo, los asientos ser&aacute;n asignados por parte de la  compa&ntilde;&iacute;a a&eacute;rea en el momento del check in en el aeropuerto.<br />
-      -No permite  devoluci&oacute;n. <br />
-      -Los pasajes  ser&aacute;n entregados 7 d&iacute;as antes de la salida</li>
-      <li>Los gastos de anulaci&oacute;n de servicios terrestres, quedan  supeditados a las pol&iacute;ticas de los distintos hoteles y proveedores tur&iacute;sticos  involucrados en cada uno de los programas.</li>
-      <li><u>Charter</u>:<br />
-      </li>
-    -Permite  cambio de nombre hasta 5 d&iacute;as antes de la salida.&nbsp; No permite cambio de fecha.<br />
-    -Los asientos  son asignados por orden de fecha de compra y procurando que las familias queden  juntas.<br />
-      -Anulaciones  anterior<strong> 30  d&iacute;as de la salida, se retiene el equivalente al abono m&iacute;nimo</strong>.<br />
-      Entre 29 y 15 d&iacute;as antes de la  salida: 60% de penalidad sobre el valor total del programa. <br />
-      Entre 14 y 10 d&iacute;as antes de la  salida: 80% de penalidad sobre el valor del programa.<br />
-      Entre 9 y 0 d&iacute;as antes de la  salida: 100% de penalidad sobre el valor total del programa. <br />
-      En caso de no presentaci&oacute;n en el  aeropuerto o impedimento para salir del pa&iacute;s, no existir&aacute; ning&uacute;n tipo de  devoluci&oacute;n o cambio de fecha, por lo que se solicita chequear la documentaci&oacute;n  de viaje.
-    
-      <li>Los       cargos de seguridad y combustible son parte del valor del programa, por lo       tanto no tiene devoluci&oacute;n en caso de anulaci&oacute;n. Se encuentran sujetos a       variaci&oacute;n por parte de la cia. a&eacute;rea, &eacute;stos se congelan solamente con el       pago&nbsp;total del viaje.&nbsp; Las       tasas de embarque son 100% reembolsables.</li>
-     
-	 <!-- <li>Alojamiento:       Los horarios de check in y check out son fijados por cada hotel.&nbsp; En general las habitaciones est&aacute;n       disponibles para su ingreso a partir de las 15:00 hrs y la salida debe ser       antes de las 12:00 PM. Las salidas despu&eacute;s del horario establecido       facultan al hotel a cobrar un day use o bien una noche extra.</li>
-      <li>Las       excursiones regulares podr&iacute;an estar sujetas a modificaci&oacute;n en destino por       parte del operador local en d&iacute;a y horario por razones de operatividad u       otros motivos para la realizaci&oacute;n de las mismas, esto es informado       oportunamente por el operador en destino a los pasajeros. </li>
-      <li>Si por       motivos externos a la responsabilidad de Panamericana tales como:       condiciones clim&aacute;ticas, sismos, problemas pol&iacute;ticos, etc. Obligue a       modificar el programa y esto implique costos adicionales, &eacute;stos deben ser       asumidos por cuenta del pasajero.</li>
-      <li>Documentaci&oacute;n:       Es obligaci&oacute;n&nbsp;del pasajero contar con la documentaci&oacute;n de viaje al d&iacute;a       (C&eacute;dula de identidad, pasaportes, visados, autorizaciones notariales, etc.)       y de cualquier otro requisito necesarios para ingresar al lugar de destino       ya sea adulto o menor.&nbsp; </li>
-      <li>Panamericana       Turismo declina toda responsabilidad por cancelaciones, atrasos, cambios       de horarios y de fecha determinados por las aerol&iacute;neas.</li>
-      <li>Conocimiento       de condiciones, con la compra de un programa, queda autom&aacute;ticamente       establecido que el agente de viajes y cliente se notifican y aceptan todas       las condiciones generales para bloqueos y charter.</li> -->
-    </ul>
+	
         
         
         
         
-        
+        <?php echo $this->condicionesGenerales; ?>
 
 
 

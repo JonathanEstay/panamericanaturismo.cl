@@ -66,6 +66,17 @@ class systemController extends Controller
     
     
     
+    public function getSalidas() {
+        $objetosSalidas = $this->_ciudad->getSalidas($this->getTexto('ciudad'));
+        $salidasJSON = array();
+        foreach ($objetosSalidas as $objSalida) {
+            array_push($salidasJSON, $objSalida->getSalida());
+        }
+        echo json_encode($salidasJSON);
+    }
+    
+    
+    
     
     
     

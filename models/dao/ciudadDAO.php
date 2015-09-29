@@ -130,4 +130,32 @@ class ciudadDAO extends Model
             return false;
         }
     }
+    
+    
+    public function getSalidas($ciudad)
+    {
+        $sql = 'EXEC combo_fechas_salidas "' . $ciudad . '"';
+                
+        $datos= $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)>0)
+        {
+            $salidaArray = $this->_db->fetchAll($datos);
+            $objetosSalida = array();
+            
+            foreach ($salidaArray as $ciuDB)
+            {
+                $ciudadObj = new ciudadDTO();
+                $ciudadObj->setCodigo('0');
+                $ciudadObj->setSalida(trim($ciuDB['salida']));
+                
+                $objetosSalida[]=$ciudadObj;
+            }
+            
+            return $objetosSalida;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
