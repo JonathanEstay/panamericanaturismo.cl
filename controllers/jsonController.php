@@ -39,8 +39,7 @@ class jsonController extends Controller {
                         $hash = $json->hash;
                         $monto = $json->amount;
                         $num_file = $json->external_id;
-                        if ($status!=="" && $hash!=="" && $monto!=="" && $num_file !==""){
-
+                        if (trim($status) !== "" && trim($hash) !== "" && trim($monto) !== "" && trim($num_file) !== ""){
                             $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
                             if ($data) {
                                 $mensaje = array("reservation_confirmation_id"=>$data->getNum(),"agency_id"=>$objUsuarios[0]->getIdAgentExter(),"time"=>date("d/m/Y H:i:s"));
@@ -86,11 +85,11 @@ class jsonController extends Controller {
                     $getJson= $this->curlJSON($json, $url, 'E3ra79', 'api33-33a');
                     if(is_object($getJson)) {
                         Session::set('sess_hash_transaction', $getJson->hash);
-                        echo "El hash es: " . $getJson->hash;
+                        //echo "El hash es: " . $getJson->hash;
+                        echo date('His');
                     } else {
                         throw new Exception("Error al intentar realizar el pago");
                     }
-                    
                 } else {
                     throw new Exception("Error al intentar realizar el pago");
                 }
@@ -105,14 +104,22 @@ class jsonController extends Controller {
     
     public function checkPayment() {
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
-            if (!Session::get('sess_boton_pago')) { //QUITAR !
-                if (Session::get('sess_hash_transaction')) {
-                    $this->_view->hash = 'b51ed0257ac70f7aea669a1a223bd143O1340';//Session::get('sess_hash_transaction');
-                    $this->_view->renderingCenterBox('pago_travelclub');
+            if($this->getTexto('__PAYMENT__')) {
+                if (!Session::get('sess_boton_pago')) { //QUITAR !
+                    if (Session::get('sess_hash_transaction')) {
+                        $this->_view->hash = 'b51ed0257ac70f7aea669a1a223bd143O1340';//Session::get('sess_hash_transaction');
+                        $this->_view->renderingCenterBox('pago_travelclub');
+                    } else {
+                        throw new Exception("Error al intentar realizar el pago");
+                    }
                 } else {
-                    throw new Exception("Error al intentar realizar el pago ");
+                    throw new Exception("Error al intentar realizar el pago");
                 }
+            } else {
+                throw new Exception("Error al intentar realizar el pago");
             }
+        } else {
+            throw new Exception("Error al intentar realizar el pago");
         }
     }
 }
