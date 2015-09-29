@@ -498,11 +498,18 @@ class bloqueosController extends Controller
             
             
             if (!Session::get('sess_boton_pago')) { //QUITAR !
+                
+                $txtEmail= $this->getTexto('txtEmail_pago');
+                if(!Functions::validaCorreo($txtEmail))
+                {
+                    echo 'El email no es valido';
+                                        
+                }else{
                 /*
                  * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
                  */
                 echo 'OK' . '&' . '123'. '&' . 'cprog'. '&' . 'cbloq' . '&' . md5('pago');
-                
+                }
             } else {
                 $n_file=0; $cod_prog=''; $cod_bloq='';
                 $programa= $this->loadModel('bloqueo');

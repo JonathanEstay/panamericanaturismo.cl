@@ -492,6 +492,47 @@ class Functions
             'pattern'    => $pattern
         );
     }
+    
+    public function validaCorreo($correo)
+    {      
+        $estado = true;
+        $partes = explode("@", $correo);
+        if (!empty($partes[0]) && !empty($partes[1]))
+        {
+            
+            if (strlen(trim($partes[0])) < 2) {
+                $estado = false;
+            }else
+                {           
+                $partes_punto = explode(".", $partes[1]);
+                $total_puntos = substr_count($partes[1], ".");
+                if (!empty($partes_punto[0]) && !empty($partes_punto[1]))
+                    {
+                        for ($puntos = 0; $puntos <= $total_puntos; $puntos++) 
+                        {
+                            if (!empty($partes_punto[$puntos])) 
+                                {
+                                    if (strlen($partes_punto[$puntos]) < 2)
+                                    {
+                                    $estado = false;
+                                    }
+                                }else 
+                                {
+                                $estado = false;
+                                }
+                        }
+                    }else
+                    {
+                    $estado = false;
+                    }
+                }
+        }else 
+        {
+        $estado = false;
+        }    
+    return $estado;
+    }
+    
 }
 
 ?>
