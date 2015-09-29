@@ -94,7 +94,7 @@ $(function()
                 <li style="max-height: 500px; overflow-y: scroll;">
                     <form id="frmBuscarBloqueos" method="post" action="<?php echo BASE_URL; ?>bloqueos/buscar/<?php echo $this->form;?>">
                      	
-                        <select name="mL_txtCiudadDestino" id="mL_txtCiudadDestino" class="form-control" >
+                        <select name="mL_txtCiudadDestino" id="mL_txtCiudadDestino" class="form-control" onchange="actualizaSalidas();">
                             <option value="0">Seleccione destino</option>
                             <?php 
                             if($this->objCiudades)
@@ -124,18 +124,45 @@ $(function()
                         
                      	<table width="100%" id="tblFormBusqueda" style="margin-top:5px;">
                             <tr>
-                            	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
+                            	<td width="30%"><span style="padding-left:10px;">Salidas:</span></td>
                                 <td>
-                                    
-                                    <input type="text" maxlength="10" class="form-control" id="mL_txtFechaIn" name="mL_txtFechaIn" value="<?php echo $this->ML_fechaIni; ?>">
+                                    <select name="mL_cmbSalidas" id="mL_cmbSalidas" class="form-control" >
+                                        <option value="0">Seleccione</option>
+                                        <?php 
+                                        /*if($this->objCiudades)
+                                        { 
+                                            foreach($this->objCiudades as $objCiu)
+                                            {
+                                                //$mL_codigoCiuPRG= trim($this->objCiudades[$i]->getCodigo());
+                                                $mL_nombreCiuPRG= $objCiu->getNombre();
+                                                //$mL_nombreCiudadPRG = $mL_nombreCiuPRG." (".$mL_codigoCiuPRG.")";
+
+                                                if(Session::get('sess_BP_ciudadDes')==$mL_nombreCiuPRG)
+                                                {
+                                                ?>
+                                                    <option value="<?php echo $mL_nombreCiuPRG; ?>" selected="selected"><?php echo $mL_nombreCiuPRG; ?></option>
+                                                <?php
+                                                }
+                                                else
+                                                {
+                                                ?>
+                                                    <option value="<?php echo $mL_nombreCiuPRG; ?>"><?php echo $mL_nombreCiuPRG; ?></option>
+                                                <?php
+                                                }
+                                            }
+                                        }*/
+                                        ?>
+                                    </select>
+                                    <input type="hidden" maxlength="10" class="form-control" id="mL_txtFechaIn" name="mL_txtFechaIn" value="<?php echo $this->ML_fechaIni; ?>">
+                                    <input type="hidden" maxlength="10" class="form-control" id="mL_txtFechaOut" name="mL_txtFechaOut" value="<?php echo $this->ML_fechaFin; ?>">
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                             	<td><span style="padding-left:10px;">Fecha Out:</span></td>
                                 <td>
-                                    <input type="text" maxlength="10" class="form-control" id="mL_txtFechaOut" name="mL_txtFechaOut" value="<?php echo $this->ML_fechaFin; ?>">
+                                     
                                 </td>
-                            </tr>
+                            </tr> -->
                             
                            <!-- <tr>
                             	<td><span style="padding-left:10px;">Hotel:</span></td>
@@ -409,3 +436,57 @@ $(function()
 
 
 
+<script>
+    actualizaSalidas();
+    // cada vez que se cambia el valor del combo
+    function actualizaSalidas(){
+
+        // obtenemos el valor seleccionado
+        var ciudad = $("#mL_txtCiudadDestino").val();
+
+        // si es 0, no es un país
+        
+        if(ciudad != 0)
+        {
+            var datos = {
+                ciudad : $("#mL_txtCiudadDestino").val()  
+            };
+            $.post(BASE_URL_JS + "system/getSalidas", datos, function(ciudades) {
+
+                // obtenemos el combo de ciudades
+                var $comboCiudades = $("#mL_cmbSalidas");
+
+                // lo vaciamos
+                $comboCiudades.empty();
+                
+                $comboCiudades.append("<option>Seleccione</option>");
+                // iteramos a través del arreglo de ciudades
+                $.each(ciudades, function(index, salida) {
+                    // agregamos opciones al combo
+                    //alert( index + ": " + cuidad );
+                    if('<?php echo $this->ML_fechaIni; ?>' == salida){
+                        $comboCiudades.append("<option value='" + salida + "' selected='selected'>" + salida + "</option>");
+                    } else {
+                        $comboCiudades.append("<option value='" + salida + "'>" + salida + "</option>");
+                    }
+                    //$comboCiudades.append("<option>" + cuidad.nombre + "</option>");
+                });
+                
+            }, 'json');
+        }
+        else
+        {
+            // limpiamos el combo e indicamos que se seleccione un país
+            var $comboCiudades = $("#mL_cmbSalidas");
+            $comboCiudades.empty();
+            $comboCiudades.append("<option>Seleccione</option>");
+        }
+    }
+    
+    
+    // cada vez que se cambia el valor del combo
+    $("#mL_cmbSalidas").change(function() {
+        $("#mL_txtFechaIn").val($(this).val());
+        $("#mL_txtFechaOut").val($(this).val());
+    });
+</script>

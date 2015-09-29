@@ -10,6 +10,17 @@ class ciudadDTO
 {
     private $_nombre;
     private $_codigo;
+    private $_salida;
+    
+    
+    public function setSalida($s)
+    {
+        $this->_salida=$s;
+    }
+    public function getSalida()
+    {
+        return $this->_salida;
+    }
     
     public function setNombre($ciudad)
     {
