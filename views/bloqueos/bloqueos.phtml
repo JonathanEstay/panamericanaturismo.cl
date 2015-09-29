@@ -7,17 +7,41 @@
 
     .td-background1{background-color: #f7f8fa;}
     .td-background2{background-color: #ffffff;}
+    
+    .popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    margin-left: -5%;
+    z-index: 1100;
+    
+}
+.popover-title{
+    padding-bottom: 0px!important;
+}
+.popover-content{
+    padding-top: 0px!important;
+}
+
 
 </style>
 
-<input type="hidden" id="ValiFormLogin" value="<?php if (Session::get('sess_boton_pago') || Session::get('Autenticado')) { echo '1'; } else { echo '0'; } ?>">
+<input type="hidden" id="ValiFormLogin" value="<?php if (Session::get('sess_boton_pago') || Session::get('Autenticado')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>">
 
-<?php if(Session::get('sess_iframe')){$sty_tc=""; } else { $sty_tc="margin-top:55px;"; } ?>
+<?php if (Session::get('sess_iframe')) {
+    $sty_tc = "";
+} else {
+    $sty_tc = "margin-top:55px;";
+} ?>
 <div id="page-content" style="<?php echo $sty_tc ?>">
     <div id='wrap'>
         <div id="page-heading">
             <ol class="breadcrumb">
-                <li><a href="<?php if($this->form==''){ echo BASE_URL . 'system'; } ?>">Inicio</a></li>
+                <li><a href="<?php if ($this->form == '') {
+    echo BASE_URL . 'system';
+} ?>">Inicio</a></li>
                 <li class="active">Busqueda de bloqueos</li>
             </ol>
             <h3 style="margin-left: 18px;">PROGRAMAS CON AEREO CONFIRMADO EN <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h3>
@@ -104,18 +128,18 @@
                     </div>
 
                     <div class="panel-group panel-info" id="accordion">
-                        <?php
-                        $cnt = 0;
-                        if ($this->objBloqueos) {
-                            foreach ($this->objBloqueos as $objProg) {
-                                $cnt++;
-                                $OP_tipoHabi = $objProg->getTipoHab();
-                                ?>
+<?php
+$cnt = 0;
+if ($this->objBloqueos) {
+    foreach ($this->objBloqueos as $objProg) {
+        $cnt++;
+        $OP_tipoHabi = $objProg->getTipoHab();
+        ?>
 
 
-                                
 
-        <!-- <form class="frmOpcionesPRG_<?php echo $cnt; ?>"> -->
+
+                <!-- <form class="frmOpcionesPRG_<?php echo $cnt; ?>"> -->
                                 <div class="panel panel-default">
 
                                     <a id="id_collapse" style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" onclick="detectedCollapsed('collapse<?php echo $cnt ?>', 'opcionesPrograma<?php echo $cnt ?>', '<?php echo $objProg->getId(); ?>', '<?php echo $this->form; ?>')">
@@ -123,42 +147,91 @@
                                             <table style="width:100%;" >
                                                 <tr>
                                                     <td style="width:150px;" rowspan="4" align="center">
-                                                        <img src="<?php echo $_layoutParams['ruta_programas'].$objProg->getImagen(); ?>" height="100px" style="max-width: 130px;">
+                                                        <img src="<?php echo $_layoutParams['ruta_programas'] . $objProg->getImagen(); ?>" height="100px" style="max-width: 130px;">
                                                     </td>
                                                     <td style="line-height: 16px; vertical-align:bottom;"><span name="tooltip_blo" style="color: #033d7d;" title="<?php echo $objProg->getNombre(); ?><br> Para mayor informaci&oacute;n haga click"><?php echo $objProg->getNombre(); ?></span></td>
                                                     <td style="line-height: 16px; font-size: 14px; width: 200px; vertical-align: bottom" align="right">
                                                         Valor Total Desde : <b name="tooltip_blo" title="<?php
-                                                            for($i = 0; $i < 3; $i++) {
-                                                                if (isset($OP_tipoHabi[$i]) && $OP_tipoHabi[$i] != '') {
-                                                                    echo 'Habitacion '.($i+1).': ' . $OP_tipoHabi[$i] . '<br>';
-                                                                }
-                                                            }
-                                                            ?>"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getPrecioDesde()); ?></b> <br>
+                                                                       for ($i = 0; $i < 3; $i++) {
+                                                                           if (isset($OP_tipoHabi[$i]) && $OP_tipoHabi[$i] != '') {
+                                                                               echo 'Habitacion ' . ($i + 1) . ': ' . $OP_tipoHabi[$i] . '<br>';
+                                                                           }
+                                                                       }
+        ?>"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getPrecioDesde()); ?></b> <br>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="line-height: 12px; font-size: 12px; vertical-align: top;">
-                                                        <b><?php echo ($objProg->getNoches()+1).' dias ' . $objProg->getNoches() . ' noches'; ?></b>
-                                                        <br><span>Salida Desde :&nbsp;&nbsp;</span><b><?php if($objProg->getDesde()){echo Functions::invertirFecha($objProg->getDesde(), "/", "/");} ?></b></td>
+                                                        <b><?php echo ($objProg->getNoches() + 1) . ' dias ' . $objProg->getNoches() . ' noches'; ?></b>
+                                                        <br>Desde :&nbsp;&nbsp;</span><b><?php if ($objProg->getDesde()) {
+                                                    echo Functions::invertirFecha($objProg->getDesde(), "/", "/");
+                                                } ?></b><br>
+                                                        <u style="color: #0061C9; line-height: 17px;"><b  data-animation="hover" data-placement="right" title="<h4><i>Incluye</i></h4>"data-content="<?php
+                                                        $P_var_getIncluye = $objProg->getIncluye();
+                                                        if ($P_var_getIncluye) {
+                                                            $xx = 0;
+                                                            $hh = 0;
+                                                            $P_ciudadHotel = NULL;
+                                                            $incluye = '';
+                                                            for ($i = 0; $i <= 5; $i++) {
+                                                                $P_arrayCiudadHotel[$i] = NULL;
+                                                            }
+                                                            //foreach($P_var_getIncluye as $columInclu)
+                                                            for ($i = 0; $i < count($P_var_getIncluye[0]); $i++) {
+                                                                if ($P_var_getIncluye[0][$i]->getCodigo() != 'CGO' && $P_var_getIncluye[0][$i]->getNombre() != '') {
+                                                                    if ($P_var_getIncluye[0][$i]->getCiudad() != '') {
+                                                                        $P_arrayCiudadHotel[$xx] = $P_var_getIncluye[0][$i]->getCiudad();
+                                                                        $xx++;
+                                                                    }
+
+                                                                    if ($P_var_getIncluye[0][$i]->getCodigo() == 'HTL') {
+                                                                        $P_ciudadHotel = " / " . $P_arrayCiudadHotel[$hh];
+                                                                        $hh++;
+                                                                    } else {
+                                                                        $P_ciudadHotel = NULL;
+                                                                    }
+
+                                                                    if ($P_var_getIncluye[0][$i]->getNoches() < 10 && $P_var_getIncluye[0][$i]->getNoches() > 0) {
+                                                                        $P_varNoches = "0" . $P_var_getIncluye[0][$i]->getNoches() . " " /* " Noches " */;
+                                                                    } else if ($P_var_getIncluye[0][$i]->getNoches() >= 10) {
+                                                                        $P_varNoches = $P_var_getIncluye[0][$i]->getNoches() /* . " Noches " */;
+                                                                    } else {
+                                                                        $P_varNoches = "";
+                                                                    }
+
+                                                                    $incluye.='<p><img  src=&quot;' . $_layoutParams['ruta_img'] . 'tick.png&quot; width=&quot;12px&quot; />&nbsp;&nbsp; ' . $P_varNoches . $P_var_getIncluye[0][$i]->getNombre() . $P_ciudadHotel . "</p>";
+                                                                }
+                                                            }
+                                                        }
+
+                                                        echo $incluye;
+                                                        ?>" style="font-size:15px;color: #0061C9;">Incluye...</b></u>
+                                                    </td>
+
                                                     <td rowspan="3" style="vertical-align: bottom; font-size: 13px; width: 200px; line-height: 12px;" align="right">
                                                         <input type="button" class="btn btn-primary btn-sm" style="margin-right:5px" value="Ver programa">
                                                     </td>
                                                 </tr>
                                                 
                                                 <tr>
-                                                    <td style="line-height: 15px; font-size: 12px;"><b>Precio total en base a</b> <?php $tmp=''; for($i = 0; $i < 3; $i++) {
-                                                                if (isset($OP_tipoHabi[$i]) && $OP_tipoHabi[$i] != '') {
-                                                                    echo $tmp.' Habitacion '.($i+1).': ' . $OP_tipoHabi[$i];
-                                                                    $tmp='+';
-                                                                }
-                                                            } ?></td>
+                                                    <td style="line-height: 15px; font-size: 12px;">
+                                                         
+                                                        <b>Precio total en base a</b> <?php
+                                                $tmp = '';
+                                                for ($i = 0; $i < 3; $i++) {
+                                                    if (isset($OP_tipoHabi[$i]) && $OP_tipoHabi[$i] != '') {
+                                                        echo $tmp . ' Habitacion ' . ($i + 1) . ': ' . $OP_tipoHabi[$i];
+                                                        $tmp = '+';
+                                                    }
+                                                }
+                                                ?></td>
                                                 </tr>
-                                                
+
                                             </table>
-                                            
-                                            
-                                            
-                                            
+
+
+
+
                                         </div>
                                     </a>
 
@@ -203,9 +276,9 @@
                                                                             }
 
                                                                             if ($P_var_getIncluye[0][$i]->getNoches() < 10 && $P_var_getIncluye[0][$i]->getNoches() > 0) {
-                                                                                $P_varNoches = "0" . $P_var_getIncluye[0][$i]->getNoches() . " Noches ";
+                                                                                $P_varNoches = "0" . $P_var_getIncluye[0][$i]->getNoches() . " " /* " Noches " */;
                                                                             } else if ($P_var_getIncluye[0][$i]->getNoches() >= 10) {
-                                                                                $P_varNoches = $P_var_getIncluye[0][$i]->getNoches() . " Noches ";
+                                                                                $P_varNoches = $P_var_getIncluye[0][$i]->getNoches() /* . " Noches " */;
                                                                             } else {
                                                                                 $P_varNoches = "";
                                                                             }
@@ -236,10 +309,10 @@
 
 
 
-        <?php
-    }
-} else {
-    ?>
+                         <?php
+                     }
+                 } else {
+                     ?>
                             <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
                                 No se encontraron registros para esta busqueda.
                             </div>
@@ -249,9 +322,11 @@
                 </div>
             </div>
 
-            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '') {
+            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php
+if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '') {
     echo 'display: none;';
-} ?>">
+}
+?>">
                 <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px; ">
                     <table>
                         <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario'); ?></td></tr>
@@ -263,9 +338,15 @@
     </div> <!--wrap -->
 </div> <!-- page-content -->
 <script>
+
+    $(function () {
+        $('[data-animation="hover"]').popover({html:true,trigger:"hover",container:"body"});
+    })
     $(document).ready(function () {
 
         $("[name$='tooltip_blo']").poshytip({className: "tip-darkgray", alignY: "top"});
+
+
 
     });
 </script>

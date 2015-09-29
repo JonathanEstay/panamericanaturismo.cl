@@ -237,8 +237,7 @@ class reservaDAO extends Model
             . 'WHERE num_file = "'.$nFile.'" AND NOT(codigo = "CGO") '
             . 'ORDER BY lin ASC ';
          
-         //echo $sql;
-         
+         //echo $sql;  exit;
          $datos= $this->_db->consulta($sql);
          if($this->_db->numRows($datos)>0)
          {
@@ -251,7 +250,11 @@ class reservaDAO extends Model
                  
                  $objDF->setFile(trim($dfDB['num_file']));
                  $objDF->setCodigo(trim($dfDB['codigo']));
-                 $objDF->setNombre(trim($dfDB['nombre']));
+                 $habitacionNombre=trim($dfDB['nombre']);
+                 $habitacionNombre=str_replace('SGL','SINGLE',$habitacionNombre);
+                 $habitacionNombre=str_replace('DBL','DOBLE',$habitacionNombre);
+                 $habitacionNombre=str_replace('TRL','TRIPLE',$habitacionNombre);
+                 $objDF->setNombre($habitacionNombre);
                  $objDF->setIN(trim($dfDB['in_']));
                  $objDF->setOut(trim($dfDB['out']));
                  $objDF->setPaxS(intval(trim($dfDB['pax_s'])));
