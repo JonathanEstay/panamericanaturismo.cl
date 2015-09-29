@@ -15,6 +15,7 @@ class programaDAO extends Model
     public function getPackages($cod)
     {
         $sql='SELECT * FROM packages WHERE codigo = "'.$cod.'" ';
+        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
