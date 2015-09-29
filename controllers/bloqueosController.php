@@ -432,7 +432,19 @@ class bloqueosController extends Controller
                     $this->_view->diaSalida= $exp_fechaSalida[2];
                     
                     $valorHab= $this->_view->objOpcionPrograma[0]->getValorHab();
-                    $this->_view->precio= Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0]+$valorHab[1]+$valorHab[2]));
+                 if($this->_view->objOpcionPrograma[0]->getMoneda()=='D'){
+                     $precioDolar = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0]+$valorHab[1]+$valorHab[2]));
+                   
+                     $valorTcambio = Session::get('sess_tcambio');
+                     $precioPesos = ($valorHab[0]+$valorHab[1]+$valorHab[2]) * $valorTcambio;
+                   $this->_view->precio = $precioDolar.' (T.Cambio $' . $valorTcambio . ', '.Functions::formatoValor('P',$precioPesos).')';
+                   
+                 }
+                 
+                    else{
+                      $this->_view->precio= Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0]+$valorHab[1]+$valorHab[2]));  
+                    }
+                    
                     
                     $this->_view->hoteles= $this->_view->objOpcionPrograma[0]->getHoteles();
                     $this->_view->hotelesCNT= count($this->_view->hoteles);

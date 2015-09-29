@@ -85,6 +85,34 @@ class usuarioDAO extends Model
         }
 
     }
+    
+    public function getTcambio(){
+        
+        $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah";
+        
+        $datos = $this->_db->consulta($sql);
+        
+        if($this->_db->numRows($datos)>0)
+        {
+            $userArray=$this->_db->fetchAll($datos);
+            
+           $objusuario = new usuarioDTO();
+           foreach ($userArray as $usdb){
+           
+           $objusuario->setTipoCambio(trim($usdb['cambio']));
+           }
+           
+           return $objusuario;
+           
+        }  
+        else
+        {
+          return false;  
+        }
+        
+    }
+    
+    
 }
 
 ?>

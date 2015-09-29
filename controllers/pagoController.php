@@ -19,8 +19,8 @@ class pagoController extends Controller{
     }
     
     public function cierre(){
-        echo 'dfg';
-                exit();
+        echo 'proceso de cierre';
+                exit;
     }
     
     public function proceso(){
@@ -28,10 +28,12 @@ class pagoController extends Controller{
     }
     
     public function fracaso(){
-        
+        $this->_view->renderingSystem('fracaso');
     }
     
     public function exito(){
+      
+        $this->_view->renderingSystem('exito');
         
     }
     

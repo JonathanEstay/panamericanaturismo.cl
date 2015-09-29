@@ -25,6 +25,7 @@ class usuarioDTO
     private $_correo;
     private $_correo_admin;
     private $_rut;
+    private $_tcambio;
     
     
     public function getRut() {
@@ -193,6 +194,14 @@ class usuarioDTO
     public function getFirma()
     {
         return $this->_firma;
+    }
+    
+    public function setTipoCambio($tcambio){
+        $this->_tcambio = $tcambio;
+    }
+    
+    public function getTipoCambio(){
+        return $this->_tcambio;
     }
 }
 ?>
