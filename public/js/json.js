@@ -47,7 +47,7 @@ JSON.prototype.getHash = function () {
             {                
                 $.post(BASE_URL_JS + "json/checkPayment",
                 {
-                    __PAYMENT__: 1
+                    __PAYMENT__ : RS
                 }, function (dataRS)
                 {
                     $("#" + JSON.prototype.getDiv()).html(dataRS);
