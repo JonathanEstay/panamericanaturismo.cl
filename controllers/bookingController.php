@@ -169,12 +169,13 @@ class bookingController extends Controller
         $this->_view->codigoPRG= $codPRG;
         $this->_view->codigoBloq= $codBloq;
         
-        /*if(DE DONDE SE HIZO LA RESERVA){
+        //if(DE DONDE SE HIZO LA RESERVA){
+            $this->_view->condicionesGenerales= file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . 'panamericana.phtml');
             $this->_view->renderingCartas('panamericana');
-        /*} else {*/
+        /*} else {
             $this->_view->condicionesGenerales= file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . 'travelclub.phtml');
             $this->_view->renderingCartas('travelclub');
-        //}
+        }*/
         
         
     }

@@ -57,10 +57,11 @@ class Buscador extends Controller{
         foreach ($lista_clientes as $cli => $val) {
             if($cliente == $cli){
                 Session::set('sess_codigo_cliente_url', $val);
-                break;
+                return true;
             }
         }
         
+        return false;
     }
     
     public function validar($form='') {

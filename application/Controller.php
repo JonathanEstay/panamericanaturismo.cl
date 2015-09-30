@@ -23,55 +23,49 @@ abstract class Controller
         if(substr($this->getServer('HTTP_REFERER'), 16, 22) == 'panamericanaturismo.cl' || substr($this->getServer('HTTP_REFERER'), 14, 22) == 'panamericanaturismo.cl')
         {
             $cliente = explode('/', substr($this->getServer('HTTP_REFERER'), 16, strlen($this->getServer('HTTP_REFERER')))); 
-            if($cliente[1]){
-                Buscador::getCliente(trim($cliente[1]));
-            }
-            
-            if($this->getTexto('mL_txtFechaIn_PRG')) { 
-                Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
-            }else{
-                if($this->getTexto('mL_txtFechaIn')){
-                    Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
-                }
-            }
-            
-        } else {
-            if(!Session::get('sess_fechaDefault')){
-                Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
+            if($cliente[1]) {
+                Buscador::getCliente(trim($cliente[1]));    
             }
         }
         
         
+        if($this->getTexto('mL_txtFechaIn')) {
+            Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
+        } else if($this->getTexto('mL_txtFechaIn_PRG')) {
+            Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
+        } else {
+            Session::set('sess_fechaDefault', date('d/m/Y'));
+        }
         
-        if(!Session::get('sess_BP_fechaIn')){
+
+        
+        
+        if(!Session::get('sess_BP_fechaIn')) {
             $this->_view->ML_fechaIni =  Session::get('sess_fechaDefault');
-        }else{
+        } else {
             $this->_view->ML_fechaIni =  Session::get('sess_BP_fechaIn');
         }
-        
-        
-        if(!Session::get('sess_BP_fechaOut')){
+        if(!Session::get('sess_BP_fechaOut')) {
             $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 6);//Session::get('sess_fechaDefault');
-        }else{
-            
-            $this->_view->ML_fechaFin=Session::get('sess_BP_fechaOut');
+        } else {
+            $this->_view->ML_fechaFin= Session::get('sess_BP_fechaOut');
         }
         
         
-        if(!Session::get('sess_BP_fechaIn_PRG')){
+        
+        
+        
+        
+        if(!Session::get('sess_BP_fechaIn_PRG')) {
             $this->_view->ML_fechaIni_PRG=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
-            
-        }else{
+        } else {
             $this->_view->ML_fechaIni_PRG =  Session::get('sess_BP_fechaIn_PRG');
-        
-            
         }
-        if(!Session::get('sess_BP_fechaOut_PRG')){
+        if(!Session::get('sess_BP_fechaOut_PRG')) {
             $this->_view->ML_fechaFin_PRG=  Session::get('sess_fechaDefault');
-        }else{
+        } else {
             $this->_view->ML_fechaFin_PRG=Session::get('sess_BP_fechaOut_PRG');
         }
-        
     }
     
     protected function _alert($tipo=false, $msg=false)
