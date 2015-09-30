@@ -497,6 +497,7 @@ class bloqueosController extends Controller
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             
             
+            
             if (!Session::get('sess_boton_pago')) { //QUITAR !
                 
                 $txtEmail= $this->getTexto('txtEmail_pago');
@@ -505,10 +506,30 @@ class bloqueosController extends Controller
                     echo 'El email no es valido';
                                         
                 }else{
+                    
                 /*
                  * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
                  */
-                echo 'OK' . '&' . '123'. '&' . 'cprog'. '&' . 'cbloq' . '&' . md5('pago');
+                $bloqueo= $this->loadModel('bloqueo');
+                $rs = $bloqueo->H2H_CREA_FILE();
+                if($rs){
+                    if($bloqueo->getFile($rs->getCodigo())){
+                        $cantidad= $bloqueo->getDetHot($rs->getCodigo());
+                        $pasajeros=4;
+                        if($cantidad==$pasajeros){
+                            echo 'OK' . '&' . '123'. '&' . 'cprog'. '&' . 'cbloq' . '&' . md5('pago');
+                        }else{
+                        throw new Exception('Error de transaccion  (Codigo 23). Si el error persiste comuniquese con el administrador');
+                            
+                        }
+                    }else{
+                        throw new Exception('Error de transaccion  (Codigo 28). Si el error persiste comuniquese con el administrador');
+                    }                    
+                }
+                
+                
+                
+                
                 }
             } else {
                 $n_file=0; $cod_prog=''; $cod_bloq='';

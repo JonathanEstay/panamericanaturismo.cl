@@ -651,4 +651,41 @@ class bloqueoDAO extends Model
         return false;
         
     }
+    public function H2H_CREA_FILE() {
+        $mensaje = new bloqueoDTO();
+        $mensaje->setCodigo('203641');
+        
+        return $mensaje;
+    }
+    public function getFile($numFile) {
+        
+        
+        $sql="SELECT * FROM file_ WHERE num_file=$numFile";
+        
+        $data = $this->_db->consulta($sql);
+        
+        if($this->_db->numRows($data)>0)
+        {
+            return true;
+        }else{
+            
+            return false;
+        }
+    }
+    
+    public function getDetHot($numFile) {
+        
+        $sql = "SELECT  COUNT (*) FROM det_bloq WHERE num_file = $numFile ";
+        
+        $dato = $this->_db->consulta($sql);
+        
+        if($this->_db->numRows($dato)>0)
+        {
+            $cantidad = $this->_db->fetchAll($dato);
+            
+            return $cantidad[0][0];
+        }else{
+            return false;
+        }
+    }
 }
