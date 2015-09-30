@@ -47,31 +47,31 @@ foreach($this->objFotosHotel as $objFotosHotel) {
    
    <?php if($objFotosHotel->getImgEnc() && file_exists($publicFotos.$objFotosHotel->getImgEnc())){?> 
     <div class="item <?php echo $item; $item=''; ?>"> 
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgEnc(); ?>" alt="Foto Encabezado">
+        <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgEnc(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto Encabezado">
     </div>  
     <?php
     } 
     if($objFotosHotel->getImgCont() && file_exists($publicFotos.$objFotosHotel->getImgCont())){?>   
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont(); ?>" alt="Foto 1">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 1">
     </div>
      
    <?php }
    if($objFotosHotel->getImgCont2() && file_exists($publicFotos.$objFotosHotel->getImgCont2())){?> 
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont2(); ?>" alt="Foto 2">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont2(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 2">
     </div>
     
     <?php }
     if($objFotosHotel->getImgCont3() && file_exists($publicFotos.$objFotosHotel->getImgCont3())){?>  
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont3(); ?>" alt="Foto 3">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont3(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 3">
     </div>
      
     <?php }
     if($objFotosHotel->getImgCont4() && file_exists($publicFotos.$objFotosHotel->getImgCont4())){?>    
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont4(); ?>" alt="Foto 4">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hotel'] . $objFotosHotel->getImgCont4(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 4">
     </div>
     <?php }?>   
   </div>
@@ -87,6 +87,19 @@ foreach($this->objFotosHotel as $objFotosHotel) {
   </a>
     </div></center>
 
+<script type="text/javascript">
+
+$(document).bind('keyup', function(e) {
+
+  if(e.keyCode === 39){
+    $('a.carousel-control.right').trigger('click');
+  } else if(e.keyCode === 37){
+  $('a.carousel-control.left').trigger('click');
+  }
+
+});
+
+</script>
 <?php } else { ?>
         No se encontraron fotos para este hotel.
 <?php }
