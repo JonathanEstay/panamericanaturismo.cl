@@ -437,7 +437,6 @@ $(function()
 
 
 <script>
-    actualizaSalidas();
     // cada vez que se cambia el valor del combo
     function actualizaSalidas(){
 
@@ -489,4 +488,6 @@ $(function()
         $("#mL_txtFechaIn").val($(this).val());
         $("#mL_txtFechaOut").val($(this).val());
     });
+    
+    actualizaSalidas();
 </script>
