@@ -47,7 +47,16 @@ class bloqueoDTO
     
     private $_chd1;
     private $_chd2;
+    private $_file;
     
+    
+    public function getFile(){
+        return $this->_file;
+    }
+    
+    public function setFile($file){
+        $this->_file=$file;
+    }
     public function getChd1() {
         return $this->_chd1;
     }
