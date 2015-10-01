@@ -239,7 +239,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
     //hacemos la petición ajax 
 
 
-    endLoad();
+    
 
 
     
@@ -264,16 +264,20 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                 var myArrayData = data.split('&');
                 if ($.trim(myArrayData[0]) === 'OK')
                 {
-                    $('#btnCerrar1PRG').delay(100).fadeOut(100);
-                    $('#btnCerrar1PRG').animate({
-                        'display': 'none'
-                    });
+                    
 
                     if($.trim(myArrayData[4]) == '66d70610b684db4b9d2417f6da614a60') {
                         json.prototype.setDiv(div);
                         json.prototype.getHash();
-                        alertError(btn, 'jojo', 2000);
+                        //alertError(btn, 'jojo', 2000);
                     } else {
+                        endLoad();
+                        
+                        $('#btnCerrar1PRG').delay(100).fadeOut(100);
+                        $('#btnCerrar1PRG').animate({
+                            'display': 'none'
+                        });
+                        
                         $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
                         $.post(BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion" + form,
                         {
@@ -299,6 +303,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                 }
                 else
                 {
+                    endLoad();
                     alertError(btn, data, 5000);
                 }
             },

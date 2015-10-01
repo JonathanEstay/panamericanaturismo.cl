@@ -19,21 +19,25 @@ class pagoController extends Controller{
     }
     
     public function cierre(){
-        echo 'proceso de cierre';
-                exit;
+        if(!Session::get('sess_status_pago')){
+            $this->redireccionar('pago/fracaso');
+        } else {
+            $this->redireccionar('pago/proceso');
+        }            
     }
     
     public function proceso(){
-        
+        echo 'Verificando si se realizo el pago correctamente'; exit;
     }
     
     public function fracaso(){
-        $this->_view->renderingSystem('fracaso');
+        $this->_view->msj = Session::get('sess_msj_pago');
+        $this->_view->renderingCenterBox('fracaso');
     }
     
     public function exito(){
       
-        $this->_view->renderingSystem('exito');
+        $this->_view->renderingCenterBox('exito');
         
     }
     
