@@ -57,14 +57,14 @@ abstract class Controller
         
         
         if(!Session::get('sess_BP_fechaIn_PRG')) {
-            $this->_view->ML_fechaIni_PRG=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
+            $this->_view->ML_fechaIni_PRG= Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
         } else {
-            $this->_view->ML_fechaIni_PRG =  Session::get('sess_BP_fechaIn_PRG');
+            $this->_view->ML_fechaIni_PRG = Session::get('sess_BP_fechaIn_PRG');
         }
         if(!Session::get('sess_BP_fechaOut_PRG')) {
-            $this->_view->ML_fechaFin_PRG=  Session::get('sess_fechaDefault');
+            $this->_view->ML_fechaFin_PRG= Session::get('sess_fechaDefault');
         } else {
-            $this->_view->ML_fechaFin_PRG=Session::get('sess_BP_fechaOut_PRG');
+            $this->_view->ML_fechaFin_PRG= Session::get('sess_BP_fechaOut_PRG');
         }
     }
     

@@ -3,28 +3,28 @@
  * Autor    : Tsyacom Ltda.
  * Fecha    : Viernes, 24 de julio de 2015
  */
-function JSON() {
+function json() {
     this.J_nombre = '';
     this.J_div = '';
 }
 
-JSON.prototype.getNombre = function () {
+json.prototype.getNombre = function () {
     return this.J_nombre;
 };
-JSON.prototype.setNombre = function (nombre) {
+json.prototype.setNombre = function (nombre) {
     this.J_nombre = nombre;
 };
 
-JSON.prototype.getDiv = function () {
+json.prototype.getDiv = function () {
     return this.J_div;
 };
-JSON.prototype.setDiv = function (div) {
+json.prototype.setDiv = function (div) {
     this.J_div = div;
 };
 
 
 
-JSON.prototype.getHash = function () {
+json.prototype.getHash = function () {
     
     formData="&__JSON__=466deec76ecdf5fca6d38571f6324d54";
     contentType = 'application/x-www-form-urlencoded';
@@ -50,7 +50,7 @@ JSON.prototype.getHash = function () {
                     __PAYMENT__ : RS
                 }, function (dataRS)
                 {
-                    $("#" + JSON.prototype.getDiv()).html(dataRS);
+                    $("#" + json.prototype.getDiv()).html(dataRS);
                     endLoad();
                     /*$('#btnAceptarPRG').delay(2000).fadeIn(100);
                     $('#btnAceptarPRG').animate({
