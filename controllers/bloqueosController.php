@@ -439,13 +439,14 @@ class bloqueosController extends Controller {
 
                                 $pasajeros = Session::get('sessRP_cntPasajeros') - 1;
                                 if ($cantidad == $pasajeros) {
+                                    
                                     echo 'OK' . '&' . '123' . '&' . 'cprog' . '&' . 'cbloq' . '&' . md5('pago');
                                 } else {
                                     throw new Exception('Error de transaccion  (Codigo 23). Si el error persiste comuniquese con el administrador');
                                 }
                             }
                         } else {
-                            throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). Si el error persiste comuniquese con el administrador');
+                            throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). '.$rs->getMSG());
                         }
                     }
                 }
