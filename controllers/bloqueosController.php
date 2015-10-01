@@ -25,7 +25,7 @@ class bloqueosController extends Controller
         $this->_view->url= Buscador::getUrl();
         //echo "IFRAME= ".Session::get('sess_iframe');
         $this->_view->form=$form;
-        $this->_view->setJS(array('validaCampos', 'bloqueos', 'JSON'));
+        $this->_view->setJS(array('validaCampos', 'bloqueos', 'json'));
         
         //$this->getLibrary('kint/Kint.class');
         
@@ -498,7 +498,7 @@ class bloqueosController extends Controller
             
             
             
-            if (!Session::get('sess_boton_pago')) { //QUITAR !
+            if (Session::get('sess_boton_pago')) { //QUITAR !
                 
                 $txtEmail= $this->getTexto('txtEmail_pago');
                 if(!Functions::validaCorreo($txtEmail))
@@ -510,7 +510,7 @@ class bloqueosController extends Controller
                 /*
                  * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
                  */
-                $bloqueo= $this->loadModel('bloqueo');
+                /*$bloqueo= $this->loadModel('bloqueo');
                 $rs = $bloqueo->H2H_CREA_FILE();
                 if($rs){
                     if($bloqueo->getFile($rs->getCodigo())){
@@ -525,8 +525,8 @@ class bloqueosController extends Controller
                     }else{
                         throw new Exception('Error de transaccion  (Codigo 28). Si el error persiste comuniquese con el administrador');
                     }                    
-                }
-                
+                }*/
+                echo 'OK' . '&' . '123'. '&' . 'cprog'. '&' . 'cbloq' . '&' . md5('pago');
                 
                 
                 

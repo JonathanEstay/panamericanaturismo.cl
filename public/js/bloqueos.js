@@ -269,9 +269,9 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                         'display': 'none'
                     });
 
-                    if($.trim(myArrayData[4])==='66d70610b684db4b9d2417f6da614a60') {
-                        JSON.prototype.setDiv(div);
-                        JSON.prototype.getHash();
+                    if($.trim(myArrayData[4]) == '66d70610b684db4b9d2417f6da614a60') {
+                        json.prototype.setDiv(div);
+                        json.prototype.getHash();
                         alertError(btn, 'jojo', 2000);
                     } else {
                         $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
