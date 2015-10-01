@@ -501,7 +501,7 @@ class bloqueosController extends Controller
             if (!Session::get('sess_boton_pago')) { //QUITAR !
                 
                 $txtEmail= $this->getTexto('txtEmail_pago');
-                if(!Functions::validaCorreo($txtEmail))
+                if(Functions::validaCorreo($txtEmail))
                 {
                     echo 'El email no es valido';
                                         
@@ -510,8 +510,12 @@ class bloqueosController extends Controller
                 /*
                  * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
                  */
+                require_once ROOT . 'controllers' . DS . 'include' . DS .'procesoPago.php';
+                
+                echo $sql;
+                exit;
                 $bloqueo= $this->loadModel('bloqueo');
-                $rs = $bloqueo->H2H_CREA_FILE();
+                $rs = $bloqueo->H2H_CREA_FILE($sql);
                 if($rs){
                     if($bloqueo->getFile($rs->getCodigo())){
                         $cantidad= $bloqueo->getDetHot($rs->getCodigo());
@@ -691,4 +695,8 @@ class bloqueosController extends Controller
 
         $this->redireccionar('bloqueos/index/'.$form);
     }
+    
+    
+    
+    
 }
