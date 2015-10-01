@@ -63,7 +63,7 @@ json.prototype.getHash = function () {
             {
                 endLoad();
 
-                $('#mensajeWar').html('Error error');
+                $('#mensajeWar').html('Error en la operacion [1019]');
                 $('#divAlertWar').delay(1000).fadeIn(500);
                 $('#divAlertWar').animate({
                     'display': 'block'

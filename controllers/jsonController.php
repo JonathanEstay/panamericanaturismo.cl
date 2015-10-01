@@ -68,7 +68,7 @@ class jsonController extends Controller {
     public function getHash() {
         if($this->getTexto('__JSON__') == '466deec76ecdf5fca6d38571f6324d54') {
             if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
-                if (!Session::get('sess_boton_pago')) { //QUITAR !
+                if (Session::get('sess_boton_pago')) { //QUITAR !
                     
                     $url = 'http://apishopper.herokuapp.com/api/checkout/uploadGeneric';
                     $json = array(
@@ -88,16 +88,25 @@ class jsonController extends Controller {
                         //echo "El hash es: " . $getJson->hash;
                         echo date('His');
                     } else {
-                        throw new Exception("Error al intentar realizar el pago");
+                        //throw new Exception("Error al intentar realizar el pago");
+                        Session::set('sess_status_pago', false);
+                        Session::set('sess_msj_pago', '[1014] Error al intentar realizar el pago');
+                        $this->redireccionar('pago/cierre');
                     }
                 } else {
-                    throw new Exception("Error al intentar realizar el pago");
+                    Session::set('sess_status_pago', false);
+                    Session::set('sess_msj_pago', '[1013] Error al intentar realizar el pago');
+                    $this->redireccionar('pago/cierre');
                 }
             } else {
-                throw new Exception("Error al intentar realizar el pago");
+                Session::set('sess_status_pago', false);
+                Session::set('sess_msj_pago', '[1012] Error al intentar realizar el pago');
+                $this->redireccionar('pago/cierre');
             }
         } else {
-            throw new Exception("Error al intentar realizar el pago");
+            Session::set('sess_status_pago', false);
+            Session::set('sess_msj_pago', '[1011] Error al intentar realizar el pago');
+            $this->redireccionar('pago/cierre');
         }
     }
     
@@ -105,21 +114,29 @@ class jsonController extends Controller {
     public function checkPayment() {
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             if($this->getTexto('__PAYMENT__')) {
-                if (!Session::get('sess_boton_pago')) { //QUITAR !
+                if (Session::get('sess_boton_pago')) { //QUITAR !
                     if (Session::get('sess_hash_transaction')) {
                         $this->_view->hash = 'b51ed0257ac70f7aea669a1a223bd143O1340';//Session::get('sess_hash_transaction');
                         $this->_view->renderingCenterBox('pago_travelclub');
                     } else {
-                        throw new Exception("Error al intentar realizar el pago");
+                        Session::set('sess_status_pago', false);
+                        Session::set('sess_msj_pago', '[1018] Error al intentar realizar el pago');
+                        $this->redireccionar('pago/cierre');
                     }
                 } else {
-                    throw new Exception("Error al intentar realizar el pago");
+                    Session::set('sess_status_pago', false);
+                    Session::set('sess_msj_pago', '[1017] Error al intentar realizar el pago');
+                    $this->redireccionar('pago/cierre');
                 }
             } else {
-                throw new Exception("Error al intentar realizar el pago");
+                Session::set('sess_status_pago', false);
+                Session::set('sess_msj_pago', '[1016] Error al intentar realizar el pago');
+                $this->redireccionar('pago/cierre');
             }
         } else {
-            throw new Exception("Error al intentar realizar el pago");
+            Session::set('sess_status_pago', false);
+            Session::set('sess_msj_pago', '[1015] Error al intentar realizar el pago');
+            $this->redireccionar('pago/cierre');
         }
     }
 }
