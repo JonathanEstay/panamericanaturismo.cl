@@ -7,7 +7,7 @@
  */
 $sql = null;
 $error = false;
-$CodOpOris = '';
+$CodOpOris = 'WEP';
 $usuario = 'tclub';
 
 if (Session::get('sessRP_idPrograma')) {
