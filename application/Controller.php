@@ -304,6 +304,33 @@ abstract class Controller
         return $data;
     }
     
+    
+    protected function curlGET_JSON($url, $user = false, $pass = false) {
+        $header = array();
+        $header[] = 'Content-Type: text/xml; encoding="UTF-8"';
+        //$header[] = 'Content-Length: ' . strlen($param);
+        
+        $ch = curl_init($url);
+        
+        //Cabeceras a enviar (acepta array)
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        
+        
+        if($user && $pass) {
+            //Usuario y password que usan autentificacion BASIC
+            curl_setopt($ch, CURLOPT_USERPWD, $user.':'.$pass);
+        } 
+
+        //le decimos que queremos recoger una respuesta (si no esperas respuesta, ponlo a false)
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+        
+        return json_decode($data);
+    }
+    
+    
     protected function curlJSON($param, $url, $user = false, $pass = false) {
         
         $json = json_encode($param);
