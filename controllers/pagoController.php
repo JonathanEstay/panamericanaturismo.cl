@@ -11,6 +11,7 @@ class pagoController extends Controller{
     
     public function __construct() {
         parent::__construct();
+        $this->_json = $this->loadModel('json');
     }
     
     
@@ -19,15 +20,42 @@ class pagoController extends Controller{
     }
     
     public function cierre(){
-        if(!Session::get('sess_status_pago')){
-            $this->redireccionar('pago/fracaso');
+        /*echo var_dump($_POST);
+        echo '<br>';
+        echo var_dump($_GET);
+        echo '<br>';
+        echo var_dump(file_get_contents('php://input'));
+        echo '<br>';
+        echo file_get_contents('php://input');
+        exit;*/
+        if($this->proceso()){
+            $this->redireccionar('pago/exito');
         } else {
-            $this->redireccionar('pago/proceso');
+            $this->redireccionar('pago/fracaso');
         }            
     }
     
     public function proceso(){
-        echo 'Verificando si se realizo el pago correctamente'; exit;
+        
+        $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
+        $url = 'http://travelclub-test.herokuapp.com/api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
+        $json = $this->curlGET_JSON($url, $jsonPay->pay_user, $jsonPay->pay_pass);
+        //echo $json->hash; echo '<br>'; echo $json->external_id; echo '<br>'; echo $json->agency_id; echo '<br>'; echo $json->status; echo '<br>'; exit;
+        if(/*$jsonPay->pay_hash == $json->hash && */$jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
+            if($json->status == 'success') { 
+                return true;
+            } else {
+                 Session::set('sess_status_pago', false);
+                Session::set('sess_msj_pago', '[2022] Error al intentar realizar el pago (' . str_replace('ó', '&oacute;', $json->error_message) . ')');
+                return false;
+            }
+        } else {
+            Session::set('sess_status_pago', false);
+            Session::set('sess_msj_pago', '[2021] Error al intentar realizar el pago');
+            return false;
+        }
+            
+        //return true;
     }
     
     public function fracaso(){

@@ -364,17 +364,22 @@ class bloqueosController extends Controller {
                     $this->_view->diaSalida = $exp_fechaSalida[2];
 
                     $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
+                    
+                    
+                    
+                    $precio= ($valorHab[0] + $valorHab[1] + $valorHab[2]);
+                    Session::set('sess_BP_Precio', $precio);
+                    Session::set('sess_pay_precio', $precio);
+                    $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
                     if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D') {
-                        $precioDolar = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
-
-                        $valorTcambio = Session::get('sess_tcambio');
-                        $precioPesos = ($valorHab[0] + $valorHab[1] + $valorHab[2]) * $valorTcambio;
-                        $this->_view->precio = $precioDolar . ' (T.Cambio $' . $valorTcambio . ', ' . Functions::formatoValor('P', $precioPesos) . ')';
-                    } else {
-                        $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
+                        $precio = $precio * Session::get('sess_tcambio');
+                        Session::set('sess_pay_precio', $precio);
+                        $this->_view->precio .= ' (T.Cambio $' . Session::get('sess_tcambio') . ', ' . Functions::formatoValor('P', $precio) . ')';
                     }
-                    Session::set('sess_BP_Precio', $valorHab[0] + $valorHab[1] + $valorHab[2]);
+                    
+                    
 
+                    
                     $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
                     $this->_view->hotelesCNT = count($this->_view->hoteles);
 
@@ -414,16 +419,14 @@ class bloqueosController extends Controller {
 
 
 
-            if (Session::get('sess_boton_pago')) { //QUITAR !
+            if (!Session::get('sess_boton_pago')) { //QUITAR !
                 $txtEmail = $this->getTexto('txtEmail_pago');
-                if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
+                if (Functions::validaCorreo($txtEmail)) { // AGREGAR !
                     echo 'El email no es valido';
                 } else {
 
-                    /*
-                     * EJECUTAR PROCEDIMIENTO ALMACENADO OSCAR
-                     */
-                    require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
+                    
+                    /*require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
 
                     if ($error) {
                         throw new Exception('Error inesperado ,  ' . $pRP_msg);
@@ -439,8 +442,7 @@ class bloqueosController extends Controller {
 
                                 $pasajeros = Session::get('sessRP_cntPasajeros') - 1;
                                 if ($cantidad == $pasajeros) {
-                                    
-                                    echo 'OK' . '&' . '123' . '&' . 'cprog' . '&' . 'cbloq' . '&' . md5('pago');
+                                    echo 'OK' . '&' . $rs->getFile() . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
                                 } else {
                                     throw new Exception('Error de transaccion  (Codigo 23). Si el error persiste comuniquese con el administrador');
                                 }
@@ -448,6 +450,26 @@ class bloqueosController extends Controller {
                         } else {
                             throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). '.$rs->getMSG());
                         }
+                    }*/
+                    
+                    $numfile=24585;
+                    Session::set("sess_file", $numfile);
+                    $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
+                    $jsonModel= $this->loadModel('json');
+                    //$objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
+                    $objUsuario= $jsonModel->consultarUser('E3ra79');
+                    foreach($objUsuario as $objU) {
+                        $json=array(
+                                "pay_user" => $objU->getUser(),
+                                "pay_pass" => $objU->getPass(),
+                                "pay_agency_id" => $objU->getIdAgentExter(), 
+                                "pay_file" => $numfile, 
+                                "pay_amount" => Session::get("sess_pay_precio"), 
+                                "pay_tax" => '0', 
+                                "pay_currency" => 'CLP');
+                        fwrite($file_json, json_encode($json));
+                        fclose($file_json);
+                        echo 'OK' . '&' . '123' . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
                     }
                 }
             } else {

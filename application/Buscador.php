@@ -20,18 +20,24 @@ class Buscador extends Controller{
             case '3f7a2611ee08c6645796463e0bb1ae7f':
                 Session::set('sess_boton_pago', true);
                 Session::set('sess_iframe', false);
+                Session::set('sess_condiciones', 'travelclub');
+                Session::set('sess_user_hash', 'E3ra79');
                 return 'http://hoteles.travelclub.cl/es';
                 break;
             
             case '__OTRO__':
                 Session::destroy('sess_boton_pago');
                 Session::set('sess_iframe', false);
+                Session::set('sess_condiciones', 'panamericana');
+                Session::set('sess_user_hash', false);
                 return 'http://hoteles.travelclub.cl/es';
                 break;
 
             default:
                 Session::destroy('sess_boton_pago');
                 Session::set('sess_iframe', true);
+                Session::set('sess_condiciones', 'panamericana');
+                Session::set('sess_user_hash', false);
                 return 'http://www.panamericanaturismo.cl';
                 break;
         }
