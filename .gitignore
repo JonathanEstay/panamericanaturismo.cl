@@ -4,7 +4,7 @@ public/img/*
 public/pdf/*
 nbproject/*
 php-errors.log
-
+public/paylog/*
 
 #Ignorar documentacion
 _documentacion/
