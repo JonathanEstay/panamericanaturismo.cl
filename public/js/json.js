@@ -44,7 +44,8 @@ json.prototype.getHash = function () {
             },
             //una vez finalizado correctamente
             success: function (RS)
-            {                
+            {               
+                //alert(RS);
                 $.post(BASE_URL_JS + "json/checkPayment",
                 {
                     __PAYMENT__ : RS
