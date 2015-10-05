@@ -88,6 +88,7 @@ class bookingController extends Controller
     public function voucher($numFile)
     {
         //Session::acceso('Usuario');
+        $numFile = base64_decode($numFile);
         $ruta_img= 'views/layout/' . DEFAULT_LAYOUT . '/img/';
         
         ob_start();
