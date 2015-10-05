@@ -12,6 +12,16 @@ class jsonDTO {
     private $_date;
     private $_num_file;
     private $_status;
+    private $_url_api;
+    
+    
+    public function setUrlApi($url) {
+        $this->_url_api = $url;
+    }
+    public function getUrlApi() {
+        return $this->_url_api;
+    }
+
     
     public function setNum($num) {
         $this->_num_file=$num;
@@ -20,12 +30,14 @@ class jsonDTO {
         return $this->_num_file;
     }
     
+    
     public function setStatus($status) {
         $this->_status=$status;
     }
     public function getStatus() {
         return $this->_status;
     }
+    
     
     public function setDate($date) {
         $this->_date=$date;
@@ -34,12 +46,14 @@ class jsonDTO {
         return $this->_date;
     }
     
+    
     public function setUser($user) {
         $this->_user=$user;
     }
     public function getUser() {
         return $this->_user;
     }
+    
     
     public function setPass($pass){
         $this->_pass=$pass;
