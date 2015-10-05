@@ -58,6 +58,8 @@ class jsonController extends Controller {
         
         echo json_encode($mensaje);
     }
+    
+    
 
     public function sendJson() {
         $ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
@@ -68,13 +70,14 @@ class jsonController extends Controller {
     public function getHash() {
         if($this->getTexto('__JSON__') == '466deec76ecdf5fca6d38571f6324d54') {
             if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
-                if (!Session::get('sess_boton_pago')) { //QUITAR !
+                if (Session::get('sess_boton_pago')) { //QUITAR !
                     
                     $urlJson= ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json';
-                    $jsonFile = json_decode(file_get_contents($urlJson));
+                    $contentJson= file_get_contents($urlJson);
+                    $jsonFile = json_decode($contentJson);
                     
                     //$url = 'http://apishopper.herokuapp.com/api/checkout/uploadGeneric';
-                    $url = 'http://travelclub-test.herokuapp.com/api/checkout/uploadGeneric';
+                    $url = $jsonFile->pay_url_api . 'api/checkout/uploadGeneric';
                     $json = array(
                         "external_id" => $jsonFile->pay_file, 
                         "agency_id" => $jsonFile->pay_agency_id,
@@ -88,18 +91,23 @@ class jsonController extends Controller {
                     
                     $getJson= $this->curlJSON($json, $url, $jsonFile->pay_user, $jsonFile->pay_pass);
                     if(is_object($getJson)) {
-                        Session::set('sess_hash_transaction', $getJson->hash);
-                        
-                        $file = fopen($urlJson, "r");
+                        /*$file = fopen($urlJson, "r");
                         while(!feof($file)) {$jsonPay = str_replace('}', '', fgets($file)); }
-                        fclose($file);
+                        fclose($file);*/
                         
-                        $file = fopen($urlJson, "w");
-                        fwrite($file, $jsonPay.',"pay_hash":"' . $getJson->hash . '"}');
-                        fclose($file);
-                        
-                        
-                        echo date('His');
+                        if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash, $jsonFile->pay_amount)) {
+                            $file = fopen($urlJson, "w");
+                            fwrite($file, str_replace('}', '', $contentJson) . ',"pay_hash":"' . $getJson->hash . '"}');
+                            fclose($file);
+
+                            echo date('His');
+                        } else {
+                            //throw new Exception("Error al intentar realizar el pago");
+                            Session::set('sess_status_pago', false);
+                            Session::set('sess_msj_pago', '[1019] Error al intentar realizar el pago');
+                            $this->redireccionar('pago/cierre');
+                        }
+
                     } else {
                         //throw new Exception("Error al intentar realizar el pago");
                         Session::set('sess_status_pago', false);
@@ -127,15 +135,20 @@ class jsonController extends Controller {
     public function checkPayment() {
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
             if($this->getTexto('__PAYMENT__')) {
-                if (!Session::get('sess_boton_pago')) { //QUITAR !
-                    if (Session::get('sess_hash_transaction')) {
-                        $this->_view->hash = Session::get('sess_hash_transaction');
+                if (Session::get('sess_boton_pago')) { //QUITAR !
+                        
+                    $urlJson= ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json';
+                    $contentJson= file_get_contents($urlJson);
+                    $jsonFile = json_decode($contentJson);
+                    if($jsonFile->pay_hash) {
+                        $this->_view->hash = $jsonFile->pay_hash;
                         $this->_view->renderingCenterBox('pago_travelclub');
                     } else {
                         Session::set('sess_status_pago', false);
                         Session::set('sess_msj_pago', '[1018] Error al intentar realizar el pago');
                         $this->redireccionar('pago/cierre');
                     }
+                    
                 } else {
                     Session::set('sess_status_pago', false);
                     Session::set('sess_msj_pago', '[1017] Error al intentar realizar el pago');

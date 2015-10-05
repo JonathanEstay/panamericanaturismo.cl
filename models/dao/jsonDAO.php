@@ -33,11 +33,11 @@ class jsonDAO extends Model {
             foreach ($user as $us){
                 
                 $data = new jsonDTO;
+                
                 $data->setUser(trim($us['usuario']));
-                
                 $data->setPass(trim($us['clave']));
-                
                 $data->setIdAgenExter(trim($us['id_agen_externo']));
+                $data->setUrlApi(trim($us['url_api']));
                 
                 $objetosUser[] = $data;
             }
@@ -94,4 +94,19 @@ class jsonDAO extends Model {
         return $datos;
     }
 
+    
+    public function nuevoPago($num_file, $hash, $monto) {
+        $sql = "INSERT INTO pagos_h2h (num_file, hash, fecha_r, monto)"
+            . " VALUES (" . $num_file . ", '" . $hash . "', GETDATE(), '" . $monto . "')";
+        $this->_db->consulta($sql);
+        
+        
+        $sql="SELECT num_file FROM pagos_h2h WHERE num_file = " . $num_file;
+        $datos = $this->_db->consulta($sql);
+        if($this->_db->numRows($datos) > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

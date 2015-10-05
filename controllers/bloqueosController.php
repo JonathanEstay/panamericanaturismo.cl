@@ -419,9 +419,9 @@ class bloqueosController extends Controller {
 
 
 
-            if (!Session::get('sess_boton_pago')) { //QUITAR !
+            if (Session::get('sess_boton_pago')) { //QUITAR !
                 $txtEmail = $this->getTexto('txtEmail_pago');
-                if (Functions::validaCorreo($txtEmail)) { // AGREGAR !
+                if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
                     echo 'El email no es valido';
                 } else {
 
@@ -446,6 +446,8 @@ class bloqueosController extends Controller {
                                 } else {
                                     throw new Exception('Error de transaccion  (Codigo 23). Si el error persiste comuniquese con el administrador');
                                 }
+                            } else {
+                                throw new Exception('Error de transaccion  (Codigo 30). Si el error persiste comuniquese con el administrador');
                             }
                         } else {
                             throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). '.$rs->getMSG());
@@ -462,6 +464,7 @@ class bloqueosController extends Controller {
                         $json=array(
                                 "pay_user" => $objU->getUser(),
                                 "pay_pass" => $objU->getPass(),
+                                "pay_url_api" => $objU->getUrlApi(),
                                 "pay_agency_id" => $objU->getIdAgentExter(), 
                                 "pay_file" => $numfile, 
                                 "pay_amount" => Session::get("sess_pay_precio"), 
@@ -469,7 +472,7 @@ class bloqueosController extends Controller {
                                 "pay_currency" => 'CLP');
                         fwrite($file_json, json_encode($json));
                         fclose($file_json);
-                        echo 'OK' . '&' . '123' . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                        echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
                     }
                 }
             } else {
