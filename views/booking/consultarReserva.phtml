@@ -122,7 +122,7 @@ $(function()
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Carta de confirmaci&oacute;n</h4>
+                                    <h4 class="modal-title" id ="divTituloCarta">Carta de confirmaci&oacute;n</h4>
                                 </div>
 
                                 <div class="modal-body" id="divCartaConfirm"></div>
@@ -188,7 +188,7 @@ $(function()
                                             elseif($cR_estado<>'N' && $valorPago >= ($valorVenta -1))
                                             {
                                                 $imgStatus= '<img src="'.$_layoutParams['ruta_img'].'st_verde.png" title="Pago realizado" />';
-                                                $voucherStatus='<a href="'. BASE_URL .'booking/voucher/'.base64_encode($cR_nFile).'" target="_blank" onclick="window.open(this.href, this.target, \'width=896, height=600,left = 200,top = 100\'); return false;">
+                                                $voucherStatus='<a data-toggle="modal" href="#myModal" onclick="abreVoucher(&quot;'.base64_encode($cR_nFile).'&quot;);">
                                                 <img src="'.$_layoutParams['ruta_img'].'pdf.png" alt="edit" width="24" border="0" />
                                                 </a>';
                                             }
@@ -269,6 +269,17 @@ $('#btnConsBooking').on('click',function(){
     },2500);
 });
 
+function abreVoucher(nFile){
+    $("#divCartaConfirm").html('');
+    $('#divTituloCarta').html('');
+    $('#divTituloCarta').html('Voucher ');
+    $.post("<?php BASE_URL?>booking/ver/",
+    {numFile:nFile},
+    function(data){
+        
+        $("#divCartaConfirm").html(data);
+    });
+}
 
 function abreCartaConfirm(nFile, codProg, codBloq)
 {
