@@ -40,7 +40,8 @@ class pagoController extends Controller{
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
         $url = $jsonPay->pay_url_api . 'api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
         $json = $this->curlGET_JSON($url, $jsonPay->pay_user, $jsonPay->pay_pass);
-        //echo $json->hash; echo '<br>'; echo $json->external_id; echo '<br>'; echo $json->agency_id; echo '<br>'; echo $json->status; echo '<br>'; exit;
+        //echo $json->hash; echo '<br>'; echo $jsonPay->pay_hash; echo '<br>'; echo $json->external_id; echo '<br>'; 
+        //echo $json->agency_id; echo '<br>'; echo $json->status; echo '<br>'; exit;
         
         if(is_object($json)) {
             if(/*$jsonPay->pay_hash == $json->hash && */$jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
