@@ -34,8 +34,8 @@ if ($this->objOpcBloqueos) {
                         <?php } if($objOpcProg->getNota()) { ?>
 
                         <a data-toggle="modal" href="#myModal" 
-                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Condiciones generales del programa', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
-                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Condiciones generales del programa" />
+                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Nota de programa', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Condiciones generales" />
                         </a>
 
                         <?php } if($objOpcProg->getItiVuelo()) { ?>
@@ -184,6 +184,13 @@ if ($this->objOpcBloqueos) {
                             <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Notas" title="Notas" />
                         </a>
             <?php } ?>
+                    
+                      <a data-toggle="modal" href="#myModal" 
+                       onClick="fadeIn('detallePopup');
+                       abrePopupImprimir('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/imprimir', 'tituloFormPRG', 'Vista previa',' <?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');" >
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>print.png" border='0' height='20' title='Imprimir' />
+                    </a>
+                    
                 </td>
             
 

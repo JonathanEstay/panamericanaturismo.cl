@@ -285,6 +285,122 @@ class bloqueosController extends Controller {
             throw new Exception('Error al ver las condiciones generales.');
         }
     }
+    
+    
+    
+    
+    public function imprimir($form = '') {
+        $this->_view->form = $form;
+        if (!Session::get('sess_boton_pago')) {
+            Session::accForm('Usuario');
+        }
+
+      // if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') { 
+           $RP_rdbOpc = false;
+            $RP_idProg = false;
+            //$this->
+            $tags = array_keys($this->getPOST());
+            if (!empty($tags[1])) {
+                $RP_rdbOpc = $this->getTexto('varCenterBox');
+                $RP_idProg = $this->getTexto('varCenterBoxH');
+            }
+          
+         
+             
+            if (!$RP_rdbOpc) {
+                throw new Exception('Seleccione una opcion para imprimir.');
+            } else if ($RP_idProg) {
+                Session::set('sessRP_rdbOpc', $RP_rdbOpc);
+                Session::set('sessRP_idPrograma', $RP_idProg);
+
+                $bloqueo = $this->loadModel('bloqueo');
+                $this->loadDTO('incluye');
+
+               
+                
+                    if (WEB) {
+                        //Web
+                        $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
+                                . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaIn'), '/', '-') . "', "
+                                . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaOut'), '/', '-') . "', ";
+                    } else {
+                        //Local
+                        $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
+                                . "'" . str_replace('/', '-', Session::get('sess_BP_fechaIn')) . "', "
+                                . "'" . str_replace('/', '-', Session::get('sess_BP_fechaOut')) . "', ";
+                    }
+
+
+                    $sql.= "'" . Session::get('sess_BP_hotel') . "'";
+                    for ($i = 1; $i <= 3; $i++) {
+                        $sql.= ", '" . Session::get('sess_BP_Adl_' . $i) . "', '" . Session::get('sess_BP_edadChd_1_' . $i) . "', 
+                                '" . Session::get('sess_BP_edadChd_2_' . $i) . "', '" . Session::get('sess_BP_Inf_' . $i) . "'"; //habitaciones
+                    }
+
+                   // echo $sql; exit;
+                    $this->_view->objOpcionPrograma = $bloqueo->TS_GET_BLOQUEOS_PROG_ID($sql, true);
+                    $cnt = count($this->_view->objOpcionPrograma);
+                    
+                    /* for($i=1; $i<$cnt; $i++)
+                      {
+                      echo $this->_view->objOpcionPrograma[$i]->getIdOpc();
+                      if($this->_view->objOpcionPrograma[$i]->getIdOpc() == $RP_rdbOpc)
+                      {
+                      $this->_view->objOpcionProg[]= $this->_view->objOpcionPrograma[$i];
+                      break;
+                      }
+                      } */
+
+                    //Formateando valores
+                    $this->_view->fechaSalida = Functions::invertirFecha($this->_view->objOpcionPrograma[0]->getDesde(), '/', '/');
+
+                   
+
+                    $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
+                   
+                    $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
+                    
+                    Session::set('sess_BP_Precio', $valorHab[0] + $valorHab[1] + $valorHab[2]);
+
+                    $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
+                    $this->_view->hotelesCNT = count($this->_view->hoteles);
+
+                     
+                    $this->_view->habitacion = $this->_view->objOpcionPrograma[0]->getTH();
+                    $this->_view->habitacionCNT = count($this->_view->habitacion);
+                    
+                    $this->_view->palim = $this->_view->objOpcionPrograma[0]->getPA();
+                    $this->_view->palimCNT = count($this->_view->palim);
+                    
+                    $this->_view->cat = $this->_view->objOpcionPrograma[0]->getCat();
+                    $this->_view->catCNT = count($this->_view->cat);
+                    
+                    $this->_view->notaOpc = $this->_view->objOpcionPrograma[0]->getNotaOpc();
+
+                    $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+
+                    $this->_view->incluye= $this->_view->objOpcionPrograma[0]->getIncluye();
+                    
+                    $this->_view->fDesde = $this->_view->objOpcionPrograma[0]->getDesde();
+                    $this->_view->cntNoches = $this->_view->objOpcionPrograma[0]->getNoches();
+                    
+                    $this->_view->idOpc = $this->_view->objOpcionPrograma[0]->getIdOpc();
+                    $this->_view->objItinerario = $bloqueo->getItinerarioVuelo($RP_idProg);      
+                    $this->_view->itinerario = $this->_view->objItinerario[0]->getItiVuelo();
+                    
+                    $this->_view->TipoHab = $this->_view->objOpcionPrograma[0]->getTipoHab();
+                     
+                    $this->_view->renderingCenterBox('imprimir');
+              /*  } else {
+                    throw new Exception('Existe un error en el armado de programas, favor actualize la busqueda.');
+                }*/
+            
+        } else {
+            throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
+        }
+    }
+    
+    
 
     public function reservaPrograma($form = '') {
         $this->_view->form = $form;

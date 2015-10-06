@@ -1,0 +1,206 @@
+
+<div id="imprimirSector">
+    <?php
+    if (Session::get('sess_codigo_cliente_url') == '3f7a2611ee08c6645796463e0bb1ae7f') {
+        echo '<img  src="' . $_layoutParamsCB['ruta_img'] . 'logo_tc.jpg" style="margin-top:-20px;" />';
+    } else {
+        echo '<img  src="' . $_layoutParamsCB['ruta_img'] . 'logo.jpg" style="margin-top:-20px;" />';
+    }
+    ?>
+
+
+    <center><h4><i><b><?php echo $this->objOpcionPrograma[0]->getNombre(); ?></b></i></h4></center>
+    <div class="table-responsive">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <table align="left">
+                    <tr>
+                        <td><b>Fecha de Salida</b>: &nbsp;</td>
+                        <td><b> <?php echo $this->fechaSalida; ?></b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Fecha de Regreso</b>: &nbsp;</td>
+                        <td> 
+                            <b> <?php echo Functions::sumFecha(Functions::invertirFecha($this->fDesde, "/", "/"), $this->cntNoches); ?></b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <table class="tabla-hover" style="margin-bottom: 0px; font-size: 12px; border: 1px #34495e solid;width: 100%;">
+
+
+                    <thead style="background-color:#34495e; color: #FFFFFF;">
+                    <th style=" padding: 2px; text-align: center; width: 250px;">Hotel</th>
+                    <th style=" padding: 2px; width: 80px; text-align: center;">Categoria</th>
+                    <th style=" padding: 2px; width: 80px; text-align: center;">Habitaci&oacute;n</th>
+                    <th style=" padding: 2px; width: 90px; text-align: center;">P. Alimenticio</th>
+
+                    </thead>
+
+                    <tbody>
+
+
+                        <?php for ($i = 0; $i < $this->hotelesCNT; $i++) {
+                            ?>
+                            <tr align="center">
+                                <td style="text-align: left;">
+                                    <?php echo $this->hoteles[$i]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $this->cat[$i]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $this->habitacion[$i]; ?>
+                                </td>
+                                <td>                
+                                    <?php echo $this->palim[$i]; ?>
+                                </td>
+                            </tr>  
+                        <?php } ?>
+
+
+
+
+
+
+                    </tbody> 
+                </table>
+            </div>
+        </div>
+
+        <div class="row"  style="margin-top: 10px; margin-bottom: 10px;">
+
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <table class="tabla-hover" style="margin-bottom: 0px; font-size: 12px; border: 1px #34495e solid; width:100%; " >
+                    <thead style="background-color:#34495e; color: #FFFFFF;">
+                    <th style=" padding: 2px; text-align: center; width: 250px;">Precio en base </th>
+                    <th style=" padding: 2px; width: 80px; text-align: center;">Total</th>
+                    <tbody>
+                        <tr><td style="text-align: center;"><b>
+                            <?php
+                            for ($i = 0; $i < 3; $i++) {
+                                if (isset($this->TipoHab[$i]) && $this->TipoHab[$i] != '') {
+                                    if($i!=0){
+                                        echo'&nbsp;/&nbsp;&nbsp;';
+                                    }
+                                    echo 'Habitacion ' . ($i + 1) . ': ' . $this->TipoHab[$i] ;
+                                    }
+                                    }?></b></td><td style="text-align: center;"><b style="color:#F00;"><?php echo $this->precio; ?></b></td></tr>
+                    </tbody>
+                </table>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel-body" style="border-top:1px solid #d2d3d6;">
+                    <table style="font-size:12px;">
+                        <tr>
+                            <td colspan="7" class="text-left">
+                                <h5 style="color:#0085cc"><b>INCLUYE</b></h5>
+                                <?php
+                                $P_var_getIncluye = $this->objOpcionPrograma[0]->getIncluye();
+                                if ($P_var_getIncluye) {
+                                    $xx = 0;
+                                    $hh = 0;
+                                    $P_ciudadHotel = NULL;
+                                    $incluye = '';
+                                    for ($i = 0; $i <= 5; $i++) {
+                                        $P_arrayCiudadHotel[$i] = NULL;
+                                    }
+                                    //foreach($P_var_getIncluye as $columInclu)
+                                    for ($i = 0; $i < count($P_var_getIncluye[0]); $i++) {
+                                        if ($P_var_getIncluye[0][$i]->getCodigo() != 'CGO' && $P_var_getIncluye[0][$i]->getNombre() != '') {
+                                            if ($P_var_getIncluye[0][$i]->getCiudad() != '') {
+                                                $P_arrayCiudadHotel[$xx] = $P_var_getIncluye[0][$i]->getCiudad();
+                                                $xx++;
+                                            }
+
+                                            if ($P_var_getIncluye[0][$i]->getCodigo() == 'HTL') {
+                                                $P_ciudadHotel = " / " . $P_arrayCiudadHotel[$hh];
+                                                $hh++;
+                                            } else {
+                                                $P_ciudadHotel = NULL;
+                                            }
+
+                                            if ($P_var_getIncluye[0][$i]->getNoches() < 10 && $P_var_getIncluye[0][$i]->getNoches() > 0) {
+                                                $P_varNoches = "0" . $P_var_getIncluye[0][$i]->getNoches() . " " /* " Noches " */;
+                                            } else if ($P_var_getIncluye[0][$i]->getNoches() >= 10) {
+                                                $P_varNoches = $P_var_getIncluye[0][$i]->getNoches() /* . " Noches " */;
+                                            } else {
+                                                $P_varNoches = "";
+                                            }
+
+                                            $incluye.='<img  src="' . $_layoutParamsCB['ruta_img'] . 'tick.png" width="12px" /> ' . $P_varNoches . $P_var_getIncluye[0][$i]->getNombre() . $P_ciudadHotel . "<br>";
+                                        }
+                                    }
+                                }
+
+                                echo $incluye;
+                                ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <table  style="font-size:12px;">
+                    <tr>
+                        <td>
+                            <b>Notas</b>:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php echo $this->notaOpc; ?>
+                        </td>
+                    </tr> 
+                </table> 
+                <br>  
+                <table style="font-size:12px;">
+                    <tr>
+                        <td>
+                            <b>Itinerario</b>:
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <?php echo $this->itinerario; ?>
+                        </td>
+                    </tr> 
+                </table> 
+            </div>
+        </div>
+    </div>
+
+    <center>
+        <div style="width:90%; text-align:right;" >
+            <img class="oculto" src="<?php echo $_layoutParamsCB['ruta_img']; ?>print.png" onClick="javascript:imprSelec('imprimirSector')" width="32" style="cursor:pointer;" /> &nbsp;<br />&nbsp;
+        </div>
+    </center>
+</div>                 
+<script language="Javascript">
+    function imprSelec(nombre)
+    {
+        var ficha = document.getElementById(nombre);
+        var ventimp = window.open(' ', 'popimpr');
+        ventimp.document.write(ficha.innerHTML);
+        ventimp.document.close();
+        ventimp.print( );
+        ventimp.close();
+    }
+</script>               
