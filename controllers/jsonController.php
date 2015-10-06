@@ -18,17 +18,21 @@ class jsonController extends Controller {
     }
 
     public function getAcusePago() {
-        header('Content-Type: application/json');
-        $json = json_decode(file_get_contents('php://input'));
+        if(!$_POST) {
+            header('Content-Type: application/json');
+            $json = json_decode(file_get_contents('php://input'));
+        } else {
+            $json= json_decode(json_encode($_POST));
+        }
         
-        //echo var_dump($headers); exit;
         $mensaje = array("reservation_confirmation_id"=>"","agency_id"=>"","time"=>"");
-        
-        if ($this->getServer('PHP_AUTH_USER') && $this->getServer('PHP_AUTH_PW')) {
+        //if ($this->getServer('PHP_AUTH_USER') && $this->getServer('PHP_AUTH_PW')) {
 
-            $user = $this->getServer('PHP_AUTH_USER');
-            $pass = $this->getServer('PHP_AUTH_PW');
-
+            //$user = $this->getServer('PHP_AUTH_USER');
+            //$pass = $this->getServer('PHP_AUTH_PW');
+            
+            $user='travelclub';
+            $pass='c0af51A18d';
             $objUsuarios = $this->_json->consultarUser($user);
             if ($objUsuarios) {
                 
@@ -47,14 +51,14 @@ class jsonController extends Controller {
                         }
                     }
                 } else {
-                    $mensaje = 'Acceso denegado';
+                    $mensaje = 'Acceso denegado 1 ';
                 }
             } else {
-                $mensaje = 'Acceso denegado';
+                $mensaje = 'Acceso denegado 2';
             }
-        } else {
-            $mensaje = 'Acceso denegado';
-        }
+        /*} else {
+            $mensaje = 'Acceso denegado 3';
+        }*/
         
         echo json_encode($mensaje);
     }
@@ -62,7 +66,7 @@ class jsonController extends Controller {
     
 
     public function sendJson() {
-        $ejemplo = array("external_id" => "24585","status" => "Success","amount" => "300000","hash" => "12345");
+        $ejemplo = array("external_id" => "24590","status" => "success","amount" => "300000","hash" => "f55c4d33b7a9783aa716a65ca261ac00O1670");
         $json = $this->curlJSON($ejemplo, BASE_URL . 'json/getAcusePago', 'travelclub', 'c0af51A18d');
         echo var_dump($json);
     }
@@ -85,7 +89,7 @@ class jsonController extends Controller {
                         "amount" => $jsonFile->pay_amount,
                         "tax" => $jsonFile->pay_tax,
                         "subject" => "Pago por reserva N-".$jsonFile->pay_file,
-                        "redirection_url" => BASE_URL . 'pago/cierre',
+                        "redirection_url" => BASE_URL . 'pago/cierre?external_id='.$jsonFile->pay_file,
                         "callback_url" => BASE_URL . 'json/getAcusePago'
                     );
                     
@@ -95,7 +99,7 @@ class jsonController extends Controller {
                         while(!feof($file)) {$jsonPay = str_replace('}', '', fgets($file)); }
                         fclose($file);*/
                         
-                        if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash, $jsonFile->pay_amount)) {
+                        if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash)) {
                             $file = fopen($urlJson, "w");
                             fwrite($file, str_replace('}', '', $contentJson) . ',"pay_hash":"' . $getJson->hash . '"}');
                             fclose($file);
@@ -140,7 +144,7 @@ class jsonController extends Controller {
                     $urlJson= ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json';
                     $contentJson= file_get_contents($urlJson);
                     $jsonFile = json_decode($contentJson);
-                    if($jsonFile->pay_hash) {
+                    if(isset($jsonFile->pay_hash)) {
                         $this->_view->hash = $jsonFile->pay_hash;
                         $this->_view->renderingCenterBox('pago_travelclub');
                     } else {

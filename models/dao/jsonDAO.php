@@ -47,57 +47,55 @@ class jsonDAO extends Model {
         }
     }
 
-    public function updatePagos($status=false,$hash=false ,$monto=false ,$num_file = false){
+    public function updatePagos($status=false, $hash=false, $monto=false, $num_file=false){
         
-        $sql="SELECT * FROM pagos_h2h WHERE  num_file=".$num_file."AND hash=".$hash;
-        
-        
+        $sql="SELECT * FROM pagos_h2h WHERE num_file =".$num_file." AND hash ='".$hash."'";
         $datos = $this->_db->consulta($sql);
-        if($this->_db->numRows($datos) > 0){
+        if($this->_db->numRows($datos) > 0) {
             
             $sql = "UPDATE pagos_h2h SET "
-                            . "status ='$status',"
-                            . "monto=$monto,"
-                            . "tipo='1',"
-                            . "fecha_pago=GETDATE() "
-                            . "WHERE "
-                            . "num_file =" .$num_file
-                            ."AND hash=".$hash;
+                    . "status ='$status',"
+                    . "monto=$monto,"
+                    . "tipo='1',"
+                    . "fecha_pago=GETDATE() "
+                    . "WHERE "
+                    . "num_file =" .$num_file
+                    . " AND hash ='".$hash."'";
             
             $this->_db->consulta($sql);
-        $sql ="SELECT * FROM pagos_h2h WHERE num_file=".$num_file." AND hash=".$hash;
+            
+            $sql ="SELECT * FROM pagos_h2h WHERE num_file=".$num_file." AND hash='".$hash."' ";
+            $res = $this->_db->consulta($sql);
+            $data = $this->_db->fetchAll($res);
+            
+            
+            $sql='SELECT num_rese FROM numero';
+            $num=$this->_db->consulta($sql);
+            $num_file=$this->_db->fetchAll($num);
+
+            
+
+            $sql ='UPDATE NUMERO SET num_rese =num_rese+1';
+            $this->_db->consulta($sql);
+
+            foreach ($data as $da) {
+                $datos = new jsonDTO;
+                $datos->setDate(trim($da['fecha_pago']));
+                $datos->setStatus(trim($da['status']));
+                $datos->setNum(trim($num_file[0]['num_rese']));
+            }
         
-        $res = $this->_db->consulta($sql);
-        
-        $sql='SELECT num_rese FROM numero';
-        
-        $num=$this->_db->consulta($sql);
-        
-        $num_file=$this->_db->fetchAll($num);
-        
-        $data = $this->_db->fetchAll($res);
-        
-        $sql ='UPDATE NUMERO SET num_rese =num_rese+1';
-        
-        $this->_db->consulta($sql);
-        
-        foreach ($data as $da){
-            $datos = new jsonDTO;
-            $datos->setDate(trim($da['fecha_pago']));
-            $datos->setStatus(trim($da['status']));
-            $datos->setNum(trim($num_file[0]['num_rese']));
-        }
-        
-        }else{
+        } else {
             $datos = false;
         }
+        
         return $datos;
     }
 
     
-    public function nuevoPago($num_file, $hash, $monto) {
-        $sql = "INSERT INTO pagos_h2h (num_file, hash, fecha_r, monto)"
-            . " VALUES (" . $num_file . ", '" . $hash . "', GETDATE(), '" . $monto . "')";
+    public function nuevoPago($num_file, $hash) {
+        $sql = "INSERT INTO pagos_h2h (num_file, hash, fecha_r)"
+            . " VALUES (" . $num_file . ", '" . $hash . "', GETDATE())";
         $this->_db->consulta($sql);
         
         
