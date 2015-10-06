@@ -848,6 +848,25 @@ function abrePopup(div, docPHP, idTitulo, titulo, val,form)
     });
 }
 
+function abrePopupImprimir(div, docPHP, idTitulo, titulo, val,hot,form)
+{
+   // alert('llegando');
+    form = '/'+form;
+    
+    initLoad();
+    $("#" + div).html('');
+    $("#" + idTitulo ).html(titulo);
+    $.post(docPHP+form, 
+    {
+        varCenterBox: val,
+        varCenterBoxH: hot
+    }, function(data)
+    {
+        $("#" + div).html(data);
+        endLoad();
+    });
+}
+
 
 function abrePopupHab(div, docPHP, idTitulo, titulo, val, hot,form)
 {
