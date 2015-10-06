@@ -217,6 +217,7 @@ class reservaDAO extends Model
                 $objFile->setDatos(trim($fileDB['datos']));
                 $objFile->setAjuste(trim($fileDB['ajuste']));
                 $objFile->setTcomi(intval(trim($fileDB['tcomi'])));
+                $objFile->setFecha(trim($fileDB['fecha']));
                 
                 $objetosFile[]= $objFile;
             }

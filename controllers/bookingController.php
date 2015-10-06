@@ -157,6 +157,7 @@ class bookingController extends Controller
             $this->_view->CC_totventa= $objsFile[0]->getTotVenta();
             $this->_view->CC_cambio= $objsFile[0]->getCambio();
             $this->_view->CC_comag= $objsFile[0]->getComag();
+            $this->_view->CC_fecha= $objsFile[0]->getFecha();
             
             $this->_view->CC_datos= $objsFile[0]->getDatos();
             $this->_view->CC_ajuste= $objsFile[0]->getAjuste();

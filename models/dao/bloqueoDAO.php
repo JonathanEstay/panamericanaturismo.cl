@@ -362,7 +362,7 @@ class bloqueoDAO extends Model {
         }
     }
 
-    public function TS_GET_BLOQUEOS_PROG_ID($sql) {
+    public function TS_GET_BLOQUEOS_PROG_ID($sql, $inc = false) {
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
             $objetosPack = array();
@@ -378,6 +378,7 @@ class bloqueoDAO extends Model {
                 $ciudad = array();
                 $incluye = array();
                 $valorHab = array();
+                $tipoHab = array();
 
 
                 $objPackages = new bloqueoDTO();
@@ -400,12 +401,17 @@ class bloqueoDAO extends Model {
                     $objPackages->setNotaOpc(trim($packDB['notaOPC']));
                     $objPackages->setMoneda(trim($packDB['moneda']));
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
+                    $objPackages->setNoches(trim($packDB['nochesPRG']));
 
                     /* VALOR HABITACION */
                     for ($i = 1; $i <= 3; $i++) {
                         $valorHab[] = trim($packDB['vHab_' . $i]);
+                        if (trim($packDB['tipoHab_' . $i]) != '') {
+                            $tipoHab[] = str_replace('SGL', ' SINGLE ', str_replace('DBL', ' DOBLE ', str_replace('TPL', ' TRIPLE ', str_replace('CHD', ' CHILD ', str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))));
+                        }
                     }
                     $objPackages->setValorHab($valorHab);
+                    $objPackages->setTipoHab($tipoHab);
                     /* VALOR HABITACION */
 
 
@@ -430,6 +436,11 @@ class bloqueoDAO extends Model {
                     $objPackages->setCat($cat);
                     $objPackages->setCiudad($ciudad);
                     /* HOTELES */
+                    
+                     if ($inc) {
+                        $incluye[] = $this->getIncluye(trim($packDB['idPRG']));
+                        $objPackages->setIncluye($incluye);
+                     }
                 }
 
                 $objetosPack[] = $objPackages;

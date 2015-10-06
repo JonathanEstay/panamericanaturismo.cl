@@ -31,6 +31,7 @@ class reservaDTO
     private $_ajuste;
     private $_tcomi;
     
+    
     public function setAgencia($agen)
     {
         $this->_agencia=$agen;
