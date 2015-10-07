@@ -39,7 +39,7 @@ class bloqueoDAO extends Model {
                 . 'tp, tipo_pax, CONVERT(Nvarchar(10), fecha_pag, 103) as fecha_pag, horarobot '
                 . 'FROM det_bloq '
                 . 'WHERE record_c = "' . $codBloq . '" and num_file = ' . $nFile;
-        //echo $sql;
+        
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
             $objetosDetBloq = array();
@@ -612,6 +612,20 @@ class bloqueoDAO extends Model {
         } else {
             return false;
         }
+    }
+    
+    public function getRecodC($idProg,$IdOpcion){
+        
+        $sql="SELECT record_c FROM h2h_ProgramaOpc WHERE IdProg =$idProg AND IdOpc=$IdOpcion";
+        $id=false;
+        
+        $dato=$this->_db->consulta($sql);
+        
+        if($this->_db->numRows($dato)){
+            
+            $id=$this->_db->fetchAll($dato);
+        }
+        return $id;
     }
 
 }
