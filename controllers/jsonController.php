@@ -26,6 +26,7 @@ class jsonController extends Controller {
             $json = json_decode(file_get_contents('php://input'));
         }
         
+        
         $objAgencyId = $this->_json->getAgencyId();
         if ($objAgencyId) {
             if (isset($json->status) && isset($json->hash) && isset($json->amount) && isset($json->external_id)) {
@@ -33,6 +34,9 @@ class jsonController extends Controller {
                 $hash = $json->hash;
                 $monto = $json->amount;
                 $num_file = $json->external_id;
+                
+                $this->_json->logJSON($num_file, json_encode($json), 'S'); //LOG RS
+                
                 if (trim($status) !== "" && trim($hash) !== "" && trim($monto) !== "" && trim($num_file) !== "") {
                     $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
                     if ($data) {
@@ -85,8 +89,12 @@ class jsonController extends Controller {
                         "callback_url" => BASE_URL . 'json/getAcusePago'
                     );
                     
+                    $this->_json->logJSON($jsonFile->pay_file, json_encode($json), 'Q'); //LOG RQ
+                    
                     $getJson= $this->curlJSON($json, $url, $jsonFile->pay_user, $jsonFile->pay_pass);
                     if(is_object($getJson)) {
+                        
+                        $this->_json->logJSON($jsonFile->pay_file, json_encode($getJson), 'S'); //LOG RS
                         
                         if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash)) {
                             $file = fopen($urlJson, "w");

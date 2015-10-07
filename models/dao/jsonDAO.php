@@ -109,6 +109,15 @@ class jsonDAO extends Model {
     }
     
     
+    public function logJSON($num_file, $json, $origen) {
+        $sql = "INSERT INTO log_json (num_file, fecha, detalle, origen)"
+            . " VALUES ($num_file , GETDATE(), '$json', '$origen')";
+        $this->_db->consulta($sql);
+        
+        return true;
+    }
+    
+    
     public function getAgencyId() {
         //DISTINTO A VACIO POR DON EDUARDO
         $sql = "SELECT id_agen_externo FROM usuarios_h2h WHERE id_agen_externo <> ''";
