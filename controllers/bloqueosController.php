@@ -291,9 +291,9 @@ class bloqueosController extends Controller {
     
     public function imprimir($form = '') {
         $this->_view->form = $form;
-        if (!Session::get('sess_boton_pago')) {
+        /*if (!Session::get('sess_boton_pago')) {
             Session::accForm('Usuario');
-        }
+        }*/
 
       // if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') { 
            $RP_rdbOpc = false;
@@ -570,7 +570,7 @@ class bloqueosController extends Controller {
                         }
                     }*/
                     
-                    $numfile=24585;
+                    $numfile=24603;
                     Session::set("sess_file", $numfile);
                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
                     $jsonModel= $this->loadModel('json');
@@ -600,11 +600,12 @@ class bloqueosController extends Controller {
                     require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoReserva.php';
                     $param = "CR_n_file=$n_file&CR_cod_prog=$cod_prog&CR_cod_bloq=$cod_bloq";
                     //$param="CR_n_file=190306&CR_cod_prog=CH14FLN01-2&CR_cod_bloq=2014FLN019";
-                    $html = $this->curlPOST($param, BASE_URL . 'bloqueos/cartaConfirmacion');
+                    $html = $this->curlPOST($param, BASE_URL . 'bloqueos/cartaConfirmacion/form');
 
                     if ($pRP_error) {
                         echo $pRP_msg;
                     } else {
+                        //echo 'param: '.$param; exit;
                         $this->getLibrary('class.phpmailer');
                         $this->mailReserva($n_file, $html);
                         echo 'OK' . '&' . $n_file . '&' . $cod_prog . '&' . $cod_bloq;
@@ -617,8 +618,17 @@ class bloqueosController extends Controller {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
         }
     }
+    
+    
+    /*public function testing() {
+        $param = "CR_n_file=204060&CR_cod_prog=BL16IPC01-07&CR_cod_bloq=2016IPC003";
+        $html = $this->curlPOST($param, BASE_URL . 'bloqueos/cartaConfirmacion/form');
+        
+        echo 'html: ' . var_dump($html);
+    }*/
 
     public function cartaConfirmacion($form = '') {
+        //echo 'algo'; exit;
         $this->_view->form = $form;
         //Cargando modelos
         $M_file = $this->loadModel('reserva');
@@ -629,6 +639,10 @@ class bloqueosController extends Controller {
         $nFile = $this->getTexto('CR_n_file');
         $codPRG = $this->getTexto('CR_cod_prog');
         $codBloq = $this->getTexto('CR_cod_bloq');
+        
+        //$nFile = '204060';
+        //$codPRG = 'BL16IPC01-07';
+        //$codBloq = '2016IPC003';
 
         if (!$nFile) {
             throw new Exception('File no recibido');
@@ -656,7 +670,8 @@ class bloqueosController extends Controller {
             $this->_view->CC_totventa = $objsFile[0]->getTotVenta();
             $this->_view->CC_cambio = $objsFile[0]->getCambio();
             $this->_view->CC_comag = $objsFile[0]->getComag();
-
+            $this->_view->CC_fecha = $objsFile[0]->getFecha();
+            
             $this->_view->CC_datos = $objsFile[0]->getDatos();
             $this->_view->CC_ajuste = $objsFile[0]->getAjuste();
             $this->_view->CC_tcomi = $objsFile[0]->getTComi();
@@ -677,8 +692,8 @@ class bloqueosController extends Controller {
         $this->_view->codigoBloq = $codBloq;
 
 
-
-        $this->_view->renderingCenterBox('cartaConfirm');
+        
+        $this->_view->renderingCartas('panamericana');
     }
 
     public function buscar($form = '', $url = '') {
