@@ -278,4 +278,20 @@ class reservaDAO extends Model
              return false;
          }
     }
+    public function getCorreo($user) {
+        $sql = "SELECT correo_ejecutivo,correo_vendedor FROM usuarios_h2h WHERE usuario ='$user'";
+        $datos=$this->_db->consulta($sql);
+        $correo = false;
+        if($this->_db->numRows($datos)>0){
+            $correo = new usuarioH2hDTO();
+            $data = $this->_db->fetchAll($datos);
+            foreach ($data as $d) {
+                $correo->setCorreoEjecutivo(trim($d['correo_ejecutivo']));
+                $correo->setCorreoVendedor(trim($d['correo_vendedor']));
+            }
+        }
+        
+        return $correo;
+        
+    }
 }

@@ -72,14 +72,15 @@ class pagoController extends Controller {
     }
 
     public function exito() {
-        //$this->_view->currentMenu = 11;
+        $this->_view->currentMenu = 11;
         //$this->_view->procesoTerminado=false;
-        //$this->_view->titulo = 'ORISTRAVEL';
+        $this->_view->titulo = 'ORISTRAVEL';
         //Rescatando post
         $nFile = '203598'; //$this->getTexto('CR_n_file');
         $codPRG = 'CH15FLN02B2'; //$this->getTexto('CR_cod_prog');
         $codBloq = "2015FLN038"; //$this->getTexto('CR_cod_bloq');
         $correoSend='ohurtado@tsyacom.cl';
+        $user ='tclub';
 
         $M_file = $this->loadModel('reserva');
         $M_bloqueos = $this->loadModel('bloqueo');
@@ -136,19 +137,21 @@ class pagoController extends Controller {
 
         $this->_view->condicionesGenerales = file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . Session::get('sess_condiciones') . '.phtml');
 
-
+        $this->loadDTO('usuarioH2h');
         //ob_start();
         //$this->_view->renderingSystem('exito');
         //$contenido = ob_get_contents();
         //$mC_HTML = file_gethis->_view->renderingSystem('exito');t_contents($this->_view->renderingCenterBox('travelclub'));
+        
         
         ob_start();
         $this->_view->renderingCartas('travelclub');
         $contenido = ob_get_contents();
         ob_clean();
         
-        $this->_view->cartaConfirm = $contenido;
-        $this->_view->renderingSystem('exito');
+        
+        
+        $mailSend = $M_file->getCorreo($user);
         
         $this->getLibrary('class.phpmailer');
         $mail = new PHPMailer();
@@ -164,7 +167,8 @@ class pagoController extends Controller {
         //$mail->AltBody = 'Su servidor de correo no soporta html';
         
         $mail->AddAddress($correoSend ,"");
-        
+        $mail->AddBCC($mailSend->getCorreoEjecutivo());
+        $mail->AddBCC($mailSend->getCorreoVendedor());
         //$mail->AddAddress("destino2@correo.com","Nombre 02"); 
         
 
@@ -175,9 +179,8 @@ class pagoController extends Controller {
         $mail->Password = trim("Fe90934");
         $mail->Send();
         
-        
-        
-       
+        $this->_view->cartaConfirm = $contenido;
+        $this->_view->renderingSystem('exito');     
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
     }
