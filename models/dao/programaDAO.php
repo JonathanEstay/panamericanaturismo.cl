@@ -16,6 +16,36 @@ class programaDAO extends Model
     {
         $sql='SELECT * FROM packages WHERE codigo = "'.$cod.'" ';
         
+        
+        $datos= $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)>0)
+        {
+            $objetosPack= array();
+            $arrayPackages= $this->_db->fetchAll($datos);
+            
+            foreach ($arrayPackages as $packDB)
+            {
+                $objPackages= new programaDTO();
+                
+                $objPackages->setCodigo(trim($packDB['codigo']));
+                $objPackages->setNombre(trim($packDB['nombre']));
+                
+                $objetosPack[]= $objPackages;
+            }
+            
+            return $objetosPack;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public function getPackagesH2H($cod)
+    {
+        $sql='SELECT * FROM h2h_Programa WHERE id = "'.$cod.'" ';
+        
+        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
