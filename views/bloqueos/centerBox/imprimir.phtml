@@ -14,18 +14,17 @@
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
-                <table align="left">
+                <table>
                     <tr>
                         <td><b>Fecha de Salida</b>: &nbsp;</td>
                         <td><b> <?php echo $this->fechaSalida; ?></b></td>
                     </tr>
                     <tr>
                         <td><b>Fecha de Regreso</b>: &nbsp;</td>
-                        <td> 
+                        <td>
                             <b> <?php echo Functions::sumFecha(Functions::invertirFecha($this->fDesde, "/", "/"), $this->cntNoches); ?></b>
                         </td>
                     </tr>
-
                 </table>
             </div>
         </div>

@@ -107,4 +107,28 @@ class jsonDAO extends Model {
             return false;
         }
     }
+    
+    
+    public function getAgencyId() {
+        //DISTINTO A VACIO POR DON EDUARDO
+        $sql = "SELECT id_agen_externo FROM usuarios_h2h WHERE id_agen_externo <> ''";
+        $datos = $this->_db->consulta($sql);
+        
+        if ($this->_db->numRows($datos) > 0) {
+            $user = $this->_db->fetchAll($datos);
+            $objetosUser = array();
+            
+            foreach ($user as $us) {
+                $data = new jsonDTO;
+                $data->setIdAgenExter(trim($us['id_agen_externo']));
+                
+                $objetosUser[] = $data;
+            }
+            
+            return $objetosUser;
+            
+        } else {
+            return false;
+        }
+    }
 }
