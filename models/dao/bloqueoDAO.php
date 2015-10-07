@@ -38,7 +38,8 @@ class bloqueoDAO extends Model {
         $sql = 'SELECT nompax, rut, CONVERT(Nvarchar(10), fchild,103) as fchild, ninfant, rut_inf, CONVERT(Nvarchar(10), finfant, 103) as finfant, '
                 . 'tp, tipo_pax, CONVERT(Nvarchar(10), fecha_pag, 103) as fecha_pag, horarobot '
                 . 'FROM det_bloq '
-                . 'WHERE record_c = "' . $codBloq . '" and num_file = ' . $nFile;
+                . 'WHERE record_c = "'. $codBloq . '" and num_file = ' . $nFile;
+        
         
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
