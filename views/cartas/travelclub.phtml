@@ -51,15 +51,7 @@
                                             <td width="18%"><strong>Nombre Pasajero</strong></td>
                                             <td width="2%">:</td>
                                             <td width="80%">
-                                                <?php 
-                                                $i=0;
-                                                foreach($this->CC_objsDetBloq as $objDB)
-                                                      {
-                                                       if($i==0){
-                                                          echo str_replace('/', ' ', $objDB->getNomPax());
-                                                       }
-                                                       $i++;
-                                                      }?></td>
+                                                <?php  echo str_replace('/', ' ', $this->CC_nomPax);?></td>
                                         </tr>
 
                                         <!--<tr>
