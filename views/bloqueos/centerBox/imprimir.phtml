@@ -1,5 +1,6 @@
 
 <div id="imprimirSector">
+    <head><title>Opcion de programa</title></head>
     <?php
     if (Session::get('sess_codigo_cliente_url') == '3f7a2611ee08c6645796463e0bb1ae7f') {
         echo '<img  src="' . $_layoutParamsCB['ruta_img'] . 'logo_tc.jpg" style="margin-top:-20px;" />';
@@ -10,7 +11,7 @@
 
 
     <center><h4><i><b><?php echo $this->objOpcionPrograma[0]->getNombre(); ?></b></i></h4></center>
-    <div class="table-responsive">
+    
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
@@ -184,7 +185,7 @@
                 </table> 
             </div>
         </div>
-    </div>
+    
 
     <center>
         <div style="width:90%; text-align:right;" >
