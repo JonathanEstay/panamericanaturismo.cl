@@ -548,7 +548,7 @@ class bloqueosController extends Controller {
                 $txtEmail = $this->getTexto('txtEmail_pago');
                 $txtFono = $this->getTexto('txtTelefono_pago');
                 if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
-                    throw new Exception('El email no es v&aactuelido');
+                    throw new Exception('El email no es v&aacute;lido');
                 } else {
                     
                     
@@ -559,21 +559,21 @@ class bloqueosController extends Controller {
                     $bloqueo = $this->loadModel('bloqueo');
 
                     
+                    
                     $objProg= $bloqueo->codigosProg(Session::get('sessRP_idPrograma'), Session::get('sessRP_rdbOpc'));
                     foreach($objProg as $objP) {
                         $codigoBloqueo = $objP->getRecordC();
                         $codigoPrograma = $objP->getCodigo();
                     }
-                    
-                    
-                    
                     if(!$codigoBloqueo) {
                         throw new Exception('Error inesperado, (Codigo 31).');
                     } else if(!$codigoBloqueo) {
                         throw new Exception('Error inesperado, (Codigo 32).');
                     }
                     
-                    /*$rs = $bloqueo->H2H_CREA_FILE($sql);
+                    
+                    
+                    $rs = $bloqueo->H2H_CREA_FILE($sql);
 
                     if ($rs) {
                         if ($rs->getCodigo() == 1) {
@@ -582,7 +582,42 @@ class bloqueosController extends Controller {
 
                                 $pasajeros = Session::get('sessRP_cntPasajeros') - 1;
                                 if ($cantidad == $pasajeros) {
-                                    echo 'OK' . '&' . $rs->getFile() . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //echo 'OK' . '&' . $rs->getFile() . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                                    $txtFono = ($txtFono*1);
+                                    $numfile=$rs->getFile(); //24626 ULTIMO
+                                    Session::set("sess_file", $numfile);
+                                    $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
+                                    $jsonModel= $this->loadModel('json');
+                                    $objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
+                                    foreach($objUsuario as $objU) {
+                                        $json=array(
+                                                "pay_user" => $objU->getUser(),
+                                                "pay_pass" => $objU->getPass(),
+                                                "pay_url_api" => $objU->getUrlApi(),
+                                                "pay_agency_id" => $objU->getIdAgentExter(), 
+                                                "pay_file" => $numfile, 
+                                                "pay_amount" => Session::get("sess_pay_precio"), 
+                                                "pay_tax" => '0', 
+                                                "pay_currency" => 'CLP',
+                                                "pay_email" => $txtEmail,
+                                                "pay_fono" => $txtFono,
+                                                "pay_cod_prog" => $codigoPrograma,
+                                                "pay_cod_bloq" => $codigoBloqueo);
+                                        fwrite($file_json, json_encode($json));
+                                        fclose($file_json);
+                                        echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
                                 } else {
                                     throw new Exception('Error de transaccion  (Codigo 23). Si el error persiste comuniquese con el administrador');
                                 }
@@ -592,33 +627,11 @@ class bloqueosController extends Controller {
                         } else {
                             throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). '.$rs->getMSG());
                         }
-                    }*/
-                    
-                    $txtFono = ($txtFono*1);
-                    $numfile=24624;
-                    Session::set("sess_file", $numfile);
-                    $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
-                    //$objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
-                    $jsonModel= $this->loadModel('json');
-                    $objUsuario= $jsonModel->consultarUser('E3ra79');
-                    foreach($objUsuario as $objU) {
-                        $json=array(
-                                "pay_user" => $objU->getUser(),
-                                "pay_pass" => $objU->getPass(),
-                                "pay_url_api" => $objU->getUrlApi(),
-                                "pay_agency_id" => $objU->getIdAgentExter(), 
-                                "pay_file" => $numfile, 
-                                "pay_amount" => Session::get("sess_pay_precio"), 
-                                "pay_tax" => '0', 
-                                "pay_currency" => 'CLP',
-                                "pay_email" => $txtEmail,
-                                "pay_fono" => $txtFono,
-                                "pay_cod_prog" => $codigoPrograma,
-                                "pay_cod_bloq" => $codigoBloqueo);
-                        fwrite($file_json, json_encode($json));
-                        fclose($file_json);
-                        echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                    } else {
+                        throw new Exception('Error de transaccion  (Codigo 31). Si el error persiste comuniquese con el administrador');
                     }
+                    
+                    
                 }
             } else {
                 if (!Session::get('sess_boton_pago')) {

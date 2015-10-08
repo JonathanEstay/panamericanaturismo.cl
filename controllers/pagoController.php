@@ -21,23 +21,31 @@ class pagoController extends Controller {
 
     public function cierre($external_id=0) {
         if (Session::get('sess_boton_pago')) {
-            if(Session::get("sess_file") == $external_id) {
-                
-                
-                sleep(2); //Esperando acuse pago de travel
-                if ($this->confirmarPago($external_id)) { //LOCAL
-                    $this->redireccionar('pago/exito/' . base64_encode($external_id));
+            if(Session::get("sess_file")){
+                if($external_id == 0) {
+                    $this->redireccionar('pago/fracaso/design');
                 } else {
-                    if ($this->reconfirmarPago()) { //TRAVEL
-                        $this->redireccionar('pago/exito/' . base64_encode($external_id));
+                    if(Session::get("sess_file") == $external_id) {
+
+                        sleep(2); //Esperando acuse pago de travel
+                        if ($this->confirmarPago($external_id)) { //LOCAL
+                            $this->redireccionar('pago/exito/' . base64_encode($external_id));
+                        } else {
+                            if ($this->reconfirmarPago()) { //TRAVEL
+                                $this->redireccionar('pago/exito/' . base64_encode($external_id));
+                            } else {
+                                Session::set('sess_status_pago', false);
+                                if(!Session::get('sess_msj_pago')) {
+                                    Session::set('sess_msj_pago', '[2026] Error al intentar realizar el pago');
+                                }
+                                $this->redireccionar('pago/fracaso');
+                            }
+                        }
+
                     } else {
-                        Session::set('sess_status_pago', false);
-                        Session::set('sess_msj_pago', Session::get('sess_msj_pago') . '[2026] Error al intentar realizar el pago');
-                        $this->redireccionar('pago/fracaso');
+                         $this->redireccionar('pago/fracaso');
                     }
                 }
-                
-                
             } else {
                 $this->redireccionar('pago/fracaso');
             }
@@ -83,9 +91,9 @@ class pagoController extends Controller {
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
         $url = $jsonPay->pay_url_api . 'api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
         
-        $this->_json->logJSON($jsonPay->pay_file, str_replace('\\', '\\', $url), 'Q'); //LOG RQ
+        $this->_json->logJSON($jsonPay->pay_file, str_replace('\\', '', $url), 'Q'); //LOG RQ
         $json = $this->curlGET_JSON($url, $jsonPay->pay_user, $jsonPay->pay_pass);
-        $this->_json->logJSON($jsonPay->pay_file, json_encode($json), 'S'); //LOG RS
+        $this->_json->logJSON($jsonPay->pay_file,  str_replace('\\', '', json_encode($json)), 'S'); //LOG RS
         
         if (is_object($json)) {
             if ($jsonPay->pay_hash == $json->hash && $jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
@@ -108,7 +116,7 @@ class pagoController extends Controller {
         }
     }
 
-    public function fracaso() {
+    public function fracaso($render = false) {
         $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
@@ -118,7 +126,13 @@ class pagoController extends Controller {
         
         $this->_view->status = Session::get('sess_status_pago');
         $this->_view->msj = Session::get('sess_msj_pago');
-        $this->_view->renderingSystem('fracaso', true);
+        
+        if(!$render) {
+            $this->_view->renderingSystem('fracaso', true);
+        } else {
+            $this->_view->renderingCenterBox('fracaso');
+        }
+        
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
     }
@@ -136,12 +150,13 @@ class pagoController extends Controller {
         
         
         //Rescatando post
-        $nFile = '203598'; //$jsonPay->pay_file;
-        $codPRG = 'CH15FLN02B2'; //$jsonPay->pay_cod_prog;
-        $codBloq = '2015FLN038'; //$jsonPay->pay_cod_bloq;
+        $nFile = $jsonPay->pay_file; //'203598';
+        $codPRG = $jsonPay->pay_cod_prog; //'CH15FLN02B2';
+        $codBloq = $jsonPay->pay_cod_bloq; //'2015FLN038';
         $correoSend = $jsonPay->pay_email;
-        $user ='tclub';
+        $user = 'tclub';
 
+        
         $M_file = $this->loadModel('reserva');
         $M_bloqueos = $this->loadModel('bloqueo');
         $M_packages = $this->loadModel('programa');
