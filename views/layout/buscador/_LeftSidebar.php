@@ -469,7 +469,11 @@ $(function()
                     // agregamos opciones al combo
                     //alert( index + ": " + cuidad );
                     if('<?php echo $this->ML_fechaIni; ?>' == salida){
+                        if('<?php echo Session::get('sess_BP_ciudadDes');?>'==ciudad){
                         $comboCiudades.append("<option value='" + salida + "' selected='selected'>" + salida + "</option>");
+                    }else{
+                        $comboCiudades.append("<option value='" + salida + "'>" + salida + "</option>");
+                    }
                     } else {
                         $comboCiudades.append("<option value='" + salida + "'>" + salida + "</option>");
                     }

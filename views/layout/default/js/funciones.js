@@ -1113,6 +1113,7 @@ function procesoEnviaFormIE(form, action_url, div_id) {
         if($('#mL_txtCiudadDestino').val() != 0)
         {
             
+           if($("#mL_cmbSalidas").val()!=="Seleccione"){
             if($('#mL_txtFechaIn').val() !==""  && $('#mL_txtFechaOut').val() !=="")
            {
             
@@ -1162,6 +1163,11 @@ function procesoEnviaFormIE(form, action_url, div_id) {
               mL_Error=1;
                 $('#mensajeWar').html('Debe seleccionar fechas in y out'); 
            }
+       }else
+       {
+           mL_Error=1;
+                $('#mensajeWar').html('Debe seleccionar una fecha de salida'); 
+       }
         }
         else
         {
