@@ -123,6 +123,8 @@ class hotelesController extends Controller
     {
         if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest'  || (Session::get('sess_browser') == 'IE9'))
         {
+            Session::acceso('Usuario');
+            
             $MH_nombreHotel= $this->getTexto('txtEH_nombreHotel');
             $MH_direc= $this->getTexto('txtEH_direc');
             $MH_cate= $this->getTexto('cmbEH_categoria');
