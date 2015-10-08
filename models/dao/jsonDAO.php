@@ -94,13 +94,13 @@ class jsonDAO extends Model {
     }
 
     
-    public function nuevoPago($num_file, $hash) {
-        $sql = "INSERT INTO pagos_h2h (num_file, hash, fecha_r)"
-            . " VALUES (" . $num_file . ", '" . $hash . "', GETDATE())";
+    public function nuevoPago($num_file, $hash, $email, $fono) {
+        $sql = "INSERT INTO pagos_h2h (num_file, hash, fecha_r, email_pago, fono_pago)"
+            . " VALUES (" . $num_file . ", '" . $hash . "', GETDATE(), '" . $email . "', '" . $fono . "')";
         $this->_db->consulta($sql);
         
         
-        $sql="SELECT num_file FROM pagos_h2h WHERE num_file = " . $num_file;
+        $sql="SELECT num_file FROM pagos_h2h WHERE num_file = " . $num_file . " AND hash = '" . $hash . "' ";
         $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos) > 0){
             return true;
