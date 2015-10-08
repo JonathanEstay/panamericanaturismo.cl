@@ -6,44 +6,89 @@
  * Fecha    : Viernes, 24 de julio de 2015
  */
 
-// 5 metodos : index , cierre , proceso, fracaso , exito.
 class pagoController extends Controller {
 
     public function __construct() {
         parent::__construct();
         $this->_json = $this->loadModel('json');
+        $this->_ciudad = $this->loadModel('ciudad');
+        $this->_loadLeft();
     }
 
     public function index() {
         $this->redireccionar('system');
     }
 
-    public function cierre() {
-        /* echo var_dump($_POST);
-          echo '<br>';
-          echo var_dump($_GET);
-          echo '<br>';
-          echo var_dump(file_get_contents('php://input'));
-          echo '<br>';
-          echo file_get_contents('php://input');
-          exit; */
-        if ($this->proceso()) {
-            $this->redireccionar('pago/exito');
+    public function cierre($external_id) {
+        if (Session::get('sess_boton_pago')) {
+            if(Session::get("sess_file") == $external_id) {
+                
+                
+                sleep(2); //Esperando acuse pago de travel
+                if ($this->confirmarPago($external_id)) { //LOCAL
+                    $this->redireccionar('pago/exito');
+                } else {
+                    if ($this->reconfirmarPago()) { //TRAVEL
+                        $this->redireccionar('pago/exito');
+                    } else {
+                        Session::set('sess_status_pago', false);
+                        Session::set('sess_msj_pago', Session::get('sess_msj_pago') . '[2026] Error al intentar realizar el pago');
+                        $this->redireccionar('pago/fracaso');
+                    }
+                }
+                
+                
+            } else {
+                $this->redireccionar('pago/fracaso');
+            }
         } else {
             $this->redireccionar('pago/fracaso');
         }
     }
+    
+    public function confirmarPago($ext_id) {
+        if (Session::get('sess_boton_pago')) {
+            if(Session::get("sess_file") == $ext_id) {
+                
+                $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $ext_id . '.json'));
 
-    public function proceso() {
+                $objPago = $this->_json->payConfirm($jsonPay->pay_file, $jsonPay->pay_hash);
+                if($objPago) {
+                    foreach($objPago as $objPay) {
+                        if($objPay->getStatus() == 'success'){
+                            return true;
+                        } else {
+                            Session::set('sess_status_pago', false);
+                            Session::set('sess_msj_pago', '[2024] Error al intentar realizar el pago @' . $objPay->getStatus() . '@');
+                            return false;
+                        }
+                    }
+                } else {
+                    Session::set('sess_status_pago', false);
+                    Session::set('sess_msj_pago', '[2025] Error al intentar realizar el pago');
+                    return false;
+                }
+                
+                
+            } else {
+                $this->redireccionar('pago/fracaso');
+            }
+        } else {
+            $this->redireccionar('pago/fracaso');
+        }
+    }
+    
+    public function reconfirmarPago() {
 
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
         $url = $jsonPay->pay_url_api . 'api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
+        
+        $this->_json->logJSON($jsonPay->pay_file, $url, 'Q'); //LOG RQ
         $json = $this->curlGET_JSON($url, $jsonPay->pay_user, $jsonPay->pay_pass);
-        //echo $json->hash; echo '<br>'; echo $jsonPay->pay_hash; echo '<br>'; echo $json->external_id; echo '<br>'; 
-        //echo $json->agency_id; echo '<br>'; echo $json->status; echo '<br>'; exit;
-
+        $this->_json->logJSON($jsonPay->pay_file, json_encode($json), 'S'); //LOG RS
+        
         if (is_object($json)) {
-            if (/* $jsonPay->pay_hash == $json->hash && */$jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
+            if ($jsonPay->pay_hash == $json->hash && $jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
                 if ($json->status == 'success') {
                     return true;
                 } else {
@@ -64,17 +109,28 @@ class pagoController extends Controller {
     }
 
     public function fracaso() {
+        $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
+        $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
+        $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
+        $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->currentMenu = 11;
+        $this->_view->titulo = 'ORISTRAVEL';
+        
         $this->_view->status = Session::get('sess_status_pago');
         $this->_view->msj = Session::get('sess_msj_pago');
-        $this->_view->renderingCenterBox('fracaso');
+        $this->_view->renderingSystem('fracaso', true);
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
     }
 
     public function exito() {
+        $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
+        $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
+        $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
+        $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
         $this->_view->currentMenu = 11;
-        //$this->_view->procesoTerminado=false;
         $this->_view->titulo = 'ORISTRAVEL';
+        
         //Rescatando post
         $nFile = '203598'; //$this->getTexto('CR_n_file');
         $codPRG = 'CH15FLN02B2'; //$this->getTexto('CR_cod_prog');
@@ -177,10 +233,10 @@ class pagoController extends Controller {
         $mail->SMTPAuth = true;
         $mail->Username = trim("online@panamericanaturismo.cl");
         $mail->Password = trim("Fe90934");
-        $mail->Send();
+        //$mail->Send();
         
         $this->_view->cartaConfirm = $contenido;
-        $this->_view->renderingSystem('exito');     
+        $this->_view->renderingSystem('exito', true);     
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
     }
