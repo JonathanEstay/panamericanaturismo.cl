@@ -1,9 +1,9 @@
 <?php
 
 /*
- * Proyecto : PanamericanaWS
+ * Proyecto : panamericanaturismo.cl
  * Autor    : Tsyacom Ltda.
- * Fecha    : viernes, 02 de octubre de 2015
+ * Fecha    : Viernes, 24 de julio de 2015
  */
 
 class usuarioH2hDTO {

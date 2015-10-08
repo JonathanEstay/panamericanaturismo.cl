@@ -523,11 +523,20 @@ class bloqueosController extends Controller {
         }
     }
 
-    /*     * *****************************************************************************
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /********************************************************************************
      *                                                                              *
      *                             METODOS PROCESADORES                             *
      *                                                                              *
-     * ***************************************************************************** */
+     * ******************************************************************************/
 
     public function procesoReserva($form = '') {
         //Session::acceso('Usuario');
@@ -570,7 +579,7 @@ class bloqueosController extends Controller {
                         }
                     }*/
                     
-                    $numfile=24606;
+                    $numfile=24620;
                     Session::set("sess_file", $numfile);
                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
                     $jsonModel= $this->loadModel('json');

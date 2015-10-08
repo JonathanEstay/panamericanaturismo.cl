@@ -61,6 +61,7 @@ class jsonDAO extends Model {
                     . "WHERE "
                     . "num_file =" .$num_file
                     . " AND hash ='".$hash."'";
+                    //. " AND status = ''";
             
             $this->_db->consulta($sql);
             
@@ -103,6 +104,29 @@ class jsonDAO extends Model {
         $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos) > 0){
             return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    public function payConfirm($externalId, $hash) {
+        $sql="SELECT TOP 1 status FROM pagos_h2h WHERE num_file = " . $externalId . " AND hash = '" . $hash . "'";
+        $datos = $this->_db->consulta($sql);
+        
+        if ($this->_db->numRows($datos) > 0) {
+            $pagos = $this->_db->fetchAll($datos);
+            $objetosPago = array();
+            
+            foreach ($pagos as $pay) {
+                $data = new jsonDTO;
+                $data->setStatus(trim($pay['status']));
+                
+                $objetosPago[] = $data;
+            }
+            
+            return $objetosPago;
+            
         } else {
             return false;
         }
