@@ -19,17 +19,17 @@ class pagoController extends Controller {
         $this->redireccionar('system');
     }
 
-    public function cierre($external_id) {
+    public function cierre($external_id=0) {
         if (Session::get('sess_boton_pago')) {
             if(Session::get("sess_file") == $external_id) {
                 
                 
                 sleep(2); //Esperando acuse pago de travel
                 if ($this->confirmarPago($external_id)) { //LOCAL
-                    $this->redireccionar('pago/exito');
+                    $this->redireccionar('pago/exito/' . base64_encode($external_id));
                 } else {
                     if ($this->reconfirmarPago()) { //TRAVEL
-                        $this->redireccionar('pago/exito');
+                        $this->redireccionar('pago/exito/' . base64_encode($external_id));
                     } else {
                         Session::set('sess_status_pago', false);
                         Session::set('sess_msj_pago', Session::get('sess_msj_pago') . '[2026] Error al intentar realizar el pago');
@@ -83,7 +83,7 @@ class pagoController extends Controller {
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
         $url = $jsonPay->pay_url_api . 'api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
         
-        $this->_json->logJSON($jsonPay->pay_file, $url, 'Q'); //LOG RQ
+        $this->_json->logJSON($jsonPay->pay_file, str_replace('\\', '\\', $url), 'Q'); //LOG RQ
         $json = $this->curlGET_JSON($url, $jsonPay->pay_user, $jsonPay->pay_pass);
         $this->_json->logJSON($jsonPay->pay_file, json_encode($json), 'S'); //LOG RS
         
@@ -123,7 +123,7 @@ class pagoController extends Controller {
         Session::destroy('sess_msj_pago');
     }
 
-    public function exito() {
+    public function exito($external_id) {
         $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
@@ -131,11 +131,15 @@ class pagoController extends Controller {
         $this->_view->currentMenu = 11;
         $this->_view->titulo = 'ORISTRAVEL';
         
+        
+        $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . base64_decode($external_id) . '.json'));
+        
+        
         //Rescatando post
-        $nFile = '203598'; //$this->getTexto('CR_n_file');
-        $codPRG = 'CH15FLN02B2'; //$this->getTexto('CR_cod_prog');
-        $codBloq = "2015FLN038"; //$this->getTexto('CR_cod_bloq');
-        $correoSend='ohurtado@tsyacom.cl';
+        $nFile = '203598'; //$jsonPay->pay_file;
+        $codPRG = 'CH15FLN02B2'; //$jsonPay->pay_cod_prog;
+        $codBloq = '2015FLN038'; //$jsonPay->pay_cod_bloq;
+        $correoSend = $jsonPay->pay_email;
         $user ='tclub';
 
         $M_file = $this->loadModel('reserva');
