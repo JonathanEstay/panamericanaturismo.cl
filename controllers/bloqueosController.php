@@ -546,19 +546,34 @@ class bloqueosController extends Controller {
 
             if (Session::get('sess_boton_pago')) { //QUITAR !
                 $txtEmail = $this->getTexto('txtEmail_pago');
+                $txtFono = $this->getTexto('txtTelefono_pago');
                 if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
-                    echo 'El email no es valido';
+                    throw new Exception('El email no es v&aactuelido');
                 } else {
-
                     
-                    /*require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
-
+                    
+                    require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
                     if ($error) {
                         throw new Exception('Error inesperado ,  ' . $pRP_msg);
                     }
                     $bloqueo = $this->loadModel('bloqueo');
 
-                    $rs = $bloqueo->H2H_CREA_FILE($sql);
+                    
+                    $objProg= $bloqueo->codigosProg(Session::get('sessRP_idPrograma'), Session::get('sessRP_rdbOpc'));
+                    foreach($objProg as $objP) {
+                        $codigoBloqueo = $objP->getRecordC();
+                        $codigoPrograma = $objP->getCodigo();
+                    }
+                    
+                    
+                    
+                    if(!$codigoBloqueo) {
+                        throw new Exception('Error inesperado, (Codigo 31).');
+                    } else if(!$codigoBloqueo) {
+                        throw new Exception('Error inesperado, (Codigo 32).');
+                    }
+                    
+                    /*$rs = $bloqueo->H2H_CREA_FILE($sql);
 
                     if ($rs) {
                         if ($rs->getCodigo() == 1) {
@@ -579,11 +594,12 @@ class bloqueosController extends Controller {
                         }
                     }*/
                     
-                    $numfile=24620;
+                    $txtFono = ($txtFono*1);
+                    $numfile=24624;
                     Session::set("sess_file", $numfile);
                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
-                    $jsonModel= $this->loadModel('json');
                     //$objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
+                    $jsonModel= $this->loadModel('json');
                     $objUsuario= $jsonModel->consultarUser('E3ra79');
                     foreach($objUsuario as $objU) {
                         $json=array(
@@ -594,7 +610,11 @@ class bloqueosController extends Controller {
                                 "pay_file" => $numfile, 
                                 "pay_amount" => Session::get("sess_pay_precio"), 
                                 "pay_tax" => '0', 
-                                "pay_currency" => 'CLP');
+                                "pay_currency" => 'CLP',
+                                "pay_email" => $txtEmail,
+                                "pay_fono" => $txtFono,
+                                "pay_cod_prog" => $codigoPrograma,
+                                "pay_cod_bloq" => $codigoBloqueo);
                         fwrite($file_json, json_encode($json));
                         fclose($file_json);
                         echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');

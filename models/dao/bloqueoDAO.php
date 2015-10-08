@@ -569,8 +569,6 @@ class bloqueoDAO extends Model {
     }
 
     public function H2H_CREA_FILE($sql) {
-
-
         $data = $this->_db->consulta($sql);
         $mensaje = false;
         if ($this->_db->numRows($data)) {
@@ -585,13 +583,10 @@ class bloqueoDAO extends Model {
         return $mensaje;
     }
 
+    
     public function getFile($numFile) {
-
-
         $sql = "SELECT * FROM file_ WHERE num_file=$numFile";
-
         $data = $this->_db->consulta($sql);
-
         if ($this->_db->numRows($data) > 0) {
             return true;
         } else {
@@ -599,6 +594,34 @@ class bloqueoDAO extends Model {
             return false;
         }
     }
+    
+    
+    public function codigosProg($idProg, $idBloq) {
+        $sql = 'SELECT TOP 1 P.codigo, PO.record_c
+                FROM h2h_programaOpc PO
+                JOIN h2h_programa P ON (P.Id = ' . $idProg . ')
+                WHERE PO.IdOpc = ' . $idBloq;
+        $datos = $this->_db->consulta($sql);
+        if ($this->_db->numRows($datos) > 0) {
+            
+            $objetosBloqueos = array();
+            $arrayCod = $this->_db->fetchAll($datos);
+            $objBloq = new bloqueoDTO();
+            
+            foreach ($arrayCod as $bloq) {
+                
+                $objBloq->setCodigo(trim($bloq['codigo']));
+                $objBloq->setRecordC(trim($bloq['record_c']));
+                
+                $objetosBloqueos[] = $objBloq;
+            }
+            return $objetosBloqueos;
+        }
+        return false;
+    }
+    
+    
+    
 
     public function getDetHot($numFile) {
 
