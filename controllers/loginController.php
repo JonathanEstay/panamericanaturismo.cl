@@ -115,7 +115,7 @@ class loginController extends Controller
                         }
 
                         //echo '..::fin::..'; exit;
-
+                        Session::destroy('sess_boton_pago');
                         Session::set('sess_condiciones','panamericana');
                         Session::set('Autenticado', true);
                         Session::set('sess_key_', md5(uniqid()));
@@ -123,7 +123,7 @@ class loginController extends Controller
                         Session::set('sess_fechaLogin', date("d/m/Y H:i:s"));
                         Session::set('sess_fechaDefault', Functions::fechaActual(1));
 
-
+                        
                         Session::set('sess_clave_usuario', $objUser->getClave());
                         Session::set('sess_nombre', $objUser->getNombre());
                         Session::set('sess_cod_ven', $objUser->getCodigo());

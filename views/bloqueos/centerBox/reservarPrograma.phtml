@@ -54,19 +54,21 @@ $(function ()
                             <td> <?php echo $this->fechaSalida; ?></td>
                         </tr>
                         <tr>
-                            <td><b>Precio Total</b>:</td>
-                            <td style="color:#F00;"> <b><?php echo $this->precio; ?></b></td>
-                        </tr>
-                        <tr>
                             <td><b>Hoteles</b>:</td>
                             <td>
                                 <?php
                                 for ($i = 0; $i < $this->hotelesCNT; $i++) {
-                                    echo '<span class="label label-info">' . $this->hoteles[$i] . '</span>';
+                                    echo  $this->hoteles[$i] ;
                                 }
                                 ?>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <td><br><b>Precio Total</b>:</td>
+                            <td style="color:#F00;"><br> <b><?php echo '&nbsp;'. $this->precio; ?></b></td>
+                        </tr>
+                        
                     </table>
                 </div>
 
