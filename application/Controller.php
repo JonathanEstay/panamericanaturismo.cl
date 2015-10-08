@@ -370,8 +370,8 @@ abstract class Controller
     protected function mailReserva($file, $html) {
         // Preparar Correo electrónico
         $email_asunto="Confirmación de reserva online: ".$file;
-        $email_destinatario = 'jestay@tsyacom.cl'; //Session::get('sess_email');
-        $email_destinatarioCC = 'j.estay1988@gmail.com'; //Session::get('sess_email_opera');
+        $email_destinatario = Session::get('sess_email');
+        $email_destinatarioCC = Session::get('sess_email_opera');
 
         $mail = new PHPMailer();
 
