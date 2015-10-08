@@ -215,7 +215,7 @@ class pagoController extends Controller {
         $mail->Host = trim("190.196.23.232");
         $mail->Port = 25;
         $mail->From = 'panamericana@online.panamericanaturismo.cl';
-        $mail->FromName = 'TravelClub Reserva en Linea';
+        $mail->FromName = 'TravelClub Reserva Online';
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmacion de reserva online: ';
         $mail->MsgHTML($contenido);
@@ -233,7 +233,7 @@ class pagoController extends Controller {
         $mail->SMTPAuth = true;
         $mail->Username = trim("online@panamericanaturismo.cl");
         $mail->Password = trim("Fe90934");
-        //$mail->Send();
+        $mail->Send();
         
         $this->_view->cartaConfirm = $contenido;
         $this->_view->renderingSystem('exito', true);     
