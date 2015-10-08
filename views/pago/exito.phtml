@@ -5,7 +5,7 @@
                 <li><a href="">Inicio</a></li>
                 <li class="active">Busqueda de bloqueos</li>
             </ol>
-            <h3 style="margin-left: 18px;">PROGRAMAS CON AEREO CONFIRMADO A <b style="color:#FF9900;"><?php echo Session::get('sess_BP_ciudadDes'); ?></b></h3>
+            <h3 style="margin-left: 18px;">&nbsp;&nbsp;</h3>
 
         </div>
         <div class="container">
@@ -13,29 +13,25 @@
             <div class="alert alert-dismissable alert-success">
                 <h2><strong>&iexcl;GRACIAS POR SU COMPRA!</strong></h2>    
                 <br>
-                    <img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" align= "left" style="margin-right: 15px;">
-                        <h4>Pago realizado con &eacute;xito.</h4>
-                        </div>
-                        <script>endLoad();</script>
-                        
-                        
-                        <?php echo$this->cartaConfirm;?>
-                        <script language="Javascript">
-                            function imprSelec(nombre)
-                            {
-                                var ficha = document.getElementById(nombre);
-                                var ventimp = window.open(' ', 'popimpr');
-                                ventimp.document.write(ficha.innerHTML);
-                                ventimp.document.close();
-                                ventimp.print( );
-                                ventimp.close();
-                            }
-                        </script>
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" align= "left" style="margin-right: 15px;">
+                <h4>Pago realizado con &eacute;xito.</h4>
+            </div>
+            <script>endLoad();</script>
+                                    
+            <?php echo$this->cartaConfirm;?>
+            
+            <script language="Javascript">
+                function imprSelec(nombre)
+                {
+                    var ficha = document.getElementById(nombre);
+                    var ventimp = window.open(' ', 'popimpr');
+                    ventimp.document.write(ficha.innerHTML);
+                    ventimp.document.close();
+                    ventimp.print( );
+                    ventimp.close();
+                }
+            </script>
 
-
-
-                        </div>
-
-
-                        </div>
-                        </div>
+        </div>
+    </div>
+</div>
