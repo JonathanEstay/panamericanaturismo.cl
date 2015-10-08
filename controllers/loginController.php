@@ -116,7 +116,7 @@ class loginController extends Controller
 
                         //echo '..::fin::..'; exit;
 
-
+                        Session::set('sess_condiciones','panamericana');
                         Session::set('Autenticado', true);
                         Session::set('sess_key_', md5(uniqid()));
                         Session::set('sess_ip', $_SERVER["REMOTE_ADDR"]);

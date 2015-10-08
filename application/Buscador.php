@@ -34,7 +34,8 @@ class Buscador extends Controller{
                 break;
 
             default:
-                Session::destroy('sess_boton_pago');
+                Session::destroy('sess_boton_pago');//DESCOMENTAR
+                //Session::set('sess_boton_pago', true); //COMENTAR
                 Session::set('sess_iframe', true);
                 Session::set('sess_condiciones', 'panamericana');
                 Session::set('sess_user_hash', false);

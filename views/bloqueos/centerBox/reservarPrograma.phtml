@@ -289,7 +289,7 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
 ?>
 
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" <?php if(Session::get('sess_boton_pago')){ ?>style="display:none;"<?php } ?>>
         <tr>
             <td>
                 <textarea name="rP_txtComentario" id="rP_txtComentario" cols="50" rows="4" class="form-control" placeholder="Escribe un comentario..."></textarea>
