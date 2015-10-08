@@ -35,7 +35,7 @@ class jsonController extends Controller {
                     $monto = $json->amount;
                     $num_file = $json->external_id;
 
-                    $this->_json->logJSON($num_file, json_encode($json), 'S'); //LOG RS
+                    $this->_json->logJSON($num_file,  str_replace('\\', '', json_encode($json)), 'S'); //LOG RS
 
                     if (trim($status) !== "" && trim($hash) !== "" && trim($monto) !== "" && trim($num_file) !== "") {
                         $data = $this->_json->updatePagos($status, $hash, $monto, $num_file);
@@ -93,9 +93,9 @@ class jsonController extends Controller {
                     );
                     
                     
-                    $this->_json->logJSON($jsonFile->pay_file, json_encode($json), 'Q'); //LOG RQ
+                    $this->_json->logJSON($jsonFile->pay_file,  str_replace('\\', '', json_encode($json)), 'Q'); //LOG RQ
                     $getJson= $this->curlJSON($json, $url, $jsonFile->pay_user, $jsonFile->pay_pass);
-                    $this->_json->logJSON($jsonFile->pay_file, json_encode($getJson), 'S'); //LOG RS
+                    $this->_json->logJSON($jsonFile->pay_file,  str_replace('\\', '', json_encode($getJson)), 'S'); //LOG RS
                     
                     if(is_object($getJson)) {
                         
