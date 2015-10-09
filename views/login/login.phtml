@@ -29,7 +29,8 @@
 
     <center><img src="<?php echo $_layoutParams['ruta_img']; ?>logo.jpg" width="198" alt="Logo" style="margin-top:-50px" /></center>
     <div class="panel panel-primary" style="margin-top:50px" >
-        <form action="<?php echo BASE_URL . 'login/ingresar/'.$this->estado; ?>" method="post" class="form-horizontal">
+        <!-- <form action="<?php echo BASE_URL . 'login/ingresar/'.$this->estado; ?>" method="post" class="form-horizontal"> -->
+        <form action="<?php echo BASE_URL . 'login/ingresar'; ?>" method="post" class="form-horizontal">
             <div class="panel-body">
                 <h4 class="text-center" style="margin-bottom: 25px;">Inicio de sesi&oacute;n</h4>
                     <div class="form-group">
@@ -37,7 +38,7 @@
                             <div class="input-group">
                                 
                                 <span class="input-group-addon"><img src="<?php echo $_layoutParams['ruta_img']; ?>closed.png" width="16"></span>
-                                <input type="password" class="form-control" id="password" name="txtUser" style="width: 90%" placeholder="C&oacute;digo">
+                                <input type="<?php if($this->estado=='web'){ echo 'password'; } else { echo 'hidden'; } ?>" class="form-control" id="password" name="txtUser" style="width: 90%" placeholder="C&oacute;digo">
                                 
                                 
                             </div>
