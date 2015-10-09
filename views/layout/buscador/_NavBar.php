@@ -11,6 +11,8 @@
 
     <script src="<?php echo $_layoutParams['ruta_js']; ?>jquery-1.10.2.min.js"></script>
     <link href="<?php echo $_layoutParams['ruta_css']; ?>styles.min.css" rel="stylesheet" >
+    <link rel="shortcut icon" href="<?php echo $_layoutParams['ruta_img']; ?>favicon.ico">
+    
     <!-- <link href='<?php echo $_layoutParams['ruta_css']; ?>google-fonts.css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'> -->
      <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
 
