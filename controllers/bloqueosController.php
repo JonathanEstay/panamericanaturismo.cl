@@ -487,6 +487,7 @@ class bloqueosController extends Controller {
                     Session::set('sess_BP_Precio', $precio);
                     Session::set('sess_pay_precio', $precio);
                     $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
+                   
                     if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
                         if(!Session::get('sess_tcambio')) {
                             $us = $this->loadModel('usuario');
@@ -494,6 +495,16 @@ class bloqueosController extends Controller {
                             Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
                         }
                         
+                        if(Session::get('sess_tcambio')==0){
+                            
+                            $this->loadDTO('usuarioH2h');
+                            $us =$this->loadModel('reserva');
+                            $user ='tclub';
+                            $mail = $us->getCorreo($user);
+                            $mail->getCorreoEjecutivo();
+                            
+                            $this->mailTipoCambio('Estimados favor actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
+                        }
                         $precio = $precio * Session::get('sess_tcambio');
                         if($precio > 0) {
                             Session::set('sess_pay_precio', $precio);
