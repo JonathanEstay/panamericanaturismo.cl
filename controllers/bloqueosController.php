@@ -79,7 +79,7 @@ class bloqueosController extends Controller {
         //Session::destroy('sess_BP_ciudadDes_PRG');
         $this->_view->currentMenu = 11;
         //$this->_view->procesoTerminado=false;
-        $this->_view->titulo = 'ORISTRAVEL';
+        $this->_view->titulo = 'ORISTRAVEL - PANAMERICANA';
         $this->_view->renderingSystem('bloqueos', $item);
     }
 
