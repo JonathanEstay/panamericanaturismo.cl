@@ -564,10 +564,7 @@ class bloqueosController extends Controller {
                 } else {
                     
                     
-                    if(!Session::get('sess_tcambio')) {
-                        throw new Exception('No fue posible realizar su reserva. No existe tipo de cambio.');
-                    }
-                    if(!Session::get('sess_pay_precio')) {
+                    if(!Session::get('sess_pay_precio') || Session::get('sess_pay_precio') == 0) {
                         throw new Exception('No fue posible realizar su reserva. Contacte a su Agente de Viajes Travel Club');
                     }
                     
