@@ -409,4 +409,49 @@ abstract class Controller
         
         return $arraySess;
     }
+    
+        protected function mailTipoCambio( $html,$email,$cc) {
+        // Preparar Correo electrónico
+        $email_asunto="Falta Tipo Cambio";
+        $email_destinatario = $email;
+        $email_destinatarioCC = $cc;
+        $htmlEnviar = '<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">	  
+                        <tr>
+                        <td align="left">
+                        <img src="'.BASE_URL.'views/layout/default/img/logo.jpg"  height="100" vspace="5" border="0" />
+                        </td>
+                        </tr>	
+                        </table>';
+        
+        $htmlEnviar .=$html;
+        
+        $mail = new PHPMailer();
+
+        $mail->IsSMTP(); 
+        $mail->Host = trim("190.196.23.232");
+        $mail->Port = 25;
+        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->CharSet = CHARSET; //'UTF-8';
+
+        $mail->FromName = "Panamericana ";
+        $mail->Subject = $email_asunto;
+        $mail->MsgHTML($htmlEnviar); 
+
+        $mail->AddAddress($email_destinatario, "");
+        if(is_array($cc)){
+            
+            foreach ($email_destinatarioCC as $c) {
+         $mail->AddCC($c);  
+            }
+        }else{
+         $mail->AddCC($email_destinatarioCC);   
+        }
+
+        $mail->SMTPAuth = true;
+        $mail->Username = trim("online@panamericanaturismo.cl");
+        $mail->Password = trim("Fe90934");
+
+        $mail->Send();
+        sleep(2);
+    }
 }
