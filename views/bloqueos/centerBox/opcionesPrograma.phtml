@@ -25,8 +25,8 @@ if ($this->objOpcBloqueos) {
             </h4>
             <div class="options">
                     <i>
-                        <?php if($objOpcProg->getPDF()) { ?>
-
+                        <?php if($objOpcProg->getPDF() || !Session::get('sess_boton_pago')) { ?>
+                        
                         <a href="<?php echo $objOpcProg->getPDF(); ?>" target="_blank">
                             <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>pdf.png" width="24px" />
                         </a>
