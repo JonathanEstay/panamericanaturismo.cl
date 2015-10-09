@@ -488,17 +488,18 @@ class bloqueosController extends Controller {
                     Session::set('sess_pay_precio', $precio);
                     $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
                     if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
-                        if(!Session::get('sess_tcambio')){
-                            
-                        $us =$this->loadModel('usuario');
-                        
-                        $TcambioSess =$us->getTcambio();
-                        
-                        Session::set('sess_tcambio',$TcambioSess->getTipoCambio());
+                        if(!Session::get('sess_tcambio')) {
+                            $us = $this->loadModel('usuario');
+                            $TcambioSess =$us->getTcambio();
+                            Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
                         }
                         
                         $precio = $precio * Session::get('sess_tcambio');
-                        Session::set('sess_pay_precio', $precio);
+                        if($precio > 0) {
+                            Session::set('sess_pay_precio', $precio);
+                        } else {
+                            Session::set('sess_pay_precio', 0);
+                        }
                         if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){
                         $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ' ,&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
                         }
@@ -563,13 +564,19 @@ class bloqueosController extends Controller {
                 } else {
                     
                     
+                    if(!Session::get('sess_tcambio')) {
+                        throw new Exception('No fue posible realizar su reserva. No existe tipo de cambio.');
+                    }
+                    if(!Session::get('sess_pay_precio')) {
+                        throw new Exception('No fue posible realizar su reserva. Contacte a su Agente de Viajes Travel Club');
+                    }
+                    
+                    
                     require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
                     if ($error) {
                         throw new Exception('Error inesperado ,  ' . $pRP_msg);
                     }
                     $bloqueo = $this->loadModel('bloqueo');
-
-                    
                     
                     $objProg= $bloqueo->codigosProg(Session::get('sessRP_idPrograma'), Session::get('sessRP_rdbOpc'));
                     foreach($objProg as $objP) {
@@ -641,6 +648,9 @@ class bloqueosController extends Controller {
                     } else {
                         throw new Exception('Error de transaccion  (Codigo 31). Si el error persiste comuniquese con el administrador');
                     }
+                    
+                    
+                    
                     
                     
                 }
