@@ -503,7 +503,7 @@ class bloqueosController extends Controller {
                             $mail = $us->getCorreo($user);
                             $mail->getCorreoEjecutivo();
                             
-                            $this->mailTipoCambio('Estimados favor actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
+                            $this->mailTipoCambio('Actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
                         }
                         $precio = $precio * Session::get('sess_tcambio');
                         if($precio > 0) {

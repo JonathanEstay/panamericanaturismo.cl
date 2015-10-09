@@ -61,7 +61,7 @@
                                         </tr>-->
 
                                         <tr>
-                                            <td width="18%"><strong>N&deg; Pax</strong></td>
+                                            <td width="18%"><strong>N&deg; Pasajeros</strong></td>
                                             <td width="2%">:</td>
                                             <td width="80%"><?php echo $this->CC_nPax;  ?></td>
                                         </tr>
@@ -197,7 +197,7 @@
                                                             if($this->CC_totventa)
                                                             {
                                                             //echo Functions::formatoValor($this->CC_moneda, $this->CC_totventa) . ' + ' .Functions::formatoValor($this->CC_moneda, $this->CC_ajuste).' (Impuestos)'; 
-                                                             echo Functions::getTarifa(($this->CC_totventa + $this->CC_ajuste), $this->CC_moneda) . ' (Impuestos Incluidos)'; 
+                                                             echo Functions::getTarifa(($this->CC_totventa + $this->CC_ajuste), $this->CC_moneda); //. ' (Impuestos Incluidos)'; 
                                                             }
                                                             ?>
                                                         </td>
@@ -213,7 +213,7 @@
                                                     <tr>
                                                         <td width="25%"><strong>&nbsp;Valor Total $</strong></td>
                                                         <td width="2%">:</td>
-                                                        <td width="75%"><?php echo $valorTotal;  ?> (Impuestos Incluidos)</td>
+                                                        <td width="75%"><?php echo $valorTotal;  ?> <!--(Impuestos Incluidos)--></td>
                                                     </tr>
 
                                                 </table>
@@ -318,12 +318,12 @@
 
 
 
-                                    <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
+                                    <!--<table width="100%" border="0" align="center" cellpadding="2" cellspacing="2" class="Base">
 
                                         <tr class="TopBot">
                                             <td colspan="3">DEPARTAMENTO RESERVA</td>
                                         </tr>
-                                    </table>
+                                    </table>-->
                                     <br />	<br />
 
 
