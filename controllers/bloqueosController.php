@@ -79,7 +79,7 @@ class bloqueosController extends Controller {
         //Session::destroy('sess_BP_ciudadDes_PRG');
         $this->_view->currentMenu = 11;
         //$this->_view->procesoTerminado=false;
-        $this->_view->titulo = 'ORISTRAVEL';
+        $this->_view->titulo = 'ORISTRAVEL - PANAMERICANA';
         $this->_view->renderingSystem('bloqueos', $item);
     }
 
@@ -359,8 +359,6 @@ class bloqueosController extends Controller {
                     $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
                    
                     $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
-                    
-                    Session::set('sess_BP_Precio', $valorHab[0] + $valorHab[1] + $valorHab[2]);
 
                     $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
                     $this->_view->hotelesCNT = count($this->_view->hoteles);
@@ -485,9 +483,9 @@ class bloqueosController extends Controller {
                     
                     $precio= ($valorHab[0] + $valorHab[1] + $valorHab[2]);
                     Session::set('sess_BP_Precio', $precio);
-                    Session::set('sess_pay_precio', $precio);
                     $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
                    
+                    Session::set('sess_money_pay', $this->_view->objOpcionPrograma[0]->getMoneda());
                     if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
                         if(!Session::get('sess_tcambio')) {
                             $us = $this->loadModel('usuario');
@@ -506,11 +504,7 @@ class bloqueosController extends Controller {
                             $this->mailTipoCambio('Actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
                         }
                         $precio = $precio * Session::get('sess_tcambio');
-                        if($precio > 0) {
-                            Session::set('sess_pay_precio', $precio);
-                        } else {
-                            Session::set('sess_pay_precio', 0);
-                        }
+                        
                         if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){
                         $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ' ,&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
                         }
@@ -574,15 +568,6 @@ class bloqueosController extends Controller {
                     throw new Exception('El email no es v&aacute;lido');
                 } else {
                     
-                    
-                    if(!Session::get('sess_tcambio')) {
-                        throw new Exception('No fue posible realizar su reserva. No existe tipo de cambio.');
-                    }
-                    if(!Session::get('sess_pay_precio')) {
-                        throw new Exception('No fue posible realizar su reserva. Contacte a su Agente de Viajes Travel Club');
-                    }
-                    
-                    
                     require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
                     if ($error) {
                         throw new Exception('Error inesperado ,  ' . $pRP_msg);
@@ -602,6 +587,55 @@ class bloqueosController extends Controller {
                     
                     
                     
+                    
+                    
+                    /*##########################################################################33*/
+                    /*##########################################################################33*/
+                    /*##########################################################################33*/
+                    /*if(Session::get('sess_money_pay') == 'D') {
+                        if(Session::get('sess_tcambio') > 0) {
+                            $precio = Session::get('sess_BP_Precio') * Session::get('sess_tcambio');
+                        } else {
+                            throw new Exception('Falta tipo de cambio. Si el error persiste comuniquese con el administrador');
+                        }
+                    } else {
+                        $precio = Session::get('sess_BP_Precio');
+                    }
+                    
+                    echo $precio ; exit;*/
+                    /*$precio = 123123;//BORRAR
+                    
+                    $txtFono = ($txtFono*1);
+                    $numfile=24632; //24626 ULTIMO
+                    Session::set("sess_file", $numfile);
+                    $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
+                    $jsonModel= $this->loadModel('json');
+                    $objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
+                    foreach($objUsuario as $objU) {
+                        $json=array(
+                                "pay_user" => $objU->getUser(),
+                                "pay_pass" => $objU->getPass(),
+                                "pay_url_api" => $objU->getUrlApi(),
+                                "pay_agency_id" => $objU->getIdAgentExter(), 
+                                "pay_file" => $numfile, 
+                                "pay_amount" => $precio, 
+                                "pay_tax" => '0', 
+                                "pay_currency" => 'CLP',
+                                "pay_email" => $txtEmail,
+                                "pay_fono" => $txtFono,
+                                "pay_cod_prog" => $codigoPrograma,
+                                "pay_cod_bloq" => $codigoBloqueo);
+                        fwrite($file_json, json_encode($json));
+                        fclose($file_json);
+                        echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
+                    }
+                    exit;*/
+                    /*##########################################################################33*/
+                    /*##########################################################################33*/
+                    /*##########################################################################33*/
+                    
+                    
+                    
                     $rs = $bloqueo->H2H_CREA_FILE($sql);
 
                     if ($rs) {
@@ -609,15 +643,29 @@ class bloqueosController extends Controller {
                             if ($bloqueo->getFile($rs->getFile())) {
                                 $cantidad = $bloqueo->getDetHot($rs->getFile());
 
+                                
                                 $pasajeros = Session::get('sessRP_cntPasajeros') - 1;
                                 if ($cantidad == $pasajeros) {
                                     
                                     
+                                    if(Session::get('sess_money_pay') == 'D') {
+                                        if(Session::get('sess_tcambio') > 0) {
+                                            $precio = Session::get('sess_BP_Precio') * Session::get('sess_tcambio');
+                                        } else {
+                                            throw new Exception('Falta tipo de cambio. Si el error persiste comuniquese con el administrador');
+                                        }
+                                    } else {
+                                        $precio = Session::get('sess_BP_Precio');
+                                    }
+                                    
+                                    
+                                    if(!$precio || $precio == 0) {
+                                        throw new Exception('Error de transaccion  (Codigo 33). Si el error persiste comuniquese con el administrador');
+                                    }
                                     
                                     
                                     
                                     
-                                    //echo 'OK' . '&' . $rs->getFile() . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
                                     $txtFono = ($txtFono*1);
                                     $numfile=$rs->getFile(); //24626 ULTIMO
                                     Session::set("sess_file", $numfile);
@@ -631,7 +679,7 @@ class bloqueosController extends Controller {
                                                 "pay_url_api" => $objU->getUrlApi(),
                                                 "pay_agency_id" => $objU->getIdAgentExter(), 
                                                 "pay_file" => $numfile, 
-                                                "pay_amount" => Session::get("sess_pay_precio"), 
+                                                "pay_amount" => $precio, 
                                                 "pay_tax" => '0', 
                                                 "pay_currency" => 'CLP',
                                                 "pay_email" => $txtEmail,
