@@ -121,6 +121,7 @@ class pagoController extends Controller {
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->form = 'form';
         $this->_view->currentMenu = 11;
         $this->_view->titulo = 'ORISTRAVEL';
         
@@ -142,6 +143,7 @@ class pagoController extends Controller {
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->form = 'form';
         $this->_view->currentMenu = 11;
         $this->_view->titulo = 'ORISTRAVEL';
         
