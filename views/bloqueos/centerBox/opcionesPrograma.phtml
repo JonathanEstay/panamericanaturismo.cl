@@ -35,13 +35,13 @@ if ($this->objOpcBloqueos) {
 
                         <a data-toggle="modal" href="#myModal" 
                         onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Nota de programa', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
-                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Condiciones generales" />
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Nota de programa" />
                         </a>
 
                         <?php } if($objOpcProg->getItiVuelo()) { ?>
 
                         <a data-toggle="modal" href="#myModal" 
-                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL;?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario vuelo', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
+                        onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL;?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario de Vuelo', '<?php echo $objOpcProg->getId(); ?>','<?php echo $this->form;?>');">
                         <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos" />
                         </a>
 
@@ -163,7 +163,7 @@ if ($this->objOpcBloqueos) {
                        onClick="fadeIn('detallePopup');
                                $('#divPopupPRG').css('overflow-y', 'scroll');
                                abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosHotel', 'tituloFormPRG', 'Fotos Hotel', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
-                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='20' title='Fotos' />
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='20' title='Fotos Hotel' />
                     </a>
 
                     <a data-toggle="modal" href="#myModal" 
@@ -180,8 +180,8 @@ if ($this->objOpcBloqueos) {
 
             <?php if ($objOpcProg->getNotaOpc()) { ?>
                         <a data-toggle="modal" href="#myModal" 
-                           onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloFormPRG', 'Nota de opcion de programa', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $this->form; ?>');">
-                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Notas" title="Notas" />
+                           onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloFormPRG', 'Nota de opci&oacute;n de programa', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $this->form; ?>');">
+                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Nota de opci&oacute;n de programa" title="Nota de opci&oacute;n de programa" />
                         </a>
             <?php } ?>
                     

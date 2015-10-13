@@ -16,7 +16,18 @@ class pagoController extends Controller {
     }
 
     public function index() {
-        $this->redireccionar('system');
+        $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
+        $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
+        $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
+        $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->form = 'form';
+        $this->_view->currentMenu = 11;
+        $this->_view->titulo = 'ORISTRAVEL';
+        
+        
+       
+        $this->_view->renderingSystem('busqueda', true);  
+        Session::destroy('sess_file');
     }
 
     public function cierre($external_id=0) {
@@ -54,9 +65,9 @@ class pagoController extends Controller {
         }
     }
     
-    public function confirmarPago($ext_id) {
+    public function confirmarPago($ext_id=0) {
         if (Session::get('sess_boton_pago')) {
-            if(Session::get("sess_file") == $ext_id) {
+            if((Session::get("sess_file") && $ext_id) && (Session::get("sess_file") == $ext_id)) {
                 
                 $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $ext_id . '.json'));
 
@@ -87,7 +98,11 @@ class pagoController extends Controller {
     }
     
     public function reconfirmarPago() {
-
+        
+        if (!Session::get('sess_file')) {
+             $this->redireccionar('pago/fracaso');
+        }
+        
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . Session::get("sess_file") . '.json'));
         $url = $jsonPay->pay_url_api . 'api/checkout/orderStatus?external_id=' . $jsonPay->pay_file . '&agency_id=' . $jsonPay->pay_agency_id;
         
@@ -125,6 +140,13 @@ class pagoController extends Controller {
         $this->_view->currentMenu = 11;
         $this->_view->titulo = 'ORISTRAVEL';
         
+        
+        if (!Session::get('sess_file')) {
+            $this->_view->renderingSystem('busqueda', true);  
+            exit;
+        }
+        
+        
         $this->_view->status = Session::get('sess_status_pago');
         $this->_view->msj = Session::get('sess_msj_pago');
         
@@ -136,9 +158,10 @@ class pagoController extends Controller {
         
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
+        Session::destroy('sess_file');
     }
 
-    public function exito($external_id) {
+    public function exito($external_id=0) {
         $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
@@ -147,6 +170,9 @@ class pagoController extends Controller {
         $this->_view->currentMenu = 11;
         $this->_view->titulo = 'ORISTRAVEL';
         
+        if(!Session::get('sess_file') || !$external_id) {
+             $this->redireccionar('pago/fracaso');
+        }
         
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . base64_decode($external_id) . '.json'));
         
@@ -158,6 +184,10 @@ class pagoController extends Controller {
         $correoSend = $jsonPay->pay_email;
         $user = 'tclub';
 
+        
+        if ($jsonPay->pay_file != Session::get('sess_file')) {
+             $this->redireccionar('pago/fracaso');
+        }
         
         $M_file = $this->loadModel('reserva');
         $M_bloqueos = $this->loadModel('bloqueo');
@@ -260,6 +290,7 @@ class pagoController extends Controller {
         $this->_view->renderingSystem('exito', true);     
         Session::destroy('sess_status_pago');
         Session::destroy('sess_msj_pago');
+        Session::destroy('sess_file');
     }
 
 }

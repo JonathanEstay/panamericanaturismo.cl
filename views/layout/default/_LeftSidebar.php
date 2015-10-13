@@ -85,7 +85,7 @@ $(function()
         
         
         <li <?php if($this->currentMenu == 11){ echo 'class="hasChild open"'; } ?>>
-            <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>bloqueo.png" /></i> <span>Bloqueos</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
+            <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>bloqueo.png" /></i> <span>Salidas Confirmadas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
             <ul class="acc-menu" style="<?php if($this->currentMenu == 11){ echo 'display: block;'; }else{ echo 'display: none;'; } ?>">
                 <li style="max-height: 500px; overflow-y: scroll;">
                     <form id="frmBuscarBloqueos" method="post" action="<?php echo BASE_URL; ?>bloqueos/buscar/<?php echo $this->form;?>">
