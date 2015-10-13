@@ -506,7 +506,7 @@ class bloqueosController extends Controller {
                         $precio = $precio * Session::get('sess_tcambio');
                         
                         if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){
-                        $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ' ,&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
+                        $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ',&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
                         }
                     }
                     
@@ -570,7 +570,7 @@ class bloqueosController extends Controller {
                     
                     require_once ROOT . 'controllers' . DS . 'include' . DS . 'procesoPago.php';
                     if ($error) {
-                        throw new Exception('Error inesperado ,  ' . $pRP_msg);
+                        throw new Exception('Error inesperado, ' . $pRP_msg);
                     }
                     $bloqueo = $this->loadModel('bloqueo');
                     
