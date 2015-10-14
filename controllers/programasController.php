@@ -51,7 +51,7 @@ class programasController extends Controller
                 $sql="EXEC TS_GET_PROGRAMAS '".Session::get('sess_BP_ciudadDes_PRG')."', '', '".str_replace('/', '-', Session::get('sess_BP_fechaIn_PRG'))."' ";
             }
             Session::set('sess_TS_GET_PROGRAMAS', $sql);
-            //IDecho $sql; exit;
+            //echo $sql; exit;
             
             //Kint::dump( $programas->exeTS_GET_PROGRAMAS($sql) );
             $this->_view->objCiudadBs= $this->_ciudad->getCiudad(Session::get('sess_BP_ciudadDes_PRG'));
@@ -197,6 +197,7 @@ class programasController extends Controller
                 $this->_view->hab=$this->getJson('_HAB_');
                 $this->_view->hot=$this->getJson('_HOT_');
                 $this->_view->plan=$this->getJson('_PLAN_');
+                $this->_view->cant=$this->getJson('_CANT_');
                 $this->_view->chd1=$this->getInt('_CHD1_');
                 $this->_view->chd2= $this->getInt('_CHD2_');
                 $this->_view->pf= $this->getInt('_PF_');
@@ -232,9 +233,11 @@ class programasController extends Controller
                 
                 $this->_view->totalPago = $totalPago;
                 $this->_view->cntHab = $this->getInt('DP_cmbHab');
+                $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
                 $this->_view->hot= explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hot"))))));
                 $this->_view->hab=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hab"))))));
                 $this->_view->plan=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("plan"))))));
+                $this->_view->cant=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("cant"))))));
                 $this->_view->renderingCenterBox('detallePasajeros');
             } else {
                 throw new Exception('Debe ingresar la cantidad de habitaciones');
