@@ -1,12 +1,30 @@
-<?php //echo Session::get('sess_distribucionPax'); ?>
+<?php //echo Session::get('sess_distribucionPax');  ?>
+
+<script>
+    $(function(){
+        $('[data-toggle="popover"]').popover({
+         html : true
+    });
+    });
+</script>
+<style>
+.popover{
+    max-width: 90%; /* Max Width of the popover (depending on the container!) */
+    margin-left: -5%;
+}
+.popover-content {
+  height: 350px;
+  overflow-y: scroll;
+ }
+</style>
 <table style="width: 100%; margin-bottom: 12px;"cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" align="center">
-     <thead>
-    <tr style="background-color:#34495e; color: #FFFFFF">
-        <th style="font-size: 12px; text-align: center"> NOMBRE PROGRAMA</th>
-        <th style="font-size: 12px; text-align: center"> CIUDAD</th>
-        <th style="font-size: 12px; text-align: center"> TOTAL A PAGAR</th>
-    </tr>
-     </thead>
+    <thead>
+        <tr style="background-color:#34495e; color: #FFFFFF">
+            <th style="font-size: 12px; text-align: center"> NOMBRE PROGRAMA</th>
+            <th style="font-size: 12px; text-align: center"> CIUDAD</th>
+            <th style="font-size: 12px; text-align: center"> TOTAL A PAGAR</th>
+        </tr>
+    </thead>
     <tr >
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <?php echo Session::get('sess_nombrePrograma'); ?>
@@ -16,7 +34,7 @@
         </td>
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <label style="color: #DF5F00; font-weight: bold; font-size:20px;">
-            <?php echo Functions::formatoValor(Session::get('sess_moneda'), $this->totalPago); ?>
+                <?php echo Functions::formatoValor(Session::get('sess_moneda'), $this->totalPago); ?>
             </label><br>
         </td>
     </tr>
@@ -27,35 +45,50 @@
             Seleccion
         </div>
         <div class="panel-body">-->
-            <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
-            <thead>
-                    <tr style="background-color:#34495e; color: #FFFFFF" role="row">
-                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
-                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
-                        <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
-                    </tr>
-                </thead>
-                <?php 
-                $i=0;
-                foreach ($this->hot as $val){
-                    
-                ?>
-                <tr>
-                    <td style="height: 22px;"><?php echo $val;?></td>
-                    <td style="height: 22px;"><?php echo $this->hab[$i];?></td>
-                    <td style="height: 22px;"><?php echo $this->plan[$i];?></td>
-                </tr>
-                <?php 
-                
-                
-                
+<table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
+    <thead>
+        <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+            <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;">Categoria</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
+        </tr>
+    </thead>
+    <?php
+    $i = 0;
+    foreach ($this->hot as $val) {
+        ?>
+        <tr>
+            <td style="height: 22px;"><?php echo $val; ?></td>
+            <td style="height: 22px;">
+                <?php
+                if (strlen($this->cant[$i]) == 2) {
+                    for ($j = 1; $j <= 5; $j++) {
+                        if ($j <= substr($this->cant[$i], 0, 1)) {
+                            ?>
+                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
+                        <?php } else { ?>
+                            <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />
+                            <?php
+                        }
+                    }
+                } else {
+                    echo $this->cant[$i];
                 }
                 ?>
-            </table>
-           
+            </td>
+            <td style="height: 22px;"><?php echo $this->hab[$i]; ?></td>
+            <td style="height: 22px;"><?php echo $this->plan[$i]; ?></td>
+        </tr>
+        <?php
+        $i++;
+    }
+    ?>
+</table>
+
 <br>
-        <!--</div>
-    </div>-->
+<!--</div>
+</div>-->
 
 
 
@@ -65,111 +98,112 @@
         Informaci&oacuten de los pasajeros
         <div style="float: right">Fecha de viaje: <?php echo $this->ML_fechaIni_PRG; ?></div>
     </div>
-    
+
     <div class="panel-body">
-        
+
         <form class="frmReservarPrograma">
-            
-            
+
+
             <table class="table table-bordered table-striped" style="font-size: 11px; width: 90%;" align="center">
                 <tbody> 
-                <?php
-                    for($i = 1; $i <= $this->cntHab; $i++){  
-                    ?>
-                        <thead>
-                            <tr style="background-color:#34495e; color: #FFFFFF">
-                                <th width="100">Habitaci&oacute;n <?php echo $i ?></th>
-                                <th>Pasaporte</th>
-                                <th>Rut</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Fecha Nac</th>
-                            </tr>
-                        </thead>
-                       <?php if(Session::get('sess_DP_cmbAdultos_' . $i)) {
-                            for($j = 1; $j <= Session::get('sess_DP_cmbAdultos_' . $i); $j++) {
-                            ?>
+<?php
+for ($i = 1; $i <= $this->cntHab; $i++) {
+    ?>
+                    <thead>
+                        <tr style="background-color:#34495e; color: #FFFFFF">
+                            <th width="100">Habitaci&oacute;n <?php echo $i ?></th>
+                            <th>Pasaporte</th>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Fecha Nac</th>
+                        </tr>
+                    </thead>
+    <?php
+    if (Session::get('sess_DP_cmbAdultos_' . $i)) {
+        for ($j = 1; $j <= Session::get('sess_DP_cmbAdultos_' . $i); $j++) {
+            ?>
                             <tr>
                                 <th>
                                     Adulto
                                     <script type="text/javascript">
-                                        $(function() {
-                                            $( "#DP_txtFecha_<?php echo $i.'_'.$j?>" ).datepicker({
+                                        $(function () {
+                                            $("#DP_txtFecha_<?php echo $i . '_' . $j ?>").datepicker({
                                                 changeMonth: true,
                                                 changeYear: true,
-                                                dateFormat: 'dd/mm/yy', 
+                                                dateFormat: 'dd/mm/yy',
                                                 firstDay: 1,
                                                 yearRange: "-100:+0",
                                                 dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
                                                 monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
-                                                                    'May', 'Jun', 'Jul', 'Ago',
-                                                                    'Sep', 'Oct', 'Nov', 'Dic']
+                                                    'May', 'Jun', 'Jul', 'Ago',
+                                                    'Sep', 'Oct', 'Nov', 'Dic']
                                             });
                                         });
-                                        
+
                                         //Permitir algunos caracteres
-                                        $('#DP_txtRut_<?php echo $i.'_'.$j?>').validaCampos('0123456789.-kK');
-                                        $('#DP_txtPasaporte_<?php echo $i.'_'.$j?>').validaCampos('0123456789abcdefghijklmnñopqrstuvwxyz');
-                                        $('#DP_txtNombre_<?php echo $i.'_'.$j?>').validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                        $('#DP_txtApellido_<?php echo $i.'_'.$j?>').validaCampos('abcdefghijklmnñopqrstuvwxyz ');
-                                        $('#DP_txtFecha_<?php echo $i.'_'.$j?>').validaCampos('0123456789/');
+                                        $('#DP_txtRut_<?php echo $i . '_' . $j ?>').validaCampos('0123456789.-kK');
+                                        $('#DP_txtPasaporte_<?php echo $i . '_' . $j ?>').validaCampos('0123456789abcdefghijklmnñopqrstuvwxyz');
+                                        $('#DP_txtNombre_<?php echo $i . '_' . $j ?>').validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                        $('#DP_txtApellido_<?php echo $i . '_' . $j ?>').validaCampos('abcdefghijklmnñopqrstuvwxyz ');
+                                        $('#DP_txtFecha_<?php echo $i . '_' . $j ?>').validaCampos('0123456789/');
                                     </script>
                                 </th>
-                                <td align="center"><input type="checkbox" id="DP_chkPasaporte_<?php echo $i.'_'.$j?>" name="DP_chkPasaporte_<?php echo $i.'_'.$j?>" onclick="Programa.prototype.validaPasaporte(this.id, 'DP_txtRut_<?php echo $i.'_'.$j?>', 'DP_txtPasaporte_<?php echo $i.'_'.$j?>')"></td>
+                                <td align="center"><input type="checkbox" id="DP_chkPasaporte_<?php echo $i . '_' . $j ?>" name="DP_chkPasaporte_<?php echo $i . '_' . $j ?>" onclick="Programa.prototype.validaPasaporte(this.id, 'DP_txtRut_<?php echo $i . '_' . $j ?>', 'DP_txtPasaporte_<?php echo $i . '_' . $j ?>')"></td>
                                 <td>
-                                    <input type="text" class="form-control" style="display: block" id="DP_txtRut_<?php echo $i.'_'.$j?>" name="DP_txtRut_<?php echo $i.'_'.$j?>" maxlength="12" value="">
-                                    <input type="text" class="form-control" style="display: none" id="DP_txtPasaporte_<?php echo $i.'_'.$j?>" name="DP_txtPasaporte_<?php echo $i.'_'.$j?>" maxlength="12" value="">
+                                    <input type="text" class="form-control" style="display: block" id="DP_txtRut_<?php echo $i . '_' . $j ?>" name="DP_txtRut_<?php echo $i . '_' . $j ?>" maxlength="12" value="">
+                                    <input type="text" class="form-control" style="display: none" id="DP_txtPasaporte_<?php echo $i . '_' . $j ?>" name="DP_txtPasaporte_<?php echo $i . '_' . $j ?>" maxlength="12" value="">
                                 </td>
-                                <td><input type="text" class="form-control" id="DP_txtNombre_<?php echo $i.'_'.$j?>" name="DP_txtNombre_<?php echo $i.'_'.$j?>" value=""></td>
-                                <td><input type="text" class="form-control" id="DP_txtApellido_<?php echo $i.'_'.$j?>" name="DP_txtApellido_<?php echo $i.'_'.$j?>" value=""></td>
-                                <td><input type="text" class="form-control" id="DP_txtFecha_<?php echo $i.'_'.$j?>" name="DP_txtFecha_<?php echo $i.'_'.$j?>" maxlength="10" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtNombre_<?php echo $i . '_' . $j ?>" name="DP_txtNombre_<?php echo $i . '_' . $j ?>" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtApellido_<?php echo $i . '_' . $j ?>" name="DP_txtApellido_<?php echo $i . '_' . $j ?>" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtFecha_<?php echo $i . '_' . $j ?>" name="DP_txtFecha_<?php echo $i . '_' . $j ?>" maxlength="10" value=""></td>
                             </tr>
-                            <?php
-                            }
-                        }
+            <?php
+        }
+    }
 
-                        if(Session::get('sess_DP_cmbChild_' . $i)) {
-                            for($j = 1; $j <= Session::get('sess_DP_cmbChild_' . $i); $j++) {
-                            ?>
+    if (Session::get('sess_DP_cmbChild_' . $i)) {
+        for ($j = 1; $j <= Session::get('sess_DP_cmbChild_' . $i); $j++) {
+            ?>
                             <tr>
                                 <th>
                                     Child
                                     <script type="text/javascript">
-                                        $(function() {
-                                            $( "#DP_txtFechaC_<?php echo $i.'_'.$j?>" ).datepicker({
+                                        $(function () {
+                                            $("#DP_txtFechaC_<?php echo $i . '_' . $j ?>").datepicker({
                                                 changeMonth: true,
                                                 changeYear: true,
-                                                dateFormat: 'dd/mm/yy', 
+                                                dateFormat: 'dd/mm/yy',
                                                 firstDay: 1,
                                                 yearRange: "-100:+0",
                                                 dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
                                                 monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
-                                                                    'May', 'Jun', 'Jul', 'Ago',
-                                                                    'Sep', 'Oct', 'Nov', 'Dic']
+                                                    'May', 'Jun', 'Jul', 'Ago',
+                                                    'Sep', 'Oct', 'Nov', 'Dic']
                                             });
                                         });
-                                        
+
                                         //Permitir algunos caracteres
-                                        $('#DP_txtRutC_<?php echo $i.'_'.$j?>').validaCampos('0123456789.-kK');
-                                        $('#DP_txtNombreC_<?php echo $i.'_'.$j?>').validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                        $('#DP_txtApellidoC_<?php echo $i.'_'.$j?>').validaCampos('abcdefghijklmnñopqrstuvwxyz ');
-                                        $('#DP_txtFechaC_<?php echo $i.'_'.$j?>').validaCampos('0123456789/');
+                                        $('#DP_txtRutC_<?php echo $i . '_' . $j ?>').validaCampos('0123456789.-kK');
+                                        $('#DP_txtNombreC_<?php echo $i . '_' . $j ?>').validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                        $('#DP_txtApellidoC_<?php echo $i . '_' . $j ?>').validaCampos('abcdefghijklmnñopqrstuvwxyz ');
+                                        $('#DP_txtFechaC_<?php echo $i . '_' . $j ?>').validaCampos('0123456789/');
                                     </script>
                                 </th>
-                                <td align="center"><input type="checkbox" id="DP_chkPasaporteC_<?php echo $i.'_'.$j?>" name="DP_chkPasaporteC_<?php echo $i.'_'.$j?>" onclick="Programa.prototype.validaPasaporte(this.id, 'DP_txtRutC_<?php echo $i.'_'.$j?>', 'DP_txtPasaporteC_<?php echo $i.'_'.$j?>')"></td>
+                                <td align="center"><input type="checkbox" id="DP_chkPasaporteC_<?php echo $i . '_' . $j ?>" name="DP_chkPasaporteC_<?php echo $i . '_' . $j ?>" onclick="Programa.prototype.validaPasaporte(this.id, 'DP_txtRutC_<?php echo $i . '_' . $j ?>', 'DP_txtPasaporteC_<?php echo $i . '_' . $j ?>')"></td>
                                 <td>
-                                    <input type="text" class="form-control" style="display: block" id="DP_txtRutC_<?php echo $i.'_'.$j?>" name="DP_txtRutC_<?php echo $i.'_'.$j?>" maxlength="12" value="">
-                                    <input type="text" class="form-control" style="display: none" id="DP_txtPasaporteC_<?php echo $i.'_'.$j?>" name="DP_txtPasaporteC_<?php echo $i.'_'.$j?>" maxlength="12" value="">
+                                    <input type="text" class="form-control" style="display: block" id="DP_txtRutC_<?php echo $i . '_' . $j ?>" name="DP_txtRutC_<?php echo $i . '_' . $j ?>" maxlength="12" value="">
+                                    <input type="text" class="form-control" style="display: none" id="DP_txtPasaporteC_<?php echo $i . '_' . $j ?>" name="DP_txtPasaporteC_<?php echo $i . '_' . $j ?>" maxlength="12" value="">
                                 </td>
-                                <td><input type="text" class="form-control" id="DP_txtNombreC_<?php echo $i.'_'.$j?>" name="DP_txtNombreC_<?php echo $i.'_'.$j?>" value=""></td>
-                                <td><input type="text" class="form-control" id="DP_txtApellidoC_<?php echo $i.'_'.$j?>" name="DP_txtApellidoC_<?php echo $i.'_'.$j?>" value=""></td>
-                                <td><input type="text" class="form-control" id="DP_txtFechaC_<?php echo $i.'_'.$j?>" name="DP_txtFechaC_<?php echo $i.'_'.$j?>" maxlength="10" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtNombreC_<?php echo $i . '_' . $j ?>" name="DP_txtNombreC_<?php echo $i . '_' . $j ?>" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtApellidoC_<?php echo $i . '_' . $j ?>" name="DP_txtApellidoC_<?php echo $i . '_' . $j ?>" value=""></td>
+                                <td><input type="text" class="form-control" id="DP_txtFechaC_<?php echo $i . '_' . $j ?>" name="DP_txtFechaC_<?php echo $i . '_' . $j ?>" maxlength="10" value=""></td>
                             </tr>
-                            <?php
-                            }
-                        }
-                    }
-                ?>
+            <?php
+        }
+    }
+}
+?>
 
                 </tbody>
 
@@ -177,26 +211,27 @@
             </table>
             <br>
             <center>
-            <table>
-        <tr>
-            <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"onchange="Programa.prototype.aceptarCondiciones();" ></td>
-            <td>He leido y acepto las <a onclick="Programa.prototype.abrirCondiciones('<?php echo BASE_URL; ?>programas/programasCondiciones');">condiciones</a></td>
+                <table>
+                    <tr>
+                        <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"onchange="Programa.prototype.aceptarCondiciones();" ></td>
+                        <td>He leido y acepto las <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" 
+                   data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a></td>
 
-        </tr>
-    </table>
-        </center>
+                    </tr>
+                </table>
+            </center>
             <br>
             <center>
-                <a id="btnReservarPrograma" id="btnReservarPrograma" class="btn btn-success" onclick=" Programa.prototype.procesoEnviaFormProg('frmReservarPrograma', '<?php echo BASE_URL; ?>programas/procesoReserva', 'btnReservarPrograma', 'divPopupPRG','<?php echo $this->form;?>','<?php echo BASE_URL; ?>programas/programasCondiciones')"> RESERVAR </a>
+                <a id="btnReservarPrograma" id="btnReservarPrograma" class="btn btn-success" onclick=" Programa.prototype.procesoEnviaFormProg('frmReservarPrograma', '<?php echo BASE_URL; ?>programas/procesoReserva', 'btnReservarPrograma', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL; ?>programas/programasCondiciones')"> RESERVAR </a>
             </center>
         </form>
     </div>
 </div>
-        <script>
-        $(document).ready(function(){
-            
-            if(Programa.prototype.P_aceptar_cond){
-                $("#checkCondiciones").prop('checked', true);
-            }
-        });
-        </script> 
+<script>
+    $(document).ready(function () {
+
+        if (Programa.prototype.P_aceptar_cond) {
+            $("#checkCondiciones").prop('checked', true);
+        }
+    });
+</script> 
