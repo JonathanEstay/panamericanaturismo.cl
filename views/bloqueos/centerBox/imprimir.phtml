@@ -56,7 +56,18 @@
                                     <?php echo $this->hoteles[$i]; ?>
                                 </td>
                                 <td>
-                                    <?php echo $this->cat[$i]; ?>
+                                    <?php if (strlen($this->cat[$i]) == 2) {
+                                        for ($j = 1; $j <= 5; $j++) {
+                                            if ($j <= substr($this->cat[$i], 0, 1)) { ?>
+                                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
+                                            <?php } else { ?>
+                                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />   
+                                            <?php
+                                            }
+                                        }
+                                    } else {
+                                        echo $this->cat[$i];
+                                    } ?>
                                 </td>
                                 <td>
                                     <?php echo $this->habitacion[$i]; ?>
