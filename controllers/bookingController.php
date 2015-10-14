@@ -85,11 +85,17 @@ class bookingController extends Controller
     
     
     
-    public function voucher($numFile)
+    public function voucher($numFile=false)
     {
+        if(!$numFile) {
+            $this->redireccionar('booking');
+        }
         
         //Session::acceso('Usuario');
         $numFile = base64_decode($numFile);
+        $numFile = $numFile*1;
+        
+        
         $ruta_img= 'views/layout/' . DEFAULT_LAYOUT . '/img/';
         
         ob_start();
@@ -113,6 +119,9 @@ class bookingController extends Controller
     
     public function ver() {
         $numFile= $this->getTexto('numFile');
+        if($numFile==''){
+            $this->redireccionar('booking');
+        }
         $this->_view->numfile=$numFile;
         $this->_view->renderingCenterBox('voucher');
     }
