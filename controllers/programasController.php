@@ -129,7 +129,7 @@ class programasController extends Controller
         
         if($this->getInt('__SP_id__')) {
             $sql="EXEC TS_GET_PROGRAMAS_ID " . $this->getInt('__SP_id__');
-            //Session::set('sess_TS_GET_PROGRAMAS_ID', $sql);
+            Session::set('sess_TS_GET_PROGRAMAS_ID', $sql);
             //echo $sql; exit;
             $this->_view->objProgramas= $programas->exeTS_GET_PROGRAMAS($sql);
             
@@ -544,6 +544,29 @@ class programasController extends Controller
         } else {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
         }
+    }
+    public function imprimir($form='') {
+        
+        $programas= $this->loadModel('programa');
+        $sql = Session::get('sess_TS_GET_PROGRAMAS_ID');
+        $this->_view->objProgramas= $programas->exeTS_GET_PROGRAMAS($sql);
+        $id = $this->getTexto('varCenterBoxNota');
+        $this->_view->moneda=$this->getTexto('varCenterBoxmoneda');
+        $this->_view->sgl=$this->getTexto('varCenterBoxsgl');
+        $this->_view->dbl=$this->getTexto('varCenterBoxdbl');
+        $this->_view->tpl=$this->getTexto('varCenterBoxtpl');
+        $this->_view->chd1=$this->getTexto('varCenterBoxchd1');
+        $this->_view->chd2=$this->getTexto('varCenterBoxchd2');
+        $this->_view->pf=$this->getTexto('varCenterBoxpf');
+        $this->_view->hab = $this->getJson('varCenterBox');
+        $this->_view->hot = $this->getJson('varCenterBoxH');
+        $this->_view->plan = $this->getJson('varCenterBoxPa');
+        $this->_view->cant = $this->getJson('varCenterBoxCat');
+        
+        $this->_view->nota = $programas->getNotaOpc($id);
+        
+        $this->_view->renderingCenterBox('imprimir');
+        
     }
     
     
