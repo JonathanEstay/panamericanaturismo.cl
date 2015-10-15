@@ -564,6 +564,12 @@ class bloqueosController extends Controller {
             if (Session::get('sess_boton_pago')) { //QUITAR !
                 $txtEmail = $this->getTexto('txtEmail_pago');
                 $txtFono = $this->getTexto('txtTelefono_pago');
+                $chkCond = $this->getTexto('checkCondiciones');
+                
+                if($chkCond != 'on') {
+                    throw new Exception('Debe aceptar las condiciones.');
+                }
+                
                 if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
                     throw new Exception('El email no es v&aacute;lido');
                 } else {
@@ -666,7 +672,7 @@ class bloqueosController extends Controller {
                                     
                                     
                                     
-                                    $txtFono = ($txtFono*1);
+                                    //$txtFono = ($txtFono*1);
                                     $numfile=$rs->getFile(); //24626 ULTIMO
                                     Session::set("sess_file", $numfile);
                                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');

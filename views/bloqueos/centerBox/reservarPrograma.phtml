@@ -16,7 +16,7 @@ $(function ()
     <?php if ($this->botonPago) { ?>
     $("#txtNombre_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
     $("#txtApellidos_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-    $("#txtTelefono_pago").validaCampos('0123456789+-()');
+    $("#txtTelefono_pago").validaCampos('0123456789+-() ');
     <?php } ?>
 });
 </script>
@@ -305,7 +305,7 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
     <table>
         <tr>
             <td>
-                <label style="cursor: pointer;"><input type="checkbox" /> He leido y acepto las</label>
+                <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
                 <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
             </td>
         </tr>
