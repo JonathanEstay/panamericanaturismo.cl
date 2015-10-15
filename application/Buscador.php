@@ -84,9 +84,6 @@ class Buscador extends Controller{
     public function validaForm() {
         $form = $this->_view->getArgumentos();
         if (!$form) {
-            $form[0] = '';
-        }
-        if (!$form) {
             $form[0] = 'a';
         }
         if ($form[0] != 'form') {

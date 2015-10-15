@@ -852,7 +852,7 @@ function abrePopup(div, docPHP, idTitulo, titulo, val, form)
     });
 }
 
-function abrePopupImprimir(div, docPHP, idTitulo, titulo, val, hot,form)
+function abrePopupImprimir(div, docPHP, idTitulo, titulo, val, hot, form)
 {
     // alert('llegando');
     form = '/' + form;
@@ -868,14 +868,13 @@ function abrePopupImprimir(div, docPHP, idTitulo, titulo, val, hot,form)
             {
                 varCenterBox: val,
                 varCenterBoxH: hot,
-                
             }, function (data)
     {
         $("#" + div).html(data);
         endLoad();
     });
 }
-function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot,pa,cat,idNota,moneda ,sgl,dbl,tpl,chd1,chd2,pf,form)
+function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot, pa, cat, idNota, moneda, sgl, dbl, tpl, chd1, chd2, pf, form)
 {
     // alert('llegando');
     form = '/' + form;
@@ -891,16 +890,16 @@ function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot,pa,cat,id
             {
                 varCenterBox: val,
                 varCenterBoxH: hot,
-                varCenterBoxPa : pa,
-                varCenterBoxCat : cat,
-                varCenterBoxNota :idNota,
-                varCenterBoxmoneda:moneda,
-                varCenterBoxsgl:sgl,
-                varCenterBoxdbl:dbl,
-                varCenterBoxtpl:tpl,
-                varCenterBoxchd1:chd1,
-                varCenterBoxchd2:chd2,
-                varCenterBoxpf:pf
+                varCenterBoxPa: pa,
+                varCenterBoxCat: cat,
+                varCenterBoxNota: idNota,
+                varCenterBoxmoneda: moneda,
+                varCenterBoxsgl: sgl,
+                varCenterBoxdbl: dbl,
+                varCenterBoxtpl: tpl,
+                varCenterBoxchd1: chd1,
+                varCenterBoxchd2: chd2,
+                varCenterBoxpf: pf
             }, function (data)
     {
         $("#" + div).html(data);
@@ -933,46 +932,52 @@ function abrePopupHab(div, docPHP, idTitulo, titulo, val, hot, form)
 
 function openForm(div, docPHP, idTitulo, titulo, val, hot, form) {
 
-    var valor = $("#ValiFormLogin").val();
-
-
     form = '/' + form;
-    initLoad(valor);
-
-
-    if (valor === '1') {
-        $("#divPopupPRG").html('');
-        $("#tituloFormPRG").html(titulo);
-        $.post(docPHP + form,
-                {
-                    varCenterBox: val,
-                    varCenterBoxH: hot
-                }, function (data)
+    initLoad();
+    $.ajax({
+        url: BASE_URL_JS + CONTROLLER_JS + '/validarLogin' + form,
+        type: 'post',
+        cache: false,
+        success: function (data)
         {
-            $("#divPopupPRG").html(data);
-            endLoad();
-        });
-    } else {
 
 
-        fadeIn('loginPopup');
-        $("#divLoginIn").html('');
-
-        $.post(docPHP + form,
+            if (data === '1') {
+                $("#divPopupPRG").html('');
+                $("#tituloFormPRG").html(titulo);
+                $.post(docPHP + form,
+                        {
+                            varCenterBox: val,
+                            varCenterBoxH: hot
+                        }, function (data)
                 {
-                    varCenterBox: val,
-                    varCenterBoxH: hot
-                }, function (data)
-        {
-            $("#divLoginIn").html(data);
-            endLoad();
-
-        });
+                    $("#divPopupPRG").html(data);
+                    endLoad();
+                });
+            } else {
 
 
-    }
+                fadeIn('loginPopup');
+                $("#divLoginIn").html('');
 
+                $.post(docPHP + form,
+                        {
+                            varCenterBox: val,
+                            varCenterBoxH: hot
+                        }, function (data)
+                {
+                    $("#divLoginIn").html(data);
+                    endLoad();
+
+                });
+
+
+            }
+        }
+    });
 }
+
+
 
 function loginSide(docPHP, form) {
     form = '/' + form;

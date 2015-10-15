@@ -87,7 +87,7 @@ class bloqueosController extends Controller {
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesBlo');
     }
-
+   
     /*     * *****************************************************************************
      *                                                                              *
      *                          METODOS VIEWS CENTER BOX                            *
@@ -537,6 +537,14 @@ class bloqueosController extends Controller {
             }
         } else {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
+        }
+    }
+    
+     public function validarLogin($form=''){
+        if(Session::get('Autenticado')){
+            echo '1';
+        }else{
+            echo '0';
         }
     }
 
