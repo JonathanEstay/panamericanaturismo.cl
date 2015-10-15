@@ -50,8 +50,12 @@
                                         <tr>
                                             <td width="18%"><strong>Nombre Pasajero</strong></td>
                                             <td width="2%">:</td>
-                                            <td width="80%">
-                                                <?php  echo str_replace('/', ' ', $this->CC_nomPax);?></td>
+                                            <td width="80%"><?php  echo str_replace('/', ' ', $this->CC_nomPax);?></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="18%">&nbsp;</td>
+                                            <td width="2%">&nbsp;</td>
+                                            <td width="80%">Email: <?php echo $this->CC_email . ', &nbsp;&nbsp;Tel&eacute;fono: ' . $this->CC_fono; ?></td>
                                         </tr>
 
                                         <!--<tr>

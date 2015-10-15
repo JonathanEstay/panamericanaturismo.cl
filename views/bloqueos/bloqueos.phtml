@@ -321,15 +321,11 @@ if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '') {
     </div> <!--wrap -->
 </div> <!-- page-content -->
 <script>
-
     $(function () {
         $('[data-animation="hover"]').popover({html:true,trigger:"hover",container:"body"});
-    })
+    });
+    
     $(document).ready(function () {
-
         $("[name$='tooltip_blo']").poshytip({className: "tip-darkgray", alignY: "top"});
-
-
-
     });
 </script>
