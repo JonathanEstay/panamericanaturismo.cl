@@ -176,6 +176,14 @@ class pagoController extends Controller {
         
         $jsonPay = json_decode(file_get_contents(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . base64_decode($external_id) . '.json'));
         
+        if ($jsonPay->pay_file != Session::get('sess_file')) {
+            $this->redireccionar('pago/fracaso');
+        }
+        
+        
+        $this->_view->CC_email = $jsonPay->pay_email;
+        $this->_view->CC_fono = $jsonPay->pay_fono;
+        
         
         //Rescatando post
         $nFile = $jsonPay->pay_file; //'203598';
@@ -185,9 +193,7 @@ class pagoController extends Controller {
         $user = 'tclub';
 
         
-        if ($jsonPay->pay_file != Session::get('sess_file')) {
-             $this->redireccionar('pago/fracaso');
-        }
+        
         
         $M_file = $this->loadModel('reserva');
         $M_bloqueos = $this->loadModel('bloqueo');
