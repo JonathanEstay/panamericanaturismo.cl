@@ -32,14 +32,14 @@ if ($this->objOpcBloqueos) {
 
                         <?php } if ($objOpcProg->getNota()) { ?>
 
-                            <a data-toggle="modal" href="#myModal" 
+                            <a data-toggle="modal" style="text-decoration:none;" href="#myModal" 
                                onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/condicionesGenerales', 'tituloFormPRG', 'Nota de programa', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');">
                                 <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="24px" alt="Nota de programa" title="Nota de programa" />
                             </a>
 
                         <?php } if ($objOpcProg->getItiVuelo()) { ?>
 
-                            <a data-toggle="modal" href="#myModal" 
+                            <a data-toggle="modal" href="#myModal" style="text-decoration:none;"
                                onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/itinerarioVuelo', 'tituloFormPRG', 'Itinerario de Vuelo', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');">
                                 <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>avion.png" width="24px" alt="Itinerario de Vuelos" title="Itinerario de Vuelos" />
                             </a>
@@ -160,14 +160,14 @@ if ($this->objOpcBloqueos) {
 
 
                                 <td class="<?php echo $td_background; ?>" width="100px" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
-                                    <a data-toggle="modal" href="#myModal" 
+                                    <a data-toggle="modal" href="#myModal" style="text-decoration:none;" 
                                        onClick="fadeIn('detallePopup');
                                                $('#divPopupPRG').css('overflow-y', 'scroll');
                                                abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosHotel', 'tituloFormPRG', 'Fotos Hotel', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
                                         <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>foto.jpg" border='0' height='20' title='Fotos Hotel' />
                                     </a>
 
-                                    <a data-toggle="modal" href="#myModal" 
+                                    <a data-toggle="modal" href="#myModal" style="text-decoration:none;" 
                                        onClick="fadeIn('detallePopup');
                                                $('#divPopupPRG').css('overflow-y', 'scroll');
                                                abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/mapas', 'tituloFormPRG', 'Google Maps', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');" >
@@ -180,13 +180,13 @@ if ($this->objOpcBloqueos) {
                                     </a>-->
 
             <?php if ($objOpcProg->getNotaOpc()) { ?>
-                                        <a data-toggle="modal" href="#myModal" 
+                                        <a data-toggle="modal" href="#myModal" style="text-decoration:none;" 
                                            onClick="abrePopup('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/notas', 'tituloFormPRG', 'Nota de opci&oacute;n de programa', '<?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $this->form; ?>');">
                                             <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>nota.png" width="20px" alt="Nota de opci&oacute;n de programa" title="Nota de opci&oacute;n de programa" />
                                         </a>
             <?php } ?>
 
-                                    <a data-toggle="modal" href="#myModal" 
+                                    <a data-toggle="modal" href="#myModal" style="text-decoration:none;"
                                        onClick="fadeIn('detallePopup');
                                                abrePopupImprimir('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/imprimir', 'tituloFormPRG', 'Vista previa', ' <?php echo $objOpcProg->getIdOpc(); ?>', '<?php echo $objOpcProg->getId(); ?>', '<?php echo $this->form; ?>');" >
                                         <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>print.png" border='0' height='20' title='Imprimir' />

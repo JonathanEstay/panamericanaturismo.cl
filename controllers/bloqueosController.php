@@ -295,7 +295,7 @@ class bloqueosController extends Controller {
             Session::accForm('Usuario');
         }*/
 
-      // if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') { 
+        if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') { 
            $RP_rdbOpc = false;
             $RP_idProg = false;
             //$this->
@@ -318,80 +318,80 @@ class bloqueosController extends Controller {
 
                
                 
-                    if (WEB) {
-                        //Web
-                        $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
-                                . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaIn'), '/', '-') . "', "
-                                . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaOut'), '/', '-') . "', ";
-                    } else {
-                        //Local
-                        $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
-                                . "'" . str_replace('/', '-', Session::get('sess_BP_fechaIn')) . "', "
-                                . "'" . str_replace('/', '-', Session::get('sess_BP_fechaOut')) . "', ";
-                    }
+                if (WEB) {
+                    //Web
+                    $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
+                            . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaIn'), '/', '-') . "', "
+                            . "'" . Functions::invertirFecha(Session::get('sess_BP_fechaOut'), '/', '-') . "', ";
+                } else {
+                    //Local
+                    $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
+                            . "'" . str_replace('/', '-', Session::get('sess_BP_fechaIn')) . "', "
+                            . "'" . str_replace('/', '-', Session::get('sess_BP_fechaOut')) . "', ";
+                }
 
 
-                    $sql.= "'" . Session::get('sess_BP_hotel') . "'";
-                    for ($i = 1; $i <= 3; $i++) {
-                        $sql.= ", '" . Session::get('sess_BP_Adl_' . $i) . "', '" . Session::get('sess_BP_edadChd_1_' . $i) . "', 
-                                '" . Session::get('sess_BP_edadChd_2_' . $i) . "', '" . Session::get('sess_BP_Inf_' . $i) . "'"; //habitaciones
-                    }
+                $sql.= "'" . Session::get('sess_BP_hotel') . "'";
+                for ($i = 1; $i <= 3; $i++) {
+                    $sql.= ", '" . Session::get('sess_BP_Adl_' . $i) . "', '" . Session::get('sess_BP_edadChd_1_' . $i) . "', 
+                            '" . Session::get('sess_BP_edadChd_2_' . $i) . "', '" . Session::get('sess_BP_Inf_' . $i) . "'"; //habitaciones
+                }
 
-                   // echo $sql; exit;
-                    $this->_view->objOpcionPrograma = $bloqueo->TS_GET_BLOQUEOS_PROG_ID($sql, true);
-                    $cnt = count($this->_view->objOpcionPrograma);
-                    
-                    /* for($i=1; $i<$cnt; $i++)
-                      {
-                      echo $this->_view->objOpcionPrograma[$i]->getIdOpc();
-                      if($this->_view->objOpcionPrograma[$i]->getIdOpc() == $RP_rdbOpc)
-                      {
-                      $this->_view->objOpcionProg[]= $this->_view->objOpcionPrograma[$i];
-                      break;
-                      }
-                      } */
+               // echo $sql; exit;
+                $this->_view->objOpcionPrograma = $bloqueo->TS_GET_BLOQUEOS_PROG_ID($sql, true);
+                $cnt = count($this->_view->objOpcionPrograma);
 
-                    //Formateando valores
-                    $this->_view->fechaSalida = Functions::invertirFecha($this->_view->objOpcionPrograma[0]->getDesde(), '/', '/');
+                /* for($i=1; $i<$cnt; $i++)
+                  {
+                  echo $this->_view->objOpcionPrograma[$i]->getIdOpc();
+                  if($this->_view->objOpcionPrograma[$i]->getIdOpc() == $RP_rdbOpc)
+                  {
+                  $this->_view->objOpcionProg[]= $this->_view->objOpcionPrograma[$i];
+                  break;
+                  }
+                  } */
 
-                   
+                //Formateando valores
+                $this->_view->fechaSalida = Functions::invertirFecha($this->_view->objOpcionPrograma[0]->getDesde(), '/', '/');
 
-                    $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
-                   
-                    $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
 
-                    $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
-                    $this->_view->hotelesCNT = count($this->_view->hoteles);
 
-                     
-                    $this->_view->habitacion = $this->_view->objOpcionPrograma[0]->getTH();
-                    $this->_view->habitacionCNT = count($this->_view->habitacion);
-                    
-                    $this->_view->palim = $this->_view->objOpcionPrograma[0]->getPA();
-                    $this->_view->palimCNT = count($this->_view->palim);
-                    
-                    $this->_view->cat = $this->_view->objOpcionPrograma[0]->getCat();
-                    $this->_view->catCNT = count($this->_view->cat);
-                    
-                    $this->_view->notaOpc = $this->_view->objOpcionPrograma[0]->getNotaOpc();
+                $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
 
-                    $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+                $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
 
-                    $this->_view->incluye= $this->_view->objOpcionPrograma[0]->getIncluye();
-                    
-                    $this->_view->fDesde = $this->_view->objOpcionPrograma[0]->getDesde();
-                    $this->_view->cntNoches = $this->_view->objOpcionPrograma[0]->getNoches();
-                    
-                    $this->_view->idOpc = $this->_view->objOpcionPrograma[0]->getIdOpc();
-                    $this->_view->objItinerario = $bloqueo->getItinerarioVuelo($RP_idProg);      
-                    $this->_view->itinerario = $this->_view->objItinerario[0]->getItiVuelo();
-                    
-                    $this->_view->TipoHab = $this->_view->objOpcionPrograma[0]->getTipoHab();
-                     
-                    $this->_view->renderingCenterBox('imprimir');
-              /*  } else {
-                    throw new Exception('Existe un error en el armado de programas, favor actualize la busqueda.');
-                }*/
+                $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
+                $this->_view->hotelesCNT = count($this->_view->hoteles);
+
+
+                $this->_view->habitacion = $this->_view->objOpcionPrograma[0]->getTH();
+                $this->_view->habitacionCNT = count($this->_view->habitacion);
+
+                $this->_view->palim = $this->_view->objOpcionPrograma[0]->getPA();
+                $this->_view->palimCNT = count($this->_view->palim);
+
+                $this->_view->cat = $this->_view->objOpcionPrograma[0]->getCat();
+                $this->_view->catCNT = count($this->_view->cat);
+
+                $this->_view->notaOpc = $this->_view->objOpcionPrograma[0]->getNotaOpc();
+
+                $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+
+                $this->_view->incluye= $this->_view->objOpcionPrograma[0]->getIncluye();
+
+                $this->_view->fDesde = $this->_view->objOpcionPrograma[0]->getDesde();
+                $this->_view->cntNoches = $this->_view->objOpcionPrograma[0]->getNoches();
+
+                $this->_view->idOpc = $this->_view->objOpcionPrograma[0]->getIdOpc();
+                $this->_view->objItinerario = $bloqueo->getItinerarioVuelo($RP_idProg);      
+                $this->_view->itinerario = $this->_view->objItinerario[0]->getItiVuelo();
+
+                $this->_view->TipoHab = $this->_view->objOpcionPrograma[0]->getTipoHab();
+
+                $this->_view->renderingCenterBox('imprimir');
+            } else {
+                throw new Exception('Existe un error en el armado de programas, favor actualize la busqueda.');
+            }
             
         } else {
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
@@ -572,6 +572,12 @@ class bloqueosController extends Controller {
             if (Session::get('sess_boton_pago')) { //QUITAR !
                 $txtEmail = $this->getTexto('txtEmail_pago');
                 $txtFono = $this->getTexto('txtTelefono_pago');
+                $chkCond = $this->getTexto('checkCondiciones');
+                
+                if($chkCond != 'on') {
+                    throw new Exception('Debe aceptar las condiciones.');
+                }
+                
                 if (!Functions::validaCorreo($txtEmail)) { // AGREGAR !
                     throw new Exception('El email no es v&aacute;lido');
                 } else {
@@ -674,7 +680,7 @@ class bloqueosController extends Controller {
                                     
                                     
                                     
-                                    $txtFono = ($txtFono*1);
+                                    //$txtFono = ($txtFono*1);
                                     $numfile=$rs->getFile(); //24626 ULTIMO
                                     Session::set("sess_file", $numfile);
                                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');

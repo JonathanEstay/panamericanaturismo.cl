@@ -16,7 +16,7 @@ $(function ()
     <?php if ($this->botonPago) { ?>
     $("#txtNombre_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
     $("#txtApellidos_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-    $("#txtTelefono_pago").validaCampos('0123456789');
+    $("#txtTelefono_pago").validaCampos('0123456789+-() ');
     <?php } ?>
 });
 </script>
@@ -92,10 +92,10 @@ $(function ()
             </tr>
 
             <tr align="center">
-                <!--<td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
-                <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td>-->
-                <td><input type="text" name="txtEmail_pago" id="txtEmail_pago" class="form-control" style="width:50%;"></td>
-                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"class="form-control"style="width:50%;"></td>
+                <!-- <td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
+                <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td> -->
+                <td><input type="text" name="txtEmail_pago" id="txtEmail_pago" class="form-control" maxlength="80" style="width:50%;"></td>
+                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"class="form-control" maxlength="17" style="width:50%;"></td>
             </tr>
 
         </table>
@@ -304,13 +304,10 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
     <center>
     <table>
         <tr>
-            <td style="width: 20px;"><input type="checkbox" id="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"></td>
-            <td>He leido y acepto las 
-                <!-- <a href="#" onclick="Bloqueo.prototype.abrirCondiciones('<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones/<?php echo $this->form; ?>');">condiciones</a> -->
-                <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" 
-                   data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
+            <td>
+                <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
+                <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
             </td>
-
         </tr>
     </table>
         </center>
