@@ -541,7 +541,8 @@ class bloqueosController extends Controller {
     }
     
      public function validarLogin($form=''){
-        if(Session::get('Autenticado')){
+         
+        if(Session::get('Autenticado')|| Session::get('sess_boton_pago')){
             echo '1';
         }else{
             echo '0';
