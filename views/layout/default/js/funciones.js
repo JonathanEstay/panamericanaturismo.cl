@@ -1183,6 +1183,9 @@ $('#btnBuscarBloqueos').on('click', function ()
 
                         if ($('#mL_cmbHab').val() != 0)
                         {
+                            //abrePopup();
+                            $('#myModalSearch').modal('show'); 
+                            
                             $(document).skylo('start');
 
                             setTimeout(function () {
