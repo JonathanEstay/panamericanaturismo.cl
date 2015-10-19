@@ -223,7 +223,7 @@ Programa.prototype.procesoEnviaFormProg = function (classFrm, php, btn, div, for
                     });
 
                     //alert('TODO OK'); return false;
-                    fadeOut('detallePopup');
+                    $("#myModal2").hide();
                     $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="' + RUTA_IMG_JS + 'ok.png" width="32" border="0" /> Estamos abriendo la carta confirmaci&oacute;n, espere un momento...</div>');
                     $.post(BASE_URL_JS + CONTROLLER_JS + "/cartaConfirmacion" + form,
                             {
