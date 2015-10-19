@@ -231,3 +231,51 @@
 </header>
     
     <div id="page-container" style="min-height: 600px; min-width: 950px;">
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="modal fade" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="tituloFormSearch">&nbsp;&nbsp;</h4>
+                    </div>
+
+                    <div class="modal-body" id="divPopupSearch">
+                        
+                        <table align="center">
+                            <tr>
+                                <td align="center">
+                                    <?php if(Session::get('sess_codigo_cliente_url') == '3f7a2611ee08c6645796463e0bb1ae7f'){ ?>
+                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>logo_tc_search.png">
+                                    <?php } else { ?>
+                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>logo.jpg"><br>
+                                        <h3 style="color: #0082cb">Estamos buscando <i style="color: #ecb344; font-weight: bold;">las mejores alternativas</i> de viaje para usted.</h3>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <h3>Si no <b>viajas</b> ahora es por que no quieres... <img src="<?php echo $_layoutParams['ruta_img']; ?>avion_search.png"></h3>
+                                </td>
+                            </tr>
+                            <tr align="center">
+                                <td><img src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif"></td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <center>
+                            <a class="btn btn-primary" href="<?php echo BASE_URL . Session::get('SESS_CONTROLLER') . '/index/' . $this->form; ?>" id="btnAceptarSearch" style="display:none">Volver a reservar</a>
+                        </center>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
