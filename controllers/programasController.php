@@ -147,7 +147,7 @@ class programasController extends Controller
             
             Session::set('sess_TS_GET_DETALLEPROG', $sql);
             
-            
+            //echo $sql; exit;
             $objOpcProgramas= $programas->exeTS_GET_DETALLEPROG($sql);
             if($objOpcProgramas) {
                 if($objOpcProgramas[0]->getError()) {
@@ -201,7 +201,13 @@ class programasController extends Controller
                 $this->_view->chd1=$this->getInt('_CHD1_');
                 $this->_view->chd2= $this->getInt('_CHD2_');
                 $this->_view->pf= $this->getInt('_PF_');
+                $estado =$this->getTexto('_EST_');
+                
+                if($estado==='AVAILABLE'){
                 $this->_view->renderingCenterBox('pasajeros');
+                }else{
+                    $this->_view->renderingCenterBox('cotizacion');
+                }
                 
             } else {
                 throw new Exception('Error al cargar las opciones');
@@ -211,7 +217,82 @@ class programasController extends Controller
             throw new Exception('Error al cargar los pasajeros');
         }
     }
-    
+    public function enviarMail($form=''){
+        
+        
+        $this->_view->nom = $this->getTexto('nombreCot');
+        $this->_view->tele = $this->getTexto('telefonoCot');
+        $correoCot=$this->getTexto('correoCot');
+        $this->_view->correo = $correoCot;
+        $this->_view->hot= explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hot"))))));
+        $this->_view->hab=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("hab"))))));
+        $this->_view->plan=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("plan"))))));
+        $this->_view->cant=explode(',',str_replace(']','',str_replace('[','',str_replace('"','',str_replace('\\','', $this->getJson("cant"))))));
+        $cant =$this->getInt('DP_cmbHab');
+        $this->_view->cantHab= $cant;
+        
+        for($i=1; $i<= $cant;$i++){
+            
+            Session::set('adult_'.$i, $this->getInt('DP_cmbAdultos_'.$i));
+            Session::set('child_'.$i, $this->getInt('DP_cmbChild_'.$i));
+            Session::set('EdadChild_1_'.$i, $this->getInt('DP_EdadChild_1_'.$i));
+            Session::set('EdadChild_2_'.$i, $this->getInt('DP_EdadChild_2_'.$i));
+            
+        }
+        $this->_view->nota = $this->getTexto('rP_txtComentario');
+        
+        
+        ob_start();
+        $this->_view->renderingCenterBox('mailCotizacion');
+        $contenido = ob_get_contents();
+        ob_clean();
+        
+        $this->loadDTO('usuarioH2h');
+        $GetCorreo = $this->loadModel('programa');
+                
+        $this->getLibrary('class.phpmailer');
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->Host = trim("190.196.23.232");
+        $mail->Port = 25;
+        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->FromName = Session::get('sess_condiciones').' '.'Cotización:';
+        $mail->CharSet = CHARSET;
+        $mail->Subject = 'Solicitud de Cotización: ';
+        $mail->MsgHTML($contenido);
+
+        //$mail->AltBody = 'Su servidor de correo no soporta html';
+        
+        if(Session::get('Autenticado')){
+            
+            $correos=$GetCorreo->getCorreo(Session::get('sess_clave_usuario'),2);
+        }else{
+            if(Session::get('sess_boton_pago')){
+                $correos=$GetCorreo->getCorreo('tclub',1);
+            }else{
+                $correos=$GetCorreo->getCorreo('pan',1);
+            }
+            
+        }
+        
+        $mail->AddAddress($correos->getCorreoEjecutivo(),"");
+        $mail->AddBCC($correos->getCorreoVendedor());
+        if(!Session::get('Autenticado')){
+            $mail->AddBCC($correoCot);
+        }
+        
+        
+
+        $mail->SMTPAuth = true;
+        $mail->Username = trim("online@panamericanaturismo.cl");
+        $mail->Password = trim("Fe90934");
+        $mail->Send();
+        
+        $this->_view->renderingCenterBox('exito');
+        
+    }
+
+
     
     public function detallePasajeros($form='') {
         

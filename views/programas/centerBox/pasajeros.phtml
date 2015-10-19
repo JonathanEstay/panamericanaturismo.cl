@@ -5,20 +5,20 @@
             <div class="panel-heading">
                 Seleccion
             </div>
-            <div class="panel-body" style="padding-top: 0px;">
+            <div class="panel-body" style="padding-top: 0px; background-color: #f2f2f2;">
                 <table cellpadding="0" cellspacing="0" border="0" class="table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
                     <thead>
                         <tr style="background-color:#34495e; color: #FFFFFF" role="row">
-                            <th role="columnheader" style="padding-left: 2px;">Programa</th>
-                            <th role="columnheader" style="padding-left: 2px;">Ciudad</th>
+                            <th role="columnheader" style="padding-left: 2px;text-align: center;">Programa</th>
+                            <th role="columnheader" style="padding-left: 2px;text-align: center;">Ciudad</th>
                         </tr>
                     </thead>
                     <tr>
-                        <td style="padding: 2px; vertical-align: middle;height: 22px;width: 50%;">
-                            <?php echo Session::get('sess_nombrePrograma'); ?>
+                        <td style="padding: 2px; vertical-align: middle;height: 22px;width: 70%;">
+                            <b style="font-size:20px"><?php echo Session::get('sess_nombrePrograma'); ?></b>
                         </td>
                         <td style="padding: 2px; vertical-align: middle;height: 22px;">
-                            <?php echo Session::get('sess_ciudadPrograma'); ?>
+                            <b style="font-size:20px"><?php echo Session::get('sess_ciudadPrograma'); ?></b>
                         </td>
 
                     </tr>
@@ -28,10 +28,10 @@
                 <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px; " align='center'>
                     <thead>
                         <tr style="background-color:#34495e; color: #FFFFFF" role="row">
-                            <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
-                            <th role="columnheader" style="padding-left: 2px; height: 3px;">Categoria</th>
-                            <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
-                            <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
+                            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Hotel</th>
+                            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Categoria</th>
+                            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Tipo Habitaci&oacute;n</th>
+                            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Plan Alimenticion</th>
                         </tr>
                     </thead>
 
@@ -40,8 +40,8 @@
                     
                     foreach ($this->hot as $val) {
                         ?>
-                        <tr>
-                            <td style="height: 22px;"><?php echo $val; ?></td>
+                        <tr style="background-color: #FFFFFF;">
+                            <td style="height: 22px;width:300px;"><?php echo $val; ?></td>
                             <td style="height: 22px;">
                                 <?php
                                 if (strlen($this->cant[$i]) == 2) {

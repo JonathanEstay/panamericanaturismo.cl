@@ -1,14 +1,14 @@
 <script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyByJ-PrjAq7ZDCa8_bCGYB-hzoAJcInrug"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 <script type="text/javascript">
-    $(function(){
-        $( "[name$='tooltip_hotel']" ).poshytip({ className: "tip-darkgray", alignY : "bottom" });
+    $(function () {
+        $("[name$='tooltip_hotel']").poshytip({className: "tip-darkgray", alignY: "bottom"});
     });
 </script>
 
 
 <!-- Tooltip Detalle Hotel -->
-    <link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>tip-darkgray/tip-darkgray.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $_layoutParams['ruta_css']; ?>tip-darkgray/tip-darkgray.css" type="text/css" />
 <!-- End: Tooltip Detalle Hotel -->
 
 
@@ -23,24 +23,12 @@
 
         </div>
         <div class="container">
-            
-            
+
+
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                
-                <div id="detalleFixed" style=" position: fixed; width: 100%; height: 100%; z-index: 9999; display: none;">
-                <div class="modal-content" id="detallePopup" style=" position : absolute; left: 15%;  bottom: 6%; top:6%; right: 16%; z-index: 9999;width: 70%; display: none;">
-                    <div class="modal-header">
-                        <button type="button" class="close" id="btnCerrarIn" style="display:block" onclick="fadeOut('detallePopup');fadeOut('detalleFixed');">&times;</button>
-                        <h4 class="modal-title" id="tituloPopup">Detalle</h4>
-                    </div>
 
-                    <div class="modal-body" id="divPopupIn" style="max-height: 600px;  overflow-y: scroll;">
-                        
-                    </div>
 
-                </div>
-                </div>
-                
+
                 <div class="modal-content" id="condicionesPopup" style="position: fixed; left: 200px; top:10%; bottom: 10%; right: 210px; z-index: 9999; display: none;">
                     <div class="modal-header">
                         <button type="button" class="close" id="btnCerrarCon" style="display:block" onclick="fadeOut('condicionesPopup');">&times;</button>
@@ -48,8 +36,8 @@
                     </div>
 
                     <div class="modal-body" id="divPopupCon" style="min-height: 500px;  overflow-y: scroll;">
-                        
-                        
+
+
                     </div>
                     <!--<div class="modal-footer">
                         <center>
@@ -70,9 +58,9 @@
                         </center>
                     </div>-->
                 </div>
-                
-                
-                
+
+
+
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -84,122 +72,151 @@
 
                         <div class="modal-footer">
                             <center>
-                                <a class="btn btn-primary" href="<?php echo BASE_URL . Session::get('SESS_CONTROLLER').'/index/'.$this->form; ?>" id="btnAceptarPRG" style="display:none">Volver a reservar</a>
+                                <a class="btn btn-primary" href="<?php echo BASE_URL . Session::get('SESS_CONTROLLER') . '/index/' . $this->form; ?>" id="btnAceptarPRG" style="display:none">Volver a reservar</a>
                             </center>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-                
-                
+
+
+            </div>
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style=" top: 10%; width: 70%;" id="modalCarta">
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                            <button type="button" class="close" id="btnCerrarIn" data-dismiss="modal" style="display:block;" >&times;</button>
+                            <h4 class="modal-title" id="tituloPopup2">Detalle</h4>
+                        </div>
+
+                        <div class="modal-body" id="divPopupIn" >
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
             <div class="modal-content" id="loginPopup" style="position: fixed; left: 485px; top:30%; bottom: 10%; right: 210px; z-index: 9999;width: 500px; height: 339px;display: none;">
-                    <div class="modal-header">
-                        <button type="button" class="close" id="btnCerrarLo" style="display:block" onclick="fadeOut('loginPopup');">&times;</button>
-                        <h4 class="modal-title" id="tituloPopup">Login</h4>
-                    </div>
+                <div class="modal-header">
+                    <button type="button" class="close" id="btnCerrarLo" style="display:block" onclick="fadeOut('loginPopup');">&times;</button>
+                    <h4 class="modal-title" id="tituloPopup">Login</h4>
+                </div>
 
-                    <div class="modal-body" id="divLoginIn" style="max-height: 400px;  overflow-y: scroll;">
-                        
-                    </div>
+                <div class="modal-body" id="divLoginIn" style="max-height: 400px;  overflow-y: scroll;">
 
                 </div>
-            
-            
+
+            </div>
+
+
             <div class="row">
-                
+
                 <?php
-                $cntProg=0;
-                if($this->objProgramas) { 
-                    
+                $cntProg = 0;
+                if ($this->objProgramas) {
+
                     //foreach($this->objProgramas as $columPRG)
-                    foreach($this->objProgramas as $objProg) { 
-                        
+                    foreach ($this->objProgramas as $objProg) {
+
                         $cntProg++;
                         ?>
-                
-                <form class="frmPrograma_<?php echo $cntProg; ?>">
-                    <div class="col-md-6">
-                
-                        <div class="panel panel-primary">
-                            <div class="panel-heading" >
 
-                                <?php echo $objProg->getTitulo(); ?>
+                        <form class="frmPrograma_<?php echo $cntProg; ?>">
+                            <div class="col-md-6">
 
-                            </div>
-                            <div class="panel-body">
-                                <div class="tab-content">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" >
 
-                                    <div>
-
-                                        <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
-                                                <tr>
-                                                    <td width="210" valign="top">
-                                                        <?php 
-                                                        
-                                                        if($objProg->getImagen()) { ?>
-                                                            <img src="<?php echo $_layoutParams['ruta_programas'] . $objProg->getImagen(); ?>" width="163" class="img-thumbnail" style="margin-right: 10px;">
-                                                        <?php } else {
-                                                        ?>
-                                                        <img src="<?php echo $_layoutParams['ruta_programas']; ?>sin_foto.png" width="150" class="img-thumbnail" style="margin-right: 10px;">
-                                                        <?php } ?>
-                                                    </td>
-                                                    <td>
-                                                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width: 200px;">
-                                                            <tr>
-                                                                <td style="font-size: 12px;">
-                                                                    <?php if($objProg->getAereo()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Aereo <?php } ?>
-                                                                    <?php if($objProg->getHotel()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;"> Hotel <?php } ?>
-                                                                    <?php if($objProg->getTraslado()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Traslado <?php } ?>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td style="padding: 2px; vertical-align: middle;" align="center">
-                                                                    <label style="color: #DF5F00; font-weight: bold; font-size:30px;"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getValorDesde()); ?></label><br>
-                                                                    <a data-toggle="modal" href="#myModal" class="btn btn-success btn-sm" style="width: 88px;" onclick="fadeOut('detallePopup'); Programa.prototype.procesoDetalleProg('frmPrograma_<?php echo $cntProg; ?>','<?php echo $this->form;?>');">DETALLE</a>
-                                                                    <br>
-                                                                    <label style="font-size: 10px;">Valores desde por persona en base a habitaci&oacute;n doble</label>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" align="center">
-                                                        <b style="color:#FF9900;">Estadia:</b> <?php echo $objProg->getNoches()+1; ?> d&iacute;as / <?php echo $objProg->getNoches(); ?> noches
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                        <?php echo $objProg->getTitulo(); ?>
 
                                     </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
 
+                                            <div>
+
+                                                <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
+                                                    <tr>
+                                                        <td width="210" valign="top">
+                                                            <?php if ($objProg->getImagen()) { ?>
+                                                                <img src="<?php echo $_layoutParams['ruta_programas'] . $objProg->getImagen(); ?>" width="163" class="img-thumbnail" style="margin-right: 10px;">
+                                                            <?php } else {
+                                                                ?>
+                                                                <img src="<?php echo $_layoutParams['ruta_programas']; ?>sin_foto.png" width="150" class="img-thumbnail" style="margin-right: 10px;">
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td>
+                                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width: 200px;">
+                                                                <tr>
+                                                                    <td style="font-size: 12px;">
+        <?php if ($objProg->getAereo()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Aereo <?php } ?>
+                                                                        <?php if ($objProg->getHotel()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;"> Hotel <?php } ?>
+                                                                        <?php if ($objProg->getTraslado()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Traslado <?php } ?>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="padding: 2px; vertical-align: middle;" align="center">
+                                                                        <label style="color: #DF5F00; font-weight: bold; font-size:30px;"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getValorDesde()); ?></label><br>
+                                                                        <a data-toggle="modal" href="#myModal" class="btn btn-success btn-sm" style="width: 88px;" onclick="fadeOut('detallePopup');
+                                                                                    Programa.prototype.procesoDetalleProg('frmPrograma_<?php echo $cntProg; ?>', '<?php echo $this->form; ?>');">DETALLE</a>
+                                                                        <br>
+                                                                        <label style="font-size: 10px;">Valores desde por persona en base a habitaci&oacute;n doble</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" align="center">
+                                                            <b style="color:#FF9900;">Estadia:</b> <?php echo $objProg->getNoches() + 1; ?> d&iacute;as / <?php echo $objProg->getNoches(); ?> noches
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
-                    
-                    </div>
-                    <input type="hidden" name="__SP_id__" value="<?php echo $objProg->getId(); ?>" >
-                </form>
-                <?php } 
-                
-                } else { ?>
+                            <input type="hidden" name="__SP_id__" value="<?php echo $objProg->getId(); ?>" >
+                        </form>
+    <?php }
+} else {
+    ?>
                     <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
                         No se encontraron registros para esta busqueda.
                     </div>
-                <?php } ?>
-                
-            </div>
-            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if(!Session::get('Autenticado') || $this->form==='a' || $this->form===''){echo 'display: none;';}?>">
-                    <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px;">
-                          <table>
-                            <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario');  ?></td></tr>
-                            <tr><td>Perfil : </td><td><?php echo Session::get('level');  ?></td></tr>
-                            <!--<tr><td>Cerrar :</td><td><a href="<?php //echo BASE_URL . 'system/salir' ?>" class="text-right">Cerrar sesi&oacute;n</a></td></tr>-->
-                           </table>               
-                    </div>
+<?php } ?>
 
+            </div>
+            <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '') {
+    echo 'display: none;';
+} ?>">
+                <div class="modal-body" id="divLoginStatusIn" style="max-height: 400px; padding-top: 8px;">
+                    <table>
+                        <tr><td>Usuario :</td><td><?php echo Session::get('sess_clave_usuario'); ?></td></tr>
+                        <tr><td>Perfil : </td><td><?php echo Session::get('level'); ?></td></tr>
+                        <!--<tr><td>Cerrar :</td><td><a href="<?php //echo BASE_URL . 'system/salir'  ?>" class="text-right">Cerrar sesi&oacute;n</a></td></tr>-->
+                    </table>               
                 </div>
+
+            </div>
 
         </div> <!-- container -->
     </div> <!--wrap -->
 </div> <!-- page-content -->
+
+<script>
+    $(document).ready(function () {
+        $('#myModal2').on('hidden.bs.modal', function (e) {
+
+            $("#modalCarta").css({
+                width: '70%'
+            });
+        });
+
+    });
+</script>

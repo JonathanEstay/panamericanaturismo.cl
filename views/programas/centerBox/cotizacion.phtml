@@ -1,0 +1,258 @@
+<div class="container">
+    <form class="detalleCotizacion">
+        <div class="row">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Seleccion
+                </div>
+                <div class="panel-body" style="padding-top: 0px; background-color: #f2f2f2;">
+                    <table cellpadding="0" cellspacing="0" border="0" class="table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
+                        <thead>
+                            <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                                <th role="columnheader" style="padding-left: 2px;text-align: center;">Programa</th>
+                                <th role="columnheader" style="padding-left: 2px;text-align: center;">Ciudad</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td style="padding: 2px; vertical-align: middle;width: 70%;">
+                                <b style="font-size:20px"> <?php echo Session::get('sess_nombrePrograma'); ?></b>
+                            </td>
+                            <td style="padding: 2px; vertical-align: middle;height: 22px;">
+                                <b style="font-size:20px"><?php echo Session::get('sess_ciudadPrograma'); ?></b>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px; " align='center'>
+                        <thead>
+                            <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                                <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Hotel</th>
+                                <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Categoria</th>
+                                <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Tipo Habitaci&oacute;n</th>
+                                <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Plan Alimenticion</th>
+                            </tr>
+                        </thead>
+
+                        <?php
+                        $i = 0;
+
+                        foreach ($this->hot as $val) {
+                            ?>
+                            <tr style=" background-color: #FFFFFF;">
+                                <td style="height: 22px; width:300px;"><?php echo $val; ?></td>
+                                <td style="height: 22px;">
+                                    <?php
+                                    if (strlen($this->cant[$i]) == 2) {
+                                        for ($j = 1; $j <= 5; $j++) {
+                                            if ($j <= substr($this->cant[$i], 0, 1)) {
+                                                ?>
+                                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
+                                            <?php } else { ?>
+                                                <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />
+                                                <?php
+                                            }
+                                        }
+                                    } else {
+                                        echo $this->cant[$i];
+                                    }
+                                    ?>
+                                </td>
+                                <td style="height: 22px;"><?php echo $this->hab[$i]; ?></td>
+                                <td style="height: 22px;"><?php echo $this->plan[$i]; ?></td>
+                            </tr>
+                            <?php
+                            $i++;
+                        }
+                        ?>
+                    </table>
+                    <BR>
+                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" align="center">
+                        <tr>
+                            <td style="font-size: 12px; text-align: center"> SINGLE </td>
+                            <td style="font-size: 12px; text-align: center"> DOBLE </td>
+                            <td style="font-size: 12px; text-align: center"> TRIPLE </td>
+                            <td style="font-size: 12px; text-align: center"> CHILD 1</td>
+                            <td style="font-size: 12px; text-align: center"> CHILD 2 </td>
+                            <td style="font-size: 12px; text-align: center"> PLAN FAMILIAR </td>
+                        </tr>
+                        <tr align="center" style=" background-color: #FFFFFF;">
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_SGL')); ?></label><br>
+                            </td>
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_DBL')); ?></label><br>
+                            </td>
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_TPL')); ?></label><br>
+                            </td>
+
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php
+                                    if ($this->chd1 == 0) {
+                                        echo "--";
+                                    } else {
+                                        echo Functions::formatoValor(Session::get('sess_moneda'), $this->chd1);
+                                    }
+                                    ?></label><br>
+                            </td>
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php
+                                    if ($this->chd2 == 0) {
+                                        echo "--";
+                                    } else {
+                                        echo Functions::formatoValor(Session::get('sess_moneda'), $this->chd2);
+                                    }
+                                    ?></label><br>
+                            </td>
+                            <td style="padding: 2px; vertical-align: middle;" align="center">
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php
+                                    if ($this->pf == 0) {
+                                        echo "--";
+                                    } else {
+                                        echo Functions::formatoValor(Session::get('sess_moneda'), $this->pf);
+                                    }
+                                    ?></label><br>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            <input type="hidden" name="hot"value="<?php echo htmlspecialchars(json_encode($this->hot)); ?>">
+            <input type="hidden" name="hab"value="<?php echo htmlspecialchars(json_encode($this->hab)); ?>">
+            <input type="hidden" name="plan"value="<?php echo htmlspecialchars(json_encode($this->plan)); ?>">
+            <input type="hidden" name="cant" value="<?php echo htmlspecialchars(json_encode($this->cant)); ?>">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Datos del Contacto
+                </div>
+                <div class="panel-body" style="padding-top: 0px; background-color: #f2f2f2;">
+                    <table  class="table table-bordered" align='center'  style="margin-top: 15px;" >
+                        <thead>
+                            <tr style="color: #fff; background-color: #34495e; border-color: #2bbce0;">
+                                <th style="padding:2px;text-align: center;" >Nombre</th>
+                                <th style="padding:2px;text-align: center;">Telefono</th>
+                                <th style="padding:2px;text-align: center;">Correo</th>
+                            </tr>
+                        </thead>
+
+                        <tr align="center" style=" background-color: #FFFFFF;">
+                            <td style="height: 22px;"><input name="nombreCot" type="text" class="form-control"style="width:70%;" id="nombreCot" /></td>
+                            <td style="height: 22px;"><input name="telefonoCot" type="text" class="form-control"style="width:50%;" id="telefonoCot"/></td>
+                            <td style="height: 22px;"><input name="correoCot" type="text" class="form-control"style="width:70%;" id="correoCot"/></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class ="row">
+            <div class=" col-md-2"></div>
+            <div class=" col-md-8">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered"  align="center">
+
+                    <tr>
+                        <td><span style="padding-left:10px;">Habitaci&oacute;n:</span></td>
+                        <td>
+                            <select name="DP_cmbHab" id="DP_cmbHab" class="form-control" onchange="habitaciones('<?php echo $this->cntP; ?>_DP_tblHab_B', this.value)">
+                                <option value="0">Seleccione</option>
+                                <?php for ($i = 1; $i <= 3; $i++) { ?>
+                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+
+                            <?php for ($i = 1; $i <= 3; $i++) { ?>
+                                <div id="<?php echo $this->cntP; ?>_DP_tblHab_B_<?php echo $i; ?>" style="display:none;">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                                        <tr><td colspan="4"><b>Habitaci&oacute;n <?php echo $i; ?></b></td></tr>
+                                        <tr>
+                                            <td>Adultos</td>
+                                            <td>
+                                                <select name="DP_cmbAdultos_<?php echo $i; ?>" id="DP_cmbAdultos_<?php echo $i; ?>">
+                                                    <?php for ($x = 1; $x <= 3; $x++) { ?>
+                                                        <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                            <td>Child</td>
+                                            <td>
+                                                <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>, 'DP_EdadChild')">
+                                                    <option value="0">0</option>
+                                                    <?php if ($this->chd1 > 0) { ?>
+
+                                                        <option value="1">1</option>
+                                                    <?php } ?>
+                                                    <?php if ($this->chd2 > 0 || $this->pf > 0) { ?>
+
+                                                        <option value="2">2</option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr id="DP_edades_<?php echo $i; ?>" <?php
+                                        if ($this->chd1 == 0 && $this->chd2 == 0 && $this->pf == 0) {
+                                            echo 'style="display:none;"';
+                                        }
+                                        ?>>
+                                            <td>Edad C1</td>
+                                            <td>
+                                                <select name ="DP_EdadChild_1_<?php echo $i; ?>" id="DP_EdadChild_1_<?php echo $i; ?>"disabled="disabled">
+                                                    <?php for ($x = 2; $x <= 12; $x++) { ?>
+                                                        <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                            <td>Edad C2</td>
+                                            <td>
+                                                <select name ="DP_EdadChild_2_<?php echo $i; ?>" id="DP_EdadChild_2_<?php echo $i; ?>"disabled="disabled">
+                                                    <?php for ($x = 2; $x <= 12; $x++) { ?>
+                                                        <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <hr />
+                                </div>      
+                            <?php } ?>
+
+
+
+
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class=" col-md-2"></div>
+            <div class=" col-md-8">
+                <textarea id="rP_txtComentario" class="form-control" placeholder="Escribe un comentario..." rows="4" cols="50" name="rP_txtComentario"></textarea>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <a class="btn btn-primary btn-sm pull-right" id="botonMail"onclick="Programa.prototype.enviarMail('botonMail', '<?php echo $this->form; ?>', 'detalleCotizacion')" > Solicitar Cotizaci&oacute;n </a>
+            </div>
+        </div>
+    </form>
+</div>

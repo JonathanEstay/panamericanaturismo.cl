@@ -48,10 +48,10 @@
 <table cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" style="font-size:12px; width: 100%; margin-top: 20px;" align='center'>
     <thead>
         <tr style="background-color:#34495e; color: #FFFFFF" role="row">
-            <th role="columnheader" style="padding-left: 2px; height: 3px;">Hotel</th>
-            <th role="columnheader" style="padding-left: 2px; height: 3px;">Categoria</th>
-            <th role="columnheader" style="padding-left: 2px; height: 3px;">Tipo Habitaci&oacute;n</th>
-            <th role="columnheader" style="padding-left: 2px; height: 3px;">Plan Alimenticion</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Hotel</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Categoria</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Tipo Habitaci&oacute;n</th>
+            <th role="columnheader" style="padding-left: 2px; height: 3px;text-align: center;">Plan Alimenticion</th>
         </tr>
     </thead>
     <?php
@@ -59,7 +59,7 @@
     foreach ($this->hot as $val) {
         ?>
         <tr>
-            <td style="height: 22px;"><?php echo $val; ?></td>
+            <td style="height: 22px; width:300px;"><?php echo $val; ?></td>
             <td style="height: 22px;">
                 <?php
                 if (strlen($this->cant[$i]) == 2) {
@@ -99,7 +99,7 @@
         <div style="float: right">Fecha de viaje: <?php echo $this->ML_fechaIni_PRG; ?></div>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body"style="background-color: #f2f2f2;">
 
         <form class="frmReservarPrograma">
 
