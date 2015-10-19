@@ -600,5 +600,39 @@ class programaDAO extends Model
         $this->_db->consulta($sql);
         return true;
     }
+    public function getCorreo($user,$tabla){
+        
+        if($tabla==1){
+            
+        $sql = "SELECT correo_ejecutivo,correo_vendedor FROM usuarios_h2h WHERE usuario ='$user'";
+        
+        }else{
+            
+        $sql = "SELECT email,email_opera FROM usuarios WHERE clave ='$user'";
+        
+        }
+        $datos=$this->_db->consulta($sql);
+        $correo = false;
+        if($this->_db->numRows($datos)>0){
+            $correo = new usuarioH2hDTO();
+            $data = $this->_db->fetchAll($datos);
+            foreach ($data as $d) {
+                
+                if($tabla==='usuarios_h2h'){
+                    $correo_ejecutivo = trim($d['correo_ejecutivo']);
+                    $correo_vendedor  = trim($d['correo_vendedor']);
+                }else{
+                    $correo_ejecutivo = trim($d['email']);
+                    $correo_vendedor  = trim($d['email_opera']);
+                }
+                
+                $correo->setCorreoEjecutivo($correo_ejecutivo);
+                $correo->setCorreoVendedor($correo_vendedor);
+            }
+        }
+        
+        return $correo;
+        
+    }
     
 }

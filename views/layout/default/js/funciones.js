@@ -835,10 +835,7 @@ function muestraOculta(id, estado)
 function abrePopup(div, docPHP, idTitulo, titulo, val, form)
 {
     form = '/' + form;
-    $("#detalleFixed").delay(100).fadeIn(400);
-    $("#detalleFixed").animate({
-        'display': 'block'
-    });
+    
     initLoad();
     $("#" + div).html('');
     $("#" + idTitulo).html(titulo);
@@ -856,10 +853,7 @@ function abrePopupImprimir(div, docPHP, idTitulo, titulo, val, hot, form)
 {
     // alert('llegando');
     form = '/' + form;
-    $("#detalleFixed").delay(100).fadeIn(400);
-    $("#detalleFixed").animate({
-        'display': 'block'
-    });
+    
 
     initLoad();
     $("#" + div).html('');
@@ -878,10 +872,7 @@ function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot, pa, cat,
 {
     // alert('llegando');
     form = '/' + form;
-    $("#detalleFixed").delay(100).fadeIn(400);
-    $("#detalleFixed").animate({
-        'display': 'block'
-    });
+    
 
     initLoad();
     $("#" + div).html('');
@@ -911,10 +902,7 @@ function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot, pa, cat,
 function abrePopupHab(div, docPHP, idTitulo, titulo, val, hot, form)
 {
     form = '/' + form;
-    $("#detalleFixed").delay(100).fadeIn(400);
-    $("#detalleFixed").animate({
-        'display': 'block'
-    });
+    
 
     initLoad();
     $("#" + div).html('');
