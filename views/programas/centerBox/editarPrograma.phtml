@@ -25,7 +25,15 @@
         ]*/
      }); 
      
-     
+    $( "#chkPlanAlimento" ).click(function() {
+        if ($(this).is(':checked')) {
+            //alert(1);
+            $( "#cmbPlanAlimento" ).prop( "disabled", false );
+        } else {
+            //alert(2);
+            $( "#cmbPlanAlimento" ).prop( "disabled", true );
+        }
+    });
     </script>
     
     <div class="panel panel-info">
@@ -172,7 +180,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <form method="POST" class="frmDescripcion">
+                    <form method="POST" class="frmIncluye">
                         <table align="center">
                             <tr>
                                 <td>
@@ -204,18 +212,22 @@
                                     <div class="checkbox block">
                                         <label>
                                             <img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" />
-                                            <input type="checkbox" <?php if(isset($this->EH_rest)){ echo $this->EH_rest; } ?> name="chkEH_rest" >
-                                            <select id="cmbPlanAlimento" name="cmbPlanAlimento">
-                                                <option value="0">All Inclusive</option>
-                                                <option value="1">Media Pensi&oacute;n</option>
-                                                <option value="2">Desayuno</option>
-                                                <option value="3">Pensi&oacute;n Completa</option>
+                                            <input type="checkbox" <?php if(isset($this->EH_rest)){ echo $this->EH_rest; } ?> id="chkPlanAlimento" name="chkPlanAlimento" >
+                                            <select id="cmbPlanAlimento" name="cmbPlanAlimento" disabled>
+                                                <option value="1">All Inclusive</option>
+                                                <option value="2">Media Pensi&oacute;n</option>
+                                                <option value="3">Desayuno</option>
+                                                <option value="4">Pensi&oacute;n Completa</option>
                                             </select>
                                         </label>
                                     </div>
                                 </td>
                             </tr>
                         </table>
+                        <center>
+                            <input type="button"  id="btnGuardarIncluye" class="btn btn-primary" value="Guardar" 
+                            onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/agregarIncluye', 'btnGuardarIncluye', 'divEdit')">
+                        </center>
                     </form>
                 </div>
             </div>

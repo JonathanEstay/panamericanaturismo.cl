@@ -752,6 +752,57 @@ class programasController extends Controller
     
     
     
+    /**
+     * Metodo procesador: Modifica lo que incluye un programa.
+     * <PRE>
+     * -.Creado: 20/10/2015
+     * -.Modificado: 01/01/1900
+     * </PRE>
+     * @return String OK
+     * @author Jonathan Estay
+     */
+    public function agregarIncluye() {
+        Session::acceso('Usuario');
+        if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest'  || (Session::get('sess_browser') == 'IE9')) {
+            
+            $hotel = Functions::validaChk($this->getTexto('chkHotel'));
+            $traslado = Functions::validaChk($this->getTexto('chkTraslado'));
+            $tkt_aereo = Functions::validaChk($this->getTexto('chkTKT_Aereo'));
+            $seguro_viaje = Functions::validaChk($this->getTexto('chkSeguroViajes'));
+            
+            $plan_alim_chk = Functions::validaChk($this->getTexto('chkPlanAlimento'));
+            $plan_alim_cmb = $this->getTexto('cmbPlanAlimento');
+            
+            
+            if(!$plan_alim_chk) {
+                $plan_alim_cmb = 0;
+            }
+            
+            //echo 'PA: ' . $plan_alim_cmb;            exit;
+            
+            $programa = $this->loadModel('programa');
+            $objPrograma = $programa->getPrograma(Session::get('sessMOD_EP_codPRG'));
+
+            $st = true;
+            if($objPrograma) {
+                $st = false;
+            }
+            $programa->addServiciosIncluidos(Session::get('sessMOD_EP_codPRG'), $hotel, $traslado, $tkt_aereo, $seguro_viaje, $plan_alim_cmb, $st);
+            echo 'OK';
+            
+            
+        } else {
+            throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
+        }
+    }
+    /*
+     * End: Administracion
+     */
+    
+    
+    
+    
+    
     
     
     
