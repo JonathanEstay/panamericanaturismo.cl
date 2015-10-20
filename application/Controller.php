@@ -20,20 +20,30 @@ abstract class Controller
     
     protected function _loadLeft()
     {
+        
+       
+        
         if(substr($this->getServer('HTTP_REFERER'), 16, 22) == 'panamericanaturismo.cl' || substr($this->getServer('HTTP_REFERER'), 14, 22) == 'panamericanaturismo.cl')
         {
+            
             $cliente = explode('/', substr($this->getServer('HTTP_REFERER'), 16, strlen($this->getServer('HTTP_REFERER')))); 
             if($cliente[1]) {
+                
                 Buscador::getCliente(trim($cliente[1]));    
             }
         }
         
         
         if($this->getTexto('mL_txtFechaIn')) {
+            
             Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn'));
+            
         } else if($this->getTexto('mL_txtFechaIn_PRG')) {
+            
             Session::set('sess_fechaDefault', $this->getTexto('mL_txtFechaIn_PRG'));
+            
         } else {
+            
             Session::set('sess_fechaDefault', date('d/m/Y'));
         }
         
@@ -42,10 +52,14 @@ abstract class Controller
         
         if(!Session::get('sess_BP_fechaIn')) {
             $this->_view->ML_fechaIni =  Session::get('sess_fechaDefault');
+            
         } else {
+            
             $this->_view->ML_fechaIni =  Session::get('sess_BP_fechaIn');
         }
+        
         if(!Session::get('sess_BP_fechaOut')) {
+            
             $this->_view->ML_fechaFin=  Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 6);//Session::get('sess_fechaDefault');
         } else {
             $this->_view->ML_fechaFin= Session::get('sess_BP_fechaOut');
@@ -57,15 +71,22 @@ abstract class Controller
         
         
         if(!Session::get('sess_BP_fechaIn_PRG')) {
+            
             $this->_view->ML_fechaIni_PRG= Functions::sumFecha(Session::get('sess_fechaDefault'), 0, 3);//Session::get('sess_fechaDefault');
         } else {
+            
             $this->_view->ML_fechaIni_PRG = Session::get('sess_BP_fechaIn_PRG');
         }
         if(!Session::get('sess_BP_fechaOut_PRG')) {
+            
             $this->_view->ML_fechaFin_PRG= Session::get('sess_fechaDefault');
+            
         } else {
+            
             $this->_view->ML_fechaFin_PRG= Session::get('sess_BP_fechaOut_PRG');
+            
         }
+        
     }
     
     protected function _alert($tipo=false, $msg=false)
@@ -297,7 +318,8 @@ abstract class Controller
 
         //le decimos que queremos recoger una respuesta (si no esperas respuesta, ponlo a false)
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-
+        
+        
         $data = curl_exec($ch);
         curl_close($ch);
         

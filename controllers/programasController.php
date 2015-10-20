@@ -428,13 +428,15 @@ class programasController extends Controller
                             . '<b>Mensaje:</b> ' . $objRes->getMensaje());
                     } else {
                         Session::set('sess_numeroFile', $objRes->getFile());
-                        $param='';
+                        $param='correo=1'.'&file='.$objRes->getFile().'&programa='.Session::get('sess_codigoPrograma').'&__sucessful__=ok';
                         
                         
-                        $html= $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/'.$form);
+                        $html= $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/form');
                         
-                        //$this->getLibrary('class.phpmailer');
-                        //$this->mailReserva($n_file, $html);
+                        
+                        
+                        $this->getLibrary('class.phpmailer');
+                        $this->mailReserva($objRes->getFile(), $html);
                         echo 'OK&' .  md5(':D');
                     }
                 }
@@ -464,8 +466,8 @@ class programasController extends Controller
     public function cartaConfirmacion($form='')
     {
         $this->_view->form=$form;
-        Session::acceso('Usuario');
-        if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {
+        //Session::acceso('Usuario');
+       /* if(strtolower($this->getServer('HTTP_X_REQUESTED_WITH'))=='xmlhttprequest') {*/
             if($this->getTexto('__sucessful__')) {
                 //Cargando modelos
                 $M_file= $this->loadModel('reserva');
@@ -473,8 +475,15 @@ class programasController extends Controller
                 $pajasero = $this->loadModel('pasajero');
 
                 if(!Session::get('sess_numeroFile')) {
-                    throw new Exception('File no recibido');
+                    if($this->getInt('correo')==1){
+                        Session::set('sess_numeroFile',$this->getTexto('file'));
+                        Session::set('sess_codigoPrograma',$this->getTexto('programa'));
+                    }else{
+                    throw new Exception('File no recibido');    
+                    }
+                    
                 }
+                
 
                 $objsFile= $M_file->getFile(Session::get('sess_numeroFile'));
                 $this->_view->CC_objsDetFile= $M_file->getDetFile(Session::get('sess_numeroFile'));
@@ -512,9 +521,9 @@ class programasController extends Controller
             } else {
                 throw new Exception('Error al desplegar la carta de confirmacion, [sucessful]');
             }
-        } else {
+        /*} else {
             throw new Exception('Error al desplegar la carta de confirmacion');
-        }
+        }*/
     }
     
     
