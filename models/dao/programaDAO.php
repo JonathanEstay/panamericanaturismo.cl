@@ -600,6 +600,20 @@ class programaDAO extends Model
         $this->_db->consulta($sql);
         return true;
     }
+    
+    
+    public function addServiciosIncluidos($cod, $htl, $tra, $tkt, $seg, $pa, $nuevo = false) {
+        if ($nuevo) {
+            $sql = 'INSERT INTO h2h_PdfProg (codigo, descripcion) VALUES ("' . $cod . '", "' . str_replace('\\', '', htmlentities($desc)) . '")';
+        } else {
+            $sql = 'UPDATE h2h_PdfProg SET descripcion = "' . str_replace('\\', '', htmlentities($desc)) . '" WHERE codigo = "' . $cod . '"';
+        }
+        //echo $sql;
+        $this->_db->consulta($sql);
+        return true;
+    }
+    
+    
     public function getCorreo($user,$tabla){
         
         if($tabla==1){
