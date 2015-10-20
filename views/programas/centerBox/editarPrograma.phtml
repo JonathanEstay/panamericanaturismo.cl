@@ -162,6 +162,67 @@
         </div>
     </div>
 
+    
+    
+    <div class="panel panel-info">
+        
+        <div class="panel-heading">
+            <h4>Servicios Incluidos</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" class="frmDescripcion">
+                        <table align="center">
+                            <tr>
+                                <td>
+                                    <div class="checkbox block">
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" /><input type="checkbox" <?php if(isset($this->hotel)){ echo $this->hotel; } ?> name="chkHotel" > Hotel</label>
+                                    </div>
+                                </td>
+                                <td width="50">&nbsp;</td>
+                                <td>
+                                    <div class="checkbox block">
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->traslados)){ echo $this->traslados; } ?> name="chkTraslado" > Traslados</label>
+                                    </div>
+                                </td>
+                                <td  width="50">&nbsp;</td>
+                                <td>
+                                    <div class="checkbox block">
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->tkt_aereo)){ echo $this->tkt_aereo; } ?> name="chkTKT_Aereo" > TKT Aereo</label>
+                                    </div>
+                                </td>
+                                <td  width="50">&nbsp;</td>
+                                <td>
+                                    <div class="checkbox block">
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->seguro_viajes)){ echo $this->seguro_viajes; } ?> name="chkSeguroViajes" > Seguro de viajes</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <div class="checkbox block">
+                                        <label>
+                                            <img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" />
+                                            <input type="checkbox" <?php if(isset($this->EH_rest)){ echo $this->EH_rest; } ?> name="chkEH_rest" >
+                                            <select id="cmbPlanAlimento" name="cmbPlanAlimento">
+                                                <option value="0">All Inclusive</option>
+                                                <option value="1">Media Pensi&oacute;n</option>
+                                                <option value="2">Desayuno</option>
+                                                <option value="3">Pensi&oacute;n Completa</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
 
     <div class="panel panel-info">
         

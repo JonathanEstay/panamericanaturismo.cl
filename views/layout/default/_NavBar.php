@@ -5,7 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html;"  />
     <title><?php if(isset($this->titulo)){ echo $this->titulo; }?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <!-- Esta etiqueta le indica al navegador el ancho que debe usar para la pagina web -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta name="description" content="ORISTRAVEL">
     <meta name="author" content="The Red Team">
     
