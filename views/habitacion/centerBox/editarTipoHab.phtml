@@ -6,7 +6,7 @@
         <div class="row">
         
             <div class="col-md-12">
-            <select name="cmbCategoria" id="cmbCategoria" style="width:400px" onchange="procesoCargaDiv(this.value, 'eTH_divDetalle', '<?php echo BASE_URL; ?>habitacion/detalle')">
+            <select class="form-control" name="cmbCategoria" id="cmbCategoria" style="width:400px" onchange="procesoCargaDiv(this.value, 'eTH_divDetalle', '<?php echo BASE_URL; ?>habitacion/detalle')">
             	<option value="0">Seleccione un tipo de habitaci&oacute;n</option>
                 <?php
                 if($this->ETH_objsTipoHab)

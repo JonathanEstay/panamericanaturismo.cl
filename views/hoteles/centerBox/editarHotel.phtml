@@ -40,15 +40,15 @@
                 <table align="center">
                     <tr>
                     	<td>Nombre hotel</td>
-                        <td><input name="txtEH_nombreHotel" type="text" value="<?php echo $this->EH_hotel; ?>" /></td>
+                        <td><input class="form-control" name="txtEH_nombreHotel" type="text" value="<?php echo $this->EH_hotel; ?>" /></td>
                         <td rowspan="3" width="100"></td>
                         <td>Latitud</td>
-                        <td><input name="txtEH_latitud" type="text" value="<?php echo $this->EH_lat; ?>"  /></td>
+                        <td><input class="form-control" name="txtEH_latitud" type="text" value="<?php echo $this->EH_lat; ?>"  /></td>
                     </tr>
                     <tr>
                     	<td>Categor&iacute;a</td>
                         <td>
-                            <select name="cmbEH_categoria" style="width:100px" >
+                            <select class="form-control" name="cmbEH_categoria" style="width:100px" >
                             <?php
                             if($this->objCategorias)
                             {
@@ -76,13 +76,13 @@
                             </select>
                         </td>
                         <td>Longitud</td>
-                        <td><input name="txtEH_longitud" type="text" value="<?php echo $this->EH_lon; ?>" /></td>
+                        <td><input class="form-control" name="txtEH_longitud" type="text" value="<?php echo $this->EH_lon; ?>" /></td>
                 	</tr>
                     <tr>
                     	<td>Direcci&oacute;n</td>
-                    	<td><input name="txtEH_direc" type="text" value="<?php echo $this->EH_direc; ?>" /></td>
+                    	<td><input class="form-control" name="txtEH_direc" type="text" value="<?php echo $this->EH_direc; ?>" /></td>
                     	<td>Sitio web</td>
-                    	<td><input name="txtEH_sitioWeb" type="text" value="<?php echo $this->EH_web; ?>" /></td>
+                    	<td><input class="form-control" name="txtEH_sitioWeb" type="text" value="<?php echo $this->EH_web; ?>" /></td>
                 	</tr>
                 </table>
             </div>
