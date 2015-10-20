@@ -61,7 +61,7 @@ class Session
     {
         if(!Session::get('Autenticado'))
         {
-            header('Location: ' . BASE_URL . 'error/access/5050');
+            header('Location: ' . BASE_URL . 'error/access/8080');//antes 5050
             exit;
         }
         
@@ -70,7 +70,7 @@ class Session
         //if(Session::getLevel($level) > Session::getLevel(Session::get('level')))
         if(Session::getLevel($level) < Session::getLevel(Session::get('level')))
         {
-            header('Location: ' . BASE_URL . 'error/access/5050');
+            header('Location: ' . BASE_URL . 'error/access/8080');// antes 5050
             exit;
         }
     }
@@ -117,7 +117,7 @@ class Session
     {
         if(!Session::get('Autenticado'))
         {
-            header('Location: ' . BASE_URL . 'error/access/5050');
+            header('Location: ' . BASE_URL . 'error/access/8080'); // antes 5050
             exit;
         }
         
@@ -138,7 +138,7 @@ class Session
             }
         }
         
-        header('Location: ' . BASE_URL . 'error/access/5050');
+        header('Location: ' . BASE_URL . 'error/access/8080'); //antes 5050
         exit;
     }
     
