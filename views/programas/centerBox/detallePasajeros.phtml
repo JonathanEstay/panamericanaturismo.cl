@@ -1,21 +1,21 @@
-<?php //echo Session::get('sess_distribucionPax');  ?>
+<?php //echo Session::get('sess_distribucionPax');   ?>
 
 <script>
-    $(function(){
+    $(function () {
         $('[data-toggle="popover"]').popover({
-         html : true
-    });
+            html: true
+        });
     });
 </script>
 <style>
-.popover{
-    max-width: 90%; /* Max Width of the popover (depending on the container!) */
-    margin-left: -5%;
-}
-.popover-content {
-  height: 350px;
-  overflow-y: scroll;
- }
+    .popover{
+        max-width: 90%; /* Max Width of the popover (depending on the container!) */
+        margin-left: -5%;
+    }
+    .popover-content {
+        height: 350px;
+        overflow-y: scroll;
+    }
 </style>
 <table style="width: 100%; margin-bottom: 12px;"cellpadding="0" cellspacing="0" border="0" class=" table-striped table-bordered" align="center">
     <thead>
@@ -33,9 +33,13 @@
             <?php echo Session::get('sess_ciudadPrograma'); ?>
         </td>
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
-            <label style="color: #DF5F00; font-weight: bold; font-size:20px;">
+            <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && Session::get('sess_moneda') ==='D'){?>margin-bottom: -1px;<?php } ?>">
                 <?php echo Functions::formatoValor(Session::get('sess_moneda'), $this->totalPago); ?>
             </label><br>
+            <?php if ($this->pago && Session::get('sess_moneda') === 'D') { ?>
+                <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P', $this->totalPago * Session::get('sess_tcambio')); ?></b><br>
+            <?php } ?>
+
         </td>
     </tr>
 </table>
@@ -91,7 +95,28 @@
 </div>-->
 
 
+<?php if ($this->pago) { ?>
+        <table class=" table table-bordered">
+            <tr style="color: #fff; background-color: #34495e; border-color: #2bbce0;">
+                <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efectúa la Reserva</td>
+            </tr>
 
+            <tr align="center" style="color: #fff; background-color: #34495e; border-color: #2bbce0; padding:2px;">
+                <!--<td style="padding:2px;">Nombre</td>
+                <td style="padding:2px;">Apellidos</td>-->
+                <td style="padding:2px;">Email</td>
+                <td style="padding:2px;">Teléfono</td>
+            </tr>
+
+            <tr align="center">
+                <!-- <td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
+                <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td> -->
+                <td><input type="text" name="txtEmail_pago" id="txtEmail_pago" class="form-control" maxlength="80" style="width:50%;"></td>
+                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"class="form-control" maxlength="17" style="width:50%;"></td>
+            </tr>
+
+        </table>
+    <?php } ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
 
@@ -106,9 +131,9 @@
 
             <table class="table table-bordered table-striped" style="font-size: 11px; width: 90%;" align="center">
                 <tbody> 
-<?php
-for ($i = 1; $i <= $this->cntHab; $i++) {
-    ?>
+                    <?php
+                    for ($i = 1; $i <= $this->cntHab; $i++) {
+                        ?>
                     <thead>
                         <tr style="background-color:#34495e; color: #FFFFFF">
                             <th width="100">Habitaci&oacute;n <?php echo $i ?></th>
@@ -119,10 +144,10 @@ for ($i = 1; $i <= $this->cntHab; $i++) {
                             <th>Fecha Nac</th>
                         </tr>
                     </thead>
-    <?php
-    if (Session::get('sess_DP_cmbAdultos_' . $i)) {
-        for ($j = 1; $j <= Session::get('sess_DP_cmbAdultos_' . $i); $j++) {
-            ?>
+                    <?php
+                    if (Session::get('sess_DP_cmbAdultos_' . $i)) {
+                        for ($j = 1; $j <= Session::get('sess_DP_cmbAdultos_' . $i); $j++) {
+                            ?>
                             <tr>
                                 <th>
                                     Adulto
@@ -158,13 +183,13 @@ for ($i = 1; $i <= $this->cntHab; $i++) {
                                 <td><input type="text" class="form-control" id="DP_txtApellido_<?php echo $i . '_' . $j ?>" name="DP_txtApellido_<?php echo $i . '_' . $j ?>" value=""></td>
                                 <td><input type="text" class="form-control" id="DP_txtFecha_<?php echo $i . '_' . $j ?>" name="DP_txtFecha_<?php echo $i . '_' . $j ?>" maxlength="10" value=""></td>
                             </tr>
-            <?php
-        }
-    }
+                            <?php
+                        }
+                    }
 
-    if (Session::get('sess_DP_cmbChild_' . $i)) {
-        for ($j = 1; $j <= Session::get('sess_DP_cmbChild_' . $i); $j++) {
-            ?>
+                    if (Session::get('sess_DP_cmbChild_' . $i)) {
+                        for ($j = 1; $j <= Session::get('sess_DP_cmbChild_' . $i); $j++) {
+                            ?>
                             <tr>
                                 <th>
                                     Child
@@ -199,11 +224,11 @@ for ($i = 1; $i <= $this->cntHab; $i++) {
                                 <td><input type="text" class="form-control" id="DP_txtApellidoC_<?php echo $i . '_' . $j ?>" name="DP_txtApellidoC_<?php echo $i . '_' . $j ?>" value=""></td>
                                 <td><input type="text" class="form-control" id="DP_txtFechaC_<?php echo $i . '_' . $j ?>" name="DP_txtFechaC_<?php echo $i . '_' . $j ?>" maxlength="10" value=""></td>
                             </tr>
-            <?php
-        }
-    }
-}
-?>
+                            <?php
+                        }
+                    }
+                }
+                ?>
 
                 </tbody>
 
@@ -215,14 +240,14 @@ for ($i = 1; $i <= $this->cntHab; $i++) {
                     <tr>
                         <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"onchange="Programa.prototype.aceptarCondiciones();" ></td>
                         <td>He leido y acepto las <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" 
-                   data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a></td>
+                                                     data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a></td>
 
                     </tr>
                 </table>
             </center>
             <br>
             <center>
-                <a id="btnReservarPrograma" id="btnReservarPrograma" class="btn btn-success" onclick=" Programa.prototype.procesoEnviaFormProg('frmReservarPrograma', '<?php echo BASE_URL; ?>programas/procesoReserva', 'btnReservarPrograma', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL; ?>programas/programasCondiciones')"> RESERVAR </a>
+                <a id="btnReservarPrograma" id="btnReservarPrograma" class="btn btn-success" onclick=" Programa.prototype.procesoEnviaFormProg('frmReservarPrograma', '<?php echo BASE_URL; ?>programas/procesoReserva', 'btnReservarPrograma', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL; ?>programas/programasCondiciones')"> <?php echo $this->boton; ?> </a>
             </center>
         </form>
     </div>

@@ -44,6 +44,52 @@ class programaDTO
     private $_cat_estrella;
     private $_iata;
     private $_tramo;
+    private $_pbhotel;
+    private $_pdtraslados;
+    private $_pdaereo;
+    private $_pdseguro;
+    private $_pdplana;
+    
+    
+    public function setPbhotel($p){
+        $this->_pbhotel = $p ;
+    }
+    
+    public function getPbhotel(){
+        return $this->_pbhotel ;
+    }
+    
+    public function setPdtraslados($p){
+        $this->_pdtraslados = $p ;
+    }
+    
+    public function getPdtraslados(){
+        return $this->_pdtraslados ;
+    }
+    
+    public function setPdaereo($p){
+        $this->_pdaereo = $p ;
+    }
+    
+    public function getPdaereo(){
+        return $this->_pdaereo ;
+    }
+    
+    public function setPdseguro($p){
+        $this->_pdseguro = $p ;
+    }
+    
+    public function getPdseguro(){
+        return $this->_pdseguro ;
+    }
+    
+    public function setPdplana($p){
+        $this->_pdplana = $p ;
+    }
+    
+    public function getPdplana(){
+        return $this->_pdplana ;
+    }
     
     public function setTramo($t){
         $this->_tramo = $t;

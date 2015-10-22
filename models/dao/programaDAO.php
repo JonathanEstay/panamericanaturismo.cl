@@ -428,6 +428,31 @@ class programaDAO extends Model
                 $objProg->setNota(trim($progDB['nota']));
                 $objProg->setIncluye(str_replace("<br />", "<br /><span style='color:#008ccc;'>&bull;</span> ", trim($progDB['incluye'])));
                 $objProg->setDescrip(html_entity_decode(trim($progDB['descrip'])));
+                $objProg->setPbhotel(1);//trim($progDB['pdHotel'])
+                $objProg->setPdaereo(1);//trim($progDB['pdAereo'])
+                $plan = '3'; //$progDB['pdPlana']
+                
+                if($plan==='1'){
+                    
+                    $plan='All Inclusive';
+                }
+                if($plan==='2'){
+                    
+                    $plan='Media Pension';
+                }
+                if($plan==='3'){
+                    
+                    $plan='Desayuno';
+                }
+                if($plan==='4'){
+                    
+                    $plan='Pension Completa';
+                }
+                
+                $objProg->setPdplana($plan);
+                $objProg->setPdseguro(1);//trim($progDB['pdSeguro'])
+                $objProg->setPdtraslados(1);//trim($progDB['pdTraslados'])
+                
                 
                 if(isset($progDB['CatEstrella'])) {
                     $objProg->setCatEstrella(trim($progDB['CatEstrella']));
