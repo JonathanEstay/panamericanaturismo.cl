@@ -93,20 +93,24 @@ class systemController extends Controller
      * <PRE>
      * -.Creado: 19/05/2015
      * -.Modificado: 20/05/2015 (Sergio Orellana)
+     * -.Modificado: 22/10/2015 (Jonathan Estay)
      * </PRE>
      * @author: Jonathan Estay
      */
-    public function salir()
+    public function salir($location = true)
     {
         $arraySess = array('Autenticado', 'sess_key_', 'sess_ip', 'sess_fechaLogin', 
                             'sess_clave_usuario','sess_nombre',
                             'sess_cod_ven','sess_dctod','sess_dctoh','sess_agencia',
                             'sess_id_agen','sess_markup','sess_fecpass','sess_depto',
                             'sess_atipoa','sess_firma','sess_rut','sess_email','sess_email_opera',
-                            'level','tiempo','sess_sp_acceso');
+                            'level','tiempo','sess_sp_acceso', 'sess_codigo_cliente_url');
         Session::destroy($arraySess);
-        header('Location: ' . BASE_URL . 'login?ex');
-        exit;
+        
+        if($location) {
+            header('Location: ' . BASE_URL . 'login?ex');
+            exit;
+        }
     }
 }
 ?>
