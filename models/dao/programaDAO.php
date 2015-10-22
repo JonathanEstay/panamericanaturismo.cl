@@ -629,9 +629,17 @@ class programaDAO extends Model
     
     public function addServiciosIncluidos($cod, $htl, $tra, $tkt, $seg, $pa, $nuevo = false) {
         if ($nuevo) {
-            $sql = 'INSERT INTO h2h_PdfProg (codigo, descripcion) VALUES ("' . $cod . '", "' . str_replace('\\', '', htmlentities($desc)) . '")';
+            $sql = 'INSERT INTO h2h_PdfProg '
+                    . '(codigo, hotel, traslados, tkt_aereo, seguro_viaje, plan_alim) VALUES '
+                    . '("' . $cod . '", "' . $htl . '", "' . $tra . '", "' . $tkt . '", "' . $seg . '", "' . $pa . '")';
         } else {
-            $sql = 'UPDATE h2h_PdfProg SET descripcion = "' . str_replace('\\', '', htmlentities($desc)) . '" WHERE codigo = "' . $cod . '"';
+            $sql = 'UPDATE h2h_PdfProg '
+                    . 'SET hotel = "' . $htl . '", '
+                    . 'traslados = "' . $tra . '", '
+                    . 'tkt_aereo = "' . $tkt . '", '
+                    . 'seguro_viaje = "' . $seg . '", '
+                    . 'plan_alim = "' . $pa . '" '
+                    . 'WHERE codigo = "' . $cod . '"';
         }
         //echo $sql;
         $this->_db->consulta($sql);
