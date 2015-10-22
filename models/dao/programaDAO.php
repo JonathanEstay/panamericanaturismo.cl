@@ -428,9 +428,9 @@ class programaDAO extends Model
                 $objProg->setNota(trim($progDB['nota']));
                 $objProg->setIncluye(str_replace("<br />", "<br /><span style='color:#008ccc;'>&bull;</span> ", trim($progDB['incluye'])));
                 $objProg->setDescrip(html_entity_decode(trim($progDB['descrip'])));
-                $objProg->setPbhotel(1);//trim($progDB['pdHotel'])
-                $objProg->setPdaereo(1);//trim($progDB['pdAereo'])
-                $plan = '3'; //$progDB['pdPlana']
+                $objProg->setPbhotel(trim($progDB['pdHotel']));//
+                $objProg->setPdaereo(trim($progDB['pdAereo']));//
+                $plan = trim($progDB['pdPlana']); 
                 
                 if($plan==='1'){
                     
@@ -450,8 +450,8 @@ class programaDAO extends Model
                 }
                 
                 $objProg->setPdplana($plan);
-                $objProg->setPdseguro(1);//trim($progDB['pdSeguro'])
-                $objProg->setPdtraslados(1);//trim($progDB['pdTraslados'])
+                $objProg->setPdseguro(trim($progDB['pdSeguro']));//
+                $objProg->setPdtraslados(trim($progDB['pdTraslados']));//
                 
                 
                 if(isset($progDB['CatEstrella'])) {
@@ -607,6 +607,11 @@ class programaDAO extends Model
                 //$obj = new detalleProgramaDTO();
                 //$obj->setFile(trim($objDB['descripcion']));
                 $objetos[] = trim($objDB['descripcion']);
+                $objetos[] = trim($objDB['hotel']);
+                $objetos[] = trim($objDB['traslados']);
+                $objetos[] = trim($objDB['tkt_aereo']);
+                $objetos[] = trim($objDB['seguro_viaje']);
+                $objetos[] = trim($objDB['plan_alim']);
             }
 
             return $objetos;

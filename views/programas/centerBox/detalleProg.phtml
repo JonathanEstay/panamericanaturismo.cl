@@ -61,11 +61,11 @@
                                     <b style="color:#FF9900;">PAIS:</b> <?php echo $this->objProgramas[0]->getPais(); ?>, 
                                     <b style="color:#FF9900; margin-left: 10px;">CIUDAD:</b> <?php echo $this->objProgramas[0]->getCiudad(); ?> 
                                     <label style="margin-right: 30px;">&nbsp;</label>
-                                    <?php if ($this->objProgramas[0]->getPdaereo()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Aereo"><?php } ?>
-                                    <?php if ($this->objProgramas[0]->getPbhotel()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Hotel">  <?php } ?>
-                                    <?php if ($this->objProgramas[0]->getPdtraslados()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Traslado">  <?php } ?>
-                                    <?php if ($this->objProgramas[0]->getPdplana()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="<?php echo $this->objProgramas[0]->getPdplana();?>">  <?php } ?>
-                                    <?php if ($this->objProgramas[0]->getPdseguro()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Seguro">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPbhotel()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>hotel_ico.jpg" width="16" style="margin-left:5px;" title="Hotel">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdtraslados()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>transfer_ico.jpg" width="16" style="margin-left:5px;" title="Traslado">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdaereo()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>avion_ico.jpg" width="16" style="margin-left:5px;" title="Aereo"><?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdseguro()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>seguro_ico.jpg" width="16" style="margin-left:5px;" title="Seguro">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdplana()) { ?><img name="tooltip_pro" src="<?php if($this->objProgramas[0]==='Desayuno'){ echo $_layoutParamsCB['ruta_img']; ?>desayuno_ico.jpg<?php }else{ echo $_layoutParamsCB['ruta_img']; ?>comida_ico.jpg<?php } ?>" width="16" style="margin-left:5px;" title="<?php echo $this->objProgramas[0]->getPdplana();?>">  <?php } ?>
                                 </P>
                             </td>
                         </tr>

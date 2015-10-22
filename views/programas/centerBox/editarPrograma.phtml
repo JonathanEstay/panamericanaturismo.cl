@@ -185,25 +185,25 @@
                             <tr>
                                 <td>
                                     <div class="checkbox block">
-                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" /><input type="checkbox" <?php if(isset($this->hotel)){ echo $this->hotel; } ?> name="chkHotel" > Hotel</label>
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" /><input type="checkbox" <?php if($this->hotel){ echo 'checked'; } ?> name="chkHotel" > Hotel</label>
                                     </div>
                                 </td>
                                 <td width="50">&nbsp;</td>
                                 <td>
                                     <div class="checkbox block">
-                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->traslados)){ echo $this->traslados; } ?> name="chkTraslado" > Traslados</label>
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if($this->traslados){ echo 'checked'; } ?> name="chkTraslado" > Traslados</label>
                                     </div>
                                 </td>
                                 <td  width="50">&nbsp;</td>
                                 <td>
                                     <div class="checkbox block">
-                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->tkt_aereo)){ echo $this->tkt_aereo; } ?> name="chkTKT_Aereo" > TKT Aereo</label>
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if($this->tkt_aereo){ echo 'checked'; } ?> name="chkTKT_Aereo" > TKT Aereo</label>
                                     </div>
                                 </td>
                                 <td  width="50">&nbsp;</td>
                                 <td>
                                     <div class="checkbox block">
-                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if(isset($this->seguro_viajes)){ echo $this->seguro_viajes; } ?> name="chkSeguroViajes" > Seguro de viajes</label>
+                                        <label><img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>lavanderia.jpg" /><input type="checkbox" <?php if($this->seguro_viajes){ echo 'checked'; } ?> name="chkSeguroViajes" > Seguro de viajes</label>
                                     </div>
                                 </td>
                             </tr>
@@ -212,12 +212,12 @@
                                     <div class="checkbox block">
                                         <label>
                                             <img src="<?php echo $_layoutParamsCB['ruta_iconos_hotel']; ?>restaurant.jpg" />
-                                            <input type="checkbox" <?php if(isset($this->EH_rest)){ echo $this->EH_rest; } ?> id="chkPlanAlimento" name="chkPlanAlimento" >
-                                            <select id="cmbPlanAlimento" name="cmbPlanAlimento" disabled>
-                                                <option value="1">All Inclusive</option>
-                                                <option value="2">Media Pensi&oacute;n</option>
-                                                <option value="3">Desayuno</option>
-                                                <option value="4">Pensi&oacute;n Completa</option>
+                                            <input type="checkbox" <?php if($this->EH_rest>0){ echo 'checked'; } ?> id="chkPlanAlimento" name="chkPlanAlimento" >
+                                            <select id="cmbPlanAlimento" name="cmbPlanAlimento" <?php if($this->EH_rest==0){ echo 'disabled'; }?>>
+                                                <option value="1" <?php if($this->EH_rest==1) {echo 'selected';}?>>All Inclusive</option>
+                                                <option value="2" <?php if($this->EH_rest==2) {echo 'selected';}?>>Media Pensi&oacute;n</option>
+                                                <option value="3" <?php if($this->EH_rest==3) {echo 'selected';}?>>Desayuno</option>
+                                                <option value="4" <?php if($this->EH_rest==4) {echo 'selected';}?>>Pensi&oacute;n Completa</option>
                                             </select>
                                         </label>
                                     </div>
@@ -226,7 +226,7 @@
                         </table>
                         <center>
                             <input type="button"  id="btnGuardarIncluye" class="btn btn-primary" value="Guardar" 
-                            onclick="Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/agregarIncluye', 'btnGuardarIncluye', 'divEdit')">
+                            onclick="tinyMCE.triggerSave();Programa.prototype.methodSend(this.form, '<?php echo BASE_URL ?>programas/agregarIncluye', 'btnGuardarIncluye', 'divEdit')">
                         </center>
                     </form>
                 </div>
