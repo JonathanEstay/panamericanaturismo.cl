@@ -49,6 +49,52 @@ class bloqueoDTO
     private $_chd2;
     private $_file;
     
+    private $_pdhotel;
+    private $_pdtraslados;
+    private $_pdtkt_aereo;
+    private $_pdseguro;
+    private $_pdplan;
+    
+    public function getPdhotel(){
+        return $this->_pdhotel;
+    }
+    
+    public function setPdhotel($f){
+        $this->_pdhotel=$f;
+    }
+    
+    public function getPdtraslados(){
+        return $this->_pdtraslados;
+    }
+    
+    public function setPdtraslados($f){
+        $this->_pdtraslados=$f;
+    }
+    
+    public function getPdtkt_aereo(){
+        return $this->_pdtkt_aereo;
+    }
+    
+    public function setPdtkt_aereo($f){
+        $this->_pdtkt_aereo=$f;
+    }
+    
+    public function getPdseguro(){
+        return $this->_pdseguro;
+    }
+    
+    public function setPdseguro($f){
+        $this->_pdseguro=$f;
+    }
+    
+    public function setPdplan($f){
+        $this->_pdplan=$f;
+    }
+    
+    
+    public function getPdplan(){
+        return $this->_pdplan;
+    }
     
     public function getFile(){
         return $this->_file;

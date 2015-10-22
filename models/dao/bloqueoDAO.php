@@ -38,9 +38,9 @@ class bloqueoDAO extends Model {
         $sql = 'SELECT nompax, rut, CONVERT(Nvarchar(10), fchild,103) as fchild, ninfant, rut_inf, CONVERT(Nvarchar(10), finfant, 103) as finfant, '
                 . 'tp, tipo_pax, CONVERT(Nvarchar(10), fecha_pag, 103) as fecha_pag, horarobot '
                 . 'FROM det_bloq '
-                . 'WHERE record_c = "'. $codBloq . '" and num_file = ' . $nFile;
-        
-        
+                . 'WHERE record_c = "' . $codBloq . '" and num_file = ' . $nFile;
+
+
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
             $objetosDetBloq = array();
@@ -196,6 +196,30 @@ class bloqueoDAO extends Model {
                     $objPackages->setItiVuelo(trim($packDB['itinerarioVuelo']));
                     $objPackages->setPrecioDesde(trim($packDB['precio_desde']));
 
+                    $objPackages->setPdhotel(trim($packDB['pdhotel']));//
+                    $objPackages->setPdtraslados(trim($packDB['pdtraslados']));//
+                    $objPackages->setPdtkt_aereo(trim($packDB['pdtkt_aereo']));//
+                    $objPackages->setPdseguro(trim($packDB['pdseguro_viaje']));//
+                    
+                    $plan = trim(trim($packDB['pdplan_alim'])); 
+                    if ($plan === '1') {
+
+                        $plan = 'All Inclusive';
+                    }
+                    if ($plan === '2') {
+
+                        $plan = 'Media Pension';
+                    }
+                    if ($plan === '3') {
+
+                        $plan = 'Desayuno';
+                    }
+                    if ($plan === '4') {
+
+                        $plan = 'Pension Completa';
+                    }
+
+                    $objPackages->setPdplan($plan);
 
 
                     $ext = Functions::getExtensionImagen(ROOT . 'public' . DS . 'img' . DS . 'programas' . DS . 'upl_' . str_replace(' ', '_', trim($packDB['codigoPRG'])));
@@ -437,11 +461,11 @@ class bloqueoDAO extends Model {
                     $objPackages->setCat($cat);
                     $objPackages->setCiudad($ciudad);
                     /* HOTELES */
-                    
-                     if ($inc) {
+
+                    if ($inc) {
                         $incluye[] = $this->getIncluye(trim($packDB['idPRG']));
                         $objPackages->setIncluye($incluye);
-                     }
+                    }
                 }
 
                 $objetosPack[] = $objPackages;
@@ -583,7 +607,6 @@ class bloqueoDAO extends Model {
         return $mensaje;
     }
 
-    
     public function getFile($numFile) {
         $sql = "SELECT * FROM file_ WHERE num_file=$numFile";
         $data = $this->_db->consulta($sql);
@@ -594,8 +617,7 @@ class bloqueoDAO extends Model {
             return false;
         }
     }
-    
-    
+
     public function codigosProg($idProg, $idBloq) {
         $sql = 'SELECT TOP 1 P.codigo, PO.record_c
                 FROM h2h_programaOpc PO
@@ -603,25 +625,22 @@ class bloqueoDAO extends Model {
                 WHERE PO.IdOpc = ' . $idBloq;
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
-            
+
             $objetosBloqueos = array();
             $arrayCod = $this->_db->fetchAll($datos);
             $objBloq = new bloqueoDTO();
-            
+
             foreach ($arrayCod as $bloq) {
-                
+
                 $objBloq->setCodigo(trim($bloq['codigo']));
                 $objBloq->setRecordC(trim($bloq['record_c']));
-                
+
                 $objetosBloqueos[] = $objBloq;
             }
             return $objetosBloqueos;
         }
         return false;
     }
-    
-    
-    
 
     public function getDetHot($numFile) {
 
@@ -637,17 +656,17 @@ class bloqueoDAO extends Model {
             return false;
         }
     }
-    
-    public function getRecodC($idProg,$IdOpcion){
-        
-        $sql="SELECT record_c FROM h2h_ProgramaOpc WHERE IdProg =$idProg AND IdOpc=$IdOpcion";
-        $id=false;
-        
-        $dato=$this->_db->consulta($sql);
-        
-        if($this->_db->numRows($dato)){
-            
-            $id=$this->_db->fetchAll($dato);
+
+    public function getRecodC($idProg, $IdOpcion) {
+
+        $sql = "SELECT record_c FROM h2h_ProgramaOpc WHERE IdProg =$idProg AND IdOpc=$IdOpcion";
+        $id = false;
+
+        $dato = $this->_db->consulta($sql);
+
+        if ($this->_db->numRows($dato)) {
+
+            $id = $this->_db->fetchAll($dato);
         }
         return $id;
     }
