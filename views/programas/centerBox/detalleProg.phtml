@@ -61,9 +61,11 @@
                                     <b style="color:#FF9900;">PAIS:</b> <?php echo $this->objProgramas[0]->getPais(); ?>, 
                                     <b style="color:#FF9900; margin-left: 10px;">CIUDAD:</b> <?php echo $this->objProgramas[0]->getCiudad(); ?> 
                                     <label style="margin-right: 30px;">&nbsp;</label>
-                                    <?php if ($this->objProgramas[0]->getAereo()) { ?><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Aereo <?php } ?>
-                                    <?php if ($this->objProgramas[0]->getHotel()) { ?><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;"> Hotel <?php } ?>
-                                    <?php if ($this->objProgramas[0]->getTraslado()) { ?><img src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Traslado <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdaereo()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Aereo"><?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPbhotel()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Hotel">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdtraslados()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Traslado">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdplana()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="<?php echo $this->objProgramas[0]->getPdplana();?>">  <?php } ?>
+                                    <?php if ($this->objProgramas[0]->getPdseguro()) { ?><img name="tooltip_pro" src="<?php echo $_layoutParamsCB['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Seguro">  <?php } ?>
                                 </P>
                             </td>
                         </tr>
@@ -380,7 +382,12 @@
 
 
 </div>
-
+<script>
+$(document).ready(function(){
+    
+    $("[name$='tooltip_pro']").poshytip({className: "tip-darkgray", alignY: "top"});
+});
+</script>
 
 
 
