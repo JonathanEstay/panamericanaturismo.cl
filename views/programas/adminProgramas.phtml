@@ -194,3 +194,11 @@
         </div> <!-- container -->
     </div> <!--wrap -->
 </div> <!-- page-content -->
+<script>
+$(document).ready(function(){
+    $('#myModal').on('hidden.bs.modal', function (e) {
+  tinyMCE.triggerSave();
+});
+    
+});
+</script>

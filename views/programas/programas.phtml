@@ -137,7 +137,7 @@
 
                                                 <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
                                                     <tr>
-                                                        <td width="210" valign="top">
+                                                        <td width="170" valign="top">
                                                             <?php if ($objProg->getImagen()) { ?>
                                                                 <img src="<?php echo $_layoutParams['ruta_programas'] . $objProg->getImagen(); ?>" width="163" class="img-thumbnail" style="margin-right: 10px;">
                                                             <?php } else {
@@ -146,19 +146,19 @@
                                                             <?php } ?>
                                                         </td>
                                                         <td>
-                                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width: 200px;">
-                                                                <tr>
+                                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width: 269px;">
+                                                                <tr >
                                                                     <!--<td style="font-size: 12px;">
                                                                         <?php if ($objProg->getAereo()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Aereo <?php } ?>
                                                                         <?php if ($objProg->getHotel()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;"> Hotel <?php } ?>
                                                                         <?php if ($objProg->getTraslado()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Traslado <?php } ?>
                                                                     </td>-->
-                                                                        <td style="font-size: 12px;">
-                                                                            <?php if ($objProg->getPdaereo()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Aereo"><?php } ?>
-                                                                            <?php if ($objProg->getPbhotel()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Hotel">  <?php } ?>
-                                                                            <?php if ($objProg->getPdtraslados()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Traslado">  <?php } ?>
-                                                                            <?php if ($objProg->getPdplana()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="<?php echo $objProg->getPdplana();?>">  <?php } ?>
-                                                                            <?php if ($objProg->getPdseguro()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" title="Seguro">  <?php } ?>
+                                                                        <td style="font-size: 12px; background-color: #E9EEF5;padding-top: 3px; padding-bottom: 3px;">
+                                                                            <?php if ($objProg->getPbhotel()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>hotel_ico.jpg" width="16" style="margin-left:5px;" title="Hotel">  <?php } ?>
+                                                                            <?php if ($objProg->getPdtraslados()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>transfer_ico.jpg" width="16" style="margin-left:5px;" title="Traslado">  <?php } ?>
+                                                                            <?php if ($objProg->getPdaereo()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>avion_ico.jpg" width="16" style="margin-left:5px;" title="Aereo"><?php } ?>
+                                                                            <?php if ($objProg->getPdseguro()) { ?><img name="tooltip_blo" src="<?php echo $_layoutParams['ruta_img']; ?>seguro_ico.jpg" width="16" style="margin-left:5px;" title="Seguro">  <?php } ?>
+                                                                            <?php if ($objProg->getPdplana()) { ?><img name="tooltip_blo" src="<?php if($objProg->getPdplana()==='Desayuno'){ echo $_layoutParams['ruta_img']; ?>desayuno_ico.jpg<?php }else{ echo $_layoutParams['ruta_img']; ?>comida_ico.jpg<?php } ?>" width="16" style="margin-left:5px;" title="<?php echo $objProg->getPdplana();?>">  <?php } ?>
                                                                         </td>
                                                                 </tr>
 

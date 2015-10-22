@@ -647,10 +647,20 @@ class programasController extends Controller {
                 $objPrograma = $EP_programa->getPrograma(Session::get('sessMOD_EP_codPRG'));
                 if ($objPrograma) {
                     $this->_view->ep_descripcion = $objPrograma[0];
+                    $this->_view->hotel = $objPrograma[1];
+                    $this->_view->traslados = $objPrograma[2];
+                    $this->_view->tkt_aereo = $objPrograma[3];
+                    $this->_view->seguro_viajes = $objPrograma[4];
+                    $this->_view->EH_rest = $objPrograma[5];
                 } else {
                     $this->_view->ep_descripcion = '';
+                    $this->_view->hotel = 0;
+                    $this->_view->traslados = 0;
+                    $this->_view->tkt_aereo = 0;
+                    $this->_view->seguro_viajes = 0;
+                    $this->_view->EH_rest = 0;
                 }
-
+                
                 $this->_view->renderingCenterBox('editarPrograma');
             } else {
                 throw new Exception('Error al intentar editar programa. (Metodo)');
