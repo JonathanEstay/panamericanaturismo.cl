@@ -36,6 +36,11 @@ class programasController extends Controller {
 
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->pago = false;
+        
+        if (Session::get('sess_boton_pago')) {
+            $this->_view->pago = true;
+        }
         if (Session::get('sess_BP_ciudadDes_PRG')) {
 
             //$this->loadDTO('incluye');
@@ -149,6 +154,10 @@ class programasController extends Controller {
                     }
 
                     $this->_view->objOpcProgramas = $objOpcProgramas;
+                    $this->_view->pago= false;
+                     if(Session::get('sess_boton_pago')){
+                         $this->_view->pago = true;
+                     }
                     //$this->_view->hoteles= $this->_view->objOpcProgramas[0]->getNombreHotel();
                     $this->_view->renderingCenterBox('detalleProg');
                 }
@@ -276,6 +285,12 @@ class programasController extends Controller {
         $this->_view->form = $form;
 
         Session::acceso('Usuario');
+        
+        $this->_view->pago = false;
+        
+        if (Session::get('sess_boton_pago')) {
+            $this->_view->pago = true;
+        }
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
             $totalPago = 0;
             if ($this->getInt('DP_cmbHab')) {
@@ -700,6 +715,12 @@ class programasController extends Controller {
         $this->_view->hot = $this->getJson('varCenterBoxH');
         $this->_view->plan = $this->getJson('varCenterBoxPa');
         $this->_view->cant = $this->getJson('varCenterBoxCat');
+        
+        $this->_view->pago = false;
+        
+        if (Session::get('sess_boton_pago')) {
+            $this->_view->pago = true;
+        }
 
         $this->_view->nota = $programas->getNotaOpc($id);
 
