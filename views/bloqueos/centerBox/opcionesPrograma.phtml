@@ -53,7 +53,7 @@ if ($this->objOpcBloqueos) {
                     <table class="table tabla-hover" style="margin-bottom: 0px; font-size: 12px;">
                         <thead style="background-color:#34495e; color: #FFFFFF">
                         <th style=" padding: 2px; text-align: center;">Hotel</th>
-                        <th style=" padding: 2px; width: 145px; text-align: center;">Categ.</th>
+                        <th style=" padding: 2px; width: 145px; text-align: left;">Categoria</th>
                         <th style=" padding: 2px; width: 80px;">Habitaci&oacute;n</th>
                         <th style=" padding: 2px; width: 90px;">P. Alimenticio</th>
                         <th></th>
@@ -126,7 +126,7 @@ if ($this->objOpcBloqueos) {
 
 
             <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $OP_ciudad[$i]; ?></td>-->
-                                <td class="<?php echo $td_background; ?>" style=" text-align: center; padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
+                                <td class="<?php echo $td_background; ?>" style=" text-align: left; padding: 3px; vertical-align: middle; <?php echo $border_top; ?>">
                                     <?php
                                     if (strlen($OP_cat[$i]) == 2) {
                                         for ($j = 1; $j <= 5; $j++) {
