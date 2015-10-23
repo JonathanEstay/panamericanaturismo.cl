@@ -387,6 +387,8 @@ class bloqueosController extends Controller {
                 $this->_view->itinerario = $this->_view->objItinerario[0]->getItiVuelo();
 
                 $this->_view->TipoHab = $this->_view->objOpcionPrograma[0]->getTipoHab();
+                
+                $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
 
                 $this->_view->renderingCenterBox('imprimir');
             } else {

@@ -428,8 +428,8 @@ class programasController extends Controller {
 
 
 
-                            $this->getLibrary('class.phpmailer');
-                            $this->mailReserva($objRes->getFile(), $html);
+                            //$this->getLibrary('class.phpmailer');
+                            //$this->mailReserva($objRes->getFile(), $html);
                             echo 'OK&' . md5(':D');
                         }
                     }
@@ -589,7 +589,8 @@ class programasController extends Controller {
 
             $this->_view->objetosPasajero = $pajasero->getPasajeros(Session::get('sess_numeroFile'));
             //echo var_dump($this->_view->objetosPasajero);
-
+            $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+            
             $this->_view->numFile = Session::get('sess_numeroFile');
             $this->_view->codigoPRG = Session::get('sess_codigoPrograma');
 
