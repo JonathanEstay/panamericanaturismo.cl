@@ -44,22 +44,7 @@ class loginController extends Controller
         
         $this->_view->renderingMain('login_div');
     }
-    
-    public function LoginOutNav(){
-        
-        $arraySess = array('Autenticado', 'sess_key_', 'sess_ip', 'sess_fechaLogin', 
-                            'sess_clave_usuario','sess_nombre',
-                            'sess_cod_ven','sess_dctod','sess_dctoh','sess_agencia',
-                            'sess_id_agen','sess_markup','sess_fecpass','sess_depto',
-                            'sess_atipoa','sess_firma','sess_rut','sess_email','sess_email_opera',
-                            'level','tiempo','sess_sp_acceso', 'sess_codigo_cliente_url');
-        Session::destroy($arraySess);
-    }
-
-
-
-    
-    
+   
     
     /*******************************************************************************
     *                                                                              *
