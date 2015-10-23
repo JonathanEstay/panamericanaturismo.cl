@@ -80,7 +80,7 @@
                             </td>
                             <td>
                                 <b style="color:#FF9900;">INCLUYE:</b> <br>
-                                <span style="color:#008ccc;">&bull;</span> <?php echo substr($this->objProgramas[0]->getIncluye(), 0, -43); ?>
+                                <img  src="<?php echo $_layoutParamsCB['ruta_img']; ?>tick.png" width="12px" /> <?php echo substr(str_replace("<span style='color:#008ccc;'>&bull;</span>", '<img src="' . $_layoutParamsCB['ruta_img'] . 'tick.png" width="12px" />', $this->objProgramas[0]->getIncluye()), 0, -95); ?>
 
                                 <?php if ($this->_PDF) { ?>
                                     <a id="btnDP_itinerario" class="btn btn-info btn-sm" onclick="fadeIn('detallePopup');

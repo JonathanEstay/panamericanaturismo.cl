@@ -789,7 +789,7 @@ function habilitaEdadChild(id, hab, chd)
 
 function soloRut(evt)
 {
-    var charCode = (evt.which) ? evt.which : event.keyCode
+    //var charCode = (evt.which) ? evt.which : event.keyCode
     //alert(charCode);
     if ((charCode >= 48 && charCode <= 57) || (charCode == 45) || (charCode == 107) || (charCode == 75)) {
         return true;
