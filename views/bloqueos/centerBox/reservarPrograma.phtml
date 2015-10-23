@@ -1,34 +1,34 @@
 
 <script type="text/javascript">
-$('html').on('click', function(e) {
-  if (typeof $(e.target).data('original-title') == 'undefined') {
-    $('[data-original-title]').popover('hide');
-    $('.popover.fade.top').css( "display", "none", "important");
-  }
-});
-
-$(function ()
-{
-    $('[data-toggle="popover"]').popover({
-         html : true
+    $('html').on('click', function (e) {
+        if (typeof $(e.target).data('original-title') == 'undefined') {
+            $('[data-original-title]').popover('hide');
+            $('.popover.fade.top').css("display", "none", "important");
+        }
     });
-    
-    <?php if ($this->botonPago) { ?>
-    $("#txtNombre_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-    $("#txtApellidos_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-    $("#txtTelefono_pago").validaCampos('0123456789+-() ');
-    <?php } ?>
-});
+
+    $(function ()
+    {
+        $('[data-toggle="popover"]').popover({
+            html: true
+        });
+
+<?php if ($this->botonPago) { ?>
+            $("#txtNombre_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+            $("#txtApellidos_pago").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+            $("#txtTelefono_pago").validaCampos('0123456789+-() ');
+<?php } ?>
+    });
 </script>
 <style>
-a .popover{
-    max-width: 90%; /* Max Width of the popover (depending on the container!) */
-    margin-left: -5%;
-}
-td > div > div.popover-content{
-  height: 350px;
-  overflow-y: scroll;
-}
+    a .popover{
+        max-width: 90%; /* Max Width of the popover (depending on the container!) */
+        margin-left: -5%;
+    }
+    td > div > div.popover-content{
+        height: 350px;
+        overflow-y: scroll;
+    }
 </style>
 <form enctype="multipart/form-data" class="frmReservaPRG">
     <div class="panel panel-info">
@@ -58,17 +58,17 @@ td > div > div.popover-content{
                             <td>
                                 <?php
                                 for ($i = 0; $i < $this->hotelesCNT; $i++) {
-                                    echo  $this->hoteles[$i] ;
+                                    echo $this->hoteles[$i];
                                 }
                                 ?>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td><br><b>Precio Total</b>:</td>
-                            <td style="color:#F00;"><br> <b><?php echo '&nbsp;'. $this->precio; ?></b></td>
+                            <td style="color:#F00;"><br> <b><?php echo '&nbsp;' . $this->precio; ?></b></td>
                         </tr>
-                        
+
                     </table>
                 </div>
 
@@ -76,8 +76,8 @@ td > div > div.popover-content{
         </div>
     </div>
 
-    
-    
+
+
     <?php if ($this->botonPago) { ?>
         <table class=" table table-bordered">
             <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
@@ -101,8 +101,8 @@ td > div > div.popover-content{
         </table>
     <?php } ?>
 
-    
-    
+
+
     <table class="table table-bordered">
         <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
             <td colspan="7" align="center" style="padding:2px;">Datos del Pasajero</td>
@@ -125,7 +125,7 @@ td > div > div.popover-content{
         for ($i = 1; $i <= 3; $i++) {
             $rP_total_AC = 0;
             $rP_total_AC = Session::get("sess_BP_Adl_$i") + Session::get("sess_BP_Chd_$i");
-            $rP_Edad_Child=1;
+            $rP_Edad_Child = 1;
             ?>
             <?php
             for ($x = 1; $x <= $rP_total_AC; $x++) {
@@ -133,9 +133,9 @@ td > div > div.popover-content{
                 <tr align="center">
                     <td>
                         <select name="rP_cmbTipoPax_<?php echo $rP_cntRegistros; ?>" id="rP_cmbTipoPax_<?php echo $rP_cntRegistros; ?>" style="width:60px;">
-        <?php
-        if (Session::get("sess_BP_Adl_$i") >= $x) {
-            ?>
+                            <?php
+                            if (Session::get("sess_BP_Adl_$i") >= $x) {
+                                ?>
                                 <option selected="selected" value="A">Adl</option>
                                 <?php
                             } else {
@@ -158,9 +158,9 @@ td > div > div.popover-content{
                             } else {
                                 ?>
                                 <option value="3">Chl</option>
-            <?php
-        }
-        ?>
+                                <?php
+                            }
+                            ?>
                         </select>
                     </td>
 
@@ -169,7 +169,7 @@ td > div > div.popover-content{
                     </td>
                     <td>
                         <input  type="text" id="rP_txtRut_<?php echo $rP_cntRegistros; ?>" onkeypress="return soloRut(event);" maxlength="10"
-                               name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
+                                name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
                     </td>
                     <td>
                         <input   type="text" id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" style="width:100px;">
@@ -181,21 +181,25 @@ td > div > div.popover-content{
                             {
                                 $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
                                 $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                
+
                                 $("#rP_FechaNac_<?php echo $rP_cntRegistros; ?>").datepicker({
                                 changeMonth: true,
                                         changeYear: true,
                                         dateFormat: 'dd/mm/yy',
                                         firstDay: 1,
-        <?php
-        if (Session::get("sess_BP_Adl_$i") >= $x) { ?>
+        <?php if (Session::get("sess_BP_Adl_$i") >= $x) { ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 12; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
                                             yearRange: "-100:+0",
             <?php
         } else {
             ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 2; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
-                                            yearRange: "-<?php if(Session::get('sessRP_edadChd'.$rP_Edad_Child)!=0){echo Session::get('sessRP_edadChd'.$rP_Edad_Child); $rP_Edad_Child++;}else{ echo '100' ;} ?>:+0",
+                                            yearRange: "-<?php if (Session::get('sessRP_edadChd' . $rP_Edad_Child) != 0) {
+                echo Session::get('sessRP_edadChd' . $rP_Edad_Child);
+                $rP_Edad_Child++;
+            } else {
+                echo '100';
+            } ?>:+0",
             <?php
         }
         ?>
@@ -207,25 +211,25 @@ td > div > div.popover-content{
                                             'May', 'Jun', 'Jul', 'Ago',
                                             'Sep', 'Oct', 'Nov', 'Dic']
                             });
-                            });            </script>
+                            });</script>
                         <input  type="text" id="rP_FechaNac_<?php echo $rP_cntRegistros; ?>" 
-                               name="rP_FechaNac_<?php echo $rP_cntRegistros; ?>" style="width:80px;" readonly="readonly">
+                                name="rP_FechaNac_<?php echo $rP_cntRegistros; ?>" style="width:80px;" readonly="readonly">
                     </td>
                 </tr>
-        <?php
-        ++$rP_cntRegistros;
-    }
-}
-Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
-?>
+                <?php
+                ++$rP_cntRegistros;
+            }
+        }
+        Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
+        ?>
 
     </table>
 
 
 
-        <?php
-        if (Session::get('sess_BP_cntInf') > 0) {
-            ?>
+<?php
+if (Session::get('sess_BP_cntInf') > 0) {
+    ?>
         <table class="table table-bordered">
             <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
                 <td colspan="5" align="center" style="padding:2px;">Datos del Infant</td>
@@ -260,7 +264,7 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
                             {
                                 $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
                                 $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                
+
                                 $("#rP_FechaNacInf_<?php echo $i; ?>").datepicker({
                                     changeMonth: true,
                                     changeYear: true,
@@ -282,16 +286,16 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
                         <input type="text" id="rP_FechaNacInf_<?php echo $i; ?>" name="rP_FechaNacInf_<?php echo $i; ?>" style="width:90px;">
                     </td>
                 </tr>
-        <?php
-    }
-    ?>
+            <?php
+        }
+        ?>
         </table>
     <?php
 }
 ?>
 
 
-    <table class="table table-bordered" <?php if(Session::get('sess_boton_pago')){ ?>style="display:none;"<?php } ?>>
+    <table class="table table-bordered" <?php if (Session::get('sess_boton_pago')) { ?>style="display:none;"<?php } ?>>
         <tr>
             <td>
                 <textarea name="rP_txtComentario" id="rP_txtComentario" cols="50" rows="4" class="form-control" placeholder="Escribe un comentario..."></textarea>
@@ -302,28 +306,52 @@ Session::set('sessRP_cntPasajeros', $rP_cntRegistros);
 
     <br />
     <center>
-    <table>
-        <tr>
-            <td>
-                <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
-                <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
-            </td>
-        </tr>
-    </table>
-        </center>
+        <table>
+            <tr>
+                <td>
+                    <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
+                    <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
+                </td>
+            </tr>
+        </table>
+    </center>
     <br>
     <center>
         <input type="button"  id="rP_btnProcesaRserva" class="btn btn-primary" value="<?php echo $this->boton; ?>" 
                onclick="Bloqueo.prototype.procesoReservaPRG('frmReservaPRG', '<?php echo BASE_URL ?>bloqueos/procesoReserva', 'rP_btnProcesaRserva', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones');
-            ">
+               ">
     </center>
 
 </form>
 <script>
-        $(document).ready(function(){
-            
-            if(Bloqueo.prototype.B_aceptar_cond){
-                $("#checkCondiciones").prop('checked', true);
+    $(document).ready(function () {
+
+        if (Bloqueo.prototype.B_aceptar_cond) {
+            $("#checkCondiciones").prop('checked', true);
+        }
+
+        if (typeof window.event == 'undefined') {
+            document.onkeypress = function (e) {
+                var test_var = e.target.nodeName.toUpperCase();
+                if (e.target.type)
+                    var test_type = e.target.type.toUpperCase();
+                if ((test_var == 'INPUT' && test_type == 'TEXT') || test_var == 'TEXTAREA') {
+                    return e.keyCode;
+                } else if (e.keyCode == 8) {
+                    e.preventDefault();
+                }
             }
-        });
-        </script> 
+        } else {
+            document.onkeydown = function () {
+                var test_var = event.srcElement.tagName.toUpperCase();
+                if (event.srcElement.type)
+                    var test_type = event.srcElement.type.toUpperCase();
+                if ((test_var == 'INPUT' && test_type == 'TEXT') || test_var == 'TEXTAREA') {
+                    return event.keyCode;
+                } else if (event.keyCode == 8) {
+                    event.returnValue = false;
+                }
+            }
+        }
+    });
+</script> 
