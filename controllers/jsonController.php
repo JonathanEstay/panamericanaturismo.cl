@@ -87,7 +87,8 @@ class jsonController extends Controller {
                         "currency" => $jsonFile->pay_currency,
                         "amount" => $jsonFile->pay_amount,
                         "tax" => $jsonFile->pay_tax,
-                        "subject" => "Pago por reserva N-".$jsonFile->pay_file,
+                        //"subject" => "Pago por reserva N-".$jsonFile->pay_file,
+                        "subject" => "Pago por reserva N-".$jsonFile->pay_file . "\n\n" . Session::get('sess_descripcionServicioPRG'), //Session::get('sess_nombrePRG'),
                         "redirection_url" => BASE_URL . 'pago/cierre/'.$jsonFile->pay_file,
                         "callback_url" => BASE_URL . 'json/getAcusePago'
                     );

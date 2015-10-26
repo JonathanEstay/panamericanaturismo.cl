@@ -438,7 +438,11 @@ class bloqueosController extends Controller {
                     ession::set('sessRP_edadChd1', 0);
                     Session::set('sessRP_edadChd2', 0);
                 }
+                
                 if ($this->_view->objPrograma) {
+                    
+                    $this->loadDTO('incluye');
+                    
                     if (WEB) {
                         //Web
                         $sql = "exec TS_GET_BLOQUEOS_PROG_ID " . $RP_idProg . ", " . $RP_rdbOpc . ", "
@@ -459,7 +463,7 @@ class bloqueosController extends Controller {
                     }
 
                     //echo $sql; exit;
-                    $this->_view->objOpcionPrograma = $bloqueo->TS_GET_BLOQUEOS_PROG_ID($sql);
+                    $this->_view->objOpcionPrograma = $bloqueo->TS_GET_BLOQUEOS_PROG_ID($sql, true);
                     $cnt = count($this->_view->objOpcionPrograma);
                     /* for($i=1; $i<$cnt; $i++)
                       {

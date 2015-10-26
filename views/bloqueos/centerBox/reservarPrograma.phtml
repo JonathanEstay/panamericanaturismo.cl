@@ -1,4 +1,44 @@
+<?php
+$incluyeArray = $this->objOpcionPrograma[0]->getIncluye();
+if ($incluyeArray) {
+    $xx = 0;
+    $hh = 0;
+    $P_ciudadHotel = NULL;
+    $incluye = '';
+    for ($i = 0; $i <= 5; $i++) {
+        $P_arrayCiudadHotel[$i] = NULL;
+    }
+    
+    for ($i = 0; $i < count($incluyeArray[0]); $i++) {
+        if ($incluyeArray[0][$i]->getCodigo() != 'CGO' && $incluyeArray[0][$i]->getNombre() != '') {
+            if ($incluyeArray[0][$i]->getCiudad() != '') {
+                $P_arrayCiudadHotel[$xx] = $incluyeArray[0][$i]->getCiudad();
+                $xx++;
+            }
 
+            if ($incluyeArray[0][$i]->getCodigo() == 'HTL') {
+                $P_ciudadHotel = " / " . $P_arrayCiudadHotel[$hh];
+                $hh++;
+            } else {
+                $P_ciudadHotel = NULL;
+            }
+
+            if ($incluyeArray[0][$i]->getNoches() < 10 && $incluyeArray[0][$i]->getNoches() > 0) {
+                $P_varNoches = "0" . $incluyeArray[0][$i]->getNoches() . " " /* " Noches " */;
+            } else if ($incluyeArray[0][$i]->getNoches() >= 10) {
+                $P_varNoches = $incluyeArray[0][$i]->getNoches() /* . " Noches " */;
+            } else {
+                $P_varNoches = "";
+            }
+
+            $incluye.= $P_varNoches . $incluyeArray[0][$i]->getNombre() . $P_ciudadHotel . "<br>";
+        }
+    }
+}
+
+
+Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNombre() . ': <br><br>' . $incluye);
+?>
 <script type="text/javascript">
     $('html').on('click', function (e) {
         if (typeof $(e.target).data('original-title') == 'undefined') {
@@ -75,9 +115,8 @@
             </div>
         </div>
     </div>
-
-
-
+    
+    
     <?php if ($this->botonPago) { ?>
         <table class=" table table-bordered">
             <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
