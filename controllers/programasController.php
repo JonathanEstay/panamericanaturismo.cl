@@ -74,8 +74,7 @@ class programasController extends Controller {
 
         $this->_view->form = $form;
         Session::acceso('Usuario');
-
-        $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
+        $this->_view->objCiudades = $this->_ciudad->getAdminCiudades();//getCiudadesBloq()
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
         $this->_view->setJS(array('programas'));
 

@@ -68,7 +68,7 @@ if(mssql_num_rows($res) <= 0)
 	$sql.= " AND borra <> 'N' ";
 	$sql.= " AND codigo <> 'CGO' AND codigo<>'COD' ";
 	
-
+        
 	$res2 = mssql_query($sql);
 	while($row = mssql_fetch_array($res2))
 	{
@@ -173,6 +173,9 @@ if(mssql_num_rows($res) <= 0)
 		}
 		else
 		{
+                    
+                    
+                        
 			$glosa1 = "";
 			if($row['in_'])
 			{
@@ -183,6 +186,7 @@ if(mssql_num_rows($res) <= 0)
 			$glosa2 = "N° Pax: ".$suma_numpax;
 			
 			$glosa3 = "";
+                    
 		}
 		$glosa_total = $glosa1 ."<br>".$glosa2."<br>".$glosa3;
 		
@@ -230,7 +234,8 @@ else
 }
 
 $sql = "SELECT numdoc, file_, fecha, numpax, fechain, fechaout, vendedor, rut, neto, convenio, depto, nompax, ctr_anu, centrali, codhtl, provee, suc, nombre2, imp, moneda, tipos, valconci, cambio, marca, tcambioa, ctr_mail, linea, codsicon, ctr_cbl, codser, old_provee, glosa, nconf, tipo ";
-$sql.= "FROM [vouchea] WHERE file_ = '".$tipof."-".$num_file."' AND ctr_anu <> 'N' ORDER BY numdoc ASC";
+$sql.= "FROM [vouchea] WHERE file_ = '".$tipof."-".$num_file."' AND ctr_anu <> 'N' AND tipos <> 'TAS' AND glosa IS NOT NULL AND CONVERT(NVARCHAR(MAX),glosa) <>'' ORDER BY numdoc ASC";
+
 
 $res = mssql_query($sql);
 $contador = 0;
