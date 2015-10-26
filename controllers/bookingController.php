@@ -102,6 +102,7 @@ class bookingController extends Controller
         require_once ROOT . 'views' . DS . 'system' . DS .'pdf' . DS . 'vouchea.php';
         $content = ob_get_clean();
         
+        
         $this->getLibrary('html2pdf.class');
         try
         {
