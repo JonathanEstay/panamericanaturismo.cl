@@ -100,7 +100,7 @@ class jsonController extends Controller {
                     
                     if(is_object($getJson)) {
                         
-                        if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash, $getJson->pay_email, $getJson->pay_fono)) {
+                        if($this->_json->nuevoPago($jsonFile->pay_file, $getJson->hash, $jsonFile->pay_email, $jsonFile->pay_fono)) {
                             $file = fopen($urlJson, "w");
                             fwrite($file, str_replace('}', '', $contentJson) . ',"pay_hash":"' . $getJson->hash . '"}');
                             fclose($file);
