@@ -32,14 +32,33 @@ class pagoController extends Controller {
 
     public function cierre($external_id=0) {
         if (Session::get('sess_boton_pago')) {
-            if(Session::get("sess_file")){
+            if(Session::get("sess_file")) {
                 if($external_id == 0) {
                     $this->redireccionar('pago/fracaso/design');
                 } else {
                     if(Session::get("sess_file") == $external_id) {
 
+                        $pago=false;
                         sleep(2); //Esperando acuse pago de travel
                         if ($this->confirmarPago($external_id)) { //LOCAL
+                            $pago=true;
+                        }
+                        if($this->reconfirmarPago($pago)) {
+                            $pago=true;
+                        }
+                        
+                        
+                        if($pago) {
+                            $this->redireccionar('pago/exito/' . base64_encode($external_id));
+                        } else {
+                            Session::set('sess_status_pago', false);
+                            if(!Session::get('sess_msj_pago')) {
+                                Session::set('sess_msj_pago', '[2026] Error al intentar realizar el pago');
+                            }
+                            $this->redireccionar('pago/fracaso');
+                        }
+                        
+                        /*if ($this->confirmarPago($external_id)) { //LOCAL
                             $this->redireccionar('pago/exito/' . base64_encode($external_id));
                         } else {
                             if ($this->reconfirmarPago()) { //TRAVEL
@@ -51,7 +70,8 @@ class pagoController extends Controller {
                                 }
                                 $this->redireccionar('pago/fracaso');
                             }
-                        }
+                        }*/
+                        
 
                     } else {
                          $this->redireccionar('pago/fracaso');
@@ -78,7 +98,7 @@ class pagoController extends Controller {
                             return true;
                         } else {
                             Session::set('sess_status_pago', false);
-                            Session::set('sess_msj_pago', '[2024] Error al intentar realizar el pago @' . $objPay->getStatus() . '@');
+                            Session::set('sess_msj_pago', '[2024] Error al intentar realizar el pago ');
                             return false;
                         }
                     }
@@ -97,7 +117,7 @@ class pagoController extends Controller {
         }
     }
     
-    public function reconfirmarPago() {
+    public function reconfirmarPago($pago=true) {
         
         if (!Session::get('sess_file')) {
              $this->redireccionar('pago/fracaso');
@@ -113,6 +133,9 @@ class pagoController extends Controller {
         if (is_object($json)) {
             if ($jsonPay->pay_hash == $json->hash && $jsonPay->pay_file == $json->external_id && $jsonPay->pay_agency_id == $json->agency_id) {
                 if ($json->status == 'success') {
+                    if(!$pago) {
+                        $this->_json->updatePagos($json->status, $json->hash, $jsonPay->pay_amount, $jsonPay->pay_file);
+                    }
                     return true;
                 } else {
                     Session::set('sess_status_pago', false);
