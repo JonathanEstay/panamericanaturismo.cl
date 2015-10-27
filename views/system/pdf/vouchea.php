@@ -268,7 +268,7 @@ while($row = mssql_fetch_array($res))
 	$vou_codhtl = (int)$row["codhtl"];
 	$vou_provee = $row["provee"];
 	$vou_tiposer = $row["tipos"];
-	
+	$tmp_operad='';
 	// Adquirir datos para obtener proveedor, o hotel.
 	if(($vou_codhtl > 0 && $vou_tiposer = "HTL") ||	($vou_codhtl == $vou_provee && $vou_codhtl > 0)){
 		$sql_desc = "SELECT * FROM hotel WHERE codigo = '".$vou_codhtl."';";
@@ -299,19 +299,17 @@ while($row = mssql_fetch_array($res))
 	// Obtener PRE-PAGO.
 	if($row["codhtl"] == $row["provee"] || $row["codhtl"] == "0" || $row["codhtl"] == "")
 	{
-		$desc_empresa = ENT_NAME;
+            $desc_empresa = ENT_NAME;
 	}
 	elseif($row["provee"] > 0)
 	{
-		$desc_empresa = $tmp_hotel;
+            $desc_empresa = $tmp_hotel;
 	}
 	else
 	{
-		$desc_empresa = $tmp_operad;
+            $desc_empresa = $tmp_operad;
 	}
-	
 	?>
-    
     <table class="tabla_negra" cellpadding="0" cellspacing="0">
     <tr>
     	<td rowspan="2" class="celda_negra" style="text-align:center;">
