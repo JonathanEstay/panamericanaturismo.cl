@@ -49,8 +49,21 @@ class programaDTO
     private $_pdaereo;
     private $_pdseguro;
     private $_pdplana;
+    private $_chedad1;
+    private $_chedad2;
     
-    
+    public function setChedad1($p) {
+        $this->_chedad1=$p;
+    }
+    public function getChedad1() {
+        return $this->_chedad1;
+    }
+    public function setChedad2($p) {
+        $this->_chedad2=$p;
+    }
+    public function getChedad2() {
+        return $this->_chedad2;
+    }
     public function setPbhotel($p){
         $this->_pbhotel = $p ;
     }
