@@ -37,7 +37,7 @@
 
                     <?php
                     $i = 0;
-                    
+
                     foreach ($this->hot as $val) {
                         ?>
                         <tr style="background-color: #FFFFFF;">
@@ -51,7 +51,7 @@
                                             <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_on.png" height='12' title='Categoria' />
                                         <?php } else { ?>
                                             <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>star_off.png" height='12' title='Categoria' />
-                                        <?php
+                                            <?php
                                         }
                                     }
                                 } else {
@@ -62,10 +62,10 @@
                             <td style="height: 22px;"><?php echo $this->hab[$i]; ?></td>
                             <td style="height: 22px;"><?php echo $this->plan[$i]; ?></td>
                         </tr>
-    <?php
-    $i++;
-}
-?>
+                        <?php
+                        $i++;
+                    }
+                    ?>
                 </table>
             </div>
         </div>
@@ -74,7 +74,7 @@
     <input type="hidden" name="hot"value="<?php echo htmlspecialchars(json_encode($this->hot)); ?>">
     <input type="hidden" name="hab"value="<?php echo htmlspecialchars(json_encode($this->hab)); ?>">
     <input type="hidden" name="plan"value="<?php echo htmlspecialchars(json_encode($this->plan)); ?>">
-    <input type="hidden" name="cant" value="<?php echo htmlspecialchars(json_encode($this->cant));?>">
+    <input type="hidden" name="cant" value="<?php echo htmlspecialchars(json_encode($this->cant)); ?>">
     <div calss ="row">
         <div class=" col-md-2"></div>
         <div class=" col-md-8">
@@ -85,9 +85,9 @@
                     <td>
                         <select name="DP_cmbHab" id="DP_cmbHab" class="form-control" onchange="habitaciones('<?php echo $this->cntP; ?>_DP_tblHab_B', this.value)">
                             <option value="0">Seleccione</option>
-<?php for ($i = 1; $i <= 3; $i++) { ?>
+                            <?php for ($i = 1; $i <= 3; $i++) { ?>
                                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-<?php } ?>
+                            <?php } ?>
                         </select>
                     </td>
                 </tr>
@@ -95,7 +95,7 @@
                 <tr>
                     <td colspan="2">
 
-<?php for ($i = 1; $i <= 3; $i++) { ?>
+                        <?php for ($i = 1; $i <= 3; $i++) { ?>
                             <div id="<?php echo $this->cntP; ?>_DP_tblHab_B_<?php echo $i; ?>" style="display:none;">
                                 <table width="100%" border="0" cellspacing="0" cellpadding="5">
                                     <tr><td colspan="4"><b>Habitaci&oacute;n <?php echo $i; ?></b></td></tr>
@@ -103,35 +103,35 @@
                                         <td>Adultos</td>
                                         <td>
                                             <select name="DP_cmbAdultos_<?php echo $i; ?>" id="DP_cmbAdultos_<?php echo $i; ?>">
-    <?php for ($x = 1; $x <= 3; $x++) { ?>
+                                                <?php for ($x = 1; $x <= 3; $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
-    <?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </td>
                                         <td>Child</td>
                                         <td>
                                             <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>, 'DP_EdadChild')">
                                                 <option value="0">0</option>
-    <?php if ($this->chd1 > 0) { ?>
+                                                <?php if ($this->chd1 > 0) { ?>
 
                                                     <option value="1">1</option>
-    <?php } ?>
-    <?php if ($this->chd2 > 0 || $this->pf > 0) { ?>
+                                                <?php } ?>
+                                                <?php if ($this->chd2 > 0 || $this->pf > 0) { ?>
 
                                                     <option value="2">2</option>
-                                    <?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </td>
                                     </tr>
                                     <tr id="DP_edades_<?php echo $i; ?>" <?php
-                                                if ($this->chd1 == 0 && $this->chd2 == 0 && $this->pf == 0) {
-                                                    echo 'style="display:none;"';
-                                                }
-                                                ?>>
+                                    if ($this->chd1 == 0 && $this->chd2 == 0 && $this->pf == 0) {
+                                        echo 'style="display:none;"';
+                                    }
+                                    ?>>
                                         <td>Edad C1</td>
                                         <td>
                                             <select name ="DP_EdadChild_1_<?php echo $i; ?>" id="DP_EdadChild_1_<?php echo $i; ?>"disabled="disabled">
-                                                <?php for ($x = 2; $x <= 12; $x++) { ?>
+                                                <?php for ($x = 2; $x <= Session::get('sessRP_edadChd1'); $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                 <?php } ?>
                                             </select>
@@ -139,29 +139,29 @@
                                         <td>Edad C2</td>
                                         <td>
                                             <select name ="DP_EdadChild_2_<?php echo $i; ?>" id="DP_EdadChild_2_<?php echo $i; ?>"disabled="disabled">
-    <?php for ($x = 2; $x <= 12; $x++) { ?>
+                                                <?php for ($x = 2; $x <= Session::get('sessRP_edadChd2'); $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
-    <?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </td>
                                     </tr>
 
 
-                                <!-- <tr>
-                                    <td>Infant</td>
-                                    <td colspan="3">
-                                        <select name="DP_inf_<?php echo $i; ?>" id="DP_inf_<?php echo $i; ?>">
-    <?php for ($x = 0; $x <= 1; $x++) { ?>                          
-                                                    <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
-                            <?php } ?>
-                                        </select>
-                                    </td>                    	  
-                                </tr> -->
+                                    <!-- <tr>
+                                        <td>Infant</td>
+                                        <td colspan="3">
+                                            <select name="DP_inf_<?php echo $i; ?>" id="DP_inf_<?php echo $i; ?>">
+                                    <?php for ($x = 0; $x <= 1; $x++) { ?>                          
+                                                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                    <?php } ?>
+                                            </select>
+                                        </td>                    	  
+                                    </tr> -->
 
                                 </table>
                                 <hr />
                             </div>      
-<?php } ?>
+                        <?php } ?>
 
 
 

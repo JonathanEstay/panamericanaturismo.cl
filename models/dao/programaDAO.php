@@ -40,6 +40,23 @@ class programaDAO extends Model
             return false;
         }
     }
+    public function getChild($clave) {
+
+        $sql = 'SELECT echd,echd2 FROM h2h_ProgramaOpc WHERE clave = "'.$clave.'"';
+
+        $datos = $this->_db->consulta($sql);
+
+        if ($this->_db->numRows($datos) > 0){
+            $respuesta = $this->_db->fetchAll($datos);
+            $CH = new programaDTO();
+            foreach ($respuesta as $r) {
+                $CH->setChedad1(trim($r['echd']));
+                $CH->setChedad2(trim($r['echd2']));
+            }
+            return $CH;
+        }
+        return false;
+    }
     
     public function getPackagesH2H($cod)
     {
