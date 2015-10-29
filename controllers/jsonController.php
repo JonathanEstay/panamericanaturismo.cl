@@ -92,7 +92,7 @@ class jsonController extends Controller {
                         "redirection_url" => BASE_URL . 'pago/cierre/'.$jsonFile->pay_file,
                         "callback_url" => BASE_URL . 'json/getAcusePago'
                     );
-                    
+                    Session::destroy('sess_descripcionServicioPRG');
                     
                     $this->_json->logJSON($jsonFile->pay_file,  str_replace('\\', '', json_encode($json)), 'Q'); //LOG RQ
                     $getJson= $this->curlJSON($json, $url, $jsonFile->pay_user, $jsonFile->pay_pass);
