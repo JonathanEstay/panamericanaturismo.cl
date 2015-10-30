@@ -37,7 +37,7 @@ if ($incluyeArray) {
 }
 
 
-Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNombre() . ": \n\n" . str_replace('<br>', "\n", $incluye));
+Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNombre() . ": <br><br>" . $incluye);
 ?>
 <script type="text/javascript">
     $('html').on('click', function (e) {
