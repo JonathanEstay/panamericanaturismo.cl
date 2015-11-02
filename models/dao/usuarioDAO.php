@@ -88,7 +88,15 @@ class usuarioDAO extends Model
     
     public function getTcambio($atipo = ''){
         
-        $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah and atipoa='$atipo'";
+        if($atipo == ''){
+            
+            $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah";
+            
+        }else{
+        
+            $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah and atipoa='$atipo'";
+        }
+        
         
         $datos = $this->_db->consulta($sql);
         
@@ -107,9 +115,25 @@ class usuarioDAO extends Model
         }  
         else
         {
-          return false;  
+            $objusuario = new usuarioDTO();
+            
+            $objusuario->setTipoCambio(0);
+            
+          return $objusuario;  
         }
         
+    }
+    public function getPaisTc($ciudad) {
+        $sql='select p.nombre from pais p inner join ciudad c on p.codigo = c.codigop where c.nombre ="'. $ciudad.'"';
+        
+        $datos = $this->_db->consulta($sql);
+        $pais=$this->_db->fetchAll($datos);
+        
+        if(trim($pais[0][0])==='CHILE'){
+            return 'N';
+        }else{
+            return 'E';
+        }
     }
     
     
