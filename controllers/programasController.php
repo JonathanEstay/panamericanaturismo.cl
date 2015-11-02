@@ -423,6 +423,8 @@ class programasController extends Controller {
                             $sql .= $pasajeros;
                         }
                     }
+                    echo $sql;
+                    exit;
                     //$objResPrograma = $programas->exeTS_RESERVAR($sql);
                     echo 'OK&' . md5(':D');
 
@@ -450,9 +452,10 @@ class programasController extends Controller {
                 if ($pasajeros) {
 
                     $habitacion = explode(';', Session::get('sess_distribucionPax'));
+                    
                     $hab2 = (isset($habitacion[1])) ? $habitacion[1] : '';
                     $hab3 = (isset($habitacion[2])) ? $habitacion[2] : '';
-
+                    
                     $objOpcPrograma = $programas->exeTS_GET_DETALLEPROG(Session::get('sess_TS_GET_DETALLEPROG'));
                     foreach ($objOpcPrograma as $objOpcProg) {
 
@@ -910,7 +913,11 @@ class programasController extends Controller {
         $distribucionTMP = '';
         for ($i = 1; $i <= $hab; $i++) {
 
-            if (Session::get('sess_DP_cmbAdultos_' . $i) == 1) {
+            if(Session::get('sess_PF')>0 && Session::get('sess_DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DP_cmbChild_' . $i) == 2){
+                $distribucion .='01DEP'.';';
+            }
+            else{
+                if (Session::get('sess_DP_cmbAdultos_' . $i) == 1) {
                 $sgl++;
                 $distribucionTMP = '0' . $sgl . 'SGL';
             } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 2) {
@@ -927,9 +934,11 @@ class programasController extends Controller {
             } else if (Session::get('sess_DP_cmbChild_' . $i) == 2) {
                 $distribucionTMP .= '+01CHD+01CH2';
             }
+            
             $distribucion .= $distribucionTMP . ';';
+            }
         }
-
+        
         return $distribucion;
     }
 

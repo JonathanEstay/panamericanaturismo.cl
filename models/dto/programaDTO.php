@@ -51,7 +51,15 @@ class programaDTO
     private $_pdplana;
     private $_chedad1;
     private $_chedad2;
+    private $_estado;
     
+    public function setEstado($p) {
+        $this->_estado=$p;
+    }
+    
+    public function getEstado() {
+        return $this->_estado;
+    }
     public function setChedad1($p) {
         $this->_chedad1=$p;
     }

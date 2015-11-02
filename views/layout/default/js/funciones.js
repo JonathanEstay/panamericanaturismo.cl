@@ -780,9 +780,38 @@ function habilitaEdadChild(id, hab, chd)
                 if (hab == x) {
 
                     $("#" + chd + "_1_" + x).prop('disabled', status_1[i]);
+                    
                     $("#" + chd + "_2_" + x).prop('disabled', status_2[i]);
                 }
             }
+        }
+    }
+}
+
+function habilitaPlan(chd,chd2,pf,id)
+{
+    var adult = $("#DP_cmbAdultos_"+id).val();
+    var cant = $("#DP_cmbChild_"+id).val();
+    if(pf > 0){
+        if(chd2 === '0'){
+           if(adult == 1){
+               if(cant==2){
+                  $('#mensajeWar').html('No puede seleccionar 2 child y un adulto para este programa');
+                  $('#divAlertWar').delay(1000).fadeIn(500);
+                  $('#divAlertWar').animate({
+                        'display': 'block'
+                   });
+
+                  $('#divAlertWar').delay(5000).fadeOut(500);
+                  $('#divAlertWar').animate({
+                        'display': 'none'
+                  });
+                  $("#DP_cmbChild_"+id).val(1);
+                  $("#DP_EdadChild_2_"+id).val(0);
+                  $("#DP_EdadChild_2_"+id).prop('disabled', true);
+               }
+               
+           }
         }
     }
 }

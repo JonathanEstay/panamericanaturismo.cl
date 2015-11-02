@@ -328,7 +328,7 @@
                                <?php } ?>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D' && $objOpcProg->getVVenPF() > 0){?> margin-bottom: -1px; <?php } ?>"><?php if ($objOpcProg->getVVenPF() == 0) {
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D' && $objOpcProg->getVVenPF() > 0 && $objOpcProg->getChd2() > 0&&$objOpcProg->getChd1() > 0){?> margin-bottom: -1px; <?php } ?>"><?php if ($objOpcProg->getVVenPF() == 0) {
                                echo "--";
                            } else {
                                echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenPF());

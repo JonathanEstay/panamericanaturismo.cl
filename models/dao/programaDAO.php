@@ -395,7 +395,6 @@ class programaDAO extends Model
     
     public function exeTS_GET_PROGRAMAS($sql) {
         
-        
         $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0) {
             
@@ -434,6 +433,9 @@ class programaDAO extends Model
                 $objProg->setCrucero(trim($progDB['crucero']));
                 $objProg->setAsis(trim($progDB['asisten']));
                 $objProg->setIti(trim($progDB['itinera']));
+                if(isset($progDB['ESTADO'])){
+                $objProg->setEstado(trim($progDB['ESTADO']));
+                }
                 
                 $ext = Functions::getExtensionImagen(ROOT . 'public' . DS . 'img'. DS . 'programas'. DS . 'upl_' . str_replace(' ', '_', trim($progDB['codProg'])));
                 if($ext) {
