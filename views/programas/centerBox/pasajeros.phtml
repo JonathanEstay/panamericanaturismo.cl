@@ -102,7 +102,7 @@
                                     <tr>
                                         <td>Adultos</td>
                                         <td>
-                                            <select name="DP_cmbAdultos_<?php echo $i; ?>" id="DP_cmbAdultos_<?php echo $i; ?>">
+                                            <select name="DP_cmbAdultos_<?php echo $i; ?>" id="DP_cmbAdultos_<?php echo $i; ?>"onchange="habilitaPlan('<?php echo $this->chd1;?>','<?php echo $this->chd2;?>','<?php echo $this->pf;?>',<?php echo $i;?>);">
                                                 <?php for ($x = 1; $x <= 3; $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                 <?php } ?>
@@ -110,7 +110,7 @@
                                         </td>
                                         <td>Child</td>
                                         <td>
-                                            <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaEdadChild(this.value, <?php echo $i; ?>, 'DP_EdadChild')">
+                                            <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaPlan('<?php echo $this->chd1;?>','<?php echo $this->chd2;?>','<?php echo $this->pf;?>',<?php echo $i;?>); habilitaEdadChild(this.value, <?php echo $i; ?>, 'DP_EdadChild')">
                                                 <option value="0">0</option>
                                                 <?php if ($this->chd1 > 0) { ?>
 
@@ -131,6 +131,7 @@
                                         <td>Edad C1</td>
                                         <td>
                                             <select name ="DP_EdadChild_1_<?php echo $i; ?>" id="DP_EdadChild_1_<?php echo $i; ?>"disabled="disabled">
+                                                <option value="0">0</option>
                                                 <?php for ($x = 2; $x <= Session::get('sessRP_edadChd1'); $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                 <?php } ?>
@@ -139,6 +140,7 @@
                                         <td>Edad C2</td>
                                         <td>
                                             <select name ="DP_EdadChild_2_<?php echo $i; ?>" id="DP_EdadChild_2_<?php echo $i; ?>"disabled="disabled">
+                                                <option value="0">0</option>
                                                 <?php for ($x = 2; $x <= Session::get('sessRP_edadChd2'); $x++) { ?>
                                                     <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                 <?php } ?>
