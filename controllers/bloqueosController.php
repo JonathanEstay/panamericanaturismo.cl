@@ -495,7 +495,8 @@ class bloqueosController extends Controller {
                     if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
                         if(!Session::get('sess_tcambio')) {
                             $us = $this->loadModel('usuario');
-                            $TcambioSess =$us->getTcambio();
+                            $tcambio = $us->getPaisTc(Session::get('sess_BP_ciudadDes'));
+                            $TcambioSess =$us->getTcambio($tcambio);
                             Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
                         }
                         

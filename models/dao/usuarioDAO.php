@@ -107,9 +107,25 @@ class usuarioDAO extends Model
         }  
         else
         {
-          return false;  
+            $objusuario = new usuarioDTO();
+            
+            $objusuario->setTipoCambio(0);
+            
+          return $objusuario;  
         }
         
+    }
+    public function getPaisTc($ciudad) {
+        $sql='select p.nombre from pais p inner join ciudad c on p.codigo = c.codigop where c.nombre ="'. $ciudad.'"';
+        
+        $datos = $this->_db->consulta($sql);
+        $pais=$this->_db->fetchAll($datos);
+        
+        if(trim($pais[0][0])==='CHILE'){
+            return 'N';
+        }else{
+            return 'E';
+        }
     }
     
     
