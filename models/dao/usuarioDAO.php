@@ -86,9 +86,9 @@ class usuarioDAO extends Model
 
     }
     
-    public function getTcambio(){
+    public function getTcambio($atipo = ''){
         
-        $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah";
+        $sql = "SELECT TOP 1 cambio FROM tcambio WHERE getdate() between fechad AND fechah and atipoa='$atipo'";
         
         $datos = $this->_db->consulta($sql);
         
