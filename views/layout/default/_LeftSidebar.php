@@ -219,6 +219,7 @@ $(function()
                                                 <td>Edad 1</td>
                                                 <td>
                                                     <select id="mL_edadChild_1_<?php echo $i; ?>" name="mL_edadChild_1_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)>=1){}else{ echo "disabled='disabled'"; }?> >
+                                                        <option value="0">0</option>
                                                     <?php
                                                     for($x=2;$x<=12;$x++)
                                                     {
@@ -257,6 +258,7 @@ $(function()
                                                 <td>Edad 2</td>
                                                 <td>
                                                     <select id="mL_edadChild_2_<?php echo $i; ?>" name="mL_edadChild_2_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)==2){}else{ echo "disabled='disabled'"; }?> >
+                                                        <option value="0">0</option>
                                                         <?php
                                                         for($x=2; $x<=12; $x++)
                                                         {
