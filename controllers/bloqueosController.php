@@ -74,6 +74,8 @@ class bloqueosController extends Controller {
             //$this->_view->objCiudadBloq= $this->_ciudad->getCiudadesBloq(Session::get('sess_BP_ciudadDes_PRG'));
             $this->_view->objBloqueos = $bloqueos->TS_GET_BLOQUEOS_PROG($sql, true);
             $this->_view->objBloqueosCNT = count($this->_view->objBloqueos);
+        }else{
+            $this->_view->objBloqueos ='';
         }
 
         //Session::destroy('sess_BP_ciudadDes_PRG');
