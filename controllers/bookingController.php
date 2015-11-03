@@ -106,7 +106,7 @@ class bookingController extends Controller
         $this->getLibrary('html2pdf.class');
         try
         {
-            $html2pdf = new HTML2PDF('P', 'A4', 'fr');
+            $html2pdf = new HTML2PDF('P', 'A4', 'es', false, CHARSET);
                     //$html2pdf->setModeDebug();
             $html2pdf->setDefaultFont('Arial');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
