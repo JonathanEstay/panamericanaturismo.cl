@@ -794,7 +794,7 @@ function habilitaPlan(chd,chd2,pf,id)
     var cant = $("#DP_cmbChild_"+id).val();
     if(pf > 0){
         if(chd2 === '0'){
-           if(adult == 1){
+           if(adult == 1 || adult == 3){
                if(cant==2){
                   $('#mensajeWar').html('No puede seleccionar 2 child y un adulto para este programa');
                   $('#divAlertWar').delay(1000).fadeIn(500);
