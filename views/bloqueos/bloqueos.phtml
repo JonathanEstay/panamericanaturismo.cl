@@ -119,7 +119,7 @@ if (Session::get('sess_iframe')) {
                     <div class="panel-group panel-info" id="accordion">
                         <?php
                         $cnt = 0;
-                        if ($this->objBloqueos) {
+                        if ($this->objBloqueos ) {
                             foreach ($this->objBloqueos as $objProg) {
                                 $cnt++;
                                 $OP_tipoHabi = $objProg->getTipoHab();
