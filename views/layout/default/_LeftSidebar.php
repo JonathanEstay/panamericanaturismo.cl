@@ -52,7 +52,7 @@ $(function()
     });
     
     
-    <?php if(!WEB) { ?>
+    <?php //if(!WEB) { ?>
     
     $( "#mL_txtFechaIn_PRG" ).datepicker({
         minDate: +1,
@@ -68,7 +68,7 @@ $(function()
         dateFormat: 'dd/mm/yy',
         firstDay: 1
     });
-    <?php } ?>
+    <?php //} ?>
 });
 
 </script>
