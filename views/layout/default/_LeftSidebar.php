@@ -317,7 +317,7 @@ $(function()
         </li>
         
         
-        <?php if(!WEB) { ?>
+       
         <!-- OCULTO HASTA PASO A PRODUCCION -->
         <li <?php if($this->currentMenu == 22){ echo 'class="hasChild open"'; } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
@@ -372,7 +372,7 @@ $(function()
                 </li>
             </ul>
         </li>
-        <?php } ?>
+        
         
         
         <li class="divider"></li>
