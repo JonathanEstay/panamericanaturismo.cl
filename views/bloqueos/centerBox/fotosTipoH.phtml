@@ -41,25 +41,25 @@ foreach($this->DTH_objsDetTipoHab as $objFotosHotel) {
    
    <?php if($objFotosHotel->getFoto1() && file_exists($publicFotos.$objFotosHotel->getFoto1())){?> 
     <div class="item <?php echo $item; $item=''; ?>"> 
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto1(); ?>" alt="Foto Encabezado">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto1(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto Encabezado">
     </div>  
     <?php
     } 
     if($objFotosHotel->getFoto2() && file_exists($publicFotos.$objFotosHotel->getFoto2())){?>   
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto2(); ?>" alt="Foto 1">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto2(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 1">
     </div>
      
    <?php }
    if($objFotosHotel->getFoto3() && file_exists($publicFotos.$objFotosHotel->getFoto3())){?> 
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto3(); ?>" alt="Foto 2">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto3(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 2">
     </div>
     
     <?php }
     if($objFotosHotel->getFoto4() && file_exists($publicFotos.$objFotosHotel->getFoto4())){?>  
     <div class="item <?php echo $item; $item=''; ?>">
-      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto4(); ?>" alt="Foto 3">
+      <img src="<?php echo $_layoutParamsCB['ruta_fotos_hab'] . $objFotosHotel->getFoto4(); ?>" style="max-width: 587px; max-height: 384px;" alt="Foto 3">
     </div>
      
     <?php } ?>    
@@ -75,6 +75,20 @@ foreach($this->DTH_objsDetTipoHab as $objFotosHotel) {
     <span class="sr-only">Next</span>
   </a>
     </div></center>
+
+<script type="text/javascript">
+
+$(document).bind('keyup', function(e) {
+
+  if(e.keyCode === 39){
+    $('a.carousel-control.right').trigger('click');
+  } else if(e.keyCode === 37){
+  $('a.carousel-control.left').trigger('click');
+  }
+
+});
+
+</script>
 
 <?php } else { ?>
         No se encontraron fotos para este hotel.
