@@ -834,8 +834,8 @@ class bloqueosController extends Controller {
         $this->_view->numFile = $nFile;
         $this->_view->codigoPRG = $codPRG;
         $this->_view->codigoBloq = $codBloq;
-
-
+        $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+        
         
         $this->_view->renderingCartas('panamericana');
     }
