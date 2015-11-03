@@ -97,6 +97,7 @@ class loginController extends Controller
 
                         //echo '..::fin::..'; exit;
                         Session::destroy('sess_boton_pago');
+                        Session::destroy('sess_codigo_cliente_url');
                         Session::set('sess_condiciones','panamericana');
                         Session::set('Autenticado', true);
                         Session::set('sess_key_', md5(uniqid()));
@@ -140,11 +141,11 @@ class loginController extends Controller
                         
                         $obju = $this->_login->getTcambio();
                         
-                       Session::set('sess_tcambio', $obju->getTipoCambio());
-                       
+                        Session::set('sess_tcambio', $obju->getTipoCambio());
                         
-
-
+                        
+                        
+                        
                         ############################################################################
                         //EJECUTANDO STORED PROCEDURE
                         $sp_perfilClave= $this->_login->sp_perfilClave($LC_user, 'ADMWEB');
