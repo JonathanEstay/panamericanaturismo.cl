@@ -326,7 +326,7 @@ $(function()
         </li>
         
         
-        <?php if(!WEB) { ?>
+        <?php if(Session::get('sess_codigo_cliente_url')!='3f7a2611ee08c6645796463e0bb1ae7f') { ?>
         <!-- OCULTO HASTA PASO A PRODUCCION -->
         <li <?php if($this->currentMenu == 22){ echo 'class="hasChild open"'; } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
