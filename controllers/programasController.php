@@ -423,10 +423,10 @@ class programasController extends Controller {
                             $sql .= $pasajeros;
                         }
                     }
-                    echo $sql;
-                    exit;
-                    //$objResPrograma = $programas->exeTS_RESERVAR($sql);
-                    echo 'OK&' . md5(':D');
+                    //echo $sql;
+                    //exit;
+                    $objResPrograma = $programas->exeTS_RESERVAR($sql);
+                   
 
                     foreach ($objResPrograma as $objRes) {
                         if (!$objRes->getFile()) {
@@ -441,8 +441,8 @@ class programasController extends Controller {
 
 
 
-                            //$this->getLibrary('class.phpmailer');
-                            //$this->mailReserva($objRes->getFile(), $html);
+                            $this->getLibrary('class.phpmailer');
+                            $this->mailReserva($objRes->getFile(), $html);
                             echo 'OK&' . md5(':D');
                         }
                     }
