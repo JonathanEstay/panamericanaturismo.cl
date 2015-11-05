@@ -136,6 +136,19 @@ class usuarioDAO extends Model
         }
     }
     
+    public function getPaisTcProg($ciudad) {
+        $sql='select p.nombre from pais p inner join ciudad c on p.codigo = c.codigop where c.codigo ="'. $ciudad.'"';
+        
+        $datos = $this->_db->consulta($sql);
+        $pais=$this->_db->fetchAll($datos);
+        
+        if(trim($pais[0][0])==='CHILE'){
+            return 'N';
+        }else{
+            return 'E';
+        }
+    }
+    
     
 }
 
