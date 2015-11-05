@@ -119,7 +119,7 @@
                 <table width="100%" style="margin-top: -15px; margin-left: -15px;">
                     <tr>
                         <td colspan="2">
-                            <p><b style="color:#FF9900; font-size:11px">DESCRIPCI&Oacute;N:</b><br> 
+                            <p>
 <?php echo $this->objProgramas[0]->getNota(); ?>
                             </p>
                         </td>
@@ -158,9 +158,9 @@
             <div class="panel-heading" style="margin-top: 20px;" >
                 Opci&oacute;n <?php echo $cntDP;
         if ($objOpcProg->getEstado() == 'AVAILABLE') { ?>
-                    <div class="blink" style="float: right;"><button class="btn btn-warning btn-sm" > &iexcl; CONFIRMADO ! </button><?php //echo $objOpcProg->getEstado();  ?></div>
+                    <div style="float: right;"><div style=" position: absolute;"> <img style=" margin-top: -5px; margin-left: -47px; width: 51px;" src="<?php echo $_layoutParamsCB['ruta_img']; ?>icono_confirmar.png"></div><?php //echo $objOpcProg->getEstado();  ?></div>
         <?php } ?>
-                <div style="float: right;">
+                <div style="float: right ;<?php if($objOpcProg->getEstado() == 'AVAILABLE'){ echo 'margin-right: 51px';} ?>">
                     <a data-toggle="modal" href="#myModal2" onclick="fadeIn('detallePopup');
                             $('#divPopupIn').css('overflow-y', 'scroll');
                             abrePopupImprimirProg('divPopupIn', '<?php echo BASE_URL; ?>programas/imprimir', 'tituloPopup2', 'Vista Previa',
@@ -285,23 +285,23 @@
 
                         <tr>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenSGL()); ?>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php if($objOpcProg->getVVenSGL()==0){ echo '--'; }else{echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenSGL());} ?>
                                 </label><br>
-                                <?php if( $this->pago && $objOpcProg->getMoneda() ==='D' ){?>
+                                <?php if( $this->pago && $objOpcProg->getMoneda() ==='D' && $objOpcProg->getVVenSGL()>0 ){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$objOpcProg->getVVenSGL() * Session::get('sess_tcambio'));?></b><br>
                                 <?php }?>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?> margin-bottom: -1px; <?php } ?>"><?php echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenDBL()); ?></label>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?> margin-bottom: -1px; <?php } ?>"><?php if($objOpcProg->getVVenDBL()==0){ echo '--'; }else{ echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenDBL());} ?></label>
                                 <br>
-                                <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?>
+                                <?php if($this->pago && $objOpcProg->getMoneda() ==='D' && $objOpcProg->getVVenDBL()>0){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$objOpcProg->getVVenDBL() * Session::get('sess_tcambio'));?></b><br>
                                 <?php } ?>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?> margin-bottom: -1px; <?php } ?>"><?php echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenTPL()); ?></label>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?> margin-bottom: -1px; <?php } ?>"><?php if($objOpcProg->getVVenTPL()==0){ echo'--';}else{echo Functions::formatoValor($objOpcProg->getMoneda(), $objOpcProg->getVVenTPL());} ?></label>
                                 <br>
-                                <?php if($this->pago && $objOpcProg->getMoneda() ==='D'){?>
+                                <?php if($this->pago && $objOpcProg->getMoneda() ==='D' && $objOpcProg->getVVenTPL()>0){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$objOpcProg->getVVenTPL() * Session::get('sess_tcambio'));?></b><br>
                                 <?php } ?>
                             </td>

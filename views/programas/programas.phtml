@@ -4,17 +4,7 @@
     $(function () {
         $("[name$='tooltip_hotel']").poshytip({className: "tip-darkgray", alignY: "bottom"});
     });
-    $(document).ready(function(){
-       $('.blink').each(function () {
-        var elem = $(this);
-        setInterval(function () {
-
-            elem.animate({opacity: 0}, 400);
-            elem.animate({opacity: 1}, 400);
-
-        }, 1000);
-    }); 
-    });
+    
 </script>
 
 
@@ -142,7 +132,7 @@
                                         <?php echo $objProg->getTitulo(); ?>
                                         
                                        <?php if ($objProg->getEstado() == 'AVAILABLE') { ?>
-                                            <div class="blink" style="float: right;"><button class="btn btn-warning btn-sm" > &iexcl; CONFIRMADO ! </button><?php //echo $objOpcProg->getEstado();  ?></div>
+                                        <div  style="float: right;"><div style=" position: absolute;"> <img style=" margin-top: -17px; margin-left: -64px; width: 73px;" src="<?php echo $_layoutParams['ruta_img']; ?>icono_confirmar.png"></div><?php //echo $objOpcProg->getEstado();  ?></div>
                                          <?php } ?>
 
                                     </div>

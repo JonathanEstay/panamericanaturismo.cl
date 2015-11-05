@@ -61,7 +61,10 @@ class programasController extends Controller {
             //$this->_view->objProgramasCNT = count($this->_view->objProgramas);
         }
 
-
+        $us = $this->loadModel('usuario');
+        $tcambio = $us->getPaisTcProg(Session::get('sess_BP_ciudadDes_PRG'));
+        $TcambioSess =$us->getTcambio($tcambio);
+        Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
 
         //Session::destroy('sess_BP_ciudadDes');
         $this->_view->currentMenu = 22;
