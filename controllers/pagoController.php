@@ -271,8 +271,9 @@ class pagoController extends Controller {
         $this->_view->codigoBloq = $codBloq;
         Session::set('sess_condiciones', 'travelclub');
 
-        $this->_view->condicionesGenerales = file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . Session::get('sess_condiciones') . '.phtml');
-
+        //$this->_view->condicionesGenerales = file_get_contents(ROOT . 'views' . DS . 'condiciones' . DS . Session::get('sess_condiciones') . '.phtml');
+        
+        $this->_view->condicionesGenerales = '';
         $this->loadDTO('usuarioH2h');
         //ob_start();
         //$this->_view->renderingSystem('exito');
