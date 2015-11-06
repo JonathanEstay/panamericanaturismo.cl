@@ -780,7 +780,7 @@ function habilitaEdadChild(id, hab, chd)
                 if (hab == x) {
 
                     $("#" + chd + "_1_" + x).prop('disabled', status_1[i]);
-                    
+
                     $("#" + chd + "_2_" + x).prop('disabled', status_2[i]);
                 }
             }
@@ -788,30 +788,30 @@ function habilitaEdadChild(id, hab, chd)
     }
 }
 
-function habilitaPlan(chd,chd2,pf,id)
+function habilitaPlan(chd, chd2, pf, id)
 {
-    var adult = $("#DP_cmbAdultos_"+id).val();
-    var cant = $("#DP_cmbChild_"+id).val();
-    if(pf > 0){
-        if(chd2 === '0'){
-           if(adult == 1 || adult == 3){
-               if(cant==2){
-                  $('#mensajeWar').html('No puede seleccionar 2 child y un adulto para este programa');
-                  $('#divAlertWar').delay(1000).fadeIn(500);
-                  $('#divAlertWar').animate({
+    var adult = $("#DP_cmbAdultos_" + id).val();
+    var cant = $("#DP_cmbChild_" + id).val();
+    if (pf > 0) {
+        if (chd2 === '0') {
+            if (adult == 1 || adult == 3) {
+                if (cant == 2) {
+                    $('#mensajeWar').html('No puede seleccionar 2 child y un adulto para este programa');
+                    $('#divAlertWar').delay(1000).fadeIn(500);
+                    $('#divAlertWar').animate({
                         'display': 'block'
-                   });
+                    });
 
-                  $('#divAlertWar').delay(5000).fadeOut(500);
-                  $('#divAlertWar').animate({
+                    $('#divAlertWar').delay(5000).fadeOut(500);
+                    $('#divAlertWar').animate({
                         'display': 'none'
-                  });
-                  $("#DP_cmbChild_"+id).val(1);
-                  $("#DP_EdadChild_2_"+id).val(0);
-                  $("#DP_EdadChild_2_"+id).prop('disabled', true);
-               }
-               
-           }
+                    });
+                    $("#DP_cmbChild_" + id).val(1);
+                    $("#DP_EdadChild_2_" + id).val(0);
+                    $("#DP_EdadChild_2_" + id).prop('disabled', true);
+                }
+
+            }
         }
     }
 }
@@ -864,7 +864,7 @@ function muestraOculta(id, estado)
 function abrePopup(div, docPHP, idTitulo, titulo, val, form)
 {
     form = '/' + form;
-    
+
     initLoad();
     $("#" + div).html('');
     $("#" + idTitulo).html(titulo);
@@ -882,7 +882,7 @@ function abrePopupImprimir(div, docPHP, idTitulo, titulo, val, hot, form)
 {
     // alert('llegando');
     form = '/' + form;
-    
+
 
     initLoad();
     $("#" + div).html('');
@@ -901,7 +901,7 @@ function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot, pa, cat,
 {
     // alert('llegando');
     form = '/' + form;
-    
+
 
     initLoad();
     $("#" + div).html('');
@@ -931,7 +931,7 @@ function abrePopupImprimirProg(div, docPHP, idTitulo, titulo, val, hot, pa, cat,
 function abrePopupHab(div, docPHP, idTitulo, titulo, val, hot, form)
 {
     form = '/' + form;
-    
+
 
     initLoad();
     $("#" + div).html('');
@@ -1200,9 +1200,12 @@ $('#btnBuscarBloqueos').on('click', function ()
 
                         if ($('#mL_cmbHab').val() != 0)
                         {
+                            var chd;
+                            chd = validadEdadChild($('#mL_child_1').val(),$('#mL_child_2').val(),$('#mL_child_3').val(),'#mL_child_','#mL_edadChild_1_','#mL_edadChild_2_' ); 
                             //abrePopup();
-                            $('#myModalSearch').modal('show'); 
-                            
+                            if(!chd){
+                            $('#myModalSearch').modal('show');
+
                             $(document).skylo('start');
 
                             setTimeout(function () {
@@ -1215,6 +1218,11 @@ $('#btnBuscarBloqueos').on('click', function ()
                             setTimeout(function () {
                                 document.getElementById('frmBuscarBloqueos').submit();
                             }, 2500);
+                        }else{
+                            mL_Error = 1;
+                            $('#mensajeWar').html('Debe seleccionar edad de child');
+                            
+                        }
                         }
                         else
                         {
@@ -1290,6 +1298,31 @@ function restaFechas(f1, f2)
 
     return dias;
 
+}
+function validadEdadChild(cant, cant2, cant3,id,edad1,edad2) {
+
+var resultado = false;
+    if (cant > 0 || cant2 > 0 || cant3 > 0)
+    {
+
+        for (var i = 1; i <= 3; i++) {
+
+            if ($(id + i).val() == 1){
+                if ($(edad1 + i).val() <= 0) {
+                    resultado= true;
+                }
+
+                } else if ($(id + i).val() == 2) {
+                if ($(edad1 + i).val() <= 0 || $(edad2 + i).val() <= 0) {
+                    resultado= true;
+                }
+
+            }
+
+        }
+
+    }
+    return resultado;
 }
 
 
