@@ -1204,25 +1204,25 @@ $('#btnBuscarBloqueos').on('click', function ()
                             chd = validadEdadChild($('#mL_child_1').val(),$('#mL_child_2').val(),$('#mL_child_3').val(),'#mL_child_','#mL_edadChild_1_','#mL_edadChild_2_' ); 
                             //abrePopup();
                             if(!chd){
-                            $('#myModalSearch').modal('show');
+                                $('#myModalSearch').modal('show');
 
-                            $(document).skylo('start');
+                                $(document).skylo('start');
 
-                            setTimeout(function () {
-                                $(document).skylo('set', 50);
-                            }, 1000);
+                                setTimeout(function () {
+                                    $(document).skylo('set', 50);
+                                }, 1000);
 
-                            setTimeout(function () {
-                                $(document).skylo('end');
-                            }, 1500);
-                            setTimeout(function () {
-                                document.getElementById('frmBuscarBloqueos').submit();
-                            }, 2500);
-                        }else{
-                            mL_Error = 1;
-                            $('#mensajeWar').html('Debe seleccionar edad de child');
-                            
-                        }
+                                setTimeout(function () {
+                                    $(document).skylo('end');
+                                }, 1500);
+                                setTimeout(function () {
+                                    document.getElementById('frmBuscarBloqueos').submit();
+                                }, 2500);
+                            }else{
+                                mL_Error = 1;
+                                $('#mensajeWar').html('Debe seleccionar edad de ni&ntilde;o');
+
+                            }
                         }
                         else
                         {
