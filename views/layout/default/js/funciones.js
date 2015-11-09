@@ -1203,7 +1203,7 @@ $('#btnBuscarBloqueos').on('click', function ()
                             var chd;
                             chd = validadEdadChild($('#mL_child_1').val(),$('#mL_child_2').val(),$('#mL_child_3').val(),'#mL_child_','#mL_edadChild_1_','#mL_edadChild_2_' ); 
                             //abrePopup();
-                            if(!chd){
+                            if(!chd[0]){
                                 $('#myModalSearch').modal('show');
 
                                 $(document).skylo('start');
@@ -1220,7 +1220,7 @@ $('#btnBuscarBloqueos').on('click', function ()
                                 }, 2500);
                             }else{
                                 mL_Error = 1;
-                                $('#mensajeWar').html('Debe seleccionar edad de ni&ntilde;o');
+                                $('#mensajeWar').html('Debe seleccionar edad de ni&ntilde;o en la habitaci&oacute;n N°'+chd[1]);
 
                             }
                         }
@@ -1301,7 +1301,7 @@ function restaFechas(f1, f2)
 }
 function validadEdadChild(cant, cant2, cant3,id,edad1,edad2) {
 
-var resultado = false;
+var resultado = [false,0];
     if (cant > 0 || cant2 > 0 || cant3 > 0)
     {
 
@@ -1309,12 +1309,12 @@ var resultado = false;
 
             if ($(id + i).val() == 1){
                 if ($(edad1 + i).val() <= 0) {
-                    resultado= true;
+                    resultado = [true,i];
                 }
 
                 } else if ($(id + i).val() == 2) {
                 if ($(edad1 + i).val() <= 0 || $(edad2 + i).val() <= 0) {
-                    resultado= true;
+                    resultado= [true,i];
                 }
 
             }
