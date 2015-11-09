@@ -322,8 +322,14 @@ if (Session::get('sess_iframe')) {
                             }
                         } else {
                             ?>
-                            <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
-                                No se encontraron registros para esta busqueda.
+                            <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;"> 
+                                <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){?>
+                                Estimado cliente, no se encontraron registros para su solicitud. 
+                                Favor realice una nueva b&uacute;squeda o comun&iacute;quese con nosotros al email 
+                                <a target="_top" href="mailto:ventaonline@travelclub.cl?Subject=Consulta: ">ventaonline@travelclub.cl</a>
+                                <?php }else{ ?>
+                                    No se encontraron habitaciones disponibles para esta salida 
+                                <?php } ?>
                             </div>
 <?php } ?> 
 
