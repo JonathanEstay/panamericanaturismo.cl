@@ -18,7 +18,14 @@ class detalleBloqueoDTO
     private $_tipo_pax;
     private $_fecha_pag;
     private $_hora_robot;
+    private $_cantInf;
     
+    public function setCantidadInf($p) {
+        $this->_cantInf =$p;
+    }
+    public function getCantidadInf() {
+        return $this->_cantInf;
+    }
     public function setNomPax($nom)
     {
         $this->_nompax=$nom;

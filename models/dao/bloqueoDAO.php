@@ -45,7 +45,7 @@ class bloqueoDAO extends Model {
         if ($this->_db->numRows($datos) > 0) {
             $objetosDetBloq = array();
             $arrayDetBloq = $this->_db->fetchAll($datos);
-
+            $cant=0;
             foreach ($arrayDetBloq as $detB) {
                 $objDetB = new detalleBloqueoDTO();
 
@@ -59,10 +59,13 @@ class bloqueoDAO extends Model {
                 $objDetB->setTipoPax(trim($detB['tipo_pax']));
                 $objDetB->setFechaPag(trim($detB['fecha_pag']));
                 $objDetB->setHoraRobot(trim($detB['horarobot']));
-
+                
+                if(trim($detB['rut_inf'])!=''){
+                    $cant++;
+                }
+                $objDetB->setCantidadInf($cant);
                 $objetosDetBloq[] = $objDetB;
             }
-
             return $objetosDetBloq;
         } else {
             return false;

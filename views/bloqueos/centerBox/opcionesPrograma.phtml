@@ -65,26 +65,6 @@ if ($this->objOpcBloqueos) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <?php
                         $OP_hoteles = $objOpcProg->getHoteles();
                         $OP_codHoteles = $objOpcProg->getCodHoteles();
@@ -147,15 +127,17 @@ if ($this->objOpcBloqueos) {
 
 
                                 <td class="<?php echo $td_background; ?>" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>" >
-                                    <a data-toggle='modal' href='#myModal' 
+                                    <!--<a data-toggle='modal' href='#myModal' 
                                        onClick=" abrePopupHab('divPopupPRG', '<?php echo BASE_URL; ?>bloqueos/fotosTipoHab', 'tituloFormPRG', 'Fotos Tipo Habitaci&oacute;n', '<?php echo $OP_codTh[$i]; ?>', <?php echo $OP_codHoteles[$i]; ?>, '<?php echo $this->form; ?>');">
             <?php echo $OP_th[$i]; ?>
-                                    </a>
+                                    </a>-->
+                                    <div style=" color: #0075b0;"><?php echo $OP_th[$i]; ?></div>
                                 </td>
 
 
                                 <td class="<?php echo $td_background; ?>" style="padding: 3px; vertical-align: middle; <?php echo $border_top; ?>" >
-                                    <a><?php echo $OP_planAli[$i]; ?></a>
+                                    <!--<a><?php echo $OP_planAli[$i]; ?></a>-->
+                                    <div style=" color: #0075b0;"><?php echo $OP_planAli[$i]; ?></div>
                                 </td>
 
 
@@ -216,7 +198,15 @@ if ($this->objOpcBloqueos) {
                                             echo 'Habitacion 3: ' . $OP_tipoHabi[2] . '<br>';
                                         }
                                         ?>' >
-                <?php echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); ?>
+                                        <?php 
+                                        $TotalPago = ($OP_valores[0] + $OP_valores[1] + $OP_valores[2]);
+                                        echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); 
+                                        if($objOpcProg->getMoneda()=='D'){?>
+                                            <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){ ?>
+                                            <div style="font-size:11px; color: #033d7d;">(
+                                                <?php echo Functions::formatoValor('P',$TotalPago * Session::get('sess_tcambio')); ?>)</div>
+                                            <?php } ?>
+                                        <?php } ?>
                                         </span>
                                     </td>
                                     <td class="<?php echo $td_background; ?>" rowspan="<?php echo $OP_cntHoteles; ?>" style=" vertical-align: middle; padding: 2px;">
