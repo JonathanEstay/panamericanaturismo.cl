@@ -284,7 +284,7 @@ $(function()
 
 
                                             <tr>
-                                                <td>Infant</td>
+                                                <td>Infante</td>
                                                 <td colspan="3">
                                                     <select name="mL_inf_<?php echo $i; ?>" id="mL_inf_<?php echo $i; ?>">
                                                       <?php
