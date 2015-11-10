@@ -26,7 +26,7 @@ class bloqueosController extends Controller {
         $this->_view->setJS(array('validaCampos', 'bloqueos', 'json'));
 
         //$this->getLibrary('kint/Kint.class');
-
+        
         $this->_view->ML_fechaIni = Session::get('sess_BP_fechaIn');
         $this->_view->ML_fechaFin = Session::get('sess_BP_fechaOut');
 
@@ -77,6 +77,10 @@ class bloqueosController extends Controller {
         }else{
             $this->_view->objBloqueos ='';
         }
+        $us = $this->loadModel('usuario');
+        $tcambio = $us->getPaisTc(Session::get('sess_BP_ciudadDes'));
+        $TcambioSess =$us->getTcambio($tcambio);
+        Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
 
         //Session::destroy('sess_BP_ciudadDes_PRG');
         $this->_view->currentMenu = 11;
