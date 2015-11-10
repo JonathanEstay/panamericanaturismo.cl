@@ -202,7 +202,7 @@ if ($this->objOpcBloqueos) {
                                         $TotalPago = ($OP_valores[0] + $OP_valores[1] + $OP_valores[2]);
                                         echo Functions::formatoValor($objOpcProg->getMoneda(), ($OP_valores[0] + $OP_valores[1] + $OP_valores[2])); 
                                         if($objOpcProg->getMoneda()=='D'){?>
-                                            <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){ ?>
+                                            <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f' && $objOpcProg->getMoneda()=='P'){ ?>
                                             <div style="font-size:11px; color: #033d7d;">(
                                                 <?php echo Functions::formatoValor('P',$TotalPago * Session::get('sess_tcambio')); ?>)</div>
                                             <?php } ?>
