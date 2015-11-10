@@ -111,6 +111,10 @@ class bloqueosController extends Controller {
 
         if (Session::get('sess_BP_ciudadDes')) {
             $bloqueos = $this->loadModel('bloqueo');
+            
+            /*if() {
+                
+            }*/
 
             if (WEB) {
                 $sql = "exec TS_GET_BLOQUEOS_PROG_DETALLE " . $BO_idprog . ", "
@@ -898,8 +902,13 @@ class bloqueosController extends Controller {
 
 
                 for ($x = 1; $x <= 2; $x++) {
-                    Session::set('sess_BP_edadChd_' . $x . '_' . $i, $this->getInt('mL_edadChild_' . $x . '_' . $i));
+                    if ($x <= Session::get('sess_BP_Chd_' . $i) && !$this->getInt('mL_edadChild_' . $x . '_' . $i)) {
+                        Session::set('sess_BP_edadChd_' . $x . '_' . $i, 2);
+                    } else {
+                        Session::set('sess_BP_edadChd_' . $x . '_' . $i, $this->getInt('mL_edadChild_' . $x . '_' . $i));
+                    }
                 }
+                
             } else {
                 Session::set('sess_BP_Adl_' . $i, 0);
                 Session::set('sess_BP_Chd_' . $i, 0);

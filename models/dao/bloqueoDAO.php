@@ -236,7 +236,13 @@ class bloqueoDAO extends Model {
                     for ($i = 1; $i <= 3; $i++) {
                         $valorHab[] = trim($packDB['vHab_' . $i]);
                         if (trim($packDB['tipoHab_' . $i]) != '') {
-                            $tipoHab[] = str_replace('SGL', ' SINGLE ', str_replace('DBL', ' DOBLE ', str_replace('TPL', ' TRIPLE ', str_replace('CHD', ' CHILD ', str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))));
+                            $tipoHab[] = str_replace('SGL', ' SINGLE ', 
+                                    str_replace('DBL', ' DOBLE ', 
+                                    str_replace('TPL', ' TRIPLE ',
+                                    str_replace('QUA', ' QUADRUPLE ',
+                                    str_replace('DEP', ' DEPARTAMENTO ',
+                                    str_replace('CHD', ' CHILD ', 
+                                    str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))))));
                         }
                     }
 
@@ -340,7 +346,13 @@ class bloqueoDAO extends Model {
                     for ($i = 1; $i <= 3; $i++) {
                         $valorHab[] = trim($packDB['vHab_' . $i]);
                         if (trim($packDB['tipoHab_' . $i]) != '') {
-                            $tipoHab[] = str_replace('SGL', ' SINGLE ', str_replace('DBL', ' DOBLE ', str_replace('TPL', ' TRIPLE ', str_replace('CHD', ' CHILD ', str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))));
+                            $tipoHab[] = str_replace('SGL', ' SINGLE ', 
+                                    str_replace('DBL', ' DOBLE ', 
+                                    str_replace('TPL', ' TRIPLE ', 
+                                    str_replace('QUA', ' QUADRUPLE ',
+                                    str_replace('DEP', ' DEPARTAMENTO ',
+                                    str_replace('CHD', ' CHILD ', 
+                                    str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))))));
                         }
                     }
 
@@ -435,7 +447,13 @@ class bloqueoDAO extends Model {
                     for ($i = 1; $i <= 3; $i++) {
                         $valorHab[] = trim($packDB['vHab_' . $i]);
                         if (trim($packDB['tipoHab_' . $i]) != '') {
-                            $tipoHab[] = str_replace('SGL', ' SINGLE ', str_replace('DBL', ' DOBLE ', str_replace('TPL', ' TRIPLE ', str_replace('CHD', ' CHILD ', str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))));
+                            $tipoHab[] = str_replace('SGL', ' SINGLE ', 
+                                    str_replace('DBL', ' DOBLE ', 
+                                    str_replace('TPL', ' TRIPLE ', 
+                                    str_replace('QUA', ' QUADRUPLE ',
+                                    str_replace('DEP', ' DEPARTAMENTO ',
+                                    str_replace('CHD', ' CHILD ', 
+                                    str_replace('CH2', ' CHILD ', trim($packDB['tipoHab_' . $i]))))))));
                         }
                     }
                     $objPackages->setValorHab($valorHab);
