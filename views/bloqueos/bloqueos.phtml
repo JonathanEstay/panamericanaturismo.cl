@@ -149,8 +149,10 @@ if (Session::get('sess_iframe')) {
                                                         ?>"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getPrecioDesde()); ?></b> <br>
                                                         
                                                         <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f' && $objProg->getMoneda()=='D'){ ?>
-                                                        <div style="font-size:11px; color: #F00;">(
+                                                        <div style=" position: absolute;">
+                                                            <div style="font-size:11px; color: #F00; margin-left: 142px;">(
                                                         <?php echo Functions::formatoValor('P',$objProg->getPrecioDesde() * Session::get('sess_tcambio')); ?>)</div>
+                                                        </div>
                                                         <?php } ?>
                                                     </td>
                                                 </tr>
