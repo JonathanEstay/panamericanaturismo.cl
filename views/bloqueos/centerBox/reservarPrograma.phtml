@@ -218,8 +218,8 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                         <script type="text/javascript">
                             $(function ()
                             {
-                                $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
 
                                 $("#rP_FechaNac_<?php echo $rP_cntRegistros; ?>").datepicker({
                                 changeMonth: true,
@@ -301,8 +301,8 @@ if (Session::get('sess_BP_cntInf') > 0) {
                         <script type="text/javascript">
                             $(function ()
                             {
-                                $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
 
                                 $("#rP_FechaNacInf_<?php echo $i; ?>").datepicker({
                                     changeMonth: true,
