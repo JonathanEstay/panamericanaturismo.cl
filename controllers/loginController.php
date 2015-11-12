@@ -229,7 +229,7 @@ class loginController extends Controller
                             //echo $objUser->getEmail(); exit;
                             $this->getLibrary('class.phpmailer');
                             $mail = new PHPMailer();
-                            $mail->Host = trim("190.196.23.232");
+                            $mail->Host = trim("190.196.185.211");
                             $mail->Port = 25;
                             $mail->From = 'allways@online.oristravel.com';
                             $mail->FromName = "Allways Travel Group";

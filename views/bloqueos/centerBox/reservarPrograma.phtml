@@ -211,15 +211,15 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                                 name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
                     </td>
                     <td>
-                        <input   type="text" id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" maxlength="30" style="width:100px;">
+                        <input   type="text" id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" maxlength="25" style="width:100px;">
                     </td>
-                    <td><input  type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" maxlength="30" style="width:100px;"></td>
+                    <td><input  type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" maxlength="25" style="width:100px;"></td>
                     <td>
                         <script type="text/javascript">
                             $(function ()
                             {
-                                $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
 
                                 $("#rP_FechaNac_<?php echo $rP_cntRegistros; ?>").datepicker({
                                 changeMonth: true,
@@ -301,8 +301,8 @@ if (Session::get('sess_BP_cntInf') > 0) {
                         <script type="text/javascript">
                             $(function ()
                             {
-                                $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
-                                $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz');
+                                $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
 
                                 $("#rP_FechaNacInf_<?php echo $i; ?>").datepicker({
                                     changeMonth: true,

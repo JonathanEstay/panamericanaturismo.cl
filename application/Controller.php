@@ -398,7 +398,7 @@ abstract class Controller
         $mail = new PHPMailer();
 
         $mail->IsSMTP(); 
-        $mail->Host = trim("190.196.23.232");
+        $mail->Host = MAIL_HOST;
         $mail->Port = 25;
         $mail->From = 'panamericana@online.panamericanaturismo.cl';
         $mail->CharSet = CHARSET; //'UTF-8';
@@ -411,8 +411,8 @@ abstract class Controller
         $mail->AddCC($email_destinatarioCC);
 
         $mail->SMTPAuth = true;
-        $mail->Username = trim("online@panamericanaturismo.cl");
-        $mail->Password = trim("Fe90934");
+        $mail->Username = MAIL_USER;
+        $mail->Password = MAIL_PASS;
 
         $mail->Send();
         sleep(2);
@@ -450,7 +450,7 @@ abstract class Controller
         $mail = new PHPMailer();
 
         $mail->IsSMTP(); 
-        $mail->Host = trim("190.196.23.232");
+        $mail->Host = MAIL_HOST;
         $mail->Port = 25;
         $mail->From = 'panamericana@online.panamericanaturismo.cl';
         $mail->CharSet = CHARSET; //'UTF-8';
@@ -470,8 +470,8 @@ abstract class Controller
         }
 
         $mail->SMTPAuth = true;
-        $mail->Username = trim("online@panamericanaturismo.cl");
-        $mail->Password = trim("Fe90934");
+        $mail->Username = MAIL_USER;
+        $mail->Password = MAIL_PASS;
 
         $mail->Send();
         sleep(2);
