@@ -234,10 +234,10 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
             ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 2; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
                                             yearRange: "-<?php if (Session::get('sessRP_edadChd' . $rP_Edad_Child) != 0) {
-                echo Session::get('sessRP_edadChd' . $rP_Edad_Child);
-                $rP_Edad_Child++;
+                                                    echo Session::get('sessRP_edadChd' . $rP_Edad_Child);
+                                                    $rP_Edad_Child++;
             } else {
-                echo '100';
+                echo '12';
             } ?>:+0",
             <?php
         }
@@ -271,7 +271,7 @@ if (Session::get('sess_BP_cntInf') > 0) {
     ?>
         <table class="table table-bordered">
             <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
-                <td colspan="5" align="center" style="padding:2px;">Datos del Infant</td>
+                <td colspan="5" align="center" style="padding:2px;">Datos del Infante</td>
             </tr>
 
             <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
