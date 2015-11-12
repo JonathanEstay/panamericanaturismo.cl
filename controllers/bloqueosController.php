@@ -734,7 +734,7 @@ class bloqueosController extends Controller {
                                 throw new Exception('Error de transaccion  (Codigo 30). Si el error persiste comuniquese con el administrador');
                             }
                         } else {
-                            throw new Exception('Error de transaccion  (' . $rs->getCodigo() . '). '.$rs->getMSG());
+                            throw new Exception('Error (' . $rs->getCodigo() . '). '.$rs->getMSG());
                         }
                     } else {
                         throw new Exception('Error de transaccion  (Codigo 31). Si el error persiste comuniquese con el administrador');
