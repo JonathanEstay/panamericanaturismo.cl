@@ -257,7 +257,7 @@ class programasController extends Controller {
         $this->getLibrary('class.phpmailer');
         $mail = new PHPMailer();
         $mail->IsSMTP();
-        $mail->Host = trim("190.196.23.232");
+        $mail->Host = MAIL_HOST;
         $mail->Port = 25;
         $mail->From = 'panamericana@online.panamericanaturismo.cl';
         $mail->FromName = Session::get('sess_condiciones') . ' ' . 'Cotización:';
@@ -287,8 +287,8 @@ class programasController extends Controller {
 
 
         $mail->SMTPAuth = true;
-        $mail->Username = trim("online@panamericanaturismo.cl");
-        $mail->Password = trim("Fe90934");
+        $mail->Username = MAIL_USER;
+        $mail->Password = MAIL_PASS;
         $mail->Send();
 
         $this->_view->renderingCenterBox('exito');
