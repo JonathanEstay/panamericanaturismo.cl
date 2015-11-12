@@ -195,21 +195,39 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
 
 
     /*Proceso Valida rut*/
-    var txtRutNew1, txtRutNew2;
+    var txtRutNew1, txtRutNew2, txtRutInfNew1, txtRutInfNew2;
     for (x = 1; x < rP; x++) {
         txtRutNew1 = document.getElementById("rP_txtRut_" + x);
+        txtRutInfNew1 = document.getElementById("rP_txtRutInf_" + x);
         for (y = 1; y < rP; y++) {
             if (x != y) {
                 txtRutNew2 = document.getElementById("rP_txtRut_" + y);
+                txtRutInfNew2 = document.getElementById("rP_txtRutInf_" + y);
                 if (txtRutNew1.value == txtRutNew2.value) {
                     alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del pasajero[' + y + '].', 3000);
                     txtRutNew1.select();
                     return false;
                     break;
+                } else if (txtRutInfNew1.value == txtRutInfNew2.value) {
+                    alertError(btn, 'El rut del infante[' + x + '] se repite con el del infante[' + y + '].', 3000);
+                    txtRutInfNew1.select();
+                    return false;
+                    break;
+                } else if (txtRutNew1.value == txtRutInfNew1.value) {
+                    alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + x + '].', 3000);
+                    txtRutNew1.select();
+                    return false;
+                    break;
+                } else if (txtRutNew1.value == txtRutInfNew2.value) {
+                    alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + y + '].', 3000);
+                    txtRutNew1.select();
+                    return false;
+                    break;
                 }
-            }
+            } 
         }
     }
+    
     /* --- */
 
 
