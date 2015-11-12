@@ -238,9 +238,9 @@
                                                         <th>Nombre</th>
                                                         <th>Rut/Pasaporte</th>
                                                         <th>Fecha nacimiento</th>
-                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Nombre Infant <?php } ?></th>
-                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Rut Infant <?php } ?></th>
-                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Fecha nacimiento Infant <?php } ?></th>
+                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Nombre Infante <?php } ?></th>
+                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Rut/Pasaporte <?php } ?></th>
+                                                        <th><?php if($this->CC_objsDetBloq[0]->getCantidadInf()>0) {?>Fecha nacimiento Infante <?php } ?></th>
                                                     </tr>
                                                     <?php
                                                     $contador = 1; 
@@ -258,7 +258,7 @@
                                                       }
                                                       elseif(strtoupper($objDB->getTipoPax()) == "C")
                                                       {
-                                                      echo 'Child';
+                                                      echo 'Ni&ntilde;o';
                                                       }
 
                                                       echo '</td>
