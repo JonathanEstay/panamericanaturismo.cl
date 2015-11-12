@@ -345,6 +345,12 @@ class programasController extends Controller {
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesProg');
     }
+    public function test(){
+        
+        $ciudad ='Santiago';
+        $solicitud = 'SOLICITUD DE RESERVA';
+        include ROOT . 'controllers' . DS .'include'.DS.'parseMailHotel.php';
+    }
 
     /**
      * Metodo CenterBox: Proceso de reserva de un programa.
@@ -360,6 +366,7 @@ class programasController extends Controller {
         Session::acceso('Usuario');
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
             $programas = $this->loadModel('programa');
+            $this->loadDTO('usuarioH2h');
             if (Session::get('sess_boton_pago')) {// quitar !
                 $pasajeros = $this->_validaPasajeros();
                 if ($pasajeros) {
@@ -520,12 +527,12 @@ class programasController extends Controller {
                             }
                         }
                     }
-
+                    
                     //echo $sql;
                     //exit;
                     //echo 'OK&' .  md5(':D'); exit;
                     $objResPrograma = $programas->exeTS_RESERVAR($sql);
-
+                    
                     foreach ($objResPrograma as $objRes) {
                         if (!$objRes->getFile()) {
                             throw new Exception('<b>Codigo:</b> [ ' . $objRes->getError() . ' ],<br>'
@@ -538,7 +545,9 @@ class programasController extends Controller {
                             $html = $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/form');
 
 
-
+                            $mailHotel=$programas->getCorreoHotel($objRes->getFile());
+                            
+                            
                             $this->getLibrary('class.phpmailer');
                             //$this->mailReserva($objRes->getFile(), $html);
                             echo 'OK&' . md5(':D');
