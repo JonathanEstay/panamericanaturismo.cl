@@ -142,15 +142,15 @@
                                                      $suma_total = $s_1 + $s_2 + $s_3 + $s_4 + $s_5 + $s_6 + $s_7 + $s_8 + $s_9 ;
 
                                                       echo '<tr>
-                                                      <td width="50%" class="Base">
+                                                      <td width="53%" class="Base">
                                                       <strong>&middot;</strong>&nbsp; '/*.$suma_total.' Pax '*/.$objDF->getNombre().'<strong></strong>
                                                       </td>
-                                                      <td width="10%" class="Base">';
+                                                      <td width="17%" class="Base">';
 
 
                                                       if($objDF->getIn() != "01/01/1900" && $objDF->getOut() !='01/01/1900')
                                                       {
-                                                      echo 'In : '.$objDF->getIn();
+                                                      echo 'Fecha de ingreso : '.$objDF->getIn();
                                                       }
                                                       else
                                                       {
@@ -159,7 +159,7 @@
 
 
                                                       echo '</td>
-                                                      <td width="10%" class="Base">';
+                                                      <td width="17%" class="Base">';
 
 
                                                       if($objDF->getOut() == "01/01/1900")
@@ -168,7 +168,7 @@
                                                       }
                                                       else
                                                       {
-                                                      echo 'Out : '.$objDF->getOut();
+                                                      echo 'Fecha de salida : '.$objDF->getOut();
                                                       }
 
 
