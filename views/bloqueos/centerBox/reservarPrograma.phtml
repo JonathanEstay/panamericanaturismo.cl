@@ -134,7 +134,7 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                 <!-- <td><input type="text" name="txtNombre_pago" id="txtNombre_pago"></td>
                 <td><input type="text" name="txtApellidos_pago" id="txtApellidos_pago"></td> -->
                 <td><input type="text" name="txtEmail_pago" id="txtEmail_pago" class="form-control" maxlength="80" style="width:50%;"></td>
-                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"class="form-control" maxlength="17" style="width:50%;"></td>
+                <td><input type="text" name="txtTelefono_pago" id="txtTelefono_pago"class="form-control" maxlength="14" style="width:50%;"></td>
             </tr>
 
         </table>
@@ -211,9 +211,9 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                                 name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
                     </td>
                     <td>
-                        <input   type="text" id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" style="width:100px;">
+                        <input   type="text" id="rP_txtNom_<?php echo $rP_cntRegistros; ?>" name="rP_txtNom_<?php echo $rP_cntRegistros; ?>" maxlength="30" style="width:100px;">
                     </td>
-                    <td><input  type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" style="width:100px;"></td>
+                    <td><input  type="text" id="rP_txtApe_<?php echo $rP_cntRegistros; ?>" name="rP_txtApe_<?php echo $rP_cntRegistros; ?>" maxlength="30" style="width:100px;"></td>
                     <td>
                         <script type="text/javascript">
                             $(function ()
