@@ -418,30 +418,6 @@ abstract class Controller
         sleep(2);
     }
     
-    protected function mailHoteles($file, $html, $correo) {
-        // Preparar Correo electrónico
-        $email_asunto="Confirmación de reserva online: ".$file;
-        $mail = new PHPMailer();
-
-        $mail->IsSMTP(); 
-        $mail->Host = MAIL_HOST;
-        $mail->Port = 25;
-        $mail->From = MAIL_USER;
-        $mail->CharSet = CHARSET; //'UTF-8';
-
-        $mail->FromName = "Panamericana Online ";
-        $mail->Subject = $email_asunto;
-        $mail->MsgHTML($html); 
-
-        $mail->AddAddress($correo, "");
-        $mail->SMTPAuth = true;
-        $mail->Username = MAIL_USER;
-        $mail->Password = MAIL_PASS;
-
-        $mail->Send();
-        sleep(2);
-    }
-    
     
     public static function destroyArray()
     {
