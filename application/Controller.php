@@ -400,7 +400,7 @@ abstract class Controller
         $mail->IsSMTP(); 
         $mail->Host = MAIL_HOST;
         $mail->Port = 25;
-        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->From = MAIL_USER;
         $mail->CharSet = CHARSET; //'UTF-8';
 
         $mail->FromName = "Panamericana Online ";
@@ -452,7 +452,7 @@ abstract class Controller
         $mail->IsSMTP(); 
         $mail->Host = MAIL_HOST;
         $mail->Port = 25;
-        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->From = MAIL_USER;
         $mail->CharSet = CHARSET; //'UTF-8';
 
         $mail->FromName = "Panamericana ";

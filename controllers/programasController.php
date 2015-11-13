@@ -259,7 +259,7 @@ class programasController extends Controller {
         $mail->IsSMTP();
         $mail->Host = MAIL_HOST;
         $mail->Port = 25;
-        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->From = MAIL_USER;
         $mail->FromName = Session::get('sess_condiciones') . ' ' . 'Cotización:';
         $mail->CharSet = CHARSET;
         $mail->Subject = 'Solicitud de Cotización: ';

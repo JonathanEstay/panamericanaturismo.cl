@@ -229,11 +229,11 @@ class loginController extends Controller
                             //echo $objUser->getEmail(); exit;
                             $this->getLibrary('class.phpmailer');
                             $mail = new PHPMailer();
-                            $mail->Host = trim("190.196.185.211");
+                            $mail->Host = MAIL_HOST;
                             $mail->Port = 25;
-                            $mail->From = 'allways@online.oristravel.com';
-                            $mail->FromName = "Allways Travel Group";
-                            $mail->CharSet = 'UTF-8';
+                            $mail->From = MAIL_USER;
+                            $mail->FromName = "Panamericanaturismo";
+                            $mail->CharSet = CHARSET;
                             $mail->Subject = 'Recuperar password';
                             $mail->MsgHTML($LC_HTML);
 
@@ -245,8 +245,8 @@ class loginController extends Controller
                             //$mail->AddBCC('destino@correo.com'); //Copia oculta
 
                             $mail->SMTPAuth = true;
-                            $mail->Username = trim("online@panamericanaturismo.cl");
-                            $mail->Password = trim("Fe90934");
+                            $mail->Username = MAIL_USER;
+                            $mail->Password = MAIL_PASS;
                             $mail->Send();
 
                             $this->redireccionar('login');
