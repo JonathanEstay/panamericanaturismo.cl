@@ -295,7 +295,7 @@ class pagoController extends Controller {
         $mail->IsSMTP();
         $mail->Host = MAIL_HOST;
         $mail->Port = 25;
-        $mail->From = 'panamericana@online.panamericanaturismo.cl';
+        $mail->From = MAIL_USER;
         $mail->FromName = 'TravelClub Reserva Online';
         $mail->CharSet = CHARSET;
         $mail->Subject = 'Confirmacion de reserva online: '.$nFile ;
