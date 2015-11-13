@@ -410,7 +410,7 @@ abstract class Controller
         $mail->AddAddress($email_destinatario, "");
         $mail->AddCC($email_destinatarioCC);
 
-        $mail->SMTPAuth = true;
+        $mail->SMTPAuth = MAIL_AUT;
         $mail->Username = MAIL_USER;
         $mail->Password = MAIL_PASS;
 
@@ -469,7 +469,7 @@ abstract class Controller
          $mail->AddCC($email_destinatarioCC);   
         }
 
-        $mail->SMTPAuth = true;
+        $mail->SMTPAuth = MAIL_AUT;
         $mail->Username = MAIL_USER;
         $mail->Password = MAIL_PASS;
 

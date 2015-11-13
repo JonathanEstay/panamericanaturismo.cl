@@ -207,7 +207,7 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                         <input type="checkbox" id="rP_chkPas_<?php echo $rP_cntRegistros; ?>" name="rP_chkPas_<?php echo $rP_cntRegistros; ?>" >
                     </td>
                     <td>
-                        <input  type="text" id="rP_txtRut_<?php echo $rP_cntRegistros; ?>" onkeypress="return soloRut(event);" maxlength="15"
+                        <input  type="text" id="rP_txtRut_<?php echo $rP_cntRegistros; ?>" maxlength="15"
                                 name="rP_txtRut_<?php echo $rP_cntRegistros; ?>" style="width:80px;">
                     </td>
                     <td>
@@ -288,7 +288,7 @@ if (Session::get('sess_BP_cntInf') > 0) {
                 <tr align="center">
                     <td><input type="checkbox" id="rP_chkPasInf_<?php echo $i; ?>" name="rP_chkPasInf_<?php echo $i; ?>"></td>
                     <td>
-                        <input type="text" id="rP_txtRutInf_<?php echo $i; ?>" onkeypress="return soloRut(event);" maxlength="10" 
+                        <input type="text" id="rP_txtRutInf_<?php echo $i; ?>" maxlength="10" 
                                name="rP_txtRutInf_<?php echo $i; ?>" style="width:80px;">
                     </td>
                     <td>
