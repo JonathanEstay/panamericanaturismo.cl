@@ -308,10 +308,9 @@ class pagoController extends Controller {
         $mail->AddBCC($mailSend->getCorreoVendedor());
         //$mail->AddAddress("destino2@correo.com","Nombre 02"); 
         
-
         //$mail->AddBCC($MC_correoOculto);
 
-        $mail->SMTPAuth = true;
+        $mail->SMTPAuth = MAIL_AUT;
         $mail->Username = MAIL_USER;
         $mail->Password = MAIL_PASS;
         $mail->Send();

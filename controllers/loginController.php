@@ -244,7 +244,7 @@ class loginController extends Controller
                             //$mail->AddCC('destino2@correo.com'); //Copia
                             //$mail->AddBCC('destino@correo.com'); //Copia oculta
 
-                            $mail->SMTPAuth = true;
+                            $mail->SMTPAuth = MAIL_AUT;
                             $mail->Username = MAIL_USER;
                             $mail->Password = MAIL_PASS;
                             $mail->Send();
