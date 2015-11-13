@@ -286,7 +286,7 @@ class programasController extends Controller {
 
 
 
-        $mail->SMTPAuth = true;
+        $mail->SMTPAuth = MAIL_AUT;
         $mail->Username = MAIL_USER;
         $mail->Password = MAIL_PASS;
         $mail->Send();

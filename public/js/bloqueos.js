@@ -208,26 +208,32 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                     txtRutNew1.select();
                     return false;
                     break;
-                } else if (txtRutInfNew1.value == txtRutInfNew2.value) {
-                    alertError(btn, 'El rut del infante[' + x + '] se repite con el del infante[' + y + '].', 3000);
-                    txtRutInfNew1.select();
-                    return false;
-                    break;
-                } else if (txtRutNew1.value == txtRutInfNew1.value) {
-                    alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + x + '].', 3000);
-                    txtRutNew1.select();
-                    return false;
-                    break;
-                } else if (txtRutNew1.value == txtRutInfNew2.value) {
-                    alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + y + '].', 3000);
-                    txtRutNew1.select();
-                    return false;
-                    break;
+                } else if(txtRutInfNew1 != null && txtRutInfNew2 != null) {
+                    if (txtRutInfNew1.value == txtRutInfNew2.value) {
+                        alertError(btn, 'El rut del infante[' + x + '] se repite con el del infante[' + y + '].', 3000);
+                        txtRutInfNew1.select();
+                        return false;
+                        break;
+                    }
+                } else if(txtRutInfNew1 != null) { 
+                    if (txtRutNew1.value == txtRutInfNew1.value) {
+                        alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + x + '].', 3000);
+                        txtRutNew1.select();
+                        return false;
+                        break;
+                    }
+                } else if(txtRutInfNew2 != null) { 
+                    if (txtRutNew1.value == txtRutInfNew2.value) {
+                        alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + y + '].', 3000);
+                        txtRutNew1.select();
+                        return false;
+                        break;
+                    }
                 }
             } 
         }
+        
     }
-    
     /* --- */
 
 
