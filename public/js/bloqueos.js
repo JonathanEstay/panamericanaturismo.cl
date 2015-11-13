@@ -108,7 +108,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
             {
                 if ($.trim($("#rP_FechaNac_" + rP).val()) == '')
                 {
-                    alertError(btn, 'Debe ingresar una fecha de nacimiento para el Child', 2000);
+                    alertError(btn, 'Debe ingresar una fecha de nacimiento para el Ni&ntilde;o', 2000);
                     $("#rP_FechaNac_" + rP).focus();
                     return false;
                     break;
@@ -125,7 +125,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                 {
                     if (txtRutInf.value.replace(/^\s+|\s+$/g, "") == '')
                     {
-                        alertError(btn, 'Debe ingresar un rut para el infant', 2000);
+                        alertError(btn, 'Debe ingresar un rut para el infante', 2000);
                         txtRutInf.focus();
                         return false;
                         break;
@@ -135,7 +135,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                         statusRutInf = Rut(txtRutInf, txtRutInf.value);
                         if (statusRutInf != true)
                         {
-                            alertError(btn, 'El rut del infant es incorrecto', 2000);
+                            alertError(btn, 'El rut del infante es incorrecto', 2000);
                             txtRutInf.select();
                             return false;
                             break;
@@ -146,7 +146,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                 {
                     if (txtRutInf.value.replace(/^\s+|\s+$/g, "") == '')
                     {
-                        alertError(btn, 'Debe ingresar un rut para el infant', 2000);
+                        alertError(btn, 'Debe ingresar un rut para el infante', 2000);
                         txtRutInf.focus();
                         return false;
                         break;
@@ -156,7 +156,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
 
                 if ($.trim($("#rP_txtNomInf_" + rP).val()) == '')
                 {
-                    alertError(btn, 'Debe ingresar un nombre para el infant', 2000);
+                    alertError(btn, 'Debe ingresar un nombre para el infante', 2000);
                     $("#rP_txtNomInf_" + rP).focus();
                     return false;
                     break;
@@ -164,7 +164,7 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
 
                 if ($.trim($("#rP_txtApeInf_" + rP).val()) == '')
                 {
-                    alertError(btn, 'Debe ingresar un apellido para el infant', 2000);
+                    alertError(btn, 'Debe ingresar un apellido para el infante', 2000);
                     $("#rP_txtApeInf_" + rP).focus();
                     return false;
                     break;
