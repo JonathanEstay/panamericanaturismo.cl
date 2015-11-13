@@ -347,7 +347,7 @@ class programasController extends Controller {
     }
     public function test(){
         
-        $programa = $this->loadModel('programa');
+        /*$programa = $this->loadModel('programa');
         $this->loadDTO('hotelMail');
         $hotel = $programa->getDetFile(204269);
         $correo = ENT_EMAIL;
@@ -360,9 +360,9 @@ class programasController extends Controller {
         
         include ROOT . 'controllers' . DS .'include'.DS.'parseMailHotel.php';
         
-        foreach ($arrayHtml as $HTML) {
-         $this->mailHoteles(204269,$HTML,'ohurtado@tsyacom.cl');   
-        }
+        foreach ($arrayHtml as $HTML) {*/
+         $this->mailHoteles(204269,'esto es una prueba','ereyes@tsyacom.cl');   
+        //}
    
     }
 
