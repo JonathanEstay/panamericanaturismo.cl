@@ -230,15 +230,18 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                         break;
                     }
                 }
-            } 
+            } else if(txtRutInfNew1 != null) { 
+                if (txtRutNew1.value == txtRutInfNew1.value) {
+                    alertError(btn, 'El rut del pasajero[' + x + '] se repite con el del infante[' + x + '].', 3000);
+                    txtRutNew1.select();
+                    return false;
+                    break;
+                }
+            }
         }
         
     }
     /* --- */
-
-
-
-
 
 
 
