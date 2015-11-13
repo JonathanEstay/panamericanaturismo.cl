@@ -341,31 +341,11 @@ class programasController extends Controller {
     }
 
     public function programasCondiciones($form = '') {
-
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesProg');
     }
-    public function test(){
-        
-        /*$programa = $this->loadModel('programa');
-        $this->loadDTO('hotelMail');
-        $hotel = $programa->getDetFile(204269);
-        $correo = ENT_EMAIL;
-        $fono = ENT_FONO;
-        $nombre = ENT_NAME;
-        $ciudad ='Santiago';
-        $solicitud = 'SOLICITUD DE RESERVA';
-        $estado = 'ALLOTMENT';
-        $logo =BASE_URL.'/views/layout/default/img/logo.jpg';
-        
-        include ROOT . 'controllers' . DS .'include'.DS.'parseMailHotel.php';
-        
-        foreach ($arrayHtml as $HTML) {*/
-         $this->mailHoteles(204269,'esto es una prueba','ereyes@tsyacom.cl');   
-        //}
-   
-    }
-
+    
+    
     /**
      * Metodo CenterBox: Proceso de reserva de un programa.
      * <PRE>
