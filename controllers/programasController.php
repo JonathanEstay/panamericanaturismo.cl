@@ -344,11 +344,6 @@ class programasController extends Controller {
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesProg');
     }
-
-    public function test() {
-        
-    }
-
     public function procesoReserva($form = '') {
 
 
