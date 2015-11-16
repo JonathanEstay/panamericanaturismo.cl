@@ -53,26 +53,20 @@ if (Session::get('sessRP_idPrograma')) {
 
                 $pRP_fechaNacPAS = trim($_POST['rP_FechaNac_' . $i]);
 
-                if (empty($pRP_rutPAS)) {
-
-                    $error = TRUE;
-                    $pRP_msg = 'Debe ingresar un rut para el pasajero [' . $i . ']';
-                    break;
-                } else if (empty($pRP_nombrePAS)) {
-
-                    $error = TRUE;
-                    $pRP_msg = 'Debe ingresar un nombre para el pasajero [' . $i . ']';
-                    break;
-                } else if (empty($pRP_apellidoPAS)) {
-
-                    $error = TRUE;
-                    $pRP_msg = 'Debe ingresar un apellido para el pasajero [' . $i . ']';
-                    break;
-                } else if ($pRP_tipoPAS == 'C' && empty($pRP_fechaNacPAS)) {
-
-                    $error = TRUE;
-                    $pRP_msg = 'Debe ingresar la fecha de nacimiento del pasajero [' . $i . ']';
-                    break;
+                if (empty($pRP_rutPAS))
+                {
+                    throw new Exception('Debe ingresar un rut para el pasajero [' . $i . ']');
+                }
+                else if (empty($pRP_nombrePAS)) {
+                    throw new Exception('Debe ingresar un nombre para el pasajero [' . $i . ']');
+                }
+                else if (empty($pRP_apellidoPAS))
+                {
+                    throw new Exception('Debe ingresar un apellido para el pasajero [' . $i . ']');
+                }
+                else if ($pRP_tipoPAS == 'C' && empty($pRP_fechaNacPAS))
+                {
+                    throw new Exception('Debe ingresar la fecha de nacimiento del pasajero [' . $i . ']');
                 }
 
                 if (!empty($pRP_fechaNacPAS)) {
@@ -84,7 +78,12 @@ if (Session::get('sessRP_idPrograma')) {
                     $pRP_rutINF = trim($_POST['rP_txtRutInf_' . $i]);
                     $pRP_nomINF = trim($_POST['rP_txtNomInf_' . $i]);
                     $pRP_apeINF = trim($_POST['rP_txtApeInf_' . $i]);
-                    $pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                    
+                    if(trim($_POST['rP_FechaNacInf_' . $i]) != '') {
+                        $pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                    } else {
+                        throw new Exception('Debe ingresar la fecha de nacimiento del infant ['.$i.']');
+                    }
                 } else {
                     $pRP_rutINF = '';
                     $pRP_nomINF = '';
