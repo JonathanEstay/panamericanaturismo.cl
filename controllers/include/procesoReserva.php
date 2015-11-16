@@ -151,27 +151,19 @@ for($i=1; $i<=10; $i++)
 
         if(empty($pRP_rutPAS))
         {
-            $pRP_error=TRUE;
-            $pRP_msg= 'Debe ingresar un rut para el pasajero ['.$i.']';
-            break;
+            throw new Exception('Debe ingresar un rut para el pasajero ['.$i.']');
         }
         else if(empty($pRP_nombrePAS))
         {
-            $pRP_error=TRUE;
-            $pRP_msg= 'Debe ingresar un nombre para el pasajero ['.$i.']';
-            break;
+            throw new Exception('Debe ingresar un nombre para el pasajero ['.$i.']');
         }
         else if(empty($pRP_apellidoPAS))
         {
-            $pRP_error=TRUE;
-            $pRP_msg= 'Debe ingresar un apellido para el pasajero ['.$i.']';
-            break;
+            throw new Exception('Debe ingresar un apellido para el pasajero ['.$i.']');
         }
         else if($pRP_tipoPAS=='C' && empty($pRP_fechaNacPAS))
         {
-            $pRP_error=TRUE;
-            $pRP_msg= 'Debe ingresar la fecha de nacimiento del pasajero ['.$i.']';
-            break;
+            throw new Exception('Debe ingresar la fecha de nacimiento del pasajero ['.$i.']');
         }
 
         if(!empty($pRP_fechaNacPAS))
@@ -183,7 +175,11 @@ for($i=1; $i<=10; $i++)
             $pRP_rutINF= trim($_POST['rP_txtRutInf_'.$i]);
             $pRP_nomINF= trim($_POST['rP_txtNomInf_'.$i]);
             $pRP_apeINF= trim($_POST['rP_txtApeInf_'.$i]);
-            $pRP_nacINF= Functions::invertirFecha(trim($_POST['rP_FechaNacInf_'.$i]), '/', '-');
+            if(trim($_POST['rP_FechaNacInf_'.$i])!='') {
+                $pRP_nacINF= Functions::invertirFecha(trim($_POST['rP_FechaNacInf_'.$i]), '/', '-');
+            } else {
+                throw new Exception('Debe ingresar la fecha de nacimiento del infant ['.$i.']');
+            }
             
         } else {
             $pRP_rutINF= '';
