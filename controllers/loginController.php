@@ -126,8 +126,26 @@ class loginController extends Controller
                         Session::set('sess_rut', $objUser->getRut());
                         Session::set('sess_email', $objUser->getEmail());
                         Session::set('sess_email_opera', $objUser->getEmailOpera());
-
-                        Session::set('level', 'Admin');//Validar tipo de usuario
+                        
+                        $obju = $this->_login->getTcambio();
+                        Session::set('sess_tcambio', $obju->getTipoCambio());
+                        Session::set('level', 'Usuario');
+                        
+                        
+                        ############################################################################
+                        //EJECUTANDO STORED PROCEDURE
+                        $sp_perfilClave= $this->_login->sp_perfilClave($LC_user, 'ADMWEB');
+                        if($sp_perfilClave)
+                        {
+                            if(trim($sp_perfilClave[0]['acceso']) == 'S')
+                            {
+                                Session::set('level', 'Admin');
+                            }
+                        }
+                        ############################################################################
+                        
+                        
+                        
                         Session::set('tiempo', time());
                         
                         $browser= Functions::getBrowser(); 
@@ -139,25 +157,7 @@ class loginController extends Controller
                         
                             
                         
-                        $obju = $this->_login->getTcambio();
                         
-                        Session::set('sess_tcambio', $obju->getTipoCambio());
-                        
-                        
-                        
-                        
-                        ############################################################################
-                        //EJECUTANDO STORED PROCEDURE
-                        $sp_perfilClave= $this->_login->sp_perfilClave($LC_user, 'ADMWEB');
-                        if($sp_perfilClave)
-                        {
-                            Session::set('sess_sp_acceso', trim($sp_perfilClave[0]['acceso']));
-                        }
-                        else
-                        {
-                            Session::set('sess_sp_acceso', 0);
-                        }
-                        ############################################################################
 
                         $this->redireccionar('system');
                     }
