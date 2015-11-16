@@ -36,11 +36,11 @@ class programasController extends Controller {
 
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
-        $this->_view->pago = true;// cambiar a false
+        $this->_view->pago = true; // cambiar a false
 
-        /*if (Session::get('sess_boton_pago')) {
-            $this->_view->pago = true;
-        }*/
+        /* if (Session::get('sess_boton_pago')) {
+          $this->_view->pago = true;
+          } */
         if (Session::get('sess_BP_ciudadDes_PRG')) {
 
             //$this->loadDTO('incluye');
@@ -63,7 +63,7 @@ class programasController extends Controller {
 
         $us = $this->loadModel('usuario');
         $tcambio = $us->getPaisTcProg(Session::get('sess_BP_ciudadDes_PRG'));
-        $TcambioSess =$us->getTcambio($tcambio);
+        $TcambioSess = $us->getTcambio($tcambio);
         Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
 
         //Session::destroy('sess_BP_ciudadDes');
@@ -156,10 +156,10 @@ class programasController extends Controller {
                     }
 
                     $this->_view->objOpcProgramas = $objOpcProgramas;
-                    $this->_view->pago = true;//cambiar condicion false
-                    /*if (Session::get('sess_boton_pago')) {
-                        $this->_view->pago = true;
-                    }*/
+                    $this->_view->pago = true; //cambiar condicion false
+                    /* if (Session::get('sess_boton_pago')) {
+                      $this->_view->pago = true;
+                      } */
                     //$this->_view->hoteles= $this->_view->objOpcProgramas[0]->getNombreHotel();
                     $this->_view->renderingCenterBox('detalleProg');
                 }
@@ -193,7 +193,7 @@ class programasController extends Controller {
                 Session::set('sess_PF', $this->getInt('_PF_'));
                 $programas = $this->loadModel('programa');
                 $edad = $programas->getChild($this->getTexto('_OPC_'));
-                if($edad){
+                if ($edad) {
                     Session::set('sessRP_edadChd1', $edad->getChedad1());
                     Session::set('sessRP_edadChd2', $edad->getChedad2());
                 } else {
@@ -300,11 +300,11 @@ class programasController extends Controller {
 
         Session::acceso('Usuario');
 
-        $this->_view->pago = true;//cambiar a false
+        $this->_view->pago = true; //cambiar a false
 
-        /*if (Session::get('sess_boton_pago')) {
-            $this->_view->pago = true;
-        }*/
+        /* if (Session::get('sess_boton_pago')) {
+          $this->_view->pago = true;
+          } */
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
             $totalPago = 0;
             if ($this->getInt('DP_cmbHab')) {
@@ -344,16 +344,6 @@ class programasController extends Controller {
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesProg');
     }
-    
-    
-    /**
-     * Metodo CenterBox: Proceso de reserva de un programa.
-     * <PRE>
-     * -.Creado: 20/05/2015
-     * </PRE>
-     * @return String OK
-     * @author Jonathan Estay
-     */
     public function procesoReserva($form = '') {
 
 
@@ -430,7 +420,7 @@ class programasController extends Controller {
                     //echo $sql;
                     //exit;
                     $objResPrograma = $programas->exeTS_RESERVAR($sql);
-                   
+
 
                     foreach ($objResPrograma as $objRes) {
                         if (!$objRes->getFile()) {
@@ -456,10 +446,10 @@ class programasController extends Controller {
                 if ($pasajeros) {
 
                     $habitacion = explode(';', Session::get('sess_distribucionPax'));
-                    
+
                     $hab2 = (isset($habitacion[1])) ? $habitacion[1] : '';
                     $hab3 = (isset($habitacion[2])) ? $habitacion[2] : '';
-                    
+
                     $objOpcPrograma = $programas->exeTS_GET_DETALLEPROG(Session::get('sess_TS_GET_DETALLEPROG'));
                     foreach ($objOpcPrograma as $objOpcProg) {
 
@@ -521,12 +511,12 @@ class programasController extends Controller {
                             }
                         }
                     }
-                    
+
                     //echo $sql;
                     //exit;
                     //echo 'OK&' .  md5(':D'); exit;
                     $objResPrograma = $programas->exeTS_RESERVAR($sql);
-                    
+
                     foreach ($objResPrograma as $objRes) {
                         if (!$objRes->getFile()) {
                             throw new Exception('<b>Codigo:</b> [ ' . $objRes->getError() . ' ],<br>'
@@ -539,9 +529,32 @@ class programasController extends Controller {
                             $html = $this->curlPOST($param, BASE_URL . 'programas/cartaConfirmacion/form');
 
 
-                            $mailHotel=$programas->getCorreoHotel($objRes->getFile());
+                            $mailHotel = $programas->getCorreoHotel($objRes->getFile());
                             
+                            $this->loadDTO('hotelMail');
+                            $hotel = $programas->getDetFile($objRes->getFile());
+                            $correo = ENT_EMAIL;
+                            $fono = ENT_FONO;
+                            $nombre = ENT_NAME;
+                            $ciudad = 'Santiago';
+                            $solicitud = 'SOLICITUD DE RESERVA';
+                            $estado = 'ALLOTMENT';
+                            $logo = BASE_URL . '/views/layout/default/img/logo.jpg';
+
+                            include ROOT . 'controllers' . DS . 'include' . DS . 'parseMailHotel.php';
                             
+                            $i=0;
+                            
+                            foreach ($arrayHtml as $HTML) {
+                                
+                                $this->mailHoteles($objRes->getFile(),$HTML,$email[$i]);
+                                $i++;
+                            }
+
+
+
+
+
                             $this->getLibrary('class.phpmailer');
                             //$this->mailReserva($objRes->getFile(), $html);
                             echo 'OK&' . md5(':D');
@@ -748,11 +761,11 @@ class programasController extends Controller {
         $this->_view->plan = $this->getJson('varCenterBoxPa');
         $this->_view->cant = $this->getJson('varCenterBoxCat');
 
-        $this->_view->pago = true;//cambiar a false
+        $this->_view->pago = true; //cambiar a false
 
-       /* if (Session::get('sess_boton_pago')) {
-            $this->_view->pago = true;
-        }*/
+        /* if (Session::get('sess_boton_pago')) {
+          $this->_view->pago = true;
+          } */
 
         $this->_view->nota = $programas->getNotaOpc($id);
 
@@ -919,32 +932,31 @@ class programasController extends Controller {
         $distribucionTMP = '';
         for ($i = 1; $i <= $hab; $i++) {
 
-            if(Session::get('sess_PF')>0 && Session::get('sess_DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DP_cmbChild_' . $i) == 2){
-                $distribucion .='01DEP'.';';
-            }
-            else{
+            if (Session::get('sess_PF') > 0 && Session::get('sess_DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DP_cmbChild_' . $i) == 2) {
+                $distribucion .='01DEP' . ';';
+            } else {
                 if (Session::get('sess_DP_cmbAdultos_' . $i) == 1) {
-                $sgl++;
-                $distribucionTMP = '0' . $sgl . 'SGL';
-            } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 2) {
-                $dbl++;
-                $distribucionTMP = '0' . $dbl . 'DBL';
-            } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 3) {
-                $tpl++;
-                $distribucionTMP = '0' . $tpl . 'TPL';
-            }
+                    $sgl++;
+                    $distribucionTMP = '0' . $sgl . 'SGL';
+                } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 2) {
+                    $dbl++;
+                    $distribucionTMP = '0' . $dbl . 'DBL';
+                } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 3) {
+                    $tpl++;
+                    $distribucionTMP = '0' . $tpl . 'TPL';
+                }
 
-            //CHD
-            if (Session::get('sess_DP_cmbChild_' . $i) == 1) {
-                $distribucionTMP .= '+01CHD';
-            } else if (Session::get('sess_DP_cmbChild_' . $i) == 2) {
-                $distribucionTMP .= '+01CHD+01CH2';
-            }
-            
-            $distribucion .= $distribucionTMP . ';';
+                //CHD
+                if (Session::get('sess_DP_cmbChild_' . $i) == 1) {
+                    $distribucionTMP .= '+01CHD';
+                } else if (Session::get('sess_DP_cmbChild_' . $i) == 2) {
+                    $distribucionTMP .= '+01CHD+01CH2';
+                }
+
+                $distribucion .= $distribucionTMP . ';';
             }
         }
-        
+
         return $distribucion;
     }
 
@@ -1085,27 +1097,26 @@ class programasController extends Controller {
     private function _valorTotal($hab) {
         $total = 0;
         for ($i = 1; $i <= $hab; $i++) {
- 
-            if(Session::get('sess_PF')>0&& Session::get('sess_DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DP_cmbChild_' . $i) == 2){
-                $total =  $total + Session::get('sess_PF');
-                
-            }else{
+
+            if (Session::get('sess_PF') > 0 && Session::get('sess_DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DP_cmbChild_' . $i) == 2) {
+                $total = $total + Session::get('sess_PF');
+            } else {
                 if (Session::get('sess_DP_cmbAdultos_' . $i) == 1) {
-                $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_SGL'));
-            } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 2) {
-                $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_DBL'));
-            } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 3) {
-                $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_TPL'));
-            }
-            if (Session::get('sess_DP_cmbChild_' . $i) == 1) {
-            $total = $total + Session::get('sess_CHD1');
-            } else if (Session::get('sess_DP_cmbChild_' . $i) == 2) {
-            $total = $total + Session::get('sess_CHD1') + Session::get('sess_CHD2');
-            }
+                    $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_SGL'));
+                } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 2) {
+                    $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_DBL'));
+                } else if (Session::get('sess_DP_cmbAdultos_' . $i) == 3) {
+                    $total = $total + (Session::get('sess_DP_cmbAdultos_' . $i) * Session::get('sess_TPL'));
+                }
+                if (Session::get('sess_DP_cmbChild_' . $i) == 1) {
+                    $total = $total + Session::get('sess_CHD1');
+                } else if (Session::get('sess_DP_cmbChild_' . $i) == 2) {
+                    $total = $total + Session::get('sess_CHD1') + Session::get('sess_CHD2');
+                }
             }
         }
-        
-        
+
+
         return $total;
     }
 

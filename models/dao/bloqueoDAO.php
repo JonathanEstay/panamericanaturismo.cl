@@ -40,7 +40,6 @@ class bloqueoDAO extends Model {
                 . 'FROM det_bloq '
                 . 'WHERE record_c = "' . $codBloq . '" and num_file = ' . $nFile;
 
-
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
             $objetosDetBloq = array();
