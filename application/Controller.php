@@ -418,9 +418,10 @@ abstract class Controller
         sleep(2);
     }
     
-    protected function mailHoteles($file, $html, $correo) {
+    protected function mailHoteles($file, $html,$correo) {
         // Preparar Correo electrónico
         $email_asunto="Confirmación de reserva online: ".$file;
+        
         $mail = new PHPMailer();
 
         $mail->IsSMTP(); 
@@ -434,14 +435,14 @@ abstract class Controller
         $mail->MsgHTML($html); 
 
         $mail->AddAddress($correo, "");
-        $mail->SMTPAuth = true;
+
+        $mail->SMTPAuth = MAIL_AUT;
         $mail->Username = MAIL_USER;
         $mail->Password = MAIL_PASS;
 
         $mail->Send();
         sleep(2);
     }
-    
     
     public static function destroyArray()
     {
