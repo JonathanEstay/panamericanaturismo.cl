@@ -369,6 +369,8 @@ class bloqueosController extends Controller {
                 $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
 
                 $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), ($valorHab[0] + $valorHab[1] + $valorHab[2]));
+                $this->_view->moneda = $this->_view->objOpcionPrograma[0]->getMoneda();
+                $this->_view->valor = $valorHab[0] + $valorHab[1] + $valorHab[2];
 
                 $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
                 $this->_view->hotelesCNT = count($this->_view->hoteles);

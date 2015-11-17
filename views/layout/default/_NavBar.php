@@ -255,7 +255,7 @@
                             <table align="center">
                                 <tr>
                                     <td align="center">
-                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>logo_tc_search.png">
+                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>v2_publicidad.png" width="90%">
                                     </td>
                                 </tr>
                                 <tr>
