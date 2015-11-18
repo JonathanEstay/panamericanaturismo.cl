@@ -506,10 +506,8 @@ $(function()
             var cod = ciudades[1];
             var cont=0;
             $.each(ciu, function(index, salida) {
-                <?php if(!Session::get('sess_BP_ciudadDes_PRG')){
-                        $this->CiudadPrg='';
-                    }?>
-                if('<?php echo $this->CiudadPrg; ?>' == cod[cont]){
+                
+                if('<?php echo Session::get('sess_BP_ciudadDes_PRG'); ?>' == cod[cont]){
                     $comboCiudades.append("<option value='" + cod[cont] + "' selected='selected'>" + salida + "</option>");
                 }else{
                 $comboCiudades.append("<option value='" + cod[cont] + "'>" + salida + "</option>");
