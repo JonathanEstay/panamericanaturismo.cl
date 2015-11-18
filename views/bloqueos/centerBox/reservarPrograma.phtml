@@ -13,7 +13,7 @@ if ($incluyeArray) {
         if ($incluyeArray[0][$i]->getCodigo() != 'CGO' && $incluyeArray[0][$i]->getNombre() != '') {
             if ($incluyeArray[0][$i]->getCiudad() != '') {
                 $P_arrayCiudadHotel[$xx] = $incluyeArray[0][$i]->getCiudad();
-                $xx++;
+                $xx++; 
             }
 
             if ($incluyeArray[0][$i]->getCodigo() == 'HTL') {
@@ -179,7 +179,7 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                                 <?php
                             } else {
                                 ?>
-                                <option selected="selected" value="C">Chd</option>
+                                <option selected="selected" value="C">Ni&ntilde;o</option>
                                 <?php
                             }
                             ?>
@@ -218,8 +218,12 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
                         <script type="text/javascript">
                             $(function ()
                             {
+                                
+                                
                                 $("#rP_txtNom_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
                                 $("#rP_txtApe_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                
+                                $("#rP_txtRut_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnopqrstuvwxyz0123456789-');
 
                                 $("#rP_FechaNac_<?php echo $rP_cntRegistros; ?>").datepicker({
                                 changeMonth: true,
@@ -234,10 +238,10 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
             ?>
                                     maxDate: new Date(<?php echo $this->anoSalida - 2; ?>,<?php echo $this->mesSalida - 1; ?>,<?php echo $this->diaSalida; ?>),
                                             yearRange: "-<?php if (Session::get('sessRP_edadChd' . $rP_Edad_Child) != 0) {
-                                                    echo Session::get('sessRP_edadChd' . $rP_Edad_Child);
+                                                    echo Session::get('sessRP_edadChd' . $rP_Edad_Child) -1;
                                                     $rP_Edad_Child++;
             } else {
-                echo '12';
+                echo '11';
             } ?>:+0",
             <?php
         }

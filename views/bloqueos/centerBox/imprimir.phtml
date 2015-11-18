@@ -104,7 +104,14 @@
                                     }
                                     echo 'Habitacion ' . ($i + 1) . ': ' . $this->TipoHab[$i] ;
                                     }
-                                    }?></b></td><td style="text-align: center;"><b style="color:#F00;"><?php echo $this->precio; ?></b></td></tr>
+                                    }?></b></td><td style="text-align: center;"><b style="color:#F00;"><?php echo $this->precio; ?></b>
+                                <?php if($this->moneda =='D'){ ?>
+                                <?php if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f' && $this->moneda=='D'){ ?>
+                                <div style="font-size:11px; color: #033d7d;">(
+                                                <?php echo Functions::formatoValor('P',$this->valor * Session::get('sess_tcambio')); ?>)</div>
+                                <?php } ?>
+                                <?php } ?>
+                            </td></tr>
                     </tbody>
                 </table>  
             </div>
