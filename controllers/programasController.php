@@ -36,6 +36,7 @@ class programasController extends Controller {
 
         $this->_view->objCiudades = $this->_ciudad->getCiudadesBloq();
         $this->_view->objCiudadesPRG = $this->_ciudad->getCiudadesPRG();
+        $this->_view->CiudadPrg = Session::get('sess_BP_ciudadDes_PRG');
         $this->_view->pago = true; // cambiar a false
 
         /* if (Session::get('sess_boton_pago')) {
