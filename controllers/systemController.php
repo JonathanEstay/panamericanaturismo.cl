@@ -75,6 +75,23 @@ class systemController extends Controller
         echo json_encode($salidasJSON);
     }
     
+    public function getComboPrg() {
+        $objetosSalidas = $this->_ciudad->getCiudadCombo($this->getTexto('fecha'));
+        $salidasJSON = array();
+        $codigosJSON = array();
+        $JSONfinal =array();
+        if($objetosSalidas){
+        foreach ($objetosSalidas as $objSalida) {
+            array_push($salidasJSON, $objSalida->getNombre());
+            array_push($codigosJSON, $objSalida->getCodigo());
+        }
+        array_push($JSONfinal,$salidasJSON,$codigosJSON);
+        echo json_encode($JSONfinal);
+        }else{
+            echo'false';
+        }
+    }
+    
     
     
     

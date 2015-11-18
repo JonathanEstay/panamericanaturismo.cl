@@ -154,5 +154,25 @@ class ciudadDAO extends Model {
             return false;
         }
     }
+    
+    public function getCiudadCombo($fecha) {
+        $sql= 'EXEC TS_GET_PROG_COMBO_CIUDAD "'.$fecha.'"';
+        $datos = $this->_db->consulta($sql);
+        if ($this->_db->numRows($datos) > 0) {
+            $salidaArray = $this->_db->fetchAll($datos);
+            $objetosSalida = array();
+            
+            foreach ($salidaArray as $ciuDB) {
+                $ciudadObj = new ciudadDTO();
+                $ciudadObj->setNombre(trim($ciuDB['nombre']));
+                $ciudadObj->setCodigo(trim($ciuDB['CODIGO']));
+                $objetosSalida[] = $ciudadObj;
+            }
+            return $objetosSalida;
+        }else{
+          return false;  
+        }
+        
+    }
 
 }

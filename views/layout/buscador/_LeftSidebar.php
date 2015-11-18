@@ -73,7 +73,10 @@ $(function()
         dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
         dateFormat: 'dd/mm/yy',
-        firstDay: 1
+        firstDay: 1,
+        onSelect: function(textoFecha, objDatepicker){
+            actualizaPrg();
+        }
     });
     <?php } ?>
 });
@@ -333,11 +336,19 @@ $(function()
             <ul class="acc-menu" style="<?php if($this->currentMenu == 22){ echo 'display: block;'; }else{ echo 'display: none;'; } ?>">
                 <li style="max-height: 500px; overflow-y: scroll;">
                     <form id="frmBuscarProgramas" method="post" action="<?php echo BASE_URL; ?>programas/buscar/<?php echo $this->form;?>">
-                     	
-                        <select name="mL_txtCiudadDestino_PRG" id="mL_txtCiudadDestino_PRG" class="form-control" >
+                     
+                     	<table width="100%" id="tblFormBusqueda" style="margin-top:5px;">
+                            <tr>
+                            	<td width="40%">Fecha In:</td>
+                                <td>
+                                    <input type="text" class="form-control" id="mL_txtFechaIn_PRG" name="mL_txtFechaIn_PRG" value="<?php echo $this->ML_fechaIni_PRG; ?>">
+                                </td>
+                            </tr>
+                        </table>
+                    <select name="mL_txtCiudadDestino_PRG" id="mL_txtCiudadDestino_PRG" class="form-control" >
                             <option value="0">Seleccione destino</option>
-                            <?php 
-                            if($this->objCiudadesPRG) {
+                            <?php
+                            /*if($this->objCiudadesPRG) {
                                 
                                 foreach($this->objCiudadesPRG as $objCiu) {
                                     
@@ -358,18 +369,10 @@ $(function()
                                     <?php
                                     }
                                 }
-                            }
+                            }*/
                             ?>
                         </select>
-                        
-                     	<table width="100%" id="tblFormBusqueda" style="margin-top:5px;">
-                            <tr>
-                            	<td width="40%">Fecha In:</td>
-                                <td>
-                                    <input type="text" class="form-control" id="mL_txtFechaIn_PRG" name="mL_txtFechaIn_PRG" value="<?php echo $this->ML_fechaIni_PRG; ?>">
-                                </td>
-                            </tr>
-                            
+                        <table width="100%" style="margin-top:5px;" >
                             <tr>
                                 <td colspan="2" align="right">
                                     <input type="button"  id="btnBuscarProgramas" class="btn btn-primary" style="margin-right:5px" value="Buscar">
@@ -493,6 +496,42 @@ $(function()
         }
     }
     
+    function actualizaPrg(){
+    
+    var ciudad = $("#mL_txtCiudadDestino_PRG").val();
+    
+    if(ciudad !== ""){
+        
+    var datos = {
+        fecha: $("#mL_txtFechaIn_PRG").val()
+    };
+    
+        $.post(BASE_URL_JS + "system/getComboPrg",datos,function(ciudades){
+            var $comboCiudades = $("#mL_txtCiudadDestino_PRG");
+            $comboCiudades.empty();
+            $comboCiudades.append("<option value="+0+">Seleccione destino</option>");
+            if(ciudades){
+            var ciu = ciudades[0];
+            var cod = ciudades[1];
+            var cont=0;
+            $.each(ciu, function(index, salida) {
+                
+                if('<?php echo Session::get('sess_BP_ciudadDes_PRG'); ?>' == cod[cont]){
+                    $comboCiudades.append("<option value='" + cod[cont] + "' selected='selected'>" + salida + "</option>");
+                }else{
+                $comboCiudades.append("<option value='" + cod[cont] + "'>" + salida + "</option>");
+            }
+                cont++;
+            });
+        }
+        }, 'json');
+    }else{
+       var $comboCiudades = $("#mL_txtCiudadDestino_PRG");
+           $comboCiudades.empty();
+           $comboCiudades.append("<option value="+0+">Seleccione destino</option>"); 
+    }
+    }
+    
     
     // cada vez que se cambia el valor del combo
     $("#mL_cmbSalidas").change(function() {
@@ -501,4 +540,5 @@ $(function()
     });
     
     actualizaSalidas();
+    actualizaPrg();
 </script>

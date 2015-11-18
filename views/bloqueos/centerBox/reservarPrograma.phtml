@@ -305,8 +305,9 @@ if (Session::get('sess_BP_cntInf') > 0) {
                         <script type="text/javascript">
                             $(function ()
                             {
-                                $("#rP_txtNomInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
-                                $("#rP_txtApeInf_<?php echo $rP_cntRegistros; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtNomInf_<?php echo $i; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtApeInf_<?php echo $i; ?>").validaCampos('abcdefghijklmnñopqrstuvwxyz áéíóú');
+                                $("#rP_txtRutInf_<?php echo $i; ?>").validaCampos('abcdefghijklmnopqrstuvwxyz0123456789-');
 
                                 $("#rP_FechaNacInf_<?php echo $i; ?>").datepicker({
                                     changeMonth: true,
