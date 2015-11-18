@@ -153,7 +153,13 @@ Bloqueo.prototype.procesoReservaPRG = function (classFrm, php, btn, div, form, u
                 {
                     if (txtRutInf.value.replace(/^\s+|\s+$/g, "") == '')
                     {
-                        alertError(btn, 'Debe ingresar un rut para el infante', 2000);
+                        alertError(btn, 'Debe ingresar un pasaporte para el infante', 2000);
+                        txtRutInf.focus();
+                        return false;
+                        break;
+                    }
+                    if(txtRutInf.value.indexOf('-')>=0){
+                        alertError(btn, 'Pasaporte no debe tener guion( - )', 2000);
                         txtRutInf.focus();
                         return false;
                         break;
