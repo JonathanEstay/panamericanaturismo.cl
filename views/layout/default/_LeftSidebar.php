@@ -12,7 +12,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script>
 <!--End of Zopim Live Chat Script-->
 
-<script>    
+<script>
 $(function()
 {
     $( "#mL_txtFechaIn" ).datepicker({
@@ -381,14 +381,14 @@ $(function()
         <li class="divider"></li>
         
         
-        <?php if(Session::accesoView('Admin')){ ?>
+        
         <li <?php if($this->currentMenu==1){ ?>class="active"<?php } ?>>
             <a id="menuConsRes" href="javascript:;">
                 <i><img src="<?php echo $_layoutParams['ruta_img']; ?>buscar.png" width="24px" /></i>
                 <span>Consultar Reserva</span>
             </a>
         </li>
-        <?php } ?>
+        
         
 
         <?php if(Session::accesoView('Admin')){ ?>

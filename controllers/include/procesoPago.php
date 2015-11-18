@@ -25,14 +25,14 @@ if (Session::get('sessRP_idPrograma')) {
 
         if (Session::get("sess_BP_cntHab") == 3) {
 
-            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_2_1') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
+            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_1_2') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
 
-            $sql.=",'" . Session::get("sess_BP_Inf_2") . "','" . Session::get("sess_BP_Adl_3") . "','" . Session::get('sess_BP_edadChd_3_1') . "'";
+            $sql.=",'" . Session::get("sess_BP_Inf_2") . "','" . Session::get("sess_BP_Adl_3") . "','" . Session::get('sess_BP_edadChd_1_3') . "'";
 
-            $sql.=",'" . Session::get('sess_BP_edadChd_3_2') . "','" . Session::get("sess_BP_Inf_3") . "'";
+            $sql.=",'" . Session::get('sess_BP_edadChd_2_3') . "','" . Session::get("sess_BP_Inf_3") . "'";
         } else if (Session::get("sess_BP_cntHab") == 2) {
 
-            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_2_1') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
+            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_1_2') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
 
             $sql.=",'" . Session::get("sess_BP_Inf_2") . "','0','0','0','0'";
         } else {
