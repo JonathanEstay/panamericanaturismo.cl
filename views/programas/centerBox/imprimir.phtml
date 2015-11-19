@@ -85,19 +85,19 @@
                         </tr>
                         <tr align="center">
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php echo Functions::formatoValor($this->moneda, $this->sgl); ?></label>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php if($this->sgl==0){ echo'--'; }else{ echo Functions::formatoValor($this->moneda, $this->sgl);} ?></label>
                                 <br><?php if( $this->pago && $this->moneda ==='D' ){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$this->sgl * Session::get('sess_tcambio'));?></b><br>
                                 <?php }?>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php echo Functions::formatoValor($this->moneda, $this->dbl); ?></label>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php if($this->dbl==0){ echo '--'; }else{echo Functions::formatoValor($this->moneda, $this->dbl);} ?></label>
                                 <br><?php if( $this->pago && $this->moneda ==='D' ){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$this->dbl * Session::get('sess_tcambio'));?></b><br>
                                 <?php }?>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php echo Functions::formatoValor($this->moneda, $this->tpl); ?></label>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;<?php if($this->pago && $this->moneda ==='D'){?>margin-bottom: -1px;<?php } ?>"><?php if($this->tpl==0){ echo '--'; }else{echo Functions::formatoValor($this->moneda, $this->tpl);} ?></label>
                                 <br><?php if( $this->pago && $this->moneda ==='D' ){?>
                                 <b style=" font-size: 13px; color : #34495e;"><?php echo Functions::formatoValor('P',$this->tpl * Session::get('sess_tcambio'));?></b><br>
                                 <?php }?>

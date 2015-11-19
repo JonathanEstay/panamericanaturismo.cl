@@ -80,13 +80,13 @@
                         </tr>
                         <tr align="center" style=" background-color: #FFFFFF;">
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_SGL')); ?></label><br>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if(Session::get('sess_SGL')==0 ){ echo '--'; }else{ echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_SGL')); }?></label><br>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_DBL')); ?></label><br>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if(Session::get('sess_DBL')==0){ echo '--'; }else{ echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_DBL')); } ?></label><br>
                             </td>
                             <td style="padding: 2px; vertical-align: middle;" align="center">
-                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_TPL')); ?></label><br>
+                                <label style="color: #DF5F00; font-weight: bold; font-size:20px;"><?php if(Session::get('sess_TPL')==0){ echo '--'; }else{ echo Functions::formatoValor(Session::get('sess_moneda'), Session::get('sess_TPL')); } ?></label><br>
                             </td>
 
                             <td style="padding: 2px; vertical-align: middle;" align="center">
