@@ -51,7 +51,7 @@ Programa.prototype.validaPasaporte = function (id, rut, passport) {
 };
 
 
-Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado) {
+Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado,idHotel) {
 
     form = '/' + form;
 
@@ -72,7 +72,8 @@ Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf
             _CANT_: cant,
             _CHD1_: chd1,
             _CHD2_: chd2,
-            _EST_: estado
+            _EST_: estado,
+            _CODH_:idHotel
         }, function (data) {
             $('#' + div2).html(data);
             $('#' + div2).delay(100).fadeIn(400);
@@ -478,7 +479,7 @@ Programa.prototype.procesoEnviaFormIE = function (form, action_url, div_id) {
     initLoad();
 };
 
-Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo) {
+Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo,idHotel) {
 
     var valor = $("#ValiFormLogin").val();
     
@@ -487,13 +488,13 @@ Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, O
     if (valor === '1') {
         fadeIn('detallePopup');
         $('#divPopupIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado);
+        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado,idHotel);
 
     } else {
 
         fadeIn('loginPopup');
         $('#divLoginIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado);
+        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado,idHotel);
 
 
     }

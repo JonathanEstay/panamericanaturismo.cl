@@ -63,7 +63,9 @@
     foreach ($this->hot as $val) {
         ?>
         <tr>
-            <td style="height: 22px; width:300px;"><?php echo $val; ?></td>
+            <td style="height: 22px; width:300px;">
+                <b style="font-size:13px;"><a href='#myModal3'data-toggle="modal" onClick="abrePopup('divPopupIn3', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloPopup3', '<?php echo $val; ?>', <?php echo $this->idHot[$i]; ?>, '<?php echo $this->form; ?>');"><?php echo $val; ?></a></b>
+            </td>
             <td style="height: 22px;">
                 <?php
                 if (strlen($this->cant[$i]) == 2) {
@@ -81,8 +83,8 @@
                 }
                 ?>
             </td>
-            <td style="height: 22px;"><?php echo $this->hab[$i]; ?></td>
-            <td style="height: 22px;"><?php echo $this->plan[$i]; ?></td>
+            <td style="height: 22px;color: #0075b0;"><?php echo $this->hab[$i]; ?></td>
+            <td style="height: 22px;color: #0075b0;"><?php echo $this->plan[$i]; ?></td>
         </tr>
         <?php
         $i++;
@@ -192,7 +194,7 @@
                             ?>
                             <tr>
                                 <th>
-                                    Child
+                                    Ni&ntilde;o
                                     <script type="text/javascript">
                                         $(function () {
                                             $("#DP_txtFechaC_<?php echo $i . '_' . $j ?>").datepicker({

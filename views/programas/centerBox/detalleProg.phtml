@@ -208,9 +208,10 @@
                                     ?>
                             <tr>
                                 <td style="color: #DF5F00; padding: 2px; vertical-align: middle;">
-                                    <a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  data-toggle='modal' href='#myModal2' style="cursor:pointer"onClick="fadeIn('detallePopup');
+                                    <b style="font-size:13px;"><a id="tooltip_hotel_<?php echo $objOpcProg->getClaveOpc(); ?>"  data-toggle='modal' href='#myModal2' style="cursor:pointer"onClick="fadeIn('detallePopup');
                                             $('#divPopupIn').css('overflow-y', 'scroll');
                                             abrePopup('divPopupIn', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloPopup2', '<?php echo $DP_hoteles[$i]; ?>', <?php echo $DP_cod_hoteles[$i] ?>, '<?php echo $this->form; ?>');"><?php echo $DP_hoteles[$i]; ?></a>
+                                            </b>
                                 </td>
                                 <!--<td style="padding: 2px; vertical-align: middle;"><?php echo $DP_dirHot[$i]; ?></td>-->
                                 <td style="padding: 2px; vertical-align: middle;">
@@ -277,8 +278,8 @@
                             <td style="font-size: 14px; text-align: center"> <b>SINGLE</b> </td>
                             <td style="font-size: 14px; text-align: center"> <b>DOBLE</b> </td>
                             <td style="font-size: 14px; text-align: center"> <b>TRIPLE </b></td>
-                            <td style="font-size: 14px; text-align: center"> <b>CHILD 1</b></td>
-                            <td style="font-size: 14px; text-align: center"> <b>CHILD 2 </b></td>
+                            <td style="font-size: 14px; text-align: center"> <b>NI&Ntilde;O 1</b></td>
+                            <td style="font-size: 14px; text-align: center"> <b>NI&Ntilde;O 2 </b></td>
                             <td style="font-size: 14px; text-align: center"> <b>PLAN FAMILIAR </b></td>
                             <td style="font-size: 14px; text-align: center"> </td>
                         </tr>
@@ -363,7 +364,7 @@
                                                      <?php }else{ ?>
                                                          'Cotizaci&oacute;n'
                                                      <?php } ?>
-                                                   );"><?php if($objOpcProg->getEstado() == 'AVAILABLE'){?>
+                                                  ,<?php echo htmlspecialchars(json_encode($DP_cod_hoteles)); ?> );"><?php if($objOpcProg->getEstado() == 'AVAILABLE'){?>
                                                                            RESERVAR
                                                    <?php }else{ ?> COTIZAR<?php } ?>
                                 </a>

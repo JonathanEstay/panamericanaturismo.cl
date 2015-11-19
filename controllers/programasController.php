@@ -207,6 +207,7 @@ class programasController extends Controller {
                 $this->_view->cant = $this->getJson('_CANT_');
                 $this->_view->chd1 = $this->getInt('_CHD1_');
                 $this->_view->chd2 = $this->getInt('_CHD2_');
+                $this->_view->idHot=$this->getJson('_CODH_');
                 $this->_view->pf = $this->getInt('_PF_');
                 $estado = $this->getTexto('_EST_');
 
@@ -332,6 +333,7 @@ class programasController extends Controller {
                 $this->_view->hab = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("hab"))))));
                 $this->_view->plan = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("plan"))))));
                 $this->_view->cant = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("cant"))))));
+                $this->_view->idHot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("idHot"))))));
                 $this->_view->renderingCenterBox('detallePasajeros');
             } else {
                 throw new Exception('Debe ingresar la cantidad de habitaciones');

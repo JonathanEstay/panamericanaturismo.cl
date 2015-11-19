@@ -41,24 +41,6 @@
 
 
                     </div>
-                    <!--<div class="modal-footer">
-                        <center>
-                            <table >
-                                <tr>
-                                    <td style="width: 20px;"><input type="checkbox" id="checkCondiciones"></td>
-                                    <td>He leido y acepto las condiciones</td>
-                                                                      
-                                </tr>
-                            </table>
-                            <br>
-                            <table style="height: 30px; width: 219px;">
-                                <tr>
-                                    <td><input type="button" class="btn btn-primary " id="aceptarCondiciones" onclick="Programa.prototype.aceptarCondiciones();" value="Aceptar"></td>
-                                    <td><input type="button"class="btn btn-primary  pull-right"onclick="fadeOut('condicionesPopup');fadeOut('detallePopup');" value="Cancelar"></td>
-                                </tr>
-                            </table>
-                        </center>
-                    </div>-->
                 </div>
 
 
@@ -82,7 +64,7 @@
 
 
             </div>
-            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
                 <div class="modal-dialog" style=" top: 10%; width: 70%;" id="modalCarta">
                     <div class="modal-content" >
                         <div class="modal-header">
@@ -91,6 +73,22 @@
                         </div>
 
                         <div class="modal-body" id="divPopupIn" >
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" aria-hidden="true">
+                <div class="modal-dialog" style=" top: 10%; width: 70%;" id="modalCarta">
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                            <button type="button" class="close" id="btnCerrarIn" data-dismiss="modal" style="display:block;" >&times;</button>
+                            <h4 class="modal-title" id="tituloPopup3">Detalle</h4>
+                        </div>
+
+                        <div class="modal-body" id="divPopupIn3" >
 
                         </div>
 
