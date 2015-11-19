@@ -27,10 +27,10 @@
     </thead>
     <tr >
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
-            <?php echo Session::get('sess_nombrePrograma'); ?>
+            <b style="font-size:15px"><?php echo Session::get('sess_nombrePrograma'); ?> </b>
         </td>
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
-            <?php echo Session::get('sess_ciudadPrograma'); ?>
+            <b style="font-size:15px"> <?php echo Session::get('sess_ciudadPrograma'); ?> </b>
         </td>
         <td style="padding: 2px; vertical-align: middle;height: 22px;" align="center">
             <label style="color: #DF5F00; font-weight: bold; font-size:20px; <?php if($this->pago && Session::get('sess_moneda') ==='D'){?>margin-bottom: -1px;<?php } ?>">
