@@ -8,6 +8,7 @@
 function Programa() {
     this.P_nombre = '';
     this.P_aceptar_cond = false;
+    this.correo = false;
 }
 
 Programa.prototype.getNombre = function () {
@@ -25,7 +26,12 @@ Programa.prototype.setCondiciones = function (aceptar) {
 };
 
 
-
+Programa.prototype.getCorreo = function () {
+    return this.correo;
+};
+Programa.prototype.setCorreo = function (c) {
+    this.correo = c;
+};
 
 
 Programa.prototype.validaPasaporte = function (id, rut, passport) {
@@ -51,7 +57,7 @@ Programa.prototype.validaPasaporte = function (id, rut, passport) {
 };
 
 
-Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado,idHotel) {
+Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado, idHotel) {
 
     form = '/' + form;
 
@@ -73,7 +79,7 @@ Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf
             _CHD1_: chd1,
             _CHD2_: chd2,
             _EST_: estado,
-            _CODH_:idHotel
+            _CODH_: idHotel
         }, function (data) {
             $('#' + div2).html(data);
             $('#' + div2).delay(100).fadeIn(400);
@@ -479,22 +485,22 @@ Programa.prototype.procesoEnviaFormIE = function (form, action_url, div_id) {
     initLoad();
 };
 
-Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo,idHotel) {
+Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo, idHotel) {
 
     var valor = $("#ValiFormLogin").val();
-    
+
     $("#divPopupIn").html('');
     $("#tituloPopup2").html(titulo);
     if (valor === '1') {
         fadeIn('detallePopup');
         $('#divPopupIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado,idHotel);
+        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel);
 
     } else {
 
         fadeIn('loginPopup');
         $('#divLoginIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado,idHotel);
+        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel);
 
 
     }
@@ -553,8 +559,8 @@ Programa.prototype.procesoDetalleProg = function (classFrm, form)
     });
 };
 
-Programa.prototype.enviarMail = function (btn,form,classFrm) {
-    
+Programa.prototype.enviarMail = function (btn, form, classFrm) {
+
     form = '/' + form;
     initLoad();
     $("#" + btn).attr('disabled', 'disabled');
@@ -581,67 +587,114 @@ Programa.prototype.enviarMail = function (btn,form,classFrm) {
         return false;
 
     }
-    if ($('#DP_cmbHab').val() === '0') {
 
-        endLoad();
-        $('#mensajeWar').html('Debe ingresar por lo menos una habitacion');
-        $('#divAlertWar').delay(1000).fadeIn(500);
-        $('#divAlertWar').animate({
-            'display': 'block'
-        });
+    Programa.prototype.validaEmail($('#correoCot').val());
+    setTimeout(function () {
+        
+        if (!Programa.prototype.getCorreo()) {
 
-        $('#divAlertWar').delay(3000).fadeOut(500);
-        $('#divAlertWar').animate({
-            'display': 'none'
-        });
-        $("#" + btn).delay(2000).queue(function (m)
-        {
-            $("#" + btn).removeAttr("disabled");
-            m();
-        });
-        return false;
-    }
-
-    var contentType = false;
-    var processData = false;
-    
-    if (typeof FormData === "undefined") {
-        //IE
-        var formData = [];
-        formData = formularioIE($("." + classFrm)[0]);
-        contentType = 'application/x-www-form-urlencoded';
-        processData = true;
-    } else {
-        var formData = new FormData($("." + classFrm)[0]);
-    }
-
-    
-    $.ajax({
-        url: BASE_URL_JS + CONTROLLER_JS + '/enviarMail' + form,
-        type: 'POST',
-        //Form data
-        //datos del formulario
-        data: formData,
-        //necesario para subir archivos via ajax
-        cache: false,
-        contentType: contentType,
-        processData: processData,
-        //mientras enviamos el archivo
-        beforeSend: function () {
-        },
-        //una vez finalizado correctamente
-        success: function (data)
-        {
-            $("#modalCarta").css({
-                width: '50%'
-            });
-            $("#divPopupIn").html(data);
             endLoad();
+            $('#mensajeWar').html('Debe ingresar un correo valido');
+            $('#divAlertWar').delay(1000).fadeIn(500);
+            $('#divAlertWar').animate({
+                'display': 'block'
+            });
+
+            $('#divAlertWar').delay(3000).fadeOut(500);
+            $('#divAlertWar').animate({
+                'display': 'none'
+            });
+            $("#" + btn).delay(2000).queue(function (m)
+            {
+                $("#" + btn).removeAttr("disabled");
+                m();
+            });
+            return false;
         }
-    });
+        
+        if ($('#DP_cmbHab').val() === '0') {
+
+            endLoad();
+            $('#mensajeWar').html('Debe ingresar por lo menos una habitacion');
+            $('#divAlertWar').delay(1000).fadeIn(500);
+            $('#divAlertWar').animate({
+                'display': 'block'
+            });
+
+            $('#divAlertWar').delay(3000).fadeOut(500);
+            $('#divAlertWar').animate({
+                'display': 'none'
+            });
+            $("#" + btn).delay(2000).queue(function (m)
+            {
+                $("#" + btn).removeAttr("disabled");
+                m();
+            });
+            return false;
+        }
+
+
+        var contentType = false;
+        var processData = false;
+
+        if (typeof FormData === "undefined") {
+            //IE
+            var formData = [];
+            formData = formularioIE($("." + classFrm)[0]);
+            contentType = 'application/x-www-form-urlencoded';
+            processData = true;
+        } else {
+            var formData = new FormData($("." + classFrm)[0]);
+        }
+
+
+        $.ajax({
+         url: BASE_URL_JS + CONTROLLER_JS + '/enviarMail' + form,
+         type: 'POST',
+         //Form data
+         //datos del formulario
+         data: formData,
+         //necesario para subir archivos via ajax
+         cache: false,
+         contentType: contentType,
+         processData: processData,
+         //mientras enviamos el archivo
+         beforeSend: function () {
+         },
+         //una vez finalizado correctamente
+         success: function (data)
+         {
+         $("#modalCarta").css({
+         width: '50%'
+         });
+         $("#divPopupIn").html(data);
+         endLoad();
+         }
+         });
+
+    }, 3000);
 };
 
+Programa.prototype.validaEmail = function (email) {
 
+
+    $.ajax({
+        url: BASE_URL_JS + 'functions/validacorreo/' + email,
+        type: 'POST',
+        async: true,
+        success: function (data) {
+            if (data === '1') {
+
+                Programa.prototype.setCorreo(true);
+
+            } else {
+                Programa.prototype.setCorreo(false);
+            }
+
+        }
+    });
+
+};
 
 //crearPersona();
 //Programa.prototype.validaPasaporte();

@@ -495,6 +495,7 @@ class Functions
     
     public function validaCorreo($correo)
     {      
+        
         $estado = true;
         $partes = explode("@", $correo);
         if (!empty($partes[0]) && !empty($partes[1]))
