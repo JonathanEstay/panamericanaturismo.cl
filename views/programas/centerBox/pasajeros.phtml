@@ -41,7 +41,9 @@
                     foreach ($this->hot as $val) {
                         ?>
                         <tr style="background-color: #FFFFFF;">
-                            <td style="height: 22px;width:300px;"><?php echo $val; ?></td>
+                            <td style="height: 22px;width:300px;">
+                                <b style="font-size:13px;"><a href='#myModal3'data-toggle="modal" onClick="abrePopup('divPopupIn3', '<?php echo BASE_URL; ?>bloqueos/servicios', 'tituloPopup3', '<?php echo $val; ?>', <?php echo $this->idHot[$i]; ?>, '<?php echo $this->form; ?>');"><?php echo $val; ?></a></b>
+                            </td>
                             <td style="height: 22px;">
                                 <?php
                                 if (strlen($this->cant[$i]) == 2) {
@@ -59,8 +61,8 @@
                                 }
                                 ?>
                             </td>
-                            <td style="height: 22px;"><?php echo $this->hab[$i]; ?></td>
-                            <td style="height: 22px;"><?php echo $this->plan[$i]; ?></td>
+                            <td style="height: 22px;color: #0075b0;"><?php echo $this->hab[$i]; ?></td>
+                            <td style="height: 22px;color: #0075b0;"><?php echo $this->plan[$i]; ?></td>
                         </tr>
                         <?php
                         $i++;
@@ -75,6 +77,7 @@
     <input type="hidden" name="hab"value="<?php echo htmlspecialchars(json_encode($this->hab)); ?>">
     <input type="hidden" name="plan"value="<?php echo htmlspecialchars(json_encode($this->plan)); ?>">
     <input type="hidden" name="cant" value="<?php echo htmlspecialchars(json_encode($this->cant)); ?>">
+    <input type="hidden" name="idHot" value="<?php echo htmlspecialchars(json_encode($this->idHot)); ?>">
     <div calss ="row">
         <div class=" col-md-2"></div>
         <div class=" col-md-8">
@@ -108,7 +111,7 @@
                                                 <?php } ?>
                                             </select>
                                         </td>
-                                        <td>Child</td>
+                                        <td>Ni&ntilde;o</td>
                                         <td>
                                             <select name="DP_cmbChild_<?php echo $i; ?>" id="DP_cmbChild_<?php echo $i; ?>" onchange="habilitaPlan('<?php echo $this->chd1;?>','<?php echo $this->chd2;?>','<?php echo $this->pf;?>',<?php echo $i;?>); habilitaEdadChild(this.value, <?php echo $i; ?>, 'DP_EdadChild')">
                                                 <option value="0">0</option>
