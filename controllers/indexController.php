@@ -13,14 +13,7 @@ class indexController extends Controller
     }
     
     public function index() {
-        //$this->_view->titulo='Iniciar sesi&oacute;n';
-        //$this->_view->renderizaPrincipal('login');
-        if(!Session::get('Autenticado')) {
-            header('Location: ' . BASE_URL . 'login');
-        } else {
-            header('Location: ' . BASE_URL . 'system');
-        }
-        
+        header('Location: ' . BASE_URL . 'login');
         exit;
     }
 }
