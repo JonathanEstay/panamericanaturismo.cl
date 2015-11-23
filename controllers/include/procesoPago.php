@@ -71,7 +71,8 @@ if (Session::get('sessRP_idPrograma')) {
 
                 if (!empty($pRP_fechaNacPAS)) {
 
-                    $pRP_fechaNacPAS = Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+                    //$pRP_fechaNacPAS = Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+                    $pRP_fechaNacPAS = str_replace('/', '-', $pRP_fechaNacPAS);
                 }
 
                 if ($this->getTexto('rP_txtRutInf_' . $i)) {
@@ -80,7 +81,8 @@ if (Session::get('sessRP_idPrograma')) {
                     $pRP_apeINF = trim($_POST['rP_txtApeInf_' . $i]);
                     
                     if(trim($_POST['rP_FechaNacInf_' . $i]) != '') {
-                        $pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                        //$pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                        $pRP_nacINF = str_replace('/', '-', trim($_POST['rP_FechaNacInf_' . $i]));
                     } else {
                         throw new Exception('Debe ingresar la fecha de nacimiento del infant ['.$i.']');
                     }
