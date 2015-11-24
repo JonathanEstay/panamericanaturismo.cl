@@ -138,9 +138,15 @@ class pagoController extends Controller {
                     }
                     return true;
                 } else {
+                    
                     Session::set('sess_status_pago', false);
-                    Session::set('sess_msj_pago', '[2021] Error al intentar realizar el pago (' . str_replace('ó', '&oacute;', $json->error_message) . ')');
+                    if(isset($json->error_message)) {
+                        Session::set('sess_msj_pago', '[2021] Error al intentar realizar el pago (' . str_replace('ó', '&oacute;', $json->error_message) . ')');
+                    } else {
+                        Session::set('sess_msj_pago', '[2021] Error al intentar realizar el pago');
+                    }
                     return false;
+                    
                 }
             } else {
                 Session::set('sess_status_pago', false);
