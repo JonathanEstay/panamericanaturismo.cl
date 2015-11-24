@@ -720,6 +720,11 @@ class bloqueosController extends Controller {
                                     $numfile=$rs->getFile(); //24626 ULTIMO
                                     Session::set("sess_file", $numfile);
                                     $file_json = fopen(ROOT . 'public' . DS . 'paylog' . DS . $this->getServer('REMOTE_ADDR') . '_' . $numfile . '.json', 'w');
+                                    
+                                    $ajuste= $bloqueo->getAjuste($numfile);
+                                        
+                                    //echo 'TAX: ' . $ajuste; exit;
+                                    
                                     $jsonModel= $this->loadModel('json');
                                     $objUsuario= $jsonModel->consultarUser(Session::get('sess_user_hash'));
                                     foreach($objUsuario as $objU) {
@@ -730,7 +735,7 @@ class bloqueosController extends Controller {
                                                 "pay_agency_id" => $objU->getIdAgentExter(), 
                                                 "pay_file" => $numfile, 
                                                 "pay_amount" => $precio, 
-                                                "pay_tax" => '0', 
+                                                "pay_tax" => $ajuste, 
                                                 "pay_currency" => 'CLP',
                                                 "pay_email" => $txtEmail,
                                                 "pay_fono" => $txtFono,
