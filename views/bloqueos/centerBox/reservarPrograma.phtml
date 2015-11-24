@@ -355,6 +355,7 @@ if (Session::get('sess_BP_cntInf') > 0) {
                 <td>
                     <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
                     <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
+                    <input type="hidden" value="" id="QA" name="QA" >
                 </td>
             </tr>
         </table>

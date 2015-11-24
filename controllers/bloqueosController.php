@@ -487,69 +487,74 @@ class bloqueosController extends Controller {
                       }
                       } */
 
-                    //Formateando valores
-                    $this->_view->fechaSalida = Functions::invertirFecha($this->_view->objOpcionPrograma[0]->getDesde(), '/', '/');
+                    
+                    if($cnt > 0) {
+                        //Formateando valores
+                        $this->_view->fechaSalida = Functions::invertirFecha($this->_view->objOpcionPrograma[0]->getDesde(), '/', '/');
 
-                    $exp_fechaSalida = explode('/', $this->_view->objOpcionPrograma[0]->getDesde());
-                    $this->_view->anoSalida = $exp_fechaSalida[0];
-                    $this->_view->mesSalida = $exp_fechaSalida[1];
-                    $this->_view->diaSalida = $exp_fechaSalida[2];
+                        $exp_fechaSalida = explode('/', $this->_view->objOpcionPrograma[0]->getDesde());
+                        $this->_view->anoSalida = $exp_fechaSalida[0];
+                        $this->_view->mesSalida = $exp_fechaSalida[1];
+                        $this->_view->diaSalida = $exp_fechaSalida[2];
 
-                    $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
-                    
-                    
-                    
-                    $precio= ($valorHab[0] + $valorHab[1] + $valorHab[2]);
-                    Session::set('sess_BP_Precio', $precio);
-                    $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
-                   
-                    Session::set('sess_money_pay', $this->_view->objOpcionPrograma[0]->getMoneda());
-                    if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
-                        if(!Session::get('sess_tcambio')) {
-                            $us = $this->loadModel('usuario');
-                            $tcambio = $us->getPaisTc(Session::get('sess_BP_ciudadDes'));
-                            $TcambioSess =$us->getTcambio($tcambio);
-                            Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
+                        $valorHab = $this->_view->objOpcionPrograma[0]->getValorHab();
+
+
+
+                        $precio= ($valorHab[0] + $valorHab[1] + $valorHab[2]);
+                        Session::set('sess_BP_Precio', $precio);
+                        $this->_view->precio = Functions::formatoValor($this->_view->objOpcionPrograma[0]->getMoneda(), $precio);
+
+                        Session::set('sess_money_pay', $this->_view->objOpcionPrograma[0]->getMoneda());
+                        if ($this->_view->objOpcionPrograma[0]->getMoneda() == 'D'){
+                            if(!Session::get('sess_tcambio')) {
+                                $us = $this->loadModel('usuario');
+                                $tcambio = $us->getPaisTc(Session::get('sess_BP_ciudadDes'));
+                                $TcambioSess =$us->getTcambio($tcambio);
+                                Session::set('sess_tcambio', $TcambioSess->getTipoCambio());
+                            }
+
+                            if(Session::get('sess_tcambio')==0){
+
+                                $this->loadDTO('usuarioH2h');
+                                $us =$this->loadModel('reserva');
+                                $user ='tclub';
+                                $mail = $us->getCorreo($user);
+                                $mail->getCorreoEjecutivo();
+
+                                $this->mailTipoCambio('Actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
+                            }
+                            $precio = $precio * Session::get('sess_tcambio');
+
+                            if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){
+                            $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ',&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
+                            }
                         }
-                        
-                        if(Session::get('sess_tcambio')==0){
-                            
-                            $this->loadDTO('usuarioH2h');
-                            $us =$this->loadModel('reserva');
-                            $user ='tclub';
-                            $mail = $us->getCorreo($user);
-                            $mail->getCorreoEjecutivo();
-                            
-                            $this->mailTipoCambio('Actualizar tipo cambio',$mail->getCorreoEjecutivo(),'ereyes@tsyacom.cl');
+
+
+
+
+                        $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
+                        $this->_view->hotelesCNT = count($this->_view->hoteles);
+
+
+
+
+                        $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+
+
+                        if (Session::get('sess_boton_pago')) {
+                            $this->_view->botonPago = Session::get('sess_boton_pago');
+                            $this->_view->boton = "Pagar";
+                        } else {
+                            $this->_view->botonPago = false;
+                            $this->_view->boton = "Reservar";
                         }
-                        $precio = $precio * Session::get('sess_tcambio');
-                        
-                        if(Session::get('sess_codigo_cliente_url')=='3f7a2611ee08c6645796463e0bb1ae7f'){
-                        $this->_view->precio .= ' &nbsp;(T.Cambio $' . Session::get('sess_tcambio') . ',&nbsp; ' . Functions::formatoValor('P', $precio) . ')';
-                        }
-                    }
-                    
-                    
 
-                    
-                    $this->_view->hoteles = $this->_view->objOpcionPrograma[0]->getHoteles();
-                    $this->_view->hotelesCNT = count($this->_view->hoteles);
-
-
-
-
-                    $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
-
-
-                    if (Session::get('sess_boton_pago')) {
-                        $this->_view->botonPago = Session::get('sess_boton_pago');
-                        $this->_view->boton = "Pagar";
+                        $this->_view->renderingCenterBox('reservarPrograma');
                     } else {
-                        $this->_view->botonPago = false;
-                        $this->_view->boton = "Reservar";
+                        throw new Exception('Ya no se encuentran espacios disponibles para reservar.');
                     }
-
-                    $this->_view->renderingCenterBox('reservarPrograma');
                 } else {
                     throw new Exception('Existe un error en el armado de programas, favor actualize la busqueda.');
                 }
@@ -608,7 +613,17 @@ class bloqueosController extends Controller {
                     }
                     $bloqueo = $this->loadModel('bloqueo');
                     
+                    
+                    
+                    
+                    if(!Session::get('sessRP_idPrograma') || !Session::get('sessRP_rdbOpc')) {
+                        throw new Exception('No quedan espacios disponibles para esta reserva.');
+                    }
+                    
+                    
+                    
                     $objProg= $bloqueo->codigosProg(Session::get('sessRP_idPrograma'), Session::get('sessRP_rdbOpc'));
+                    
                     foreach($objProg as $objP) {
                         $codigoBloqueo = $objP->getRecordC();
                         $codigoPrograma = $objP->getCodigo();
@@ -623,9 +638,9 @@ class bloqueosController extends Controller {
                     
                     
                     
-                    /*##########################################################################33*/
-                    /*##########################################################################33*/
-                    /*##########################################################################33*/
+                    /*##########################################################################*/
+                    /*##########################################################################*/
+                    /*##########################################################################*/
                     /*if(Session::get('sess_money_pay') == 'D') {
                         if(Session::get('sess_tcambio') > 0) {
                             $precio = Session::get('sess_BP_Precio') * Session::get('sess_tcambio');
@@ -664,11 +679,12 @@ class bloqueosController extends Controller {
                         echo 'OK' . '&' . $numfile . '&' .  md5('pago1') . '&' .  md5('pago2') . '&' . md5('pago');
                     }
                     exit;*/
-                    /*##########################################################################33*/
-                    /*##########################################################################33*/
-                    /*##########################################################################33*/
-                    
-                   
+                    /*##########################################################################*/
+                    /*##########################################################################*/
+                    /*##########################################################################*/
+                    if($this->getTexto('QA') == 'OK') {
+                        echo $sql; exit;
+                    }
                     
                     $rs = $bloqueo->H2H_CREA_FILE($sql);
 

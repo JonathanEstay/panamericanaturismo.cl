@@ -168,7 +168,8 @@ for($i=1; $i<=10; $i++)
 
         if(!empty($pRP_fechaNacPAS))
         {
-            $pRP_fechaNacPAS= Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+            //$pRP_fechaNacPAS= Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+            $pRP_fechaNacPAS= str_replace('/', '-', $pRP_fechaNacPAS);
         }
 
         if($this->getTexto('rP_txtRutInf_'.$i)){
@@ -176,7 +177,8 @@ for($i=1; $i<=10; $i++)
             $pRP_nomINF= mb_convert_encoding(trim($_POST['rP_txtNomInf_'.$i]),"ISO-8859-1","UTF-8");
             $pRP_apeINF= mb_convert_encoding(trim($_POST['rP_txtApeInf_'.$i]),"ISO-8859-1","UTF-8");
             if(trim($_POST['rP_FechaNacInf_'.$i])!='') {
-                $pRP_nacINF= Functions::invertirFecha(trim($_POST['rP_FechaNacInf_'.$i]), '/', '-');
+                //$pRP_nacINF= Functions::invertirFecha(trim($_POST['rP_FechaNacInf_'.$i]), '/', '-');
+                $pRP_nacINF= str_replace('/', '-', trim($_POST['rP_FechaNacInf_'.$i]));
             } else {
                 throw new Exception('Debe ingresar la fecha de nacimiento del infant ['.$i.']');
             }
@@ -228,7 +230,9 @@ $pRP_sqlDetalle.=", '".$pRP_clave."', '".$pRP_areaComentario."', '".$pRP_totalVe
 
 
 
-
+if($this->getTexto('QA') == 'OK') {
+    echo $pRP_sqlDetalle; exit;
+}
 //echo $pRP_sqlDetalle; exit;
 
 

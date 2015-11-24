@@ -25,14 +25,14 @@ if (Session::get('sessRP_idPrograma')) {
 
         if (Session::get("sess_BP_cntHab") == 3) {
 
-            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_2_1') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
+            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_1_2') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
 
-            $sql.=",'" . Session::get("sess_BP_Inf_2") . "','" . Session::get("sess_BP_Adl_3") . "','" . Session::get('sess_BP_edadChd_3_1') . "'";
+            $sql.=",'" . Session::get("sess_BP_Inf_2") . "','" . Session::get("sess_BP_Adl_3") . "','" . Session::get('sess_BP_edadChd_1_3') . "'";
 
-            $sql.=",'" . Session::get('sess_BP_edadChd_3_2') . "','" . Session::get("sess_BP_Inf_3") . "'";
+            $sql.=",'" . Session::get('sess_BP_edadChd_2_3') . "','" . Session::get("sess_BP_Inf_3") . "'";
         } else if (Session::get("sess_BP_cntHab") == 2) {
 
-            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_2_1') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
+            $sql.=",'" . Session::get("sess_BP_Adl_2") . "','" . Session::get('sess_BP_edadChd_1_2') . "','" . Session::get('sess_BP_edadChd_2_2') . "'";
 
             $sql.=",'" . Session::get("sess_BP_Inf_2") . "','0','0','0','0'";
         } else {
@@ -71,7 +71,8 @@ if (Session::get('sessRP_idPrograma')) {
 
                 if (!empty($pRP_fechaNacPAS)) {
 
-                    $pRP_fechaNacPAS = Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+                    //$pRP_fechaNacPAS = Functions::invertirFecha($pRP_fechaNacPAS, '/', '-');
+                    $pRP_fechaNacPAS = str_replace('/', '-', $pRP_fechaNacPAS);
                 }
 
                 if ($this->getTexto('rP_txtRutInf_' . $i)) {
@@ -80,7 +81,8 @@ if (Session::get('sessRP_idPrograma')) {
                     $pRP_apeINF = mb_convert_encoding(trim($_POST['rP_txtApeInf_' . $i]),"ISO-8859-1","UTF-8");
                     
                     if(trim($_POST['rP_FechaNacInf_' . $i]) != '') {
-                        $pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                        //$pRP_nacINF = Functions::invertirFecha(trim($_POST['rP_FechaNacInf_' . $i]), '/', '-');
+                        $pRP_nacINF = str_replace('/', '-', trim($_POST['rP_FechaNacInf_' . $i]));
                     } else {
                         throw new Exception('Debe ingresar la fecha de nacimiento del infant ['.$i.']');
                     }

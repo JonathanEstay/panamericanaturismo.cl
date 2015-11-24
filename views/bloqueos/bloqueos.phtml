@@ -132,7 +132,7 @@ if (Session::get('sess_iframe')) {
                                 <div class="panel panel-default">
 
                                     <a id="id_collapse" style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" onclick="detectedCollapsed('collapse<?php echo $cnt ?>', 'opcionesPrograma<?php echo $cnt ?>', '<?php echo $objProg->getId(); ?>', '<?php echo $this->form; ?>')">
-                                        <div class="panel-heading" style="background: #e6e7e8; height: 105px;  color: #033d7d;">
+                                        <div class="panel-heading" style="background: #e6e7e8; height: 118px;  color: #033d7d;">
                                             <table style="width:100%;" >
                                                 <tr>
                                                     <td style="width:150px;" rowspan="4" align="center">
@@ -340,7 +340,7 @@ if (Session::get('sess_iframe')) {
             </div>
 
             <div class="modal-content alert-info" id="LoginStatus" style="position: fixed; left: 1%; top:90%; bottom: 5%; right: 210px; z-index: 9999;width: 160px; height: 65px; <?php
-            if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '') {
+            if (!Session::get('Autenticado') || $this->form === 'a' || $this->form === '' || Session::get('sess_boton_pago')) {
                 echo 'display: none;';
             }
             ?>">
