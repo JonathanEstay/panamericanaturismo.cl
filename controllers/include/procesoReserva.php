@@ -140,8 +140,8 @@ for($i=1; $i<=10; $i++)
 {
     if($i<Session::get('sessRP_cntPasajeros'))
     {
-        $pRP_apellidoPAS= trim($_POST['rP_txtApe_'.$i]);
-        $pRP_nombrePAS= trim($_POST['rP_txtNom_'.$i]);
+        $pRP_apellidoPAS= mb_convert_encoding(trim($_POST['rP_txtApe_'.$i]),"ISO-8859-1","UTF-8");
+        $pRP_nombrePAS= mb_convert_encoding(trim($_POST['rP_txtNom_'.$i]),"ISO-8859-1","UTF-8");
         $pRP_rutPAS= trim($_POST['rP_txtRut_'.$i]);
         $pRP_tipoPAS= trim($_POST['rP_cmbTipoPax_'.$i]);
         $pRP_tratoPAS= trim($_POST['rP_cmbTratoPax_'.$i]);
@@ -173,8 +173,8 @@ for($i=1; $i<=10; $i++)
 
         if($this->getTexto('rP_txtRutInf_'.$i)){
             $pRP_rutINF= trim($_POST['rP_txtRutInf_'.$i]);
-            $pRP_nomINF= trim($_POST['rP_txtNomInf_'.$i]);
-            $pRP_apeINF= trim($_POST['rP_txtApeInf_'.$i]);
+            $pRP_nomINF= mb_convert_encoding(trim($_POST['rP_txtNomInf_'.$i]),"ISO-8859-1","UTF-8");
+            $pRP_apeINF= mb_convert_encoding(trim($_POST['rP_txtApeInf_'.$i]),"ISO-8859-1","UTF-8");
             if(trim($_POST['rP_FechaNacInf_'.$i])!='') {
                 $pRP_nacINF= Functions::invertirFecha(trim($_POST['rP_FechaNacInf_'.$i]), '/', '-');
             } else {
@@ -220,7 +220,7 @@ for($i=0; $i<3; $i++)
 }
 
 
-$pRP_areaComentario= trim($_POST['rP_txtComentario']);
+$pRP_areaComentario= mb_convert_encoding(trim($_POST['rP_txtComentario']),"ISO-8859-1","UTF-8");
 
 
 $pRP_sqlDetalle.=", '".$pRP_clave."', '".$pRP_areaComentario."', '".$pRP_totalVenta."'";
