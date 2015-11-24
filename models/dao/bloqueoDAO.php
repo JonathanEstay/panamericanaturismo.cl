@@ -691,4 +691,18 @@ class bloqueoDAO extends Model {
         return $id;
     }
 
+    public function getAjuste($numFile) {
+
+        $sql = "SELECT ajuste FROM file_ WHERE num_file = $numFile ";
+
+        $dato = $this->_db->consulta($sql);
+
+        if ($this->_db->numRows($dato) > 0) {
+            $NoComisionable = $this->_db->fetchAll($dato);
+
+            return $NoComisionable[0][0];
+        } else {
+            return false;
+        }
+    }
 }
