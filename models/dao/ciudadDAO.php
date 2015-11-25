@@ -156,6 +156,7 @@ class ciudadDAO extends Model {
     }
     
     public function getCiudadCombo($fecha) {
+        $n=1;
         $sql= 'EXEC TS_GET_PROG_COMBO_CIUDAD "'.$fecha.'"';
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {

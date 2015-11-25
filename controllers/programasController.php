@@ -125,9 +125,8 @@ class programasController extends Controller {
         if ($this->getInt('__SP_id__')) {
             $sql = "EXEC TS_GET_PROGRAMAS_ID " . $this->getInt('__SP_id__');
             Session::set('sess_TS_GET_PROGRAMAS_ID', $sql);
-            //echo $sql; exit;
             $this->_view->objProgramas = $programas->exeTS_GET_PROGRAMAS($sql);
-
+            
 
             if (WEB) {
                 //WEB
@@ -209,6 +208,8 @@ class programasController extends Controller {
                 $this->_view->chd2 = $this->getInt('_CHD2_');
                 $this->_view->idHot=$this->getJson('_CODH_');
                 $this->_view->pf = $this->getInt('_PF_');
+                $this->_view->codHavi=$this->getInt('_CODHAVI_');
+                $this->_view->codIopc=$this->getInt('_CODIDOPC_');
                 $estado = $this->getTexto('_EST_');
 
                 if ($estado === 'AVAILABLE') {
@@ -325,7 +326,14 @@ class programasController extends Controller {
                 } else {
                     $this->_view->boton = "Reservar";
                 }
-
+                              
+                $programas = $this->loadModel('programa');
+                
+                $idopc = $this->getInt('idOpc');
+                
+                $allotment= $programas->validaAllotmen(Session::get('sess_codigoPrograma'),Session::get('sess_BP_fechaIn_PRG'),$this->getInt('DP_cmbHab'),$idopc);
+                
+                if($allotment){
                 $this->_view->totalPago = $totalPago;
                 $this->_view->cntHab = $this->getInt('DP_cmbHab');
                 $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
@@ -335,6 +343,9 @@ class programasController extends Controller {
                 $this->_view->cant = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("cant"))))));
                 $this->_view->idHot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("idHot"))))));
                 $this->_view->renderingCenterBox('detallePasajeros');
+                }else{
+                   throw new Exception('No hay habitaciones disponibles para realizar su reserva'); 
+                }
             } else {
                 throw new Exception('Debe ingresar la cantidad de habitaciones');
             }
