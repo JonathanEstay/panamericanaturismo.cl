@@ -341,7 +341,7 @@ class programaDAO extends Model {
     }
 
     public function exeTS_GET_PROGRAMAS($sql) {
-
+        //echo $sql;exit;
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
 
@@ -757,6 +757,33 @@ class programaDAO extends Model {
             
         }
         return $arrayHotel;
+    }
+    public function validaAllotmen($pack,$fechaIn,$numHabi,$idopc) {
+        $sql = 'SELECT proveedor,noches FROM det_pack WHERE packages ="'.$pack.'" and codigo = "HTL" ORDER BY linea';
+        $re = false;
+        $data = $this->_db->consulta($sql);
+        $dato = $this->_db->fetchAll($data);
+        $i=0;
+        $sql='SELECT codhotel,TipoHabitacion FROM h2h_ProgramaOpcDet POD WHERE POD.IdOpcion="'.$idopc.'" order by Orden asc';
+        $ho = $this->_db->consulta($sql);
+        $hotel = $this->_db->fetchAll($ho);
+        foreach ($hotel as $h) {
+          $fechaOut = Functions::sumFecha($fechaIn,$dato[$i]['noches']);
+          $sql ='EXEC Valida_Allotment_alldays "'.trim($h['codhotel']).'","'.trim($h['TipoHabitacion']).'","'.$dato[$i]['proveedor'].'","'.$fechaIn.'","'.$fechaOut.'"," ","'.$numHabi.'"';
+          $fechaIn=$fechaOut;
+          
+          $allot = $this->_db->consulta($sql);
+           $allotment = $this->_db->fetchAll($allot);
+           if($allotment[0][0]!=0){
+              $re = true; 
+           }else{
+             $re = false;  
+           }
+         $i++;
+        }
+       
+        
+        return $re;
     }
 
 }

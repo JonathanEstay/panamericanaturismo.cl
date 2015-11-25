@@ -364,7 +364,10 @@
                                                      <?php }else{ ?>
                                                          'Cotizaci&oacute;n'
                                                      <?php } ?>
-                                                  ,<?php echo htmlspecialchars(json_encode($DP_cod_hoteles)); ?> );"><?php if($objOpcProg->getEstado() == 'AVAILABLE'){?>
+                                                  ,<?php echo htmlspecialchars(json_encode($DP_cod_hoteles)); ?>,
+                                                   '<?php echo htmlspecialchars(json_encode($DP_codthHot));?>',
+                                                   '<?php echo $objOpcProg->getIdOpc(); ?>');">
+                                                      <?php if($objOpcProg->getEstado() == 'AVAILABLE'){?>
                                                                            RESERVAR
                                                    <?php }else{ ?> COTIZAR<?php } ?>
                                 </a>
