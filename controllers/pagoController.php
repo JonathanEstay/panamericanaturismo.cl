@@ -312,6 +312,7 @@ class pagoController extends Controller {
         $mail->AddAddress($correoSend ,"");
         $mail->AddBCC($mailSend->getCorreoEjecutivo());
         $mail->AddBCC($mailSend->getCorreoVendedor());
+        $mail->AddBCC('ereyes@tsyacom.cl');
         //$mail->AddAddress("destino2@correo.com","Nombre 02"); 
         
         //$mail->AddBCC($MC_correoOculto);
