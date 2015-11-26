@@ -97,6 +97,7 @@ class bookingController extends Controller
         
         
         $ruta_img= 'views/layout/' . DEFAULT_LAYOUT . '/img/';
+        $ruta_img2= 'public/img/voucher/';
         
         ob_start();
         require_once ROOT . 'views' . DS . 'system' . DS .'pdf' . DS . 'vouchea.php';
