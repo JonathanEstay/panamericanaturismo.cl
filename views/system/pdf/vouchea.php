@@ -59,10 +59,10 @@ if(mssql_num_rows($res) <= 0)
 	$sql = " SELECT codigo, nombre, noches, tipoh, pa, ";
 	$sql.= " convn, codser, ";
 	$sql.= " linea, nconf, provee, ";
-	$sql.= " Convert(varchar, in_, 106) as in_ ,";
-	$sql.= " Convert(varchar, out, 106) as out ,";
-	$sql.= " Convert(varchar, in_, 102) as in2, ";
-	$sql.= " Convert(varchar, out, 102) as out2, ";
+	$sql.= " Convert(varchar, in_, 105) as in_ ,";
+	$sql.= " Convert(varchar, out, 105) as out ,";
+	$sql.= " Convert(varchar, in_, 105) as in2, ";
+	$sql.= " Convert(varchar, out, 105) as out2, ";
 	$sql.= " pax_s, pax_d, pax_t, pax_q, pax_a, pax_i, pax_ca, pax_c, pax_c2 ";
 	$sql.= " FROM det_file WHERE num_file = '".$num_file."' ";
 	$sql.= " AND borra <> 'N' ";
@@ -175,7 +175,29 @@ if(mssql_num_rows($res) <= 0)
 		{
                     
                     
-                        
+                        if($row["codigo"] == "TKT"){
+                          $sqlnew = 'SELECT TOP 1 b.notas FROM det_bloq d inner join bloqueos b on d.record_c = b.record_c where num_file ="'.$num_file.'"';  
+                         
+                          $resnew = mssql_query($sqlnew);
+                          $rownew = mssql_fetch_array($resnew);
+                         if(mssql_num_rows($resnew)>0)
+                         
+                          $glosa1 = "";
+                            if($row['in_'])
+                            {
+				$glosa1.= (str_replace(' ', '-', $row['in_']))." ";
+                            }
+                          
+                          $glosa1.= $row['nombre'];
+			
+                          $glosa2 = "";
+                          $glosa3 = "";
+                          
+			if(mssql_num_rows($resnew)>0){
+                          $glosa3 = $rownew['notas'];
+                        }
+                          
+                        }else{
 			$glosa1 = "";
 			if($row['in_'])
 			{
@@ -183,9 +205,10 @@ if(mssql_num_rows($res) <= 0)
 			}
 			$glosa1.= $row['nombre'];
 			
-			$glosa2 = "NÂ° Pax: ".$suma_numpax;
+			$glosa2 = "N° Pax: ".$suma_numpax;
 			
 			$glosa3 = "";
+                        }
                     
 		}
 		$glosa_total = $glosa1 ."<br>".$glosa2."<br>".$glosa3;
@@ -211,7 +234,7 @@ if(mssql_num_rows($res) <= 0)
 			$sql_final.= " ctr_mail, linea, codsicon, ctr_cbl, codser, ";					// 6
 			$sql_final.= " old_provee, glosa, nconf, tipo) ";								// 7
 			
-			$sql_final.= " VALUES ('".$folioimp."', '".$tipof."-".$num_file."', '".date("Y-m-d")."', '".$suma_numpax."', '".$fecha_in."', ";	// 1
+			$sql_final.= " VALUES ('".$folioimp."', '".$tipof."-".$num_file."', '".date("d-m-Y")."', '".$suma_numpax."', '".$fecha_in."', ";	// 1
 			$sql_final.= " '".$fecha_out."', '".$vendedor."', '', '', '".$convenio."', ";	// 2
 			$sql_final.= " '".$atipoa."', '".$nompax."', '', '', '".$cod_ser."', ";	// 3
 			$sql_final.= " '".$provee."', '0', '0', 'S', '".$moneda."', ";	// 4
@@ -263,6 +286,7 @@ $contador = 0;
 </style>
 
 <?php
+$cont=1;
 while($row = mssql_fetch_array($res))
 {
 	$vou_codhtl = (int)$row["codhtl"];
@@ -319,7 +343,7 @@ while($row = mssql_fetch_array($res))
         	<tr>
             	<td colspan="4" align="left">
                         <!-- No poner url Completa!! -->
-                        <img src="<?php echo $ruta_img; ?>logo.jpg" height="86" />
+                        <img src="<?php echo $ruta_img; ?>logo.jpg" height="75"/>
                 </td>
             </tr>
             <tr>
@@ -399,12 +423,12 @@ while($row = mssql_fetch_array($res))
         	<table id="tablita2" style="font-family:Arial; font-size:12px; text-align:left; width:99%;">
             	<tr>
                 	<td colspan="2" align="left">
-                    <div style="width:450px;"><strong><?php echo str_replace("\n", "<br>", $row['glosa']); ?>
+                    <div style="width:480px; "><strong><?php echo str_replace("\n", "<br>", $row['glosa']); ?>
                     <!-- 06 Noche(s) de Alojamiento <br />1 Doble Room/STANDARD/TODO INCLUIDO <br />IN: 24-AGO-2013 - OUT: 30-AGO-2013-->
                     </strong></div></td>
                     
                     <td rowspan="3" style="text-align:right;">
-                    <div style="width:150px; text-align:right; margin-top:-30px;">
+                    <div style="width:120px; text-align:right; margin-top:-30px;">
                     	&nbsp; <?php 
 						// Comprobar si tiene imagen asignada el CLIENTE
 						$sql = "SELECT TOP 1 imagenv FROM agenc_na WHERE agencia = '".$agencia."';";
@@ -413,10 +437,12 @@ while($row = mssql_fetch_array($res))
 						{
 							$row_temp = mssql_fetch_array($res_temp);	
 							if($row_temp["imagenv"] <> NULL && trim($row_temp["imagenv"]) <> "")
-							echo '<img src="../logos_cliente/'.$row_temp["imagenv"].'" style="width:80px; height:60px;" />';	
+							echo '<img src="'.$ruta_img2.$row_temp["imagenv"].'" style="width:80px; height:60px;" />';	
 						}
 						?>
-                    </div></td>
+                    </div>
+                    
+                    </td>
                     
                     
                 </tr>
@@ -439,9 +465,11 @@ while($row = mssql_fetch_array($res))
     
     
 </table>
+<?php if($cont%3!=0){?>
 <br />
 <img src="<?php echo $ruta_img; ?>tijeras_derecha.jpg" style="width:20px; height:20px;"/>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - <img src="<?php echo $ruta_img; ?>tijeras_izquierda.jpg" style="width:20px; height:20px;"/> 
 <br /><br />
+<?php } ?>
     <?php
-}
+    $cont++;    }
 ?>
