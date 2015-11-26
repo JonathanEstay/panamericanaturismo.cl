@@ -481,16 +481,15 @@ abstract class Controller
 
         $mail->FromName = "Panamericana ";
         $mail->Subject = $email_asunto;
-        $mail->MsgHTML($htmlEnviar); 
+        $mail->MsgHTML($htmlEnviar);
 
         $mail->AddAddress($email_destinatario, "");
-        if(is_array($cc)){
-            
+        if(is_array($cc)) {
             foreach ($email_destinatarioCC as $c) {
-         $mail->AddCC($c);  
+                $mail->AddCC($c);
             }
-        }else{
-         $mail->AddCC($email_destinatarioCC);   
+        } else {
+            $mail->AddCC($email_destinatarioCC);
         }
 
         $mail->SMTPAuth = MAIL_AUT;
