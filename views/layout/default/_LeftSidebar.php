@@ -322,7 +322,7 @@ $(function()
         
        
         <!-- OCULTO HASTA PASO A PRODUCCION -->
-        <?php if(SUB_DOMAIN == 'oristest') { ?>
+        <?php //if(SUB_DOMAIN == 'oristest') { ?>
         <li <?php if($this->currentMenu == 22){ echo 'class="hasChild open"'; } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
             <ul class="acc-menu" style="<?php if($this->currentMenu == 22){ echo 'display: block;'; }else{ echo 'display: none;'; } ?>">
@@ -375,7 +375,7 @@ $(function()
                 </li>
             </ul>
         </li>
-        <?php } ?>
+        <?php //} ?>
         
         
         <li class="divider"></li>
