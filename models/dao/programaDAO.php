@@ -765,6 +765,7 @@ class programaDAO extends Model {
         $dato = $this->_db->fetchAll($data);
         $i=0;
         $sql='SELECT codhotel,TipoHabitacion FROM h2h_ProgramaOpcDet POD WHERE POD.IdOpcion="'.$idopc.'" order by Orden asc';
+        //echo $sql;exit;
         $ho = $this->_db->consulta($sql);
         $hotel = $this->_db->fetchAll($ho);
         foreach ($hotel as $h) {
