@@ -226,7 +226,7 @@ if(mssql_num_rows($res) <= 0)
 		if(mssql_num_rows($res) <= 0)
 		{
 		/**/
-			$sql_final = " INSERT INTO vouchea (numdoc, file_, fecha, numpax, fechain, ";	// 1
+			$sql_final = " SET DATEFORMAT dmy; INSERT INTO vouchea (numdoc, file_, fecha, numpax, fechain, ";	// 1
 			$sql_final.= " fechaout, vendedor, rut, neto, convenio, ";						// 2
 			$sql_final.= " depto, nompax, ctr_anu, centrali, codhtl, ";						// 3
 			$sql_final.= " provee, suc, nombre2, imp, moneda, ";							// 4
@@ -234,7 +234,7 @@ if(mssql_num_rows($res) <= 0)
 			$sql_final.= " ctr_mail, linea, codsicon, ctr_cbl, codser, ";					// 6
 			$sql_final.= " old_provee, glosa, nconf, tipo) ";								// 7
 			
-			$sql_final.= " VALUES ('".$folioimp."', '".$tipof."-".$num_file."', '".date("d-m-Y")."', '".$suma_numpax."', '".$fecha_in."', ";	// 1
+			$sql_final.= " VALUES ('".$folioimp."', '".$tipof."-".$num_file."', GETDATE(), '".$suma_numpax."', '".$fecha_in."', ";	// 1
 			$sql_final.= " '".$fecha_out."', '".$vendedor."', '', '', '".$convenio."', ";	// 2
 			$sql_final.= " '".$atipoa."', '".$nompax."', '', '', '".$cod_ser."', ";	// 3
 			$sql_final.= " '".$provee."', '0', '0', 'S', '".$moneda."', ";	// 4
