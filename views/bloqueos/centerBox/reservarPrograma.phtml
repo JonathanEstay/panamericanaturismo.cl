@@ -120,7 +120,7 @@ Session::set('sess_descripcionServicioPRG', $this->objOpcionPrograma[0]->getNomb
     <?php if ($this->botonPago) { ?>
         <table class=" table table-bordered">
             <tr style="color: #fff; background-color: #2bbce0; border-color: #2bbce0;">
-                <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efectúa la Reserva</td>
+                <td colspan="4" align="center" style="padding:2px;">Datos de la Persona que efect&uacute;a la Reserva</td>
             </tr>
 
             <tr align="center" style="color: #fff; background-color: #2bbce0; border-color: #2bbce0; padding:2px;">
@@ -351,8 +351,18 @@ if (Session::get('sess_BP_cntInf') > 0) {
     <br />
     <center>
         <table>
+            
             <tr>
                 <td>
+                    <div class="alert alert-info" role="alert">
+                        <img src="<?php echo $_layoutParamsCB['ruta_img']; ?>info.png" style="padding-right:10px;" align= "left">
+                        Antes de continuar con el proceso de compra, reconfirme que los antecedentes informados por usted, est&aacute;n correctos y son los definitivos. Una vez emitidos los voucher y pasajes a&eacute;reos, estos no permiten cambios.
+                    </div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td align="center">
                     <label style="cursor: pointer;"><input type="checkbox" id="checkCondiciones" name="checkCondiciones" onchange="Bloqueo.prototype.aceptarCondiciones();"/> He leido y acepto las</label>
                     <a href="#" data-toggle="popover" data-placement="top" title="Condiciones generales" data-content="<?php echo $this->condicionesGenerales; ?>">condiciones</a>
                     <input type="hidden" value="" id="QA" name="QA" >
@@ -363,8 +373,7 @@ if (Session::get('sess_BP_cntInf') > 0) {
     <br>
     <center>
         <input type="button"  id="rP_btnProcesaRserva" class="btn btn-primary" value="<?php echo $this->boton; ?>" 
-               onclick="Bloqueo.prototype.procesoReservaPRG('frmReservaPRG', '<?php echo BASE_URL ?>bloqueos/procesoReserva', 'rP_btnProcesaRserva', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones');
-               ">
+        onclick="Bloqueo.prototype.procesoReservaPRG('frmReservaPRG', '<?php echo BASE_URL ?>bloqueos/procesoReserva', 'rP_btnProcesaRserva', 'divPopupPRG', '<?php echo $this->form; ?>', '<?php echo BASE_URL ?>bloqueos/bloqueosCondiciones');">
     </center>
 
 </form>
