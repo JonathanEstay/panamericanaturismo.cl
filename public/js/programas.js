@@ -57,12 +57,10 @@ Programa.prototype.validaPasaporte = function (id, rut, passport) {
 };
 
 
-Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado, idHotel,codHab,idOpc) {
+Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf, mon, opc, form, hab, hot, plan, cant, chd1, chd2, estado, idHotel, codHab, idOpc) {
 
     form = '/' + form;
-
-
-
+    
     if (valor) {
         $.post(php + form, {
             _PP_: valor,
@@ -80,8 +78,8 @@ Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf
             _CHD2_: chd2,
             _EST_: estado,
             _CODH_: idHotel,
-            _CODHAVI_:codHab,
-            _CODIDOPC_:idOpc
+            _CODHAVI_: codHab,
+            _CODIDOPC_: idOpc
         }, function (data) {
             $('#' + div2).html(data);
             $('#' + div2).delay(100).fadeIn(400);
@@ -98,7 +96,7 @@ Programa.prototype.pasajerosProg = function (valor, div2, php, sgl, dbl, tpl, pf
     }
 };
 
-Programa.prototype.procesoDetallePasajeros = function (classFrm, php, btn, div, form)
+Programa.prototype.procesoDetallePasajeros = function (classFrm, php, btn, div, form,sgl,dbl,tpl,pf,chd2)
 {
 
     form = '/' + form;
@@ -124,6 +122,96 @@ Programa.prototype.procesoDetallePasajeros = function (classFrm, php, btn, div, 
             m();
         });
         return false;
+    }
+    
+    var adult= 0;
+    var cantCh = 0;
+    var tipo = false;
+    var cant=$("#DP_cmbHab").val();
+    for (var i = 1;i<=cant;i++){
+        
+        adult=$("#DP_cmbAdultos_"+i).val();
+        cantCh=$("#DP_cmbChild_"+i).val();
+        if (sgl == 0 && adult==1) {
+            tipo='Single';
+        }
+        if (dbl == 0 && adult==2) {
+            tipo='Doble';
+            if(cantCh==2 && pf==0){
+                tipo =='Plan Familiar';
+                if(chd2>0){
+                   tipo=false; 
+                }
+            }else{
+                tipo=false;
+            }
+        }
+        if (tpl == 0 && adult==3) {
+            tipo='Triple';
+        }
+        
+        if(tipo){
+           endLoad();
+        $('#mensajeWar').html('Este programa no tiene opcion de '+tipo);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
+
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+        }
+        if(cantCh==1){
+           if($("#DP_EdadChild_1_"+i).val()==0){
+               endLoad();
+        $('#mensajeWar').html('Debe ingresar edad del Ni&ntilde;o Habitacion N°'+i);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
+
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+           } 
+        }
+        if(cantCh==2){
+           if($("#DP_EdadChild_1_"+i).val()==0 || $("#DP_EdadChild_2_"+i).val()==0){
+               endLoad();
+        $('#mensajeWar').html('Debe ingresar edades de los  Ni&ntilde;os Habitacion N°'+i);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
+
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+           } 
+        }
+        
     }
 
 
@@ -487,7 +575,7 @@ Programa.prototype.procesoEnviaFormIE = function (form, action_url, div_id) {
     initLoad();
 };
 
-Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo, idHotel,codHab,idOpc) {
+Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, titulo, idHotel, codHab, idOpc) {
 
     var valor = $("#ValiFormLogin").val();
 
@@ -496,13 +584,13 @@ Programa.prototype.abrirForm = function (cant, php, sgl, dbl, tpl, pf, moneda, O
     if (valor === '1') {
         fadeIn('detallePopup');
         $('#divPopupIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel,codHab,idOpc);
+        Programa.prototype.pasajerosProg(cant, 'divPopupIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel, codHab, idOpc);
 
     } else {
 
         fadeIn('loginPopup');
         $('#divLoginIn').css('overflow-y', 'scroll');
-        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel,codHab,idOpc);
+        Programa.prototype.pasajerosProg(cant, 'divLoginIn', php, sgl, dbl, tpl, pf, moneda, Opc, form, hab, hot, plan, cat, chd1, chd2, estado, idHotel, codHab, idOpc);
 
 
     }
@@ -561,12 +649,15 @@ Programa.prototype.procesoDetalleProg = function (classFrm, form)
     });
 };
 
-Programa.prototype.enviarMail = function (btn, form, classFrm) {
+Programa.prototype.enviarMail = function (btn, form, classFrm, sgl, dbl, tpl, pf,ch,ch2) {
 
     form = '/' + form;
     initLoad();
     $("#" + btn).attr('disabled', 'disabled');
-
+    var cant=$("#DP_cmbHab").val();
+    var adult=0;
+    var tipo= false;
+    var cantCh=0;
     if ($('#nombreCot').val() === '' || $('#telefonoCot').val() === '' || $('#correoCot').val() === '')
     {
 
@@ -589,10 +680,96 @@ Programa.prototype.enviarMail = function (btn, form, classFrm) {
         return false;
 
     }
+    for (var i = 1;i<=cant;i++){
+        
+        adult=$("#DP_cmbAdultos_"+i).val();
+        cantCh=$("#DP_cmbChild_"+i).val();
+        if (sgl == 0 && adult==1) {
+            tipo='Single';
+        }
+        if (dbl == 0 && adult==2) {
+            tipo='Doble';
+            if(cantCh==2 && pf==0){
+                tipo =='Plan Familiar';
+                if(ch2>0){
+                   tipo=false; 
+                }
+            }else{
+                tipo=false;
+            }
+        }
+        if (tpl == 0 && adult==3) {
+            tipo='Triple';
+        }
+        
+        if(tipo){
+           endLoad();
+        $('#mensajeWar').html('Este programa no tiene opcion de '+tipo);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
 
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+        }
+        
+        if(cantCh==1){
+           if($("#DP_EdadChild_1_"+i).val()==0){
+               endLoad();
+        $('#mensajeWar').html('Debe ingresar edad del Ni&ntilde;o Habitacion N°'+i);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
+
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+           } 
+        }
+        if(cantCh==2){
+           if($("#DP_EdadChild_1_"+i).val()==0 || $("#DP_EdadChild_2_"+i).val()==0){
+               endLoad();
+        $('#mensajeWar').html('Debe ingresar edades de los  Ni&ntilde;os Habitacion N°'+i);
+        $('#divAlertWar').delay(1000).fadeIn(500);
+        $('#divAlertWar').animate({
+            'display': 'block'
+        });
+
+        $('#divAlertWar').delay(3000).fadeOut(500);
+        $('#divAlertWar').animate({
+            'display': 'none'
+        });
+        $("#" + btn).delay(2000).queue(function (m)
+        {
+            $("#" + btn).removeAttr("disabled");
+            m();
+        });
+        return false; 
+           } 
+        }
+        
+    }
+    
     Programa.prototype.validaEmail($('#correoCot').val());
     setTimeout(function () {
-        
+
         if (!Programa.prototype.getCorreo()) {
 
             endLoad();
@@ -613,7 +790,7 @@ Programa.prototype.enviarMail = function (btn, form, classFrm) {
             });
             return false;
         }
-        
+
         if ($('#DP_cmbHab').val() === '0') {
 
             endLoad();
@@ -651,28 +828,28 @@ Programa.prototype.enviarMail = function (btn, form, classFrm) {
 
 
         $.ajax({
-         url: BASE_URL_JS + CONTROLLER_JS + '/enviarMail' + form,
-         type: 'POST',
-         //Form data
-         //datos del formulario
-         data: formData,
-         //necesario para subir archivos via ajax
-         cache: false,
-         contentType: contentType,
-         processData: processData,
-         //mientras enviamos el archivo
-         beforeSend: function () {
-         },
-         //una vez finalizado correctamente
-         success: function (data)
-         {
-         $("#modalCarta").css({
-         width: '50%'
-         });
-         $("#divPopupIn").html(data);
-         endLoad();
-         }
-         });
+            url: BASE_URL_JS + CONTROLLER_JS + '/enviarMail' + form,
+            type: 'POST',
+            //Form data
+            //datos del formulario
+            data: formData,
+            //necesario para subir archivos via ajax
+            cache: false,
+            contentType: contentType,
+            processData: processData,
+            //mientras enviamos el archivo
+            beforeSend: function () {
+            },
+            //una vez finalizado correctamente
+            success: function (data)
+            {
+                $("#modalCarta").css({
+                    width: '50%'
+                });
+                $("#divPopupIn").html(data);
+                endLoad();
+            }
+        });
 
     }, 3000);
 };

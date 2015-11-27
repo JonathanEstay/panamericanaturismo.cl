@@ -126,8 +126,8 @@ class programasController extends Controller {
             $sql = "EXEC TS_GET_PROGRAMAS_ID " . $this->getInt('__SP_id__');
             Session::set('sess_TS_GET_PROGRAMAS_ID', $sql);
             $this->_view->objProgramas = $programas->exeTS_GET_PROGRAMAS($sql);
-            
 
+            //echo$sql;exit;
             if (WEB) {
                 //WEB
                 $sql = "EXEC TS_GET_DETALLEPROG " . $this->getInt('__SP_id__') . ", '', '" . Functions::invertirFecha(Session::get('sess_BP_fechaIn_PRG'), '/', '-') . "' ";
@@ -191,6 +191,7 @@ class programasController extends Controller {
                 Session::set('sess_CHD1', $this->getInt('_CHD1_'));
                 Session::set('sess_CHD2', $this->getInt('_CHD2_'));
                 Session::set('sess_PF', $this->getInt('_PF_'));
+                
                 $programas = $this->loadModel('programa');
                 $edad = $programas->getChild($this->getTexto('_OPC_'));
                 if ($edad) {
@@ -206,10 +207,10 @@ class programasController extends Controller {
                 $this->_view->cant = $this->getJson('_CANT_');
                 $this->_view->chd1 = $this->getInt('_CHD1_');
                 $this->_view->chd2 = $this->getInt('_CHD2_');
-                $this->_view->idHot=$this->getJson('_CODH_');
+                $this->_view->idHot = $this->getJson('_CODH_');
                 $this->_view->pf = $this->getInt('_PF_');
-                $this->_view->codHavi=$this->getInt('_CODHAVI_');
-                $this->_view->codIopc=$this->getInt('_CODIDOPC_');
+                $this->_view->codHavi = $this->getInt('_CODHAVI_');
+                $this->_view->codIopc = $this->getInt('_CODIDOPC_');
                 $estado = $this->getTexto('_EST_');
 
                 if ($estado === 'AVAILABLE') {
@@ -245,6 +246,7 @@ class programasController extends Controller {
             Session::set('child_' . $i, $this->getInt('DP_cmbChild_' . $i));
             Session::set('EdadChild_1_' . $i, $this->getInt('DP_EdadChild_1_' . $i));
             Session::set('EdadChild_2_' . $i, $this->getInt('DP_EdadChild_2_' . $i));
+
         }
         $this->_view->nota = $this->getTexto('rP_txtComentario');
 
@@ -310,10 +312,24 @@ class programasController extends Controller {
           } */
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
             $totalPago = 0;
+           
             if ($this->getInt('DP_cmbHab')) {
                 for ($i = 1; $i <= $this->getInt('DP_cmbHab'); $i++) {
                     Session::set('sess_DP_cmbAdultos_' . $i, $this->getInt('DP_cmbAdultos_' . $i));
                     Session::set('sess_DP_cmbChild_' . $i, $this->getInt('DP_cmbChild_' . $i));
+
+                    /*if (Session::get('sess_SGL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 1) {
+
+                        throw new Exception('Este programa no tiene opcion de Single');
+                    }
+                    if (Session::get('sess_DBL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 2) {
+
+                        throw new Exception('Este programa no tiene opcion de Doble');
+                    }
+                    if (Session::get('sess_TPL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 3) {
+
+                        throw new Exception('Este programa no tiene opcion de Triple');
+                    }*/
                 }
 
                 Session::set('sess_distribucionPax', $this->_distribucionPax($this->getInt('DP_cmbHab')));
@@ -326,25 +342,25 @@ class programasController extends Controller {
                 } else {
                     $this->_view->boton = "Reservar";
                 }
-                              
+
                 $programas = $this->loadModel('programa');
-                
+
                 $idopc = $this->getInt('idOpc');
-                
-                $allotment= $programas->validaAllotmen(Session::get('sess_codigoPrograma'),Session::get('sess_BP_fechaIn_PRG'),$this->getInt('DP_cmbHab'),$idopc);
-                
-                if($allotment){
-                $this->_view->totalPago = $totalPago;
-                $this->_view->cntHab = $this->getInt('DP_cmbHab');
-                $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
-                $this->_view->hot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("hot"))))));
-                $this->_view->hab = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("hab"))))));
-                $this->_view->plan = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("plan"))))));
-                $this->_view->cant = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("cant"))))));
-                $this->_view->idHot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("idHot"))))));
-                $this->_view->renderingCenterBox('detallePasajeros');
-                }else{
-                   throw new Exception('No hay habitaciones disponibles para realizar su reserva'); 
+
+                $allotment = $programas->validaAllotmen(Session::get('sess_codigoPrograma'), Session::get('sess_BP_fechaIn_PRG'), $this->getInt('DP_cmbHab'), $idopc);
+
+                if ($allotment) {
+                    $this->_view->totalPago = $totalPago;
+                    $this->_view->cntHab = $this->getInt('DP_cmbHab');
+                    $this->_view->condicionesGenerales = Functions::getCondicionesGenerales();
+                    $this->_view->hot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("hot"))))));
+                    $this->_view->hab = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("hab"))))));
+                    $this->_view->plan = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("plan"))))));
+                    $this->_view->cant = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("cant"))))));
+                    $this->_view->idHot = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("idHot"))))));
+                    $this->_view->renderingCenterBox('detallePasajeros');
+                } else {
+                    throw new Exception('<b>No hay habitaciones disponibles para realizar su reserva</b>');
                 }
             } else {
                 throw new Exception('Debe ingresar la cantidad de habitaciones');
@@ -358,6 +374,7 @@ class programasController extends Controller {
         $this->_view->form = $form;
         $this->_view->renderingCenterBox('condicionesProg');
     }
+
     public function procesoReserva($form = '') {
 
 
@@ -544,7 +561,7 @@ class programasController extends Controller {
 
 
                             $mailHotel = $programas->getCorreoHotel($objRes->getFile());
-                            
+
                             $this->loadDTO('hotelMail');
                             $hotel = $programas->getDetFile($objRes->getFile());
                             $correo = ENT_EMAIL;
@@ -556,12 +573,12 @@ class programasController extends Controller {
                             $logo = BASE_URL . '/views/layout/default/img/logo.jpg';
 
                             include ROOT . 'controllers' . DS . 'include' . DS . 'parseMailHotel.php';
-                            
-                            $i=0;
-                            
+
+                            $i = 0;
+
                             foreach ($arrayHtml as $HTML) {
-                                
-                                $this->mailHoteles($objRes->getFile(),$HTML,$email[$i]);
+
+                                $this->mailHoteles($objRes->getFile(), $HTML, $email[$i]);
                                 $i++;
                             }
 

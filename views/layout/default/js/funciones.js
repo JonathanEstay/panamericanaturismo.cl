@@ -806,7 +806,9 @@ function habilitaPlan(chd, chd2, pf, id)
                     $('#divAlertWar').animate({
                         'display': 'none'
                     });
-                    $("#DP_cmbChild_" + id).val(1);
+                    $("#DP_cmbChild_" + id).val(0);
+                    $("#DP_EdadChild_1_" + id).val(0);
+                    $("#DP_EdadChild_1_" + id).prop('disabled', true);
                     $("#DP_EdadChild_2_" + id).val(0);
                     $("#DP_EdadChild_2_" + id).prop('disabled', true);
                 }
