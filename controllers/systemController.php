@@ -76,7 +76,16 @@ class systemController extends Controller
     }
     
     public function getComboPrg() {
-        $objetosSalidas = $this->_ciudad->getCiudadCombo($this->getTexto('fecha'));
+        
+        if (WEB) {
+            //Web
+            $objetosSalidas = $this->_ciudad->getCiudadCombo(Functions::invertirFecha($this->getTexto('fecha'), '/', '-'));
+        } else {
+            //Local
+            $objetosSalidas = $this->_ciudad->getCiudadCombo(str_replace('/', '-', $this->getTexto('fecha')));
+        }
+        
+        
         $salidasJSON = array();
         $codigosJSON = array();
         $JSONfinal =array();
