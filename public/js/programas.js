@@ -132,6 +132,7 @@ Programa.prototype.procesoDetallePasajeros = function (classFrm, php, btn, div, 
         
         adult=$("#DP_cmbAdultos_"+i).val();
         cantCh=$("#DP_cmbChild_"+i).val();
+        
         if (sgl == 0 && adult==1) {
             tipo='Single';
         }
@@ -142,7 +143,7 @@ Programa.prototype.procesoDetallePasajeros = function (classFrm, php, btn, div, 
                 if(chd2>0){
                    tipo=false; 
                 }
-            }else{
+            }else if(cantCh==2 && pf>0){
                 tipo=false;
             }
         }
