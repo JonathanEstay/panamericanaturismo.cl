@@ -337,6 +337,10 @@ $(function()
                                 </td>
                             </tr>
                         </table>
+                        <table>
+                            <tr>
+                                <td width="40%">Ciudades</td>
+                                <td>
                     <select name="mL_txtCiudadDestino_PRG" id="mL_txtCiudadDestino_PRG" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php
@@ -364,6 +368,9 @@ $(function()
                             }*/
                             ?>
                         </select>
+                                </td>
+                        </tr>
+                            </table>
                         <table width="100%" style="margin-top:5px;" >
                             <tr>
                                 <td colspan="2" align="right">
