@@ -692,10 +692,10 @@ Programa.prototype.enviarMail = function (btn, form, classFrm, sgl, dbl, tpl, pf
             tipo='Doble';
             if(cantCh==2 && pf==0){
                 tipo =='Plan Familiar';
-                if(ch2>0){
+                if(chd2>0){
                    tipo=false; 
                 }
-            }else{
+            }else if(cantCh==2 && pf>0){
                 tipo=false;
             }
         }
