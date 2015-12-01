@@ -97,7 +97,10 @@ class jsonController extends Controller {
                         "amount" => $jsonFile->pay_amount,
                         "tax" => $jsonFile->pay_tax,
                         //"subject" => "Pago por reserva",
-                        "subject" => "Pago por reserva N-" . $jsonFile->pay_file . "\\n\\n" . utf8_encode($detalle),
+                        "subject" => 
+                            "Datos de la Persona que efectua la Reserva" . "\\n" .
+                            $jsonFile->pay_email . " - " . $jsonFile->pay_fono . "\\n\\n" . 
+                            "Pago por reserva N-" . $jsonFile->pay_file . "\\n\\n" . utf8_encode($detalle),
                         "redirection_url" => BASE_URL . 'pago/cierre/'.$jsonFile->pay_file,
                         "callback_url" => BASE_URL . 'json/getAcusePago'
                     );
