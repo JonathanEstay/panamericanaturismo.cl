@@ -770,7 +770,15 @@ class programaDAO extends Model {
         $hotel = $this->_db->fetchAll($ho);
         foreach ($hotel as $h) {
           $fechaOut = Functions::sumFecha($fechaIn,$dato[$i]['noches']);
-          $sql ='EXEC Valida_Allotment_alldays "'.trim($h['codhotel']).'","'.trim($h['TipoHabitacion']).'","'.$dato[$i]['proveedor'].'","'.$fechaIn.'","'.$fechaOut.'"," ","'.$numHabi.'"';
+          
+          if(WEB){
+                
+                $sql ='EXEC Valida_Allotment_alldays "'.trim($h['codhotel']).'","'.trim($h['TipoHabitacion']).'","'.$dato[$i]['proveedor'].'","'.Functions::invertirFecha($fechaIn, '/', '/').'","'.Functions::invertirFecha($fechaOut, '/', '/').'"," ","'.$numHabi.'"';
+                
+                }else{
+                   $sql ='EXEC Valida_Allotment_alldays "'.trim($h['codhotel']).'","'.trim($h['TipoHabitacion']).'","'.$dato[$i]['proveedor'].'","'.$fechaIn.'","'.$fechaOut.'"," ","'.$numHabi.'"';
+                }
+          
           $fechaIn=$fechaOut;
           
           $allot = $this->_db->consulta($sql);
