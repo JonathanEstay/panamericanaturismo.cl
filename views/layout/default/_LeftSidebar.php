@@ -331,17 +331,13 @@ $(function()
                      
                      	<table width="100%" id="tblFormBusqueda" style="margin-top:5px;">
                             <tr>
-                            	<td width="30%">Fecha In:</td>
+                            	<td width="50%">Desde :</td>
                                 <td>
                                     <input type="text" class="form-control" id="mL_txtFechaIn_PRG" name="mL_txtFechaIn_PRG" value="<?php echo $this->ML_fechaIni_PRG; ?>">
                                 </td>
                             </tr>
                         </table>
-                        <table>
-                            <tr>
-                                
-                                <td width="30%">Ciudades</td>
-                                <td>
+                        
                     <select name="mL_txtCiudadDestino_PRG" id="mL_txtCiudadDestino_PRG" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php
@@ -369,9 +365,7 @@ $(function()
                             }*/
                             ?>
                         </select>
-                                </td>
-                        </tr>
-                            </table>
+                                
                         <table width="100%" style="margin-top:5px;" >
                             <tr>
                                 <td colspan="2" align="right">
