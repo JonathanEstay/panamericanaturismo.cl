@@ -191,7 +191,7 @@ class programasController extends Controller {
                 Session::set('sess_CHD1', $this->getInt('_CHD1_'));
                 Session::set('sess_CHD2', $this->getInt('_CHD2_'));
                 Session::set('sess_PF', $this->getInt('_PF_'));
-                
+
                 $programas = $this->loadModel('programa');
                 $edad = $programas->getChild($this->getTexto('_OPC_'));
                 if ($edad) {
@@ -239,15 +239,36 @@ class programasController extends Controller {
         $this->_view->cant = explode(',', str_replace(']', '', str_replace('[', '', str_replace('"', '', str_replace('\\', '', $this->getJson("cant"))))));
         $cant = $this->getInt('DP_cmbHab');
         $this->_view->cantHab = $cant;
-
+        $tipo = false;
         for ($i = 1; $i <= $cant; $i++) {
 
             Session::set('adult_' . $i, $this->getInt('DP_cmbAdultos_' . $i));
             Session::set('child_' . $i, $this->getInt('DP_cmbChild_' . $i));
             Session::set('EdadChild_1_' . $i, $this->getInt('DP_EdadChild_1_' . $i));
             Session::set('EdadChild_2_' . $i, $this->getInt('DP_EdadChild_2_' . $i));
-
+            if ($this->getInt('DP_cmbAdultos_' . $i) == 1 && Session::get('sess_SGL') == 0) {
+                $tipo = 'Single';
+            }
+            if ($this->getInt('DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DBL') == 0) {
+                $tipo = 'Doble';
+                if ($this->getInt('DP_cmbChild_' . $i) == 2 && Session::get('sess_PF') == 0) {
+                    $tipo == 'Plan Familiar';
+                    if (Session::get('sess_CHD2') > 0) {
+                        $tipo = false;
+                    }
+                } else if ($this->getInt('DP_cmbChild_' . $i) == 2 && Session::get('sess_PF') > 0) {
+                    $tipo = false;
+                }
+            }
+            if ($this->getInt('DP_cmbAdultos_' . $i) == 3 && Session::get('sess_TPL') == 0) {
+                $tipo = 'Triple';
+            }
+            if ($tipo) {
+                throw new Exception('Este programa no tiene opcion de ' . $tipo);
+            }
         }
+
+
         $this->_view->nota = $this->getTexto('rP_txtComentario');
 
 
@@ -312,24 +333,31 @@ class programasController extends Controller {
           } */
         if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
             $totalPago = 0;
-           
+            $tipo = false;
             if ($this->getInt('DP_cmbHab')) {
                 for ($i = 1; $i <= $this->getInt('DP_cmbHab'); $i++) {
                     Session::set('sess_DP_cmbAdultos_' . $i, $this->getInt('DP_cmbAdultos_' . $i));
                     Session::set('sess_DP_cmbChild_' . $i, $this->getInt('DP_cmbChild_' . $i));
-
-                    /*if (Session::get('sess_SGL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 1) {
-
-                        throw new Exception('Este programa no tiene opcion de Single');
+                    if ($this->getInt('DP_cmbAdultos_' . $i) == 1 && Session::get('sess_SGL') == 0) {
+                        $tipo = 'Single';
                     }
-                    if (Session::get('sess_DBL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 2) {
-
-                        throw new Exception('Este programa no tiene opcion de Doble');
+                    if ($this->getInt('DP_cmbAdultos_' . $i) == 2 && Session::get('sess_DBL') == 0) {
+                        $tipo = 'Doble';
+                        if ($this->getInt('DP_cmbChild_' . $i) == 2 && Session::get('sess_PF') == 0) {
+                            $tipo == 'Plan Familiar';
+                            if (Session::get('sess_CHD2') > 0) {
+                                $tipo = false;
+                            }
+                        } else if ($this->getInt('DP_cmbChild_' . $i) == 2 && Session::get('sess_PF') > 0) {
+                            $tipo = false;
+                        }
                     }
-                    if (Session::get('sess_TPL') == 0 && $this->getInt('DP_cmbAdultos_' . $i) == 3) {
-
-                        throw new Exception('Este programa no tiene opcion de Triple');
-                    }*/
+                    if ($this->getInt('DP_cmbAdultos_' . $i) == 3 && Session::get('sess_TPL') == 0) {
+                        $tipo = 'Triple';
+                    }
+                    if ($tipo) {
+                        throw new Exception('Este programa no tiene opcion de ' . $tipo);
+                    }
                 }
 
                 Session::set('sess_distribucionPax', $this->_distribucionPax($this->getInt('DP_cmbHab')));
@@ -346,7 +374,8 @@ class programasController extends Controller {
                 $programas = $this->loadModel('programa');
 
                 $idopc = $this->getInt('idOpc');
-
+                
+                
                 $allotment = $programas->validaAllotmen(Session::get('sess_codigoPrograma'), Session::get('sess_BP_fechaIn_PRG'), $this->getInt('DP_cmbHab'), $idopc);
 
                 if ($allotment) {
