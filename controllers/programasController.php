@@ -616,7 +616,7 @@ class programasController extends Controller {
 
 
                             $this->getLibrary('class.phpmailer');
-                            //$this->mailReserva($objRes->getFile(), $html);
+                            $this->mailReserva($objRes->getFile(), $html);
                             echo 'OK&' . md5(':D');
                         }
                     }
