@@ -339,7 +339,7 @@ $(function()
                         </table>
                         <table>
                             <tr>
-                                <td width="40%">Ciudades</td>
+                                
                                 <td width="30%">Ciudades</td>
                                 <td>
                     <select name="mL_txtCiudadDestino_PRG" id="mL_txtCiudadDestino_PRG" class="form-control" >
