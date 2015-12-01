@@ -25,7 +25,8 @@ abstract class Controller
         
         if(substr($this->getServer('HTTP_REFERER'), 16, 22) == 'panamericanaturismo.cl' || substr($this->getServer('HTTP_REFERER'), 14, 22) == 'panamericanaturismo.cl')
         {
-            
+            //             /bloqueos/buscar/form/3f7a2611ee08c6645796463e0bb1ae7f
+            //echo $_SERVER['REQUEST_URI']; exit;
             $cliente = explode('/', substr($this->getServer('HTTP_REFERER'), 16, strlen($this->getServer('HTTP_REFERER')))); 
             if($cliente[1]) {
                 
