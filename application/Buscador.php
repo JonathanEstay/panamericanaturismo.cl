@@ -6,7 +6,7 @@
  * Fecha    : Viernes, 24 de julio de 2015
  */
 
-class Buscador extends Controller{
+class Buscador extends Controller {
     
     public function __construct() {
         parent::__construct();
@@ -56,6 +56,7 @@ class Buscador extends Controller{
     public function getCliente($cliente) {
         
         $lista_clientes = array(
+            //http://online.panamericanaturismo.cl/buscador/?&s=1348004968098
             "buscador" => "",
             "buscador_travelclub" => "3f7a2611ee08c6645796463e0bb1ae7f",
             "otro" => "otro_codigo"
